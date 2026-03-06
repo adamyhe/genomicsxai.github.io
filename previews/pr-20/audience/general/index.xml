@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>General on Genomics x AI</title><link>https://genomicsxai.github.io/previews/pr-20/audience/general/</link><description>Recent content in General on Genomics x AI</description><generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Thu, 05 Mar 2026 18:26:32 -0800</lastBuildDate><atom:link href="https://genomicsxai.github.io/previews/pr-20/audience/general/index.xml" rel="self" type="application/rss+xml"/><item><title>Implementing AlphaGenome in PyTorch</title><link>https://genomicsxai.github.io/previews/pr-20/blogs/2026-004/</link><pubDate>Thu, 05 Mar 2026 00:00:00 +0000</pubDate><guid>https://genomicsxai.github.io/previews/pr-20/blogs/2026-004/</guid><description>&lt;aside class="summary-box"&gt;
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>General on Genomics x AI</title><link>https://genomicsxai.github.io/previews/pr-20/audience/general/</link><description>Recent content in General on Genomics x AI</description><generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Thu, 05 Mar 2026 18:40:38 -0800</lastBuildDate><atom:link href="https://genomicsxai.github.io/previews/pr-20/audience/general/index.xml" rel="self" type="application/rss+xml"/><item><title>Implementing AlphaGenome in PyTorch</title><link>https://genomicsxai.github.io/previews/pr-20/blogs/2026-004/</link><pubDate>Thu, 05 Mar 2026 00:00:00 +0000</pubDate><guid>https://genomicsxai.github.io/previews/pr-20/blogs/2026-004/</guid><description>&lt;aside class="summary-box"&gt;
  &lt;h2 class="summary-box__title"&gt;Summary&lt;/h2&gt;
  &lt;div class="summary-box__body"&gt;
  &lt;p&gt;This post introduces &lt;a class="link" href="https://github.com/genomicsxai/alphagenome-pytorch" target="_blank" rel="noopener"
@@ -19,18 +19,19 @@
 &lt;hr&gt;
 &lt;h2 id="overview"&gt;Overview
 &lt;/h2&gt;&lt;p&gt;Understanding how a single DNA change propagates through the complex machinery of gene regulation has been a grand challenge in genomics. Google DeepMind&amp;rsquo;s &lt;a class="link" href="https://www.nature.com/articles/s41586-025-10014-0" target="_blank" rel="noopener"
- &gt;AlphaGenome&lt;/a&gt; represents a major step forward: a unified model that takes a DNA sequence of up to one million base pairs and predicts, at single base-pair resolution, hundreds of genomic tracks across diverse cell types and conditions. With both the &lt;a class="link" href="https://github.com/google-deepmind/alphagenome_research" target="_blank" rel="noopener"
+ &gt;AlphaGenome&lt;/a&gt; represents a major step forward: by taking in DNA sequences of up to one million base pairs, it predicts at single base-pair resolution hundreds of genomic tracks across diverse cell types and conditions. With both the &lt;a class="link" href="https://github.com/google-deepmind/alphagenome_research" target="_blank" rel="noopener"
  &gt;model code&lt;/a&gt; and &lt;a class="link" href="https://www.kaggle.com/models/google/alphagenome" target="_blank" rel="noopener"
  &gt;pretrained weights&lt;/a&gt; publicly released, the genomics community now has a powerful foundation to build on.&lt;/p&gt;
 &lt;p&gt;The original AlphaGenome model is implemented in &lt;a class="link" href="https://github.com/jax-ml/jax" target="_blank" rel="noopener"
- &gt;JAX&lt;/a&gt;, a high-performance framework for numerical computing and deep learning. Here we present an implementation of AlphaGenome in PyTorch. We strived to make our implementation an accessible, readable, and hackable port of the model for the wider community to build on and adapt for their unique use cases. We also enable workflows to finetune the model on new datasets and cell types using your own data, and offer an early version of finetuning functionality in this release.&lt;/p&gt;
+ &gt;JAX&lt;/a&gt;, a high-performance framework for numerical computing and deep learning. Here we present an implementation of AlphaGenome in &lt;a class="link" href="https://pytorch.org/" target="_blank" rel="noopener"
+ &gt;PyTorch&lt;/a&gt;. We strived to make our implementation an accessible, readable, and hackable port of the model for the wider community to build on and adapt for their unique use cases. We also enable workflows to finetune the model on new datasets and cell types using custom data, and offer an early version of finetuning functionality in this release.&lt;/p&gt;
 &lt;hr&gt;
 &lt;h2 id="getting-started"&gt;Getting Started
-&lt;/h2&gt;&lt;p&gt;The package can be installed from pypi as:&lt;/p&gt;
+&lt;/h2&gt;&lt;p&gt;Using AlphaGenome in PyTorch is straightforward. The package can be installed from pypi as:&lt;/p&gt;
 &lt;div class="code-block" data-lang="bash"&gt;
 &lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;pip install alphagenome-pytorch&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;/div&gt;
-&lt;p&gt;Using AlphaGenome in PyTorch is straightforward. Here we show how to load the model and run inference on a DNA sequence:&lt;/p&gt;
+&lt;p&gt;Here we show how to load the model and run inference on a DNA sequence:&lt;/p&gt;
 &lt;div class="code-block" data-lang="python"&gt;
 &lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-python" data-lang="python"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;alphagenome_pytorch&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;AlphaGenome&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;alphagenome_pytorch.utils.sequence&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;sequence_to_onehot_tensor&lt;/span&gt;
@@ -53,27 +54,27 @@
 &lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# - preds[&amp;#39;atac&amp;#39;][1]: 1bp resolution, shape (1, 131072, 256)&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# - preds[&amp;#39;atac&amp;#39;][128]: 128bp resolution, shape (1, 1024, 256)&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;/div&gt;
-&lt;p&gt;The model accepts sequences of up to 1,048,576 base pairs (1 Mb) and returns predictions at single-nucleotide and 128 bp resolutions for the genomic tracks it was trained on.&lt;/p&gt;
+&lt;p&gt;The model accepts sequences of up to 1,048,576 base pairs (1 Mb) and returns predictions at single nucleotide and 128 bp resolutions for the genomic tracks it was trained on.&lt;/p&gt;
 &lt;hr&gt;
 &lt;h2 id="numerical-equivalence-with-jax"&gt;Numerical Equivalence with JAX
 &lt;/h2&gt;&lt;p&gt;&lt;strong&gt;Our PyTorch model implementation is numerically on par with the original implementation in JAX.&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;Small implementation differences can silently change scientific conclusions. Therefore we strived to make sure our implementation is on par with the original JAX implementation. We added tests for numerical equivalence of the outputs of individual model heads and a full forward pass through the model, gradients, and loss values.&lt;/p&gt;
+&lt;p&gt;Small implementation differences can silently change scientific conclusions. Therefore we strived to make sure our implementation is on par with the original JAX implementation. We added tests for numerical equivalence of the outputs of individual model heads and a full forward and backward pass through the model, gradients, and loss values.&lt;/p&gt;
 &lt;p&gt;We verified equivalence at multiple levels:&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;Layer-by-layer outputs: Each convolutional block, attention mechanism, and transformer layer produces outputs within numerical precision (less than &lt;code&gt;1e-5&lt;/code&gt; relative error) of the JAX implementation&lt;/li&gt;
 &lt;li&gt;Full forward pass: End-to-end predictions across all genomic tracks match within floating-point precision&lt;/li&gt;
-&lt;li&gt;Gradient computations: Backpropagation yields equivalent gradients, ensuring training dynamics remain faithful to the original&lt;/li&gt;
+&lt;li&gt;Gradient computations: Backpropagation yields equivalent gradients, ensuring training dynamics remain faithful to the original implementation&lt;/li&gt;
 &lt;li&gt;Loss values: Multinomial loss computes identically on the same inputs&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;We converted the pre-trained weights directly from &lt;a class="link" href="https://www.kaggle.com/models/google/alphagenome" target="_blank" rel="noopener"
+&lt;p&gt;We converted the pretrained weights directly from &lt;a class="link" href="https://www.kaggle.com/models/google/alphagenome" target="_blank" rel="noopener"
  &gt;the released checkpoints&lt;/a&gt; so that it’s easy to start working with the model with a single &lt;code&gt;.from_pretrained()&lt;/code&gt; call.&lt;/p&gt;
-&lt;p&gt;To demonstrate parity of our implementation with AlphaGenome&amp;rsquo;s model, we show predicted tracks in the HepG2 cell line from the 1-Mb held-out region of chromosome 19, examined in Figure 2a of the original &lt;a class="link" href="https://www.nature.com/articles/s41586-025-10014-0" target="_blank" rel="noopener"
+&lt;p&gt;To demonstrate parity of our implementation with DeepMind&amp;rsquo;s model, we show predicted tracks in the HepG2 cell line from a 1 Mb held-out region of chromosome 19, examined in Figure 2a of the original &lt;a class="link" href="https://www.nature.com/articles/s41586-025-10014-0" target="_blank" rel="noopener"
  &gt;paper&lt;/a&gt;:&lt;/p&gt;
 &lt;figure&gt;&lt;a href="https://genomicsxai.github.io/previews/pr-20/blogs/2026-004/hepg2_pred_tracks.png" class="image-link" data-pswp-width="2076" data-pswp-height="1680"&gt;
 		&lt;img src="https://genomicsxai.github.io/previews/pr-20/blogs/2026-004/hepg2_pred_tracks.png" width="600px" height="485"loading="lazy"
 			alt="Predicted tracks for HepG2 in chr19 (Figure 2a)"
 			title="alphagenome-pytorch predictions show high concordance with JAX predictions across RNA-seq, ATAC, DNase, H3K27ac, and CTCF tracks in the HepG2 cell line." data-title-escaped="alphagenome-pytorch predictions show high concordance with JAX predictions across RNA-seq, ATAC, DNase, H3K27ac, and CTCF tracks in the HepG2 cell line."&gt;
-		&lt;/a&gt;&lt;/figure&gt;&lt;p&gt;Predicted contact maps for this region also show high Pearson correlation when comparing the two implementations (Pearson r = 0.9999):&lt;/p&gt;
+		&lt;/a&gt;&lt;/figure&gt;&lt;p&gt;Predicted contact maps for this region also show high concordance when comparing the two implementations (Pearson r = 0.9999):&lt;/p&gt;
 &lt;figure&gt;&lt;a href="https://genomicsxai.github.io/previews/pr-20/blogs/2026-004/hepg2_pred_cmaps.png" class="image-link" data-pswp-width="2024" data-pswp-height="917"&gt;
 		&lt;img src="https://genomicsxai.github.io/previews/pr-20/blogs/2026-004/hepg2_pred_cmaps.png" width="600px" height="271"loading="lazy"
 			alt="Predicted contact maps for HepG2 in chr19 (Figure 2a)"
@@ -84,14 +85,14 @@
 &lt;li&gt;Integration with PyTorch Ecosystems: Seamlessly combine AlphaGenome with other PyTorch-based genomics tools, use familiar PyTorch Lightning training loops, or integrate with libraries like Hugging Face&amp;rsquo;s transformers and datasets.&lt;/li&gt;
 &lt;li&gt;Variant Effect Prediction: Compute the impact of genetic variants by running inference on reference and alternate sequences, and then compare the predicted genomic tracks. This is particularly powerful for understanding disease-associated variants.&lt;/li&gt;
 &lt;li&gt;In Silico Mutagenesis (ISM): Systematically mutate sequences to identify important regulatory elements and understand sequence grammar.&lt;/li&gt;
-&lt;li&gt;Finetuning on Custom Data: Perhaps most excitingly, you can adapt the model to your specific cell types, conditions, or even different species. We provide utilities for finetuning with your own genomic assay data. In an upcoming post, we&amp;rsquo;ll dive deeper into finetuning strategies, including data preparation, training best practices, and evaluation metrics to ensure your adapted model performs well on your specific use case.&lt;/li&gt;
+&lt;li&gt;Finetuning on Custom Data: Perhaps most excitingly, you can adapt the model to your specific cell types, conditions, or even different species. We provide utilities for finetuning with your own genomic assay data. In an upcoming post, we&amp;rsquo;ll dive deeper into different finetuning strategies impelemented in the package, including data preparation, training best practices, and evaluation metrics to ensure your adapted model performs well for your specific use case.&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;We also show an example of variant effect prediction and in silico mutagenesis for variants impacting the TAL1 gene. Figure 6 of the original paper shows the effect of an oncogenic mutation in CD34+ common myeloid progenitors. We show that alphagenome-pytorch recapitulates the difference between predicted tracks of the alternate and reference sequences for the variant with high accuracy:&lt;/p&gt;
+&lt;p&gt;To demonstrate this functionality, we also show an example of variant effect prediction and in silico mutagenesis for a variant impacting the TAL1 gene examined in Figure 6 of the original paper. This variant is an oncogenic insertion in CD34+ common myeloid progenitors. We show that alphagenome-pytorch recapitulates the difference between predicted tracks of the alternate and reference sequences for the variant with high accuracy:&lt;/p&gt;
 &lt;figure&gt;&lt;a href="https://genomicsxai.github.io/previews/pr-20/blogs/2026-004/cmp_pred_tracks.png" class="image-link" data-pswp-width="2173" data-pswp-height="2206"&gt;
 		&lt;img src="https://genomicsxai.github.io/previews/pr-20/blogs/2026-004/cmp_pred_tracks.png" width="600px" height="609"loading="lazy"
-			alt="Predicted alternate versus reference sequence for common myeloid progenitors (CMPs) in chr1 (Figure 6b)"
-			title="alphagenome-pytorch predictions show high concordance with JAX predictions when computing the difference in alt and ref sequences in CMPs." data-title-escaped="alphagenome-pytorch predictions show high concordance with JAX predictions when computing the difference in alt and ref sequences in CMPs."&gt;
-		&lt;/a&gt;&lt;/figure&gt;&lt;p&gt;alphagenome-pytorch also correctly reproduces in silico mutagenesis (ISM) at this locus, which we verify against the original JAX checkpoint:&lt;/p&gt;
+			alt="Predicted alternate versus reference sequence for CD34&amp;#43; common myeloid progenitors (CMPs) in chr1 (Figure 6b)"
+			title="alphagenome-pytorch predictions show high concordance with JAX predictions when computing the difference in alt and ref sequences in CD34&amp;#43; CMPs." data-title-escaped="alphagenome-pytorch predictions show high concordance with JAX predictions when computing the difference in alt and ref sequences in CD34&amp;#43; CMPs."&gt;
+		&lt;/a&gt;&lt;/figure&gt;&lt;p&gt;alphagenome-pytorch also correctly reproduces in silico mutagenesis (ISM) at this locus, which we verify by computing ISM using the original JAX checkpoint:&lt;/p&gt;
 &lt;figure&gt;&lt;a href="https://genomicsxai.github.io/previews/pr-20/blogs/2026-004/cmp_ism_torch.png" class="image-link" data-pswp-width="1413" data-pswp-height="1055"&gt;
 		&lt;img src="https://genomicsxai.github.io/previews/pr-20/blogs/2026-004/cmp_ism_torch.png" width="600px" height="447"loading="lazy"
 			alt="In silico mutagenesis for chr1:47239296:C&amp;gt;ACG in PyTorch (Figure 6e)"
@@ -102,7 +103,7 @@
 			&gt;
 		&lt;/a&gt;&lt;/figure&gt;&lt;hr&gt;
 &lt;p&gt;The code is available on &lt;a class="link" href="https://github.com/genomicsxai/alphagenome-pytorch" target="_blank" rel="noopener"
- &gt;GitHub&lt;/a&gt; with detailed &lt;a class="link" href="todo" &gt;documentation&lt;/a&gt; and &lt;a class="link" href="todo" &gt;example notebooks&lt;/a&gt; to help you get started with this implementation. This is naturally a work in progress&amp;ndash;we&amp;rsquo;re actively developing new features, improving code and performance, and working on new examples. We welcome contributions, feedback, bug reports, and stories of how this implementation has helped your research!&lt;/p&gt;
+ &gt;GitHub&lt;/a&gt; with detailed &lt;a class="link" href="todo" &gt;documentation&lt;/a&gt; and &lt;a class="link" href="todo" &gt;example notebooks&lt;/a&gt; to help you get started with this implementation. This is naturally a work in progress: we&amp;rsquo;re actively developing new features, improving code and performance, and working on new examples. We welcome contributions, feedback, bug reports, and stories of how this implementation has helped your research!&lt;/p&gt;
 &lt;hr&gt;
 &lt;h2 id="code-and-tutorials"&gt;Code and tutorials
 &lt;/h2&gt;&lt;ul&gt;
@@ -113,7 +114,7 @@
 &lt;hr&gt;
 &lt;h2 id="references"&gt;References
 &lt;/h2&gt;&lt;ol&gt;
-&lt;li&gt;Avsec, Ž. et al. Advancing regulatory variant effect prediction with AlphaGenome., 649, Nature (2026).&lt;/li&gt;
+&lt;li&gt;Avsec, Ž. et al. Advancing regulatory variant effect prediction with AlphaGenome. Nature (2026).&lt;/li&gt;
 &lt;/ol&gt;</description></item><item><title>Fine-tuning AlphaGenome in native JAX/Haiku</title><link>https://genomicsxai.github.io/previews/pr-20/blogs/2026-003/</link><pubDate>Wed, 25 Feb 2026 00:00:00 +0000</pubDate><guid>https://genomicsxai.github.io/previews/pr-20/blogs/2026-003/</guid><description>&lt;img src="https://genomicsxai.github.io/previews/pr-20/" alt="Featured image of post Fine-tuning AlphaGenome in native JAX/Haiku" /&gt;&lt;aside class="summary-box"&gt;
  &lt;h2 class="summary-box__title"&gt;Summary&lt;/h2&gt;
  &lt;div class="summary-box__body"&gt;
