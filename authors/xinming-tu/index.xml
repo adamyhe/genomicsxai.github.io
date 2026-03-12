@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Xinming Tu on Genomics x AI</title><link>https://genomicsxai.github.io/authors/xinming-tu/</link><description>Recent content in Xinming Tu on Genomics x AI</description><generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Wed, 11 Mar 2026 09:00:45 -0700</lastBuildDate><atom:link href="https://genomicsxai.github.io/authors/xinming-tu/index.xml" rel="self" type="application/rss+xml"/><item><title>Porting AlphaGenome to PyTorch</title><link>https://genomicsxai.github.io/blogs/2026-004/</link><pubDate>Tue, 10 Mar 2026 00:00:00 +0000</pubDate><guid>https://genomicsxai.github.io/blogs/2026-004/</guid><description>&lt;img src="https://genomicsxai.github.io/" alt="Featured image of post Porting AlphaGenome to PyTorch" /&gt;&lt;aside class="summary-box"&gt;
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Xinming Tu on Genomics x AI</title><link>https://genomicsxai.github.io/authors/xinming-tu/</link><description>Recent content in Xinming Tu on Genomics x AI</description><generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Thu, 12 Mar 2026 08:23:40 -0700</lastBuildDate><atom:link href="https://genomicsxai.github.io/authors/xinming-tu/index.xml" rel="self" type="application/rss+xml"/><item><title>Porting AlphaGenome to PyTorch</title><link>https://genomicsxai.github.io/blogs/2026-004/</link><pubDate>Tue, 10 Mar 2026 00:00:00 +0000</pubDate><guid>https://genomicsxai.github.io/blogs/2026-004/</guid><description>&lt;img src="https://genomicsxai.github.io/" alt="Featured image of post Porting AlphaGenome to PyTorch" /&gt;&lt;aside class="summary-box"&gt;
  &lt;h2 class="summary-box__title"&gt;Summary&lt;/h2&gt;
  &lt;div class="summary-box__body"&gt;
  &lt;p&gt;This post introduces &lt;a class="link" href="https://github.com/genomicsxai/alphagenome-pytorch" target="_blank" rel="noopener"
@@ -11,7 +11,7 @@
 &lt;/ol&gt;
 &lt;p&gt;&lt;strong&gt;Contributions&lt;/strong&gt;:&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;Core Development Team: Danila Bredikhin (Lead), Martin Kjellberg, Christopher Zou&lt;/li&gt;
+&lt;li&gt;Initial Development Team: Danila Bredikhin (Lead), Martin Kjellberg, Christopher Zou&lt;/li&gt;
 &lt;li&gt;Finetuning and Validation: Danila Bredikhin, Alejandro Buendia, Xinming Tu&lt;/li&gt;
 &lt;li&gt;Blog Post: Alejandro Buendia, Danila Bredikhin&lt;/li&gt;
 &lt;/ul&gt;
@@ -174,8 +174,8 @@
  &lt;p&gt;Copyright 2026 Google LLC&lt;/p&gt;
 
  &lt;/blockquote&gt;
-&lt;p&gt;The weights are subject to the &lt;a class="link" href="https://deepmind.google.com/science/alphagenome/model-terms" target="_blank" rel="noopener"
- &gt;model terms&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;The model parameters, output, and any derivatives thereof remain subject to &lt;a class="link" href="https://deepmind.google.com/science/alphagenome/model-terms" target="_blank" rel="noopener"
+ &gt;Google DeepMind’s AlphaGenome Model Terms&lt;/a&gt;.&lt;/p&gt;
 &lt;p&gt;This port is licensed under the Apache License, Version 2.0 (Apache 2.0):&lt;/p&gt;
 
  &lt;blockquote&gt;
