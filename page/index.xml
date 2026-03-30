@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Pages on Genomics x AI</title><link>https://genomicsxai.github.io/page/</link><description>Recent content in Pages on Genomics x AI</description><generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Mon, 30 Mar 2026 14:49:40 -0400</lastBuildDate><atom:link href="https://genomicsxai.github.io/page/index.xml" rel="self" type="application/rss+xml"/><item><title>Editorial review (MVR)</title><link>https://genomicsxai.github.io/editorial-review/</link><pubDate>Mon, 30 Mar 2026 00:00:00 +0000</pubDate><guid>https://genomicsxai.github.io/editorial-review/</guid><description>&lt;p&gt;This page describes the &lt;strong&gt;Minimal Editorial Review (MVR)&lt;/strong&gt; framework used by editors when reviewing pull requests. It is a &lt;strong&gt;quality gate&lt;/strong&gt;, not academic peer review.&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Pages on Genomics x AI</title><link>https://genomicsxai.github.io/page/</link><description>Recent content in Pages on Genomics x AI</description><generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Mon, 30 Mar 2026 16:56:39 -0400</lastBuildDate><atom:link href="https://genomicsxai.github.io/page/index.xml" rel="self" type="application/rss+xml"/><item><title>Editorial Review (MVR)</title><link>https://genomicsxai.github.io/editorial-review/</link><pubDate>Mon, 30 Mar 2026 00:00:00 +0000</pubDate><guid>https://genomicsxai.github.io/editorial-review/</guid><description>&lt;p&gt;This page describes the &lt;strong&gt;Minimal Editorial Review (MVR)&lt;/strong&gt; framework used by editors when reviewing pull requests. It is a &lt;strong&gt;quality gate&lt;/strong&gt;, not academic peer review.&lt;/p&gt;
 &lt;h2 id="goal"&gt;Goal
 &lt;/h2&gt;&lt;p&gt;Ensure posts are &lt;strong&gt;accurate, readable, appropriately tagged, and safe to publish&lt;/strong&gt;—while maintaining a fast turnaround (target: 48–72 hours).&lt;/p&gt;
 &lt;hr&gt;
@@ -77,7 +77,7 @@
 &lt;li&gt;&lt;strong&gt;Accept&lt;/strong&gt;&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;Minor revisions&lt;/strong&gt;&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;Major revisions&lt;/strong&gt;&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Reject&lt;/strong&gt; (out of scope or insufficient quality)&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Not Accepted&lt;/strong&gt; (out of scope or insufficient quality)&lt;/li&gt;
 &lt;/ul&gt;
 &lt;hr&gt;
 &lt;h2 id="4-minimal-review-checklist"&gt;4. Minimal review checklist
@@ -298,9 +298,11 @@
 &lt;li&gt;
 &lt;p&gt;&lt;strong&gt;Editor Review&lt;/strong&gt;&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;Editors will review your submission&lt;/li&gt;
+&lt;li&gt;Editors review submissions with a &lt;strong&gt;minimal editorial review (MVR)&lt;/strong&gt;—a quality gate for clarity, correctness, and fit, not full academic peer review&lt;/li&gt;
 &lt;li&gt;They may request changes via PR comments&lt;/li&gt;
 &lt;li&gt;Address feedback and update your PR&lt;/li&gt;
+&lt;li&gt;For the full checklist, possible outcomes, and timing, see &lt;a class="link" href="https://genomicsxai.github.io/editorial-review/" target="_blank" rel="noopener"
+ &gt;Editorial Review (MVR)&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;li&gt;
@@ -339,4 +341,17 @@ Once your post has at least one comment or reaction, a discussion is created und
 &lt;li&gt;Use headings, figures, and examples where helpful to improve readability.&lt;/li&gt;
 &lt;li&gt;Cite relevant prior work using hyperlinks or a formal inline citation style, and the inclusion of a references section at the end of the post is encouraged.&lt;/li&gt;
 &lt;li&gt;Ensure that claims are supported by appropriate sources.&lt;/li&gt;
-&lt;/ul&gt;</description></item><item><title>Archives</title><link>https://genomicsxai.github.io/archives/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://genomicsxai.github.io/archives/</guid><description>&lt;p&gt;Posts grouped by year.&lt;/p&gt;</description></item></channel></rss>
+&lt;/ul&gt;
+&lt;h2 id="example-of-a-strong-post"&gt;Example of a strong post
+&lt;/h2&gt;&lt;p&gt;Style and length can vary, but a good reference for structure and depth is &lt;a class="link" href="https://genomicsxai.github.io/blogs/2026-002/" target="_blank" rel="noopener"
+ &gt;&lt;strong&gt;Adapting AlphaGenome to MPRA data&lt;/strong&gt;&lt;/a&gt;: it states the problem clearly, walks through methods and results in order, includes a reader-facing &lt;strong&gt;Summary&lt;/strong&gt;, figures, code-oriented guidance, references, and honest limitations. Use it as inspiration, not a rigid template.&lt;/p&gt;
+&lt;h2 id="what-editors-look-for-high-level"&gt;What editors look for (high level)
+&lt;/h2&gt;&lt;p&gt;Editors aim to confirm, in a lightweight pass, that your post:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Belongs here&lt;/strong&gt; — genomics × AI remit; &lt;code&gt;scope&lt;/code&gt;, tags, and &lt;code&gt;audience&lt;/code&gt; match the content&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Holds up technically&lt;/strong&gt; — no obvious factual errors; claims match the evidence you provide&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Works for readers&lt;/strong&gt; — logical flow (motivation → content → takeaway), appropriate level for the audience&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Is complete in the basics&lt;/strong&gt; — opening summary via the &lt;code&gt;summary&lt;/code&gt; shortcode, reasonable attribution, working links, and clean formatting&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;For the full framework (checklist, review outcomes, escalation, and time expectations), see &lt;strong&gt;&lt;a class="link" href="https://genomicsxai.github.io/editorial-review/" target="_blank" rel="noopener"
+ &gt;Editorial Review (MVR)&lt;/a&gt;&lt;/strong&gt;.&lt;/p&gt;</description></item><item><title>Archives</title><link>https://genomicsxai.github.io/archives/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://genomicsxai.github.io/archives/</guid><description>&lt;p&gt;Posts grouped by year.&lt;/p&gt;</description></item></channel></rss>
