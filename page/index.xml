@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Pages on Genomics x AI</title><link>https://genomicsxai.github.io/page/</link><description>Recent content in Pages on Genomics x AI</description><generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Mon, 30 Mar 2026 16:56:39 -0400</lastBuildDate><atom:link href="https://genomicsxai.github.io/page/index.xml" rel="self" type="application/rss+xml"/><item><title>Editorial Review (MVR)</title><link>https://genomicsxai.github.io/editorial-review/</link><pubDate>Mon, 30 Mar 2026 00:00:00 +0000</pubDate><guid>https://genomicsxai.github.io/editorial-review/</guid><description>&lt;p&gt;This page describes the &lt;strong&gt;Minimal Editorial Review (MVR)&lt;/strong&gt; framework used by editors when reviewing pull requests. It is a &lt;strong&gt;quality gate&lt;/strong&gt;, not academic peer review.&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Pages on Genomics x AI</title><link>https://genomicsxai.github.io/page/</link><description>Recent content in Pages on Genomics x AI</description><generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Mon, 30 Mar 2026 17:10:48 -0400</lastBuildDate><atom:link href="https://genomicsxai.github.io/page/index.xml" rel="self" type="application/rss+xml"/><item><title>Editorial Review (MVR)</title><link>https://genomicsxai.github.io/editorial-review/</link><pubDate>Mon, 30 Mar 2026 00:00:00 +0000</pubDate><guid>https://genomicsxai.github.io/editorial-review/</guid><description>&lt;p&gt;This page describes the &lt;strong&gt;Minimal Editorial Review (MVR)&lt;/strong&gt; framework used by editors when reviewing pull requests. It is a &lt;strong&gt;quality gate&lt;/strong&gt;, not academic peer review.&lt;/p&gt;
 &lt;h2 id="goal"&gt;Goal
 &lt;/h2&gt;&lt;p&gt;Ensure posts are &lt;strong&gt;accurate, readable, appropriately tagged, and safe to publish&lt;/strong&gt;—while maintaining a fast turnaround (target: 48–72 hours).&lt;/p&gt;
 &lt;hr&gt;
@@ -157,7 +157,14 @@
 &lt;li&gt;Peter Koo (Cold Spring Harbor Laboratory)&lt;/li&gt;
 &lt;li&gt;Anshul Kundaje (Stanford University)&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h2 id="editorial-team"&gt;Editorial Team
+&lt;h2 id="editorial-lead"&gt;Editorial Lead
+&lt;/h2&gt;&lt;p&gt;The Editorial Lead is the &lt;strong&gt;single point of coordination&lt;/strong&gt; between Editorial Board ↔ Steering Committee.&lt;/p&gt;
+&lt;h3 id="current-editorial-lead"&gt;Current Editorial Lead
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;Dr. Alan Murphy (Cold Spring Harbor Laboratory) — GitHub &lt;a class="link" href="https://github.com/Al_murphy" target="_blank" rel="noopener"
+ &gt;@Al_murphy&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id="editorial-board"&gt;Editorial Board
 &lt;/h2&gt;&lt;p&gt;The Editorial Board oversees content review and maintains scientific and community standards. Board members:&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;Manage peer-style review via GitHub Pull Requests&lt;/li&gt;
@@ -166,7 +173,7 @@
 &lt;li&gt;Enforce submission and community guidelines&lt;/li&gt;
 &lt;li&gt;Editorial decisions are made collaboratively when needed.&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;Day-to-day review follows the &lt;a class="link" href="https://genomicsxai.github.io/editorial-review/" &gt;Minimal Editorial Review (MVR) framework&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Review follows the &lt;a class="link" href="https://genomicsxai.github.io/editorial-review/" &gt;Minimal Editorial Review (MVR) framework&lt;/a&gt;. Editorial decisions are made collaboratively when needed.&lt;/p&gt;
 &lt;h3 id="current-editorial-board"&gt;Current Editorial Board
 &lt;/h3&gt;&lt;ul class="editors-list"&gt;&lt;li&gt;
  &lt;a href="https://github.com/abuendia" target="_blank" rel="noopener" class="link"&gt;Alejandro Buendia &lt;span class="editors-username"&gt;(@abuendia)&lt;/span&gt;&lt;/a&gt;
