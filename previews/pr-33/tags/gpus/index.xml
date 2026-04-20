@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>GPUs on Genomics x AI</title><link>https://genomicsxai.github.io/previews/pr-33/tags/gpus/</link><description>Recent content in GPUs on Genomics x AI</description><generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Sat, 18 Apr 2026 15:44:48 -0700</lastBuildDate><atom:link href="https://genomicsxai.github.io/previews/pr-33/tags/gpus/index.xml" rel="self" type="application/rss+xml"/><item><title>Benchmarking AlphaGenome on NVIDIA GPUs: latency, memory, and feasibility across sequence lengths</title><link>https://genomicsxai.github.io/previews/pr-33/blogs/2026-005/</link><pubDate>Wed, 15 Apr 2026 00:00:00 +0000</pubDate><guid>https://genomicsxai.github.io/previews/pr-33/blogs/2026-005/</guid><description>&lt;img src="https://genomicsxai.github.io/previews/pr-33/" alt="Featured image of post Benchmarking AlphaGenome on NVIDIA GPUs: latency, memory, and feasibility across sequence lengths" /&gt;&lt;aside class="summary-box"&gt;
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>GPUs on Genomics x AI</title><link>https://genomicsxai.github.io/previews/pr-33/tags/gpus/</link><description>Recent content in GPUs on Genomics x AI</description><generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Mon, 20 Apr 2026 13:09:32 -0700</lastBuildDate><atom:link href="https://genomicsxai.github.io/previews/pr-33/tags/gpus/index.xml" rel="self" type="application/rss+xml"/><item><title>Benchmarking AlphaGenome on NVIDIA GPUs: latency, memory, and feasibility across sequence lengths</title><link>https://genomicsxai.github.io/previews/pr-33/blogs/2026-005/</link><pubDate>Wed, 15 Apr 2026 00:00:00 +0000</pubDate><guid>https://genomicsxai.github.io/previews/pr-33/blogs/2026-005/</guid><description>&lt;img src="https://genomicsxai.github.io/previews/pr-33/" alt="Featured image of post Benchmarking AlphaGenome on NVIDIA GPUs: latency, memory, and feasibility across sequence lengths" /&gt;&lt;aside class="summary-box"&gt;
  &lt;h2 class="summary-box__title"&gt;Summary&lt;/h2&gt;
  &lt;div class="summary-box__body"&gt;
  &lt;p&gt;&lt;a class="link" href="https://deepmind.google/discover/blog/alphagenome-a-foundation-model-for-genome-biology/" target="_blank" rel="noopener"
@@ -21,6 +21,15 @@
  &gt;AlphaGenome&lt;/a&gt; is a 450-million-parameter foundation model for genome biology released by Google DeepMind. It processes DNA sequences up to &lt;code&gt;1 Mb&lt;/code&gt; and predicts thousands of genomic tracks, from chromatin accessibility to 3D contact maps, at base-pair resolution. The official implementation is in JAX; a &lt;a class="link" href="https://github.com/kundajelab/alphagenome-pytorch" target="_blank" rel="noopener"
  &gt;community PyTorch port&lt;/a&gt; makes the model accessible to the broader PyTorch ecosystem. We are contributors to that PyTorch port.&lt;/p&gt;
 &lt;p&gt;This post is a community reference: if you want to run AlphaGenome and are trying to figure out what fits on the GPU you have and how long it will take, this is where we share the numbers. We profile both the official JAX path (&lt;code&gt;alphagenome-jax&lt;/code&gt;) and the community PyTorch port (&lt;code&gt;alphagenome-pytorch&lt;/code&gt;, running in bf16) across seven NVIDIA GPUs under three workloads: inference, heads-only finetuning, and full-weights finetuning, each on real genomic data.&lt;/p&gt;
+&lt;p&gt;For background, see two companion posts: &lt;a class="link" href="https://genomicsxai.github.io/blogs/2026-003/" target="_blank" rel="noopener"
+ &gt;Fine-tuning AlphaGenome in native JAX/Haiku&lt;/a&gt; (the &lt;code&gt;alphagenome-ft&lt;/code&gt; community package) and &lt;a class="link" href="https://genomicsxai.github.io/blogs/2026-004/" target="_blank" rel="noopener"
+ &gt;Porting AlphaGenome to PyTorch&lt;/a&gt; (the PyTorch port benchmarked here). DeepMind released the weights and JAX research code (&lt;a class="link" href="https://github.com/google-deepmind/alphagenome_research" target="_blank" rel="noopener"
+ &gt;&lt;code&gt;alphagenome_research&lt;/code&gt;&lt;/a&gt;); the PyTorch port, &lt;code&gt;alphagenome-ft&lt;/code&gt;, and this benchmarking effort are all community work. Our JAX finetuning runs are built on &lt;code&gt;alphagenome_research&lt;/code&gt; directly, not through &lt;code&gt;alphagenome-ft&lt;/code&gt; — &lt;code&gt;alphagenome-ft&lt;/code&gt; wraps the same research code and should land on similar performance, but it is a separate package and not what these numbers measure.&lt;/p&gt;
+
+ &lt;blockquote&gt;
+ &lt;p&gt;&lt;strong&gt;Side note — what is &amp;ldquo;latency&amp;rdquo;?&lt;/strong&gt; Throughout this post, &lt;em&gt;latency&lt;/em&gt; means the wall-clock time for a single compiled model step on the GPU (one forward pass for inference, one forward + backward + optimizer step for finetuning). All latency numbers are reported in milliseconds (&lt;code&gt;ms&lt;/code&gt;). &lt;em&gt;Peak memory&lt;/em&gt; is the maximum GPU memory the step ever held, reported in gigabytes (&lt;code&gt;GB&lt;/code&gt;).&lt;/p&gt;
+
+ &lt;/blockquote&gt;
 &lt;h2 id="motivation"&gt;Motivation
 &lt;/h2&gt;&lt;p&gt;Researchers adapting AlphaGenome to their own tasks face a concrete planning question: &amp;ldquo;my lab has GPU X, what sequence lengths can I run, how long will each iteration take, and how much memory do I need to budget?&amp;rdquo; That question is hard to answer without running the model yourself, and the GPU landscape in academic clusters is diverse. Not every group has access to H200s or even A100s.&lt;/p&gt;
 &lt;p&gt;We ran controlled, reproducible benchmarks across the GPU tiers most commonly found in academic and cloud environments to make that question easier to answer. Both the official JAX implementation and the community PyTorch port are profiled so that the results are useful regardless of which path a lab is already using. Every number in this post comes from published, tracked benchmark runs that can be reproduced from &lt;a class="link" href="https://github.com/XinmingTu/genomic-model-profiling" target="_blank" rel="noopener"
@@ -28,10 +37,13 @@
 &lt;h2 id="benchmark-setup"&gt;Benchmark Setup
 &lt;/h2&gt;&lt;h3 id="models"&gt;Models
 &lt;/h3&gt;&lt;ul&gt;
-&lt;li&gt;&lt;code&gt;alphagenome-jax&lt;/code&gt;: the official DeepMind JAX/Haiku implementation, compiled with &lt;code&gt;@jax.jit&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;alphagenome-pytorch&lt;/code&gt;: the community PyTorch port from the Kundaje Lab, compiled with &lt;code&gt;torch.compile&lt;/code&gt; and bf16 autocast&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;alphagenome-jax&lt;/code&gt;: the official DeepMind JAX/Haiku implementation, compiled with &lt;code&gt;@jax.jit&lt;/code&gt;. Finetuning uses code adapted from DeepMind&amp;rsquo;s &lt;a class="link" href="https://github.com/google-deepmind/alphagenome_research" target="_blank" rel="noopener"
+ &gt;&lt;code&gt;alphagenome_research&lt;/code&gt;&lt;/a&gt; research-code release (the same backbone &lt;code&gt;alphagenome-ft&lt;/code&gt; is built on), wrapped in a minimal custom training loop for these benchmarks&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;alphagenome-pytorch&lt;/code&gt;: the community &lt;a class="link" href="https://github.com/kundajelab/alphagenome-pytorch" target="_blank" rel="noopener"
+ &gt;PyTorch port&lt;/a&gt; from the Kundaje Lab, compiled with &lt;code&gt;torch.compile&lt;/code&gt; and bf16 autocast; finetuning runs are a straightforward training loop built directly on that implementation&lt;/li&gt;
 &lt;li&gt;&lt;a class="link" href="https://github.com/calico/borzoi" target="_blank" rel="noopener"
- &gt;Borzoi&lt;/a&gt; is also benchmarked at its supported sequence lengths (&lt;code&gt;256 kb&lt;/code&gt; and &lt;code&gt;512 kb&lt;/code&gt;) in the same published bundle as a reference point; see &lt;a class="link" href="#also-published-borzoi" &gt;Also published: Borzoi&lt;/a&gt;&lt;/li&gt;
+ &gt;Borzoi&lt;/a&gt; is also benchmarked at its supported sequence lengths (&lt;code&gt;262 kb&lt;/code&gt; and &lt;code&gt;524 kb&lt;/code&gt;) using &lt;a class="link" href="https://github.com/johahi/borzoi-pytorch" target="_blank" rel="noopener"
+ &gt;&lt;code&gt;borzoi-pytorch&lt;/code&gt;&lt;/a&gt; (pretrained weights &lt;code&gt;johahi/borzoi-replicate-0&lt;/code&gt;) — a third-party community PyTorch reimplementation by Johannes Hingerl (Gagneur lab, TU Munich) — &lt;strong&gt;not&lt;/strong&gt; the original Calico TensorFlow release, so that the Borzoi and AlphaGenome-PyTorch numbers share the same framework stack; see &lt;a class="link" href="#also-published-borzoi" &gt;Also published: Borzoi&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h3 id="gpus"&gt;GPUs
 &lt;/h3&gt;&lt;p&gt;We test on seven NVIDIA GPUs spanning Turing, Ampere, Ada Lovelace, and Hopper architectures:&lt;/p&gt;
@@ -224,6 +236,7 @@
  &lt;/tr&gt;
  &lt;/tbody&gt;
 &lt;/table&gt;
+&lt;p&gt;&lt;em&gt;Values are median latency in &lt;strong&gt;milliseconds (&lt;code&gt;ms&lt;/code&gt;)&lt;/strong&gt;; lower is better. Em-dash (—) marks configurations that ran out of memory.&lt;/em&gt;&lt;/p&gt;
 &lt;p&gt;The RTX 6000 is a special case: JAX bf16 is not supported on Turing (&lt;code&gt;compute capability 7.5&lt;/code&gt;), so only the PyTorch path runs there. It is also the only tested card that cannot reach &lt;code&gt;1 Mb&lt;/code&gt; inference.&lt;/p&gt;
 &lt;h3 id="peak-gpu-memory"&gt;Peak GPU memory
 &lt;/h3&gt;&lt;p&gt;Inference memory is dominated by activations and scales close to linearly with sequence length above about &lt;code&gt;131 kb&lt;/code&gt;: doubling the context roughly doubles peak memory. At &lt;code&gt;1 Mb&lt;/code&gt;, inference fits in about &lt;code&gt;35-41 GB&lt;/code&gt; depending on the implementation, which is what makes &lt;code&gt;1 Mb&lt;/code&gt; inference feasible on every &lt;code&gt;48 GB&lt;/code&gt;-and-up card we tested. Below &lt;code&gt;131 kb&lt;/code&gt;, the PyTorch path has the smaller footprint; above &lt;code&gt;262 kb&lt;/code&gt;, the JAX path runs a bit leaner.&lt;/p&gt;
@@ -345,6 +358,7 @@
  &lt;/tr&gt;
  &lt;/tbody&gt;
 &lt;/table&gt;
+&lt;p&gt;&lt;em&gt;Values are peak GPU memory in &lt;strong&gt;gigabytes (&lt;code&gt;GB&lt;/code&gt;)&lt;/strong&gt;; lower is better. Em-dash (—) marks configurations that ran out of memory.&lt;/em&gt;&lt;/p&gt;
 &lt;p&gt;Peak memory at a given sequence length is nearly identical across GPUs for the same implementation, which means the memory column of this table is a reasonable estimate for untested GPUs too.&lt;/p&gt;
 &lt;figure&gt;&lt;a href="https://genomicsxai.github.io/previews/pr-33/blogs/2026-005/cross_gpu_scaling.png" class="image-link" data-pswp-width="5039" data-pswp-height="2329"&gt;
 		&lt;img src="https://genomicsxai.github.io/previews/pr-33/blogs/2026-005/cross_gpu_scaling.png" width="1100px" height="508"loading="lazy"
@@ -473,6 +487,7 @@
  &lt;/tr&gt;
  &lt;/tbody&gt;
 &lt;/table&gt;
+&lt;p&gt;&lt;em&gt;Values are median per-step latency in &lt;strong&gt;milliseconds (&lt;code&gt;ms&lt;/code&gt;)&lt;/strong&gt;, measured as a single forward + backward + optimizer step on the prediction head; lower is better.&lt;/em&gt;&lt;/p&gt;
 &lt;h3 id="peak-gpu-memory-1"&gt;Peak GPU memory
 &lt;/h3&gt;&lt;p&gt;Heads-only is by far the lightest finetuning mode. &lt;code&gt;1 Mb&lt;/code&gt; peaks at about &lt;code&gt;14-27 GB&lt;/code&gt; depending on implementation and GPU, so every card we tested, down to the &lt;code&gt;24 GB&lt;/code&gt; RTX 6000 at &lt;code&gt;524 kb&lt;/code&gt;, has headroom for this workload.&lt;/p&gt;
 &lt;table&gt;
@@ -593,6 +608,7 @@
  &lt;/tr&gt;
  &lt;/tbody&gt;
 &lt;/table&gt;
+&lt;p&gt;&lt;em&gt;Values are peak GPU memory in &lt;strong&gt;gigabytes (&lt;code&gt;GB&lt;/code&gt;)&lt;/strong&gt; during a heads-only training step.&lt;/em&gt;&lt;/p&gt;
 &lt;h2 id="full-weights-finetuning"&gt;Full-Weights Finetuning
 &lt;/h2&gt;&lt;p&gt;Full-weights finetuning updates all &lt;code&gt;450 million&lt;/code&gt; parameters. This gives the model more capacity to adapt but comes at a steep memory cost: gradients and optimizer states for the entire backbone must fit in GPU memory.&lt;/p&gt;
 &lt;h3 id="latency-2"&gt;Latency
@@ -707,6 +723,7 @@
  &lt;/tr&gt;
  &lt;/tbody&gt;
 &lt;/table&gt;
+&lt;p&gt;&lt;em&gt;Values are median per-step latency in &lt;strong&gt;milliseconds (&lt;code&gt;ms&lt;/code&gt;)&lt;/strong&gt; for a full forward + backward + optimizer step over all 450M parameters. Em-dash (—) marks &lt;code&gt;(GPU, implementation)&lt;/code&gt; pairs that ran out of memory.&lt;/em&gt;&lt;/p&gt;
 &lt;p&gt;The practical feasibility picture is simple: &lt;code&gt;48 GB&lt;/code&gt; GPUs top out at &lt;code&gt;262 kb&lt;/code&gt; for full-weights finetuning, &lt;code&gt;80 GB&lt;/code&gt; cards reach &lt;code&gt;524 kb&lt;/code&gt;, and &lt;code&gt;1 Mb&lt;/code&gt; requires either &lt;code&gt;H200&lt;/code&gt; or an &lt;code&gt;H100&lt;/code&gt; using the JAX path.&lt;/p&gt;
 &lt;h3 id="peak-gpu-memory-2"&gt;Peak GPU memory
 &lt;/h3&gt;&lt;p&gt;Full-weights peak memory roughly doubles with each doubling of sequence length above about &lt;code&gt;131 kb&lt;/code&gt;, mirroring the latency pattern. At &lt;code&gt;1 Mb&lt;/code&gt;, expect about &lt;code&gt;76-89 GB&lt;/code&gt; of peak memory.&lt;/p&gt;
@@ -820,6 +837,7 @@
  &lt;/tr&gt;
  &lt;/tbody&gt;
 &lt;/table&gt;
+&lt;p&gt;&lt;em&gt;Values are peak GPU memory in &lt;strong&gt;gigabytes (&lt;code&gt;GB&lt;/code&gt;)&lt;/strong&gt; during a full-weights training step. Em-dash (—) marks &lt;code&gt;(GPU, implementation)&lt;/code&gt; pairs that ran out of memory.&lt;/em&gt;&lt;/p&gt;
 &lt;p&gt;In short, full-weights finetuning of AlphaGenome at &lt;code&gt;1 Mb&lt;/code&gt; is a Hopper-class workload today, and even there the &lt;code&gt;80 GB&lt;/code&gt; tier is on the margin.&lt;/p&gt;
 &lt;h2 id="what-fits-on-each-gpu"&gt;What Fits on Each GPU
 &lt;/h2&gt;&lt;table&gt;
@@ -885,7 +903,304 @@
 &lt;/ul&gt;
 &lt;h3 id="also-published-borzoi"&gt;Also published: Borzoi
 &lt;/h3&gt;&lt;p&gt;The same benchmark harness also profiles &lt;a class="link" href="https://github.com/calico/borzoi" target="_blank" rel="noopener"
- &gt;Borzoi&lt;/a&gt; at its supported &lt;code&gt;256 kb&lt;/code&gt; and &lt;code&gt;524 kb&lt;/code&gt; contexts. Borzoi inference, heads-only finetune, and full-weights finetune numbers across the same GPUs are included in the published CSVs and figures for readers who want a second reference model at those sequence lengths.&lt;/p&gt;
+ &gt;Borzoi&lt;/a&gt; (via the third-party &lt;a class="link" href="https://github.com/johahi/borzoi-pytorch" target="_blank" rel="noopener"
+ &gt;&lt;code&gt;borzoi-pytorch&lt;/code&gt;&lt;/a&gt; community port by Johannes Hingerl) at its supported &lt;code&gt;262 kb&lt;/code&gt; and &lt;code&gt;524 kb&lt;/code&gt; contexts. Borzoi is a useful reference because it is a much smaller model (~135M parameters vs AlphaGenome&amp;rsquo;s 450M), so it helps calibrate how much of the AlphaGenome latency is &amp;ldquo;foundation-model size&amp;rdquo; rather than anything implementation-specific.&lt;/p&gt;
+&lt;p&gt;The figure below compares &lt;code&gt;borzoi-pytorch&lt;/code&gt; inference against both AlphaGenome implementations across the seven GPU classes at Borzoi&amp;rsquo;s two supported sequence lengths. RTX 6000 is omitted from the plot because AG-JAX does not run on Turing and the AG-PyTorch fp32-fallback latency (~2-5 s) would compress every other bar into illegibility; its Borzoi/AG-PyTorch numbers remain in the tables below.&lt;/p&gt;
+&lt;figure&gt;&lt;a href="https://genomicsxai.github.io/previews/pr-33/blogs/2026-005/borzoi_vs_alphagenome.png" class="image-link" data-pswp-width="3849" data-pswp-height="2210"&gt;
+		&lt;img src="https://genomicsxai.github.io/previews/pr-33/blogs/2026-005/borzoi_vs_alphagenome.png" width="1000px" height="574"loading="lazy"
+			alt="Borzoi vs AlphaGenome inference comparison"
+			title="Grouped-bar comparison of Borzoi, AlphaGenome JAX, and AlphaGenome PyTorch bf16 on inference latency and peak GPU memory at 262 kb and 524 kb across H200, H100, A100, L40S, L40, and A40. Borzoi bars are consistently the shortest in both latency and memory panels." data-title-escaped="Grouped-bar comparison of Borzoi, AlphaGenome JAX, and AlphaGenome PyTorch bf16 on inference latency and peak GPU memory at 262 kb and 524 kb across H200, H100, A100, L40S, L40, and A40. Borzoi bars are consistently the shortest in both latency and memory panels."&gt;
+		&lt;/a&gt;&lt;/figure&gt;&lt;p&gt;The tables below give the same numbers in detail, using the same GPU + Framework row layout as the earlier inference tables.&lt;/p&gt;
+&lt;h4 id="inference-latency"&gt;Inference latency
+&lt;/h4&gt;&lt;table&gt;
+ &lt;thead&gt;
+ &lt;tr&gt;
+ &lt;th&gt;GPU&lt;/th&gt;
+ &lt;th&gt;Framework&lt;/th&gt;
+ &lt;th style="text-align: right"&gt;262 kb&lt;/th&gt;
+ &lt;th style="text-align: right"&gt;524 kb&lt;/th&gt;
+ &lt;/tr&gt;
+ &lt;/thead&gt;
+ &lt;tbody&gt;
+ &lt;tr&gt;
+ &lt;td&gt;H200 141 GB&lt;/td&gt;
+ &lt;td&gt;borzoi-pytorch&lt;/td&gt;
+ &lt;td style="text-align: right"&gt;16.0&lt;/td&gt;
+ &lt;td style="text-align: right"&gt;33.6&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;H200 141 GB&lt;/td&gt;
+ &lt;td&gt;alphagenome-jax&lt;/td&gt;
+ &lt;td style="text-align: right"&gt;46.1&lt;/td&gt;
+ &lt;td style="text-align: right"&gt;91.2&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;H200 141 GB&lt;/td&gt;
+ &lt;td&gt;alphagenome-pytorch&lt;/td&gt;
+ &lt;td style="text-align: right"&gt;62.1&lt;/td&gt;
+ &lt;td style="text-align: right"&gt;126.1&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;H100 80 GB&lt;/td&gt;
+ &lt;td&gt;borzoi-pytorch&lt;/td&gt;
+ &lt;td style="text-align: right"&gt;17.9&lt;/td&gt;
+ &lt;td style="text-align: right"&gt;38.6&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;H100 80 GB&lt;/td&gt;
+ &lt;td&gt;alphagenome-jax&lt;/td&gt;
+ &lt;td style="text-align: right"&gt;51.0&lt;/td&gt;
+ &lt;td style="text-align: right"&gt;99.0&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;H100 80 GB&lt;/td&gt;
+ &lt;td&gt;alphagenome-pytorch&lt;/td&gt;
+ &lt;td style="text-align: right"&gt;68.4&lt;/td&gt;
+ &lt;td style="text-align: right"&gt;136.9&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;A100 80 GB&lt;/td&gt;
+ &lt;td&gt;borzoi-pytorch&lt;/td&gt;
+ &lt;td style="text-align: right"&gt;36.7&lt;/td&gt;
+ &lt;td style="text-align: right"&gt;79.2&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;A100 80 GB&lt;/td&gt;
+ &lt;td&gt;alphagenome-jax&lt;/td&gt;
+ &lt;td style="text-align: right"&gt;152.8&lt;/td&gt;
+ &lt;td style="text-align: right"&gt;297.3&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;A100 80 GB&lt;/td&gt;
+ &lt;td&gt;alphagenome-pytorch&lt;/td&gt;
+ &lt;td style="text-align: right"&gt;168.0&lt;/td&gt;
+ &lt;td style="text-align: right"&gt;336.9&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;L40S 48 GB&lt;/td&gt;
+ &lt;td&gt;borzoi-pytorch&lt;/td&gt;
+ &lt;td style="text-align: right"&gt;36.1&lt;/td&gt;
+ &lt;td style="text-align: right"&gt;90.0&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;L40S 48 GB&lt;/td&gt;
+ &lt;td&gt;alphagenome-jax&lt;/td&gt;
+ &lt;td style="text-align: right"&gt;169.7&lt;/td&gt;
+ &lt;td style="text-align: right"&gt;369.3&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;L40S 48 GB&lt;/td&gt;
+ &lt;td&gt;alphagenome-pytorch&lt;/td&gt;
+ &lt;td style="text-align: right"&gt;209.9&lt;/td&gt;
+ &lt;td style="text-align: right"&gt;432.7&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;L40 48 GB&lt;/td&gt;
+ &lt;td&gt;borzoi-pytorch&lt;/td&gt;
+ &lt;td style="text-align: right"&gt;41.5&lt;/td&gt;
+ &lt;td style="text-align: right"&gt;99.4&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;L40 48 GB&lt;/td&gt;
+ &lt;td&gt;alphagenome-jax&lt;/td&gt;
+ &lt;td style="text-align: right"&gt;212.5&lt;/td&gt;
+ &lt;td style="text-align: right"&gt;453.2&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;L40 48 GB&lt;/td&gt;
+ &lt;td&gt;alphagenome-pytorch&lt;/td&gt;
+ &lt;td style="text-align: right"&gt;258.9&lt;/td&gt;
+ &lt;td style="text-align: right"&gt;531.6&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;A40 48 GB&lt;/td&gt;
+ &lt;td&gt;borzoi-pytorch&lt;/td&gt;
+ &lt;td style="text-align: right"&gt;64.1&lt;/td&gt;
+ &lt;td style="text-align: right"&gt;144.2&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;A40 48 GB&lt;/td&gt;
+ &lt;td&gt;alphagenome-jax&lt;/td&gt;
+ &lt;td style="text-align: right"&gt;298.7&lt;/td&gt;
+ &lt;td style="text-align: right"&gt;601.7&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;A40 48 GB&lt;/td&gt;
+ &lt;td&gt;alphagenome-pytorch&lt;/td&gt;
+ &lt;td style="text-align: right"&gt;339.9&lt;/td&gt;
+ &lt;td style="text-align: right"&gt;704.0&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;RTX 6000 24 GB&lt;/td&gt;
+ &lt;td&gt;borzoi-pytorch&lt;/td&gt;
+ &lt;td style="text-align: right"&gt;87.8&lt;/td&gt;
+ &lt;td style="text-align: right"&gt;—&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;RTX 6000 24 GB&lt;/td&gt;
+ &lt;td&gt;alphagenome-jax&lt;/td&gt;
+ &lt;td style="text-align: right"&gt;—&lt;/td&gt;
+ &lt;td style="text-align: right"&gt;—&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;RTX 6000 24 GB&lt;/td&gt;
+ &lt;td&gt;alphagenome-pytorch&lt;/td&gt;
+ &lt;td style="text-align: right"&gt;2298.6&lt;/td&gt;
+ &lt;td style="text-align: right"&gt;4742.9&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;&lt;em&gt;Values are median latency in &lt;strong&gt;milliseconds (&lt;code&gt;ms&lt;/code&gt;)&lt;/strong&gt;; lower is better. Em-dash (—) marks configurations that did not run: AG-JAX bf16 is unsupported on Turing, and &lt;code&gt;524 kb&lt;/code&gt; Borzoi on RTX 6000 was not collected.&lt;/em&gt;&lt;/p&gt;
+&lt;h4 id="inference-peak-memory"&gt;Inference peak memory
+&lt;/h4&gt;&lt;table&gt;
+ &lt;thead&gt;
+ &lt;tr&gt;
+ &lt;th&gt;GPU&lt;/th&gt;
+ &lt;th&gt;Framework&lt;/th&gt;
+ &lt;th style="text-align: right"&gt;262 kb&lt;/th&gt;
+ &lt;th style="text-align: right"&gt;524 kb&lt;/th&gt;
+ &lt;/tr&gt;
+ &lt;/thead&gt;
+ &lt;tbody&gt;
+ &lt;tr&gt;
+ &lt;td&gt;H200 141 GB&lt;/td&gt;
+ &lt;td&gt;borzoi-pytorch&lt;/td&gt;
+ &lt;td style="text-align: right"&gt;1.9&lt;/td&gt;
+ &lt;td style="text-align: right"&gt;3.0&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;H200 141 GB&lt;/td&gt;
+ &lt;td&gt;alphagenome-jax&lt;/td&gt;
+ &lt;td style="text-align: right"&gt;10.4&lt;/td&gt;
+ &lt;td style="text-align: right"&gt;18.2&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;H200 141 GB&lt;/td&gt;
+ &lt;td&gt;alphagenome-pytorch&lt;/td&gt;
+ &lt;td style="text-align: right"&gt;11.5&lt;/td&gt;
+ &lt;td style="text-align: right"&gt;21.2&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;H100 80 GB&lt;/td&gt;
+ &lt;td&gt;borzoi-pytorch&lt;/td&gt;
+ &lt;td style="text-align: right"&gt;1.9&lt;/td&gt;
+ &lt;td style="text-align: right"&gt;3.0&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;H100 80 GB&lt;/td&gt;
+ &lt;td&gt;alphagenome-jax&lt;/td&gt;
+ &lt;td style="text-align: right"&gt;10.4&lt;/td&gt;
+ &lt;td style="text-align: right"&gt;18.2&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;H100 80 GB&lt;/td&gt;
+ &lt;td&gt;alphagenome-pytorch&lt;/td&gt;
+ &lt;td style="text-align: right"&gt;11.5&lt;/td&gt;
+ &lt;td style="text-align: right"&gt;21.2&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;A100 80 GB&lt;/td&gt;
+ &lt;td&gt;borzoi-pytorch&lt;/td&gt;
+ &lt;td style="text-align: right"&gt;1.9&lt;/td&gt;
+ &lt;td style="text-align: right"&gt;3.0&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;A100 80 GB&lt;/td&gt;
+ &lt;td&gt;alphagenome-jax&lt;/td&gt;
+ &lt;td style="text-align: right"&gt;10.4&lt;/td&gt;
+ &lt;td style="text-align: right"&gt;18.9&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;A100 80 GB&lt;/td&gt;
+ &lt;td&gt;alphagenome-pytorch&lt;/td&gt;
+ &lt;td style="text-align: right"&gt;11.4&lt;/td&gt;
+ &lt;td style="text-align: right"&gt;21.2&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;L40S 48 GB&lt;/td&gt;
+ &lt;td&gt;borzoi-pytorch&lt;/td&gt;
+ &lt;td style="text-align: right"&gt;1.9&lt;/td&gt;
+ &lt;td style="text-align: right"&gt;3.0&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;L40S 48 GB&lt;/td&gt;
+ &lt;td&gt;alphagenome-jax&lt;/td&gt;
+ &lt;td style="text-align: right"&gt;11.5&lt;/td&gt;
+ &lt;td style="text-align: right"&gt;18.9&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;L40S 48 GB&lt;/td&gt;
+ &lt;td&gt;alphagenome-pytorch&lt;/td&gt;
+ &lt;td style="text-align: right"&gt;11.4&lt;/td&gt;
+ &lt;td style="text-align: right"&gt;21.2&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;L40 48 GB&lt;/td&gt;
+ &lt;td&gt;borzoi-pytorch&lt;/td&gt;
+ &lt;td style="text-align: right"&gt;1.9&lt;/td&gt;
+ &lt;td style="text-align: right"&gt;3.0&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;L40 48 GB&lt;/td&gt;
+ &lt;td&gt;alphagenome-jax&lt;/td&gt;
+ &lt;td style="text-align: right"&gt;11.5&lt;/td&gt;
+ &lt;td style="text-align: right"&gt;18.9&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;L40 48 GB&lt;/td&gt;
+ &lt;td&gt;alphagenome-pytorch&lt;/td&gt;
+ &lt;td style="text-align: right"&gt;11.4&lt;/td&gt;
+ &lt;td style="text-align: right"&gt;21.2&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;A40 48 GB&lt;/td&gt;
+ &lt;td&gt;borzoi-pytorch&lt;/td&gt;
+ &lt;td style="text-align: right"&gt;1.9&lt;/td&gt;
+ &lt;td style="text-align: right"&gt;3.0&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;A40 48 GB&lt;/td&gt;
+ &lt;td&gt;alphagenome-jax&lt;/td&gt;
+ &lt;td style="text-align: right"&gt;10.4&lt;/td&gt;
+ &lt;td style="text-align: right"&gt;18.9&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;A40 48 GB&lt;/td&gt;
+ &lt;td&gt;alphagenome-pytorch&lt;/td&gt;
+ &lt;td style="text-align: right"&gt;11.4&lt;/td&gt;
+ &lt;td style="text-align: right"&gt;21.2&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;RTX 6000 24 GB&lt;/td&gt;
+ &lt;td&gt;borzoi-pytorch&lt;/td&gt;
+ &lt;td style="text-align: right"&gt;1.9&lt;/td&gt;
+ &lt;td style="text-align: right"&gt;—&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;RTX 6000 24 GB&lt;/td&gt;
+ &lt;td&gt;alphagenome-jax&lt;/td&gt;
+ &lt;td style="text-align: right"&gt;—&lt;/td&gt;
+ &lt;td style="text-align: right"&gt;—&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;RTX 6000 24 GB&lt;/td&gt;
+ &lt;td&gt;alphagenome-pytorch&lt;/td&gt;
+ &lt;td style="text-align: right"&gt;7.3&lt;/td&gt;
+ &lt;td style="text-align: right"&gt;12.5&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;&lt;em&gt;Values are peak GPU memory in &lt;strong&gt;gigabytes (&lt;code&gt;GB&lt;/code&gt;)&lt;/strong&gt;; lower is better.&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;Borzoi inference runs roughly &lt;code&gt;3-5×&lt;/code&gt; faster than AlphaGenome at the same sequence length and fits in a small fraction of the memory, which is expected given the ~3× parameter-count gap (Borzoi ~135M vs AlphaGenome 450M) and the different architectural choices. The gap widens on older GPUs (&lt;code&gt;4-5×&lt;/code&gt; on Ampere/Ada) and narrows on Hopper (&lt;code&gt;2.6-2.9×&lt;/code&gt;), suggesting AlphaGenome benefits more from the newer hardware&amp;rsquo;s memory bandwidth and tensor-core throughput than Borzoi does. Full Borzoi inference, heads-only finetune, and full-weights finetune numbers are available in the &lt;a class="link" href="https://github.com/XinmingTu/genomic-model-profiling/tree/main/published/data" target="_blank" rel="noopener"
+ &gt;published CSVs&lt;/a&gt; for readers who want a second reference model at these sequence lengths.&lt;/p&gt;
+&lt;h2 id="limitations"&gt;Limitations
+&lt;/h2&gt;&lt;p&gt;A few caveats worth flagging explicitly:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;No TPU results.&lt;/strong&gt; The JAX path is designed to run on TPUs and would likely see further speed and memory improvements there; we benchmark NVIDIA GPUs only because that is what the academic labs in our network actually have. If you do have TPU access, the numbers here should be read as a lower bound on what JAX can deliver&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;&lt;code&gt;batch_size=1&lt;/code&gt; only.&lt;/strong&gt; We did not sweep batch sizes larger than one. On &lt;code&gt;H100&lt;/code&gt; and &lt;code&gt;H200&lt;/code&gt;, there is likely headroom for &lt;code&gt;batch_size&amp;gt;1&lt;/code&gt; at shorter contexts; sweeping batch size on Hopper-class hardware is on our follow-up list&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Single workload per mode.&lt;/strong&gt; We report one inference workload and one finetune workload (matched-ATAC, &lt;code&gt;GM12878&lt;/code&gt;); results may vary with other datasets or multi-track heads&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Borzoi is the PyTorch port&lt;/strong&gt;, not the original TF release; numbers from the TF implementation on the same GPUs may differ&lt;/li&gt;
+&lt;/ul&gt;
 &lt;h2 id="resources"&gt;Resources
 &lt;/h2&gt;&lt;ul&gt;
 &lt;li&gt;Profiling repository: &lt;a class="link" href="https://github.com/XinmingTu/genomic-model-profiling" target="_blank" rel="noopener"
