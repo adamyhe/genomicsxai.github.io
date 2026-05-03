@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Causal-Inference on Genomics x AI</title><link>https://genomicsxai.github.io/previews/pr-38/tags/causal-inference/</link><description>Recent content in Causal-Inference on Genomics x AI</description><generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Sun, 03 May 2026 14:44:56 -0400</lastBuildDate><atom:link href="https://genomicsxai.github.io/previews/pr-38/tags/causal-inference/index.xml" rel="self" type="application/rss+xml"/><item><title>test-submission-form-preview</title><link>https://genomicsxai.github.io/previews/pr-38/blogs/2026-007/</link><pubDate>Sun, 03 May 2026 00:00:00 +0000</pubDate><guid>https://genomicsxai.github.io/previews/pr-38/blogs/2026-007/</guid><description>&lt;aside class="summary-box"&gt;
+ &lt;h2 class="summary-box__title"&gt;Summary&lt;/h2&gt;
+ &lt;div class="summary-box__body"&gt;
+ Include a high-level summary of your post here. Alternatively editors can write a summary of the post if requested.
+ &lt;/div&gt;
+&lt;/aside&gt;
+
+&lt;hr&gt;
+&lt;h2 id="introduction-or-other-name-for-your-first-section"&gt;Introduction (or other name for your first section)
+&lt;/h2&gt;&lt;p&gt;Your content here. Use standard Markdown. For images in the post folder:&lt;/p&gt;
+&lt;figure&gt;&lt;a href="filename.png" class="image-link" target="_blank" rel="noopener"&gt;
+	&lt;img src="filename.png" loading="lazy" width="400px" alt="Alt text"&gt;
+	&lt;/a&gt;&lt;/figure&gt;&lt;h2 id="section-two"&gt;Section two
+&lt;/h2&gt;&lt;p&gt;&amp;hellip;&lt;/p&gt;</description></item></channel></rss>
