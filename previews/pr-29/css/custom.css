@@ -1107,6 +1107,15 @@ article img {
   color: var(--accent-color);
   border-color: var(--accent-color);
 }
+/* Dark-mode active pill needs an explicit override — the rule above sets
+   color on every pill at higher specificity than .category-pills__pill--active,
+   so without this the white-on-light-grey unreadable case returns. */
+[data-scheme="dark"] .category-pills__pill--active,
+[data-scheme="dark"] .category-pills__pill--active:hover {
+  background: var(--accent-color);
+  color: var(--accent-color-text);
+  border-color: var(--accent-color);
+}
 .category-pills__empty-state {
   text-align: center;
   padding: 40px 20px;
