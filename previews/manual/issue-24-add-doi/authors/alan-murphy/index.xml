@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Alan Murphy on Genomics x AI</title><link>https://genomicsxai.github.io/previews/manual/issue-24-add-doi/authors/alan-murphy/</link><description>Recent content in Alan Murphy on Genomics x AI</description><generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Wed, 15 Apr 2026 09:49:50 -0400</lastBuildDate><atom:link href="https://genomicsxai.github.io/previews/manual/issue-24-add-doi/authors/alan-murphy/index.xml" rel="self" type="application/rss+xml"/><item><title>Fine-tuning AlphaGenome in native JAX/Haiku</title><link>https://genomicsxai.github.io/previews/manual/issue-24-add-doi/blogs/2026-003/</link><pubDate>Wed, 25 Feb 2026 00:00:00 +0000</pubDate><guid>https://genomicsxai.github.io/previews/manual/issue-24-add-doi/blogs/2026-003/</guid><description>&lt;img src="https://genomicsxai.github.io/previews/manual/issue-24-add-doi/" alt="Featured image of post Fine-tuning AlphaGenome in native JAX/Haiku" /&gt;&lt;aside class="summary-box"&gt;
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Alan Murphy on Genomics x AI</title><link>https://genomicsxai.github.io/previews/manual/issue-24-add-doi/authors/alan-murphy/</link><description>Recent content in Alan Murphy on Genomics x AI</description><generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Wed, 22 Apr 2026 14:51:08 +0100</lastBuildDate><atom:link href="https://genomicsxai.github.io/previews/manual/issue-24-add-doi/authors/alan-murphy/index.xml" rel="self" type="application/rss+xml"/><item><title>Fine-tuning AlphaGenome in native JAX/Haiku</title><link>https://genomicsxai.github.io/previews/manual/issue-24-add-doi/blogs/2026-003/</link><pubDate>Wed, 25 Feb 2026 00:00:00 +0000</pubDate><guid>https://genomicsxai.github.io/previews/manual/issue-24-add-doi/blogs/2026-003/</guid><description>&lt;img src="https://genomicsxai.github.io/previews/manual/issue-24-add-doi/" alt="Featured image of post Fine-tuning AlphaGenome in native JAX/Haiku" /&gt;&lt;aside class="summary-box"&gt;
  &lt;h2 class="summary-box__title"&gt;Summary&lt;/h2&gt;
  &lt;div class="summary-box__body"&gt;
  &lt;p&gt;This post introduces &lt;a class="link" href="https://github.com/genomicsxai/alphagenome_ft" target="_blank" rel="noopener"
@@ -251,9 +251,11 @@
  &lt;/blockquote&gt;
 &lt;hr&gt;
 &lt;h2 id="compute-requirements"&gt;Compute requirements
-&lt;/h2&gt;&lt;ul&gt;
-&lt;li&gt;Fine-tuning with a frozen backbone typically fits on a single, high VRAM GPU (e.g., H100).&lt;/li&gt;
-&lt;li&gt;Full-model fine-tuning or large batch training will essentially require multi-GPU or TPU setups.&lt;/li&gt;
+&lt;/h2&gt;&lt;p&gt;A full analysis of the runtime requirements for fine-tuning AlphaGenome is &lt;a class="link" href="https://genomicsxai.github.io/blogs/2026-005/" target="_blank" rel="noopener"
+ &gt;highlighted in separate blog post&lt;/a&gt; but in short:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Fine-tuning with a frozen backbone, i.e. head-only fine-tuning will fit on a single, middle of the range GPU, maxing out at around 14-27 GB vram (batch size 1).&lt;/li&gt;
+&lt;li&gt;For full Fine-tuning, you will need at least 76.1 GB vram, so a H100/H200 GPU.&lt;/li&gt;
 &lt;/ul&gt;
 &lt;hr&gt;
 &lt;h2 id="code-and-tutorials"&gt;Code and tutorials
@@ -263,6 +265,8 @@
 &lt;li&gt;Colab notebooks: &lt;a class="link" href="https://colab.research.google.com/github/genomicsxai/alphagenome_ft/blob/main/notebooks/finetune_encoder_only_mpra.ipynb" target="_blank" rel="noopener"
  &gt;Encoder Fine-tuning (MPRA)&lt;/a&gt; | &lt;a class="link" href="https://colab.research.google.com/github/genomicsxai/alphagenome_ft/blob/main/notebooks/finetune_rna_head_only.ipynb" target="_blank" rel="noopener"
  &gt;Heads-only Fine-tuning&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class="link" href="https://genomicsxai.github.io/blogs/2026-005/" target="_blank" rel="noopener"
+ &gt;Benchmarking AlphaGenome on NVIDIA GPUs: latency, memory, and feasibility across sequence lengths&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;hr&gt;
 &lt;h2 id="tldr"&gt;TL;DR
