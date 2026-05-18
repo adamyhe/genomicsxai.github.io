@@ -812,6 +812,37 @@ article img {
   font-size: 1.2em;
 }
 
+.citation-box__versions {
+  margin-top: 1rem;
+}
+
+.citation-box__versions-title {
+  margin: 0 0 0.5rem 0;
+  font-size: 1rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  color: var(--card-text-color-secondary, #666);
+}
+
+.citation-box__versions-list {
+  margin: 0;
+  padding-left: 1.25rem;
+}
+
+.citation-box__versions-item {
+  margin: 0.25rem 0;
+  color: var(--card-text-color-main, #000);
+}
+
+.citation-box__version-label {
+  font-weight: 600;
+}
+
+.citation-box__version-meta {
+  color: var(--card-text-color-secondary, #666);
+}
+
 
 /* Editorial board: mute GitHub username next to display name */
 .editors-list .editors-username {
