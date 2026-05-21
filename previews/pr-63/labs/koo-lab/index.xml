@@ -1,19 +1,19 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Koo Lab on Genomics x AI</title><link>https://genomicsxai.github.io/previews/pr-63/labs/koo-lab/</link><description>Recent content in Koo Lab on Genomics x AI</description><generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Thu, 21 May 2026 16:56:02 -0400</lastBuildDate><atom:link href="https://genomicsxai.github.io/previews/pr-63/labs/koo-lab/index.xml" rel="self" type="application/rss+xml"/><item><title>Benchmarking seq2func models on distal enhancer effects with CRISPRi screens</title><link>https://genomicsxai.github.io/previews/pr-63/blogs/2026-007/</link><pubDate>Thu, 21 May 2026 00:00:00 +0000</pubDate><guid>https://genomicsxai.github.io/previews/pr-63/blogs/2026-007/</guid><description>&lt;aside class="summary-box"&gt;
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Koo Lab on Genomics x AI</title><link>https://genomicsxai.github.io/previews/pr-63/labs/koo-lab/</link><description>Recent content in Koo Lab on Genomics x AI</description><generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Thu, 21 May 2026 17:17:54 -0400</lastBuildDate><atom:link href="https://genomicsxai.github.io/previews/pr-63/labs/koo-lab/index.xml" rel="self" type="application/rss+xml"/><item><title>Benchmarking seq2func models on distal enhancer effects with CRISPRi screens</title><link>https://genomicsxai.github.io/previews/pr-63/blogs/2026-007/</link><pubDate>Thu, 21 May 2026 00:00:00 +0000</pubDate><guid>https://genomicsxai.github.io/previews/pr-63/blogs/2026-007/</guid><description>&lt;img src="https://genomicsxai.github.io/previews/pr-63/" alt="Featured image of post Benchmarking seq2func models on distal enhancer effects with CRISPRi screens" /&gt;&lt;aside class="summary-box"&gt;
  &lt;h2 class="summary-box__title"&gt;Summary&lt;/h2&gt;
  &lt;div class="summary-box__body"&gt;
- &lt;p&gt;We benchmark four sequence-to-function genomic deep learning models - &lt;a class="link" href="https://www.nature.com/articles/s41592-021-01252-x" target="_blank" rel="noopener"
+ &lt;p&gt;We benchmark four sequence-to-function genomic deep learning models — &lt;a class="link" href="https://www.nature.com/articles/s41592-021-01252-x" target="_blank" rel="noopener"
  &gt;Enformer&lt;/a&gt;, &lt;a class="link" href="https://www.nature.com/articles/s41588-024-02053-6" target="_blank" rel="noopener"
  &gt;Borzoi&lt;/a&gt;, &lt;a class="link" href="https://www.biorxiv.org/content/10.64898/2025.12.22.695963v1" target="_blank" rel="noopener"
  &gt;NTv3&lt;/a&gt;, and &lt;a class="link" href="https://www.nature.com/articles/s41586-025-10014-0" target="_blank" rel="noopener"
- &gt;AlphaGenome&lt;/a&gt; - zero-shot on two K562 CRISPRi enhancer-knockdown screens (&lt;a class="link" href="https://pubmed.ncbi.nlm.nih.gov/31784727/" target="_blank" rel="noopener"
+ &gt;AlphaGenome&lt;/a&gt; — zero-shot on two K562 CRISPRi enhancer-knockdown screens (&lt;a class="link" href="https://pubmed.ncbi.nlm.nih.gov/31784727/" target="_blank" rel="noopener"
  &gt;Fulco et al., 2019&lt;/a&gt; and &lt;a class="link" href="https://pubmed.ncbi.nlm.nih.gov/30612741/" target="_blank" rel="noopener"
- &gt;Gasperini et al., 2019&lt;/a&gt;), extending the &lt;em&gt;in-silico&lt;/em&gt; CRISPRi setup from &lt;a class="link" href="https://genomebiology.biomedcentral.com/articles/10.1186/s13059-023-02899-9" target="_blank" rel="noopener"
+ &gt;Gasperini et al., 2019&lt;/a&gt;), extending the in-silico CRISPRi setup from &lt;a class="link" href="https://genomebiology.biomedcentral.com/articles/10.1186/s13059-023-02899-9" target="_blank" rel="noopener"
  &gt;Karollus et al., 2023&lt;/a&gt;.&lt;/p&gt;
 &lt;p&gt;Three things stand out:&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;strong&gt;AlphaGenome leads on both screens&lt;/strong&gt; (Pearson r = 0.67 on Fulco, 0.45 on Gasperini), with Borzoi a close second on Fulco and a more distant second on Gasperini.&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;All four models systematically underpredict knockdown magnitude&lt;/strong&gt;, and the gap to experimental measurements widens with enhancer-to-TSS distance — distal cis-regulatory element (CRE) effects remain the hardest place to predict.&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;AlphaGenome&amp;rsquo;s RNA-Seq head (with GENCODE-exon aggregation) beats its CAGE head&lt;/strong&gt; on the larger screen — how you read the output matters.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;AlphaGenome&amp;rsquo;s RNA-Seq head (with GENCODE-exon aggregation) beats its CAGE head&lt;/strong&gt; on the larger screen — how you read the output matters.&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;&lt;strong&gt;Code&lt;/strong&gt;: &lt;a class="link" href="https://github.com/Al-Murphy/seq2func_crispri_eval" target="_blank" rel="noopener"
  &gt;seq2func_crispri_eval&lt;/a&gt;&lt;/p&gt;
@@ -21,26 +21,36 @@
  &lt;/div&gt;
 &lt;/aside&gt;
 
+&lt;hr&gt;
 &lt;h2 id="motivation"&gt;Motivation
 &lt;/h2&gt;&lt;p&gt;Sequence-to-function (seq2func) models keep getting bigger, longer-context, and more capable. &lt;a class="link" href="https://www.nature.com/articles/s41586-025-10014-0" target="_blank" rel="noopener"
  &gt;AlphaGenome&lt;/a&gt; is the current state of the art, succeeding &lt;a class="link" href="https://www.nature.com/articles/s41592-021-01252-x" target="_blank" rel="noopener"
  &gt;Enformer&lt;/a&gt; (2021) and &lt;a class="link" href="https://www.nature.com/articles/s41588-024-02053-6" target="_blank" rel="noopener"
  &gt;Borzoi&lt;/a&gt; (2024). DNA language models like &lt;a class="link" href="https://www.biorxiv.org/content/10.64898/2025.12.22.695963v1" target="_blank" rel="noopener"
- &gt;NTv3&lt;/a&gt; are now competing in the same space by post-training on functional assays.&lt;/p&gt;
+ &gt;NTv3&lt;/a&gt; now compete in the same space.&lt;/p&gt;
 &lt;p&gt;Headline metrics on held-out reference tracks keep going up. But aggregate performance on the reference genome doesn&amp;rsquo;t tell you how the models do under perturbation — predicting expression changes from sequence changes, which is the actual question for variant interpretation, enhancer design, and CRE prioritisation. &lt;a class="link" href="https://www.biorxiv.org/content/10.1101/2025.08.05.668750v2.full" target="_blank" rel="noopener"
  &gt;Shen, 2025&lt;/a&gt; recently made this point for natural variation: AlphaGenome improves over Enformer on personal gene expression prediction, but still falls well short on predicting how variants between individuals shift expression. The headline there: AlphaGenome moves the needle, but there&amp;rsquo;s still a long way to go on this kind of distributional shift.&lt;/p&gt;
 &lt;p&gt;We wanted to probe the same kind of distributional shift from a different angle, through a much larger perturbation, disabling a distal enhancer entirely, and asking whether these models pick up on its effect on the target gene. CRISPRi enhancer screens give us an experimental measurement of exactly that.&lt;/p&gt;
-&lt;p&gt;&lt;em&gt;Side note:&lt;/em&gt; CRISPRi (CRISPR interference) uses a catalytically dead Cas9 fused to a repressive domain to silence a target locus without cutting DNA. When the target is a distal enhancer, you can read out which genes go down in expression — giving you a measured enhancer → gene effect size.&lt;/p&gt;
-&lt;p&gt;&lt;em&gt;Side note:&lt;/em&gt; &amp;ldquo;seq2func&amp;rdquo; = sequence-to-function. A model that takes raw DNA as input and predicts functional genomic signals (RNA-seq, CAGE, ATAC, ChIP, etc.) as output. Enformer, Borzoi, NTv3, and AlphaGenome are all seq2func models.&lt;/p&gt;
-&lt;p&gt;This post extends the &lt;em&gt;in-silico&lt;/em&gt; CRISPRi benchmark from &lt;a class="link" href="https://genomebiology.biomedcentral.com/articles/10.1186/s13059-023-02899-9" target="_blank" rel="noopener"
+
+ &lt;blockquote&gt;
+ &lt;p&gt;&lt;em&gt;Side note:&lt;/em&gt; CRISPRi (CRISPR interference) uses a catalytically dead Cas9 fused to a repressive domain to silence a target locus without cutting DNA. When the target is a distal enhancer, you can read out which genes go down in expression — giving you a measured enhancer → gene effect size.&lt;/p&gt;
+
+ &lt;/blockquote&gt;
+
+ &lt;blockquote&gt;
+ &lt;p&gt;&lt;em&gt;Side note:&lt;/em&gt; &amp;ldquo;seq2func&amp;rdquo; = sequence-to-function. A model that takes raw DNA as input and predicts functional genomic signals (RNA-seq, CAGE, ATAC, ChIP, etc.) as output. Enformer, Borzoi, NTv3, and AlphaGenome are all seq2func models.&lt;/p&gt;
+
+ &lt;/blockquote&gt;
+&lt;p&gt;This post extends the in-silico CRISPRi benchmark from &lt;a class="link" href="https://genomebiology.biomedcentral.com/articles/10.1186/s13059-023-02899-9" target="_blank" rel="noopener"
  &gt;Karollus et al., 2023&lt;/a&gt;, originally for Enformer and Basenji2, to AlphaGenome, Borzoi, and NTv3.&lt;/p&gt;
+&lt;hr&gt;
 &lt;h2 id="the-benchmark"&gt;The benchmark
 &lt;/h2&gt;&lt;p&gt;We test on two K562 CRISPRi enhancer screens:&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;strong&gt;&lt;a class="link" href="https://pubmed.ncbi.nlm.nih.gov/31784727/" target="_blank" rel="noopener"
  &gt;Fulco et al., 2019&lt;/a&gt;&lt;/strong&gt; — ~60 validated enhancer–gene pairs from K562 CRISPRi-FlowFISH. Small but high-confidence.&lt;/li&gt;
-&lt;li&gt;&lt;a class="link" href="https://pubmed.ncbi.nlm.nih.gov/30612741/" target="_blank" rel="noopener"
- &gt;&lt;strong&gt;Gasperini et al., 2019&lt;/strong&gt;&lt;/a&gt; — ~440 high-confidence significant pairs from pooled K562 CRISPRi at scale.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;&lt;a class="link" href="https://pubmed.ncbi.nlm.nih.gov/30612741/" target="_blank" rel="noopener"
+ &gt;Gasperini et al., 2019&lt;/a&gt;&lt;/strong&gt; — ~440 high-confidence significant pairs from pooled K562 CRISPRi at scale.&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;For each pair, the procedure is:&lt;/p&gt;
 &lt;ol&gt;
@@ -48,38 +58,59 @@
 &lt;li&gt;Score the wild-type window.&lt;/li&gt;
 &lt;li&gt;Dinucleotide-shuffle a 2 kb slice covering the enhancer. Repeat N = 50 times, average effect.&lt;/li&gt;
 &lt;li&gt;Aggregate the model output over K562 RNA-Seq tracks in a TSS-centred 640 bp window. For AlphaGenome we additionally use the mean signal across GENCODE exons of the target gene (their paper&amp;rsquo;s preferred RNA-Seq score).&lt;/li&gt;
-&lt;li&gt;Score &lt;code&gt;pred_delta = (WT - mean(shuffle))/WT&lt;/code&gt; per pair and correlate with the measured fractional knockdown.&lt;/li&gt;
+&lt;li&gt;Score &lt;code&gt;pred_delta = (WT − mean(shuffle)) / WT&lt;/code&gt; per pair and correlate with the measured fractional knockdown.&lt;/li&gt;
 &lt;/ol&gt;
-&lt;p&gt;&lt;em&gt;Side note:&lt;/em&gt; Why dinucleotide shuffle and not uniform random bases or N-replacement? N-replacement has not been seen by the model during training, so it could lead to some very strange predictions. Drawing random bases changes the local G+C content, biasing the model on composition rather than motif loss. Even a plain base shuffle — which does preserve G+C — destroys dinucleotide frequencies like CpG counts, themselves a learned regulatory signal. Dinucleotide shuffling (Altschul–Erickson) destroys motif content while keeping both single-base and dinucleotide composition intact. The standard for in-silico CRISPRi.&lt;/p&gt;
+
+ &lt;blockquote&gt;
+ &lt;p&gt;&lt;em&gt;Side note&lt;/em&gt;: Why dinucleotide shuffle and not uniform random bases or N-replacement? N-replacement has not been seen by the model during training, so it could lead to some very strange predictions. Drawing random bases changes the local G+C content, biasing the model on composition rather than motif loss. Even a plain base shuffle — which does preserve G+C — destroys dinucleotide frequencies like CpG counts, themselves a learned regulatory signal. Dinucleotide shuffling (Altschul–Erickson) destroys motif content while keeping both single-base and dinucleotide composition intact. The standard for in-silico CRISPRi.&lt;/p&gt;
+
+ &lt;/blockquote&gt;
 &lt;p&gt;This protocol is a direct extension of &lt;a class="link" href="https://genomebiology.biomedcentral.com/articles/10.1186/s13059-023-02899-9" target="_blank" rel="noopener"
  &gt;Karollus 2023&lt;/a&gt; — most of it is bit-for-bit faithful to theirs. We reuse their Fulco evaluation tables (&lt;code&gt;ziga_additional_columns.tsv&lt;/code&gt; + &lt;code&gt;enhancer_knockdown_effects.tsv&lt;/code&gt; from their &lt;a class="link" href="https://zenodo.org/records/7613255" target="_blank" rel="noopener"
  &gt;Zenodo release&lt;/a&gt;) with the same merge keys and validated-pair filtering, their TSS / enhancer / strand conventions, the same Enformer DeepMind checkpoint (loaded via the &lt;a class="link" href="https://github.com/lucidrains/enformer-pytorch" target="_blank" rel="noopener"
- &gt;PyTorch port&lt;/a&gt; rather than TF Hub — same weights, different wrapper), and their K562 CAGE readout, central-bin aggregation, and Pearson/Spearman correlation framework. For Gasperini we apply the same protocol to the Cell 2019 high-confidence pairs (after hg19 → hg38 liftover). The model-specific adjustments — per-architecture aggregation conventions like 5×128 bp bins for Enformer, 20×32 bp for Borzoi, exon-mean for AlphaGenome RNA-Seq — are architecture-driven; the evaluation harness around them is the Karollus harness. Four deliberate departures from Karollus are flagged in the Limitations section.&lt;/p&gt;
+ &gt;PyTorch port&lt;/a&gt; rather than TF Hub — same weights, different wrapper), and their K562 CAGE readout, central-bin aggregation, and Pearson/Spearman correlation framework. For Gasperini we apply the same protocol to the Cell 2019 high-confidence pairs (after hg19 → hg38 liftover). The model-specific adjustments — per-architecture aggregation conventions like 5×128 bp bins for Enformer, 20×32 bp for Borzoi, exon-mean for AlphaGenome RNA-Seq — are architecture-driven; the evaluation harness around them is the Karollus harness. Four deliberate departures from Karollus are flagged in &lt;a class="link" href="#limitations" &gt;Limitations&lt;/a&gt;.&lt;/p&gt;
+&lt;hr&gt;
 &lt;h2 id="results"&gt;Results
 &lt;/h2&gt;&lt;p&gt;&lt;strong&gt;AlphaGenome leads on both screens.&lt;/strong&gt; Figure 1 shows predicted vs. measured fractional knockdown for all four models on each screen, with points coloured by enhancer-to-TSS distance.&lt;/p&gt;
 &lt;figure&gt;&lt;a href="https://genomicsxai.github.io/previews/pr-63/blogs/2026-007/crispri_fig1.png" class="image-link" data-pswp-width="6303" data-pswp-height="3542"&gt;
-		&lt;img src="https://genomicsxai.github.io/previews/pr-63/blogs/2026-007/crispri_fig1.png" width="6303" height="3542"loading="lazy"
-			alt="Figure 1: Predicted vs. measured fractional knockdown for the four models on (a) Fulco 2019 and (b) Gasperini 2019. Points coloured by enhancer-to-TSS distance. AlphaGenome achieves the highest Pearson and Spearman correlations on both screens; Enformer and NTv3 effectively fail on Gasperini. The dashed x = y line marks perfect prediction (predicted = observed); points falling below it indicate the model underestimates the experimental knockdown."
-			 class="gallery-image" data-flex-grow="177" data-flex-basis="427px"&gt;
+		&lt;img src="https://genomicsxai.github.io/previews/pr-63/blogs/2026-007/crispri_fig1.png" width="900px" height="505"loading="lazy"
+			alt="Figure 1"
+			title="Figure 1: Predicted vs. measured fractional knockdown for the four models on (a) Fulco 2019 and (b) Gasperini 2019. Points coloured by enhancer-to-TSS distance. AlphaGenome achieves the highest Pearson and Spearman correlations on both screens; Enformer and NTv3 effectively fail on Gasperini. The dashed x = y line marks perfect prediction (predicted = observed); points falling below it indicate the model underestimates the experimental knockdown." data-title-escaped="Figure 1: Predicted vs. measured fractional knockdown for the four models on (a) Fulco 2019 and (b) Gasperini 2019. Points coloured by enhancer-to-TSS distance. AlphaGenome achieves the highest Pearson and Spearman correlations on both screens; Enformer and NTv3 effectively fail on Gasperini. The dashed x = y line marks perfect prediction (predicted = observed); points falling below it indicate the model underestimates the experimental knockdown."&gt;
 		&lt;/a&gt;&lt;/figure&gt;&lt;p&gt;The headline numbers:&lt;/p&gt;
-&lt;p&gt;Model&lt;/p&gt;
-&lt;p&gt;Fulco (Pearson/Spearman)&lt;/p&gt;
-&lt;p&gt;Gasperini (Pearson/Spearman)&lt;/p&gt;
-&lt;p&gt;Enformer&lt;/p&gt;
-&lt;p&gt;0.29 / 0.19&lt;/p&gt;
-&lt;p&gt;0.04 / 0.04&lt;/p&gt;
-&lt;p&gt;Borzoi&lt;/p&gt;
-&lt;p&gt;0.66 / 0.52&lt;/p&gt;
-&lt;p&gt;0.30 / 0.27&lt;/p&gt;
-&lt;p&gt;NTv3&lt;/p&gt;
-&lt;p&gt;0.24 / 0.00&lt;/p&gt;
-&lt;p&gt;0.04 / 0.12&lt;/p&gt;
-&lt;p&gt;AlphaGenome&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;0.67 / 0.54&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;0.45 / 0.45&lt;/strong&gt;&lt;/p&gt;
+&lt;table&gt;
+ &lt;thead&gt;
+ &lt;tr&gt;
+ &lt;th&gt;Model&lt;/th&gt;
+ &lt;th style="text-align: right"&gt;Fulco (Pearson / Spearman)&lt;/th&gt;
+ &lt;th style="text-align: right"&gt;Gasperini (Pearson / Spearman)&lt;/th&gt;
+ &lt;/tr&gt;
+ &lt;/thead&gt;
+ &lt;tbody&gt;
+ &lt;tr&gt;
+ &lt;td&gt;Enformer&lt;/td&gt;
+ &lt;td style="text-align: right"&gt;0.29 / 0.19&lt;/td&gt;
+ &lt;td style="text-align: right"&gt;0.04 / 0.04&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;Borzoi&lt;/td&gt;
+ &lt;td style="text-align: right"&gt;0.66 / 0.52&lt;/td&gt;
+ &lt;td style="text-align: right"&gt;0.30 / 0.27&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;NTv3&lt;/td&gt;
+ &lt;td style="text-align: right"&gt;0.24 / 0.00&lt;/td&gt;
+ &lt;td style="text-align: right"&gt;0.04 / 0.12&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;AlphaGenome&lt;/td&gt;
+ &lt;td style="text-align: right"&gt;&lt;strong&gt;0.67 / 0.54&lt;/strong&gt;&lt;/td&gt;
+ &lt;td style="text-align: right"&gt;&lt;strong&gt;0.45 / 0.45&lt;/strong&gt;&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;/tbody&gt;
+&lt;/table&gt;
 &lt;p&gt;A few takeaways:&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;AlphaGenome outperforms all other models&lt;/strong&gt; on both screens. The margin over Borzoi is small on Fulco but substantial on Gasperini.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;AlphaGenome outperforms all other mdoels&lt;/strong&gt; on both screens. The margin over Borzoi is small on Fulco but substantial on Gasperini.&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;Enformer and NTv3 fall apart on Gasperini.&lt;/strong&gt; Enformer&amp;rsquo;s shorter 196 kb context excludes ~20% of Gasperini pairs, but even on the closer pairs, it manages near-zero correlation. NTv3 has a 1 Mb context, the same as AlphaGenome, and still performs comparably poorly, so context length isn&amp;rsquo;t the explanation.&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;The Gasperini ceiling is low across the board.&lt;/strong&gt; Even AlphaGenome leaves the majority of variance unexplained. Some of this is biological noise: Gasperini&amp;rsquo;s pooled design puts multiple sgRNAs per cell, so any single enhancer&amp;rsquo;s effect is measured in an already-perturbed cellular context, with trans effects from the other knockdowns adding noise to the readout. Fulco&amp;rsquo;s CRISPRi-FlowFISH targets one enhancer at a time and is the cleaner ground truth — which may explain part of the per-screen performance gap. Either way, the headline framing is that AlphaGenome improves CRISPRi prediction but a large gap remains, especially for distal cis-regulatory elements (CREs).&lt;/li&gt;
 &lt;/ul&gt;
@@ -87,94 +118,87 @@
 &lt;/h3&gt;&lt;p&gt;Figure 2 plots observed and predicted effect against enhancer-to-TSS distance, to more closely match &lt;a class="link" href="https://link.springer.com/article/10.1186/s13059-023-02899-9/figures/5" target="_blank" rel="noopener"
  &gt;Karollus et al.&amp;rsquo;s plotting style&lt;/a&gt;.&lt;/p&gt;
 &lt;figure&gt;&lt;a href="https://genomicsxai.github.io/previews/pr-63/blogs/2026-007/crispri_fig2.png" class="image-link" data-pswp-width="6303" data-pswp-height="2761"&gt;
-		&lt;img src="https://genomicsxai.github.io/previews/pr-63/blogs/2026-007/crispri_fig2.png" width="6303" height="2761"loading="lazy"
-			alt="Figure 2: Observed (grey) and predicted (blue) effect (y-axis) vs. enhancer-to-TSS distance (x-axis). Predictions are systematically smaller than observed knockdowns across all four models, and the gap widens at distal distances."
-			 class="gallery-image" data-flex-grow="228" data-flex-basis="547px"&gt;
+		&lt;img src="https://genomicsxai.github.io/previews/pr-63/blogs/2026-007/crispri_fig2.png" width="900px" height="394"loading="lazy"
+			alt="Figure 2"
+			title="Figure 2: Observed (grey) and predicted (blue) effect (y-axis) vs. enhancer-to-TSS distance (x-axis). Predictions are systematically smaller than observed knockdowns across all four models, and the gap widens at distal distances." data-title-escaped="Figure 2: Observed (grey) and predicted (blue) effect (y-axis) vs. enhancer-to-TSS distance (x-axis). Predictions are systematically smaller than observed knockdowns across all four models, and the gap widens at distal distances."&gt;
 		&lt;/a&gt;&lt;/figure&gt;&lt;p&gt;Two patterns hold across all four models:&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;Predictions are systematically smaller in magnitude than observed knockdowns.&lt;/strong&gt; Even where the rank ordering is right (good Spearman), the predicted effect sizes are compressed.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Predictions are systematically smaller in magnitude than observed knockdowns.&lt;/strong&gt; Even where the rank ordering is right (good Spearman), the predicted effect sizes are compressed.&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;The gap grows with distance.&lt;/strong&gt; Models capture some of the distance-decay biology, but the slope is shallower than the data demands — most obviously for Enformer and NTv3, less so for AlphaGenome.&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h3 id="how-you-read-the-output-matters"&gt;How you read the output matters
 &lt;/h3&gt;&lt;p&gt;A short aside: AlphaGenome&amp;rsquo;s RNA-Seq head, aggregated as the mean signal across the target gene&amp;rsquo;s GENCODE exons (their paper&amp;rsquo;s preferred approach), beats AlphaGenome&amp;rsquo;s CAGE head on Gasperini (Pearson 0.45 vs. 0.39). On Fulco the difference is small (0.67 vs. 0.66). So if you&amp;rsquo;re benchmarking a new model on these screens, your output-aggregation choice should be considered carefully!&lt;/p&gt;
 &lt;figure&gt;&lt;a href="https://genomicsxai.github.io/previews/pr-63/blogs/2026-007/crispri_suppfig2.png" class="image-link" data-pswp-width="4917" data-pswp-height="3542"&gt;
-		&lt;img src="https://genomicsxai.github.io/previews/pr-63/blogs/2026-007/crispri_suppfig2.png" width="4917" height="3542"loading="lazy"
-			alt="Figure 3: Predicted vs. measured fractional knockdown for Enformer and AlphaGenome CAGE track and RNA-Seq track on (a) Fulco 2019 and (b) Gasperini 2019. Points coloured by enhancer-to-TSS distance. AlphaGenome’s RNA-Seq head with GENCODE-exon aggregation beats its CAGE head on Gasperini and is comparable on Fulco. The dashed x = y line marks perfect prediction (predicted = observed); points falling below it indicate the model underestimates the experimental knockdown."
-			 class="gallery-image" data-flex-grow="138" data-flex-basis="333px"&gt;
+		&lt;img src="https://genomicsxai.github.io/previews/pr-63/blogs/2026-007/crispri_suppfig2.png" width="900px" height="648"loading="lazy"
+			alt="Figure 3"
+			title="Figure 3: Predicted vs. measured fractional knockdown for Enformer and AlphaGenome CAGE track and RNA-Seq track on (a) Fulco 2019 and (b) Gasperini 2019. Points coloured by enhancer-to-TSS distance. AlphaGenome&amp;#39;s RNA-Seq head with GENCODE-exon aggregation beats its CAGE head on Gasperini and is comparable on Fulco. The dashed x = y line marks perfect prediction (predicted = observed); points falling below it indicate the model underestimates the experimental knockdown." data-title-escaped="Figure 3: Predicted vs. measured fractional knockdown for Enformer and AlphaGenome CAGE track and RNA-Seq track on (a) Fulco 2019 and (b) Gasperini 2019. Points coloured by enhancer-to-TSS distance. AlphaGenome&amp;amp;#39;s RNA-Seq head with GENCODE-exon aggregation beats its CAGE head on Gasperini and is comparable on Fulco. The dashed x = y line marks perfect prediction (predicted = observed); points falling below it indicate the model underestimates the experimental knockdown."&gt;
 		&lt;/a&gt;&lt;/figure&gt;&lt;h3 id="scoring-it-two-ways"&gt;Scoring it two ways
-&lt;/h3&gt;&lt;p&gt;A second aside: we computed the predicted effect two ways. Figure 1 used the linear &lt;code&gt;pred_delta = (WT − mean(shuffle)) / WT&lt;/code&gt;. We also computed :&lt;/p&gt;
-&lt;p&gt;\log_{2}\left(\frac{WT}{\operatorname{mean}(\mathrm{shuffle})}\right)&lt;br&gt;
-\text{ against }&lt;br&gt;
--\log_{2}\left(1 - y_{\delta}\right)&lt;/p&gt;
-&lt;p&gt;A log fold-change scaling that de-emphasises a few high-end outliers. Figure 4 shows the \log_{2} version. Spearman is identical between the two scorings (rank-invariant); Pearson shifts a few hundredths but the model ranking is the same.&lt;/p&gt;
+&lt;/h3&gt;&lt;p&gt;A second aside: we computed the predicted effect two ways. Figure 1 used the linear &lt;code&gt;pred_delta = (WT − mean(shuffle)) / WT&lt;/code&gt;. We also computed log&lt;sub&gt;2&lt;/sub&gt;(WT / mean(shuffle)) against −log&lt;sub&gt;2&lt;/sub&gt;(1 − y_delta) — a log fold-change scaling that de-emphasises a few high-end outliers. Figure 4 shows the log&lt;sub&gt;2&lt;/sub&gt; version. Spearman is identical between the two scorings (rank-invariant); Pearson shifts a few hundredths but the model ranking is the same.&lt;/p&gt;
 &lt;figure&gt;&lt;a href="https://genomicsxai.github.io/previews/pr-63/blogs/2026-007/crispri_suppfig1.png" class="image-link" data-pswp-width="4917" data-pswp-height="3542"&gt;
-		&lt;img src="https://genomicsxai.github.io/previews/pr-63/blogs/2026-007/crispri_suppfig1.png" width="4917" height="3542"loading="lazy"
-			alt="Figure 4: Predicted vs. measured knockdown on the log2 alignment scale (log2(WT / mean(shuffle)) vs. −log2(1 − y_delta)) for Borzoi, NTv3, and AlphaGenome on (a) Fulco 2019 and (b) Gasperini 2019. Enformer omitted. Points coloured by enhancer-to-TSS distance. Model ranking matches Figure 1; Pearson shifts a few hundredths, Spearman is identical. The dashed x = y line marks perfect prediction (predicted = observed); points falling below it indicate the model underestimates the experimental knockdown."
-			 class="gallery-image" data-flex-grow="138" data-flex-basis="333px"&gt;
-		&lt;/a&gt;&lt;/figure&gt;&lt;h2 id="limitations"&gt;Limitations
+		&lt;img src="https://genomicsxai.github.io/previews/pr-63/blogs/2026-007/crispri_suppfig1.png" width="900px" height="648"loading="lazy"
+			alt="Figure 4"
+			title="Figure 4: Predicted vs. measured knockdown on the log2 alignment scale (log2(WT / mean(shuffle)) vs. −log2(1 − y_delta)) for Borzoi, NTv3, and AlphaGenome on (a) Fulco 2019 and (b) Gasperini 2019. Enformer omitted. Points coloured by enhancer-to-TSS distance. Model ranking matches Figure 1; Pearson shifts a few hundredths, Spearman is identical. The dashed x = y line marks perfect prediction (predicted = observed); points falling below it indicate the model underestimates the experimental knockdown." data-title-escaped="Figure 4: Predicted vs. measured knockdown on the log2 alignment scale (log2(WT / mean(shuffle)) vs. −log2(1 − y_delta)) for Borzoi, NTv3, and AlphaGenome on (a) Fulco 2019 and (b) Gasperini 2019. Enformer omitted. Points coloured by enhancer-to-TSS distance. Model ranking matches Figure 1; Pearson shifts a few hundredths, Spearman is identical. The dashed x = y line marks perfect prediction (predicted = observed); points falling below it indicate the model underestimates the experimental knockdown."&gt;
+		&lt;/a&gt;&lt;/figure&gt;&lt;hr&gt;
+&lt;h2 id="limitations"&gt;Limitations
 &lt;/h2&gt;&lt;p&gt;A few things to flag about our analysis.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Differences from Karollus 2023.&lt;/strong&gt; We cross-checked our Enformer reimplementation against Karollus&amp;rsquo;s original code line-by-line with an LLM (&lt;a class="link" href="https://www.anthropic.com/" target="_blank" rel="noopener"
  &gt;Claude Opus 4.7&lt;/a&gt;). Our Enformer numbers don&amp;rsquo;t exactly match their published ones despite following the same trends. Four deliberate departures from their approach may explain some of this gap:&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;Window construction.&lt;/strong&gt; Karollus reads precomputed `sequence_start`/`sequence_end` from a fixed table, designed so both TSS and enhancer sit inside Enformer&amp;rsquo;s central crop. We build the window on-the-fly as strict TSS-centred so that all models were compared equally.&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;No test time augmentations - orientation/offset averaging.&lt;/strong&gt; Karollus uses test time augmentations by averages 2 orientations × 3 offsets per sequence (612 forward passes per pair). We run 1 × 1 (51 forward passes with the orientation mnatching the gene of interest). We know shifting and reverse complementing will likely marginally improve performance but for benchmarking, we wanted to test every model on a single pass on the correct orientation of the gene of interest.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Window construction.&lt;/strong&gt; Karollus reads precomputed &lt;code&gt;sequence_start&lt;/code&gt;/&lt;code&gt;sequence_end&lt;/code&gt; from a fixed table, designed so both TSS and enhancer sit inside Enformer&amp;rsquo;s central crop. We build the window on-the-fly as strict TSS-centred so that all models were compared equally.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;No test time augmentations - orientation/offset averaging.&lt;/strong&gt; Karollus uses test time augmentations by averages 2 orientations × 3 offsets per sequence (612 forward passes per pair). We run 1 × 1 (51 forward passes with the orientation mnatching the gene of interest). We know shifting and reverse complementing will likely marginally improve performance but for benchmarking, we wanted to test every model on a single pass on the correct orientation of the gene of interest.&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;No N-replacement control.&lt;/strong&gt; Karollus also runs an all-N enhancer replacement (replacing every base with the &amp;ldquo;N&amp;rdquo; wildcard) as a stronger knockout than shuffling. We deliberately don&amp;rsquo;t: a 2 kb stretch of pure N is out-of-distribution for these models, they may see scattered Ns in gap-adjacent or repeat-masked positions during training, but never contiguous blocks of this size. Predictions there reflect how the model handles unfamiliar input, not how it responds to motif loss, which is the actual question. The dinucleotide shuffle keeps the model in-distribution and isolates the motif-loss signal cleanly.&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Linear vs. \log_{2} observed effect.&lt;/strong&gt; Karollus uses \log_{2}\left(1 + \mathrm{fraction\_change}\right); we report the linear fractional change and the \log_{2} observed effect. Spearman is identical; Pearson differs by a small log-vs-linear distortion.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Linear vs. log&lt;sub&gt;2&lt;/sub&gt; observed effect.&lt;/strong&gt; Karollus uses log&lt;sub&gt;2&lt;/sub&gt;(1 + fraction_change); we report the linear fractional change and the log&lt;sub&gt;2&lt;/sub&gt; observed effect. Spearman is identical; Pearson differs by a small log-vs-linear distortion.&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;These won&amp;rsquo;t change model ordering, but absolute Pearson values will move a few hundredths.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;K562 only.&lt;/strong&gt; Both screens are in K562, and K562 is heavily represented in every model&amp;rsquo;s training data. None of these numbers say anything about how the models would do on cell types under-represented in training. We&amp;rsquo;d expect the gap between models, and between predictions and truth, to widen there.&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;In-silico ≠ real CRISPRi.&lt;/strong&gt; Dinucleotide shuffling destroys motif content but doesn&amp;rsquo;t capture chromatin context changes, dCas9 occupancy, or 3D genome reorganisation. It&amp;rsquo;s a motif-loss proxy, not a full simulation. Karollus discusses this; worth keeping in mind when reading the numbers.&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;CRISPRi isn&amp;rsquo;t purely &lt;em&gt;cis&lt;/em&gt;.&lt;/strong&gt; Knocking down an enhancer can affect other nearby genes, or the target gene&amp;rsquo;s own regulatory partners, whose altered expression shifts the cellular context against which we measure the target. Part of any measured enhancer effect is downstream of these indirect (trans) effects, which a sequence-only model predicting from a TSS-centred window can&amp;rsquo;t capture.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;In-silico ≠ real CRISPRi.&lt;/strong&gt; Dinucleotide shuffling destroys motif content but doesn&amp;rsquo;t capture chromatin context changes, dCas9 occupancy, or 3D genome reorganisation. It&amp;rsquo;s a motif-loss proxy, not a full simulation. Karollus discusses this; worth keeping in mind when reading the numbers.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;CRISPRi isn&amp;rsquo;t purely cis.&lt;/strong&gt; Knocking down an enhancer can affect other nearby genes, or the target gene&amp;rsquo;s own regulatory partners, whose altered expression shifts the cellular context against which we measure the target. Part of any measured enhancer effect is downstream of these indirect (trans) effects, which a sequence-only model predicting from a TSS-centred window can&amp;rsquo;t capture.&lt;/p&gt;
+&lt;hr&gt;
 &lt;h2 id="implications"&gt;Implications
 &lt;/h2&gt;&lt;p&gt;The benchmark gives a clean, model-agnostic test for any new seq2func model on a biologically meaningful task. AlphaGenome&amp;rsquo;s gains over Enformer and Borzoi are real, and most pronounced on the larger, harder Gasperini screen. But even the best model still leaves the majority of variance unexplained and underestimates the magnitude of distal-enhancer effects — which matters for downstream applications like CRE prioritisation and enhancer design.&lt;/p&gt;
 &lt;p&gt;Echoing &lt;a class="link" href="https://www.biorxiv.org/content/10.1101/2025.08.05.668750v2.full" target="_blank" rel="noopener"
  &gt;Shen 2025&lt;/a&gt; from a different angle: AlphaGenome moves the needle, but there&amp;rsquo;s still a long way to go.&lt;/p&gt;
 &lt;p&gt;The repo is set up so adding a fifth model is one new &lt;code&gt;scripts/test_&amp;lt;dataset&amp;gt;_&amp;lt;newmodel&amp;gt;.py&lt;/code&gt; writing a CSV with &lt;code&gt;y_delta&lt;/code&gt; and &lt;code&gt;pred_delta&lt;/code&gt; columns. If you&amp;rsquo;ve got a model you want to test, we&amp;rsquo;d love to see it!&lt;/p&gt;
+&lt;hr&gt;
 &lt;h2 id="code-and-links"&gt;Code and links
 &lt;/h2&gt;&lt;ul&gt;
-&lt;li&gt;Source code &amp;amp; evaluation scripts: &lt;a class="link" href="https://github.com/Al-Murphy/seq2func_crispri_eval" target="_blank" rel="noopener"
- &gt;https://github.com/Al-Murphy/seq2func_crispri_eval&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;Karollus et al., 2023 — the benchmark this extends: &lt;a class="link" href="https://genomebiology.biomedcentral.com/articles/10.1186/s13059-023-02899-9" target="_blank" rel="noopener"
- &gt;https://genomebiology.biomedcentral.com/articles/10.1186/s13059-023-02899-9&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;SequenceModelBenchmark Zenodo (Karollus tables): &lt;a class="link" href="https://zenodo.org/records/8275436" target="_blank" rel="noopener"
- &gt;https://zenodo.org/records/8275436&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;Models:
-&lt;ul&gt;
-&lt;li&gt;Enformer (PyTorch): &lt;a class="link" href="https://github.com/lucidrains/enformer-pytorch" target="_blank" rel="noopener"
- &gt;https://github.com/lucidrains/enformer-pytorch&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;Borzoi: &lt;a class="link" href="https://github.com/calico/borzoi" target="_blank" rel="noopener"
- &gt;https://github.com/calico/borzoi&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;Flashzoi: &lt;a class="link" href="https://huggingface.co/johahi" target="_blank" rel="noopener"
- &gt;https://huggingface.co/johahi&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;NTv3: &lt;a class="link" href="https://huggingface.co/InstaDeepAI/NTv3_650M_post" target="_blank" rel="noopener"
- &gt;https://huggingface.co/InstaDeepAI/NTv3_650M_post&lt;/a&gt; &lt;/li&gt;
-&lt;li&gt;AlphaGenome PyTorch port: &lt;a class="link" href="https://github.com/genomicsxai/alphagenome-pytorch" target="_blank" rel="noopener"
- &gt;https://github.com/genomicsxai/alphagenome-pytorch&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class="link" href="https://github.com/Al-Murphy/seq2func_crispri_eval" target="_blank" rel="noopener"
+ &gt;Source code &amp;amp; evaluation scripts&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class="link" href="https://genomebiology.biomedcentral.com/articles/10.1186/s13059-023-02899-9" target="_blank" rel="noopener"
+ &gt;Karollus et al., 2023 — the benchmark this extends&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class="link" href="https://zenodo.org/records/8275436" target="_blank" rel="noopener"
+ &gt;SequenceModelBenchmark Zenodo (Karollus tables)&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Models: &lt;a class="link" href="https://github.com/lucidrains/enformer-pytorch" target="_blank" rel="noopener"
+ &gt;Enformer (PyTorch)&lt;/a&gt; · &lt;a class="link" href="https://github.com/calico/borzoi" target="_blank" rel="noopener"
+ &gt;Borzoi&lt;/a&gt; · &lt;a class="link" href="https://huggingface.co/johahi" target="_blank" rel="noopener"
+ &gt;Flashzoi&lt;/a&gt; · &lt;a class="link" href="https://huggingface.co/InstaDeepAI/NTv3_650M_post" target="_blank" rel="noopener"
+ &gt;NTv3&lt;/a&gt; · &lt;a class="link" href="https://github.com/genomicsxai/alphagenome-pytorch" target="_blank" rel="noopener"
+ &gt;AlphaGenome PyTorch port&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
+&lt;hr&gt;
 &lt;h2 id="tldr"&gt;TL;DR
 &lt;/h2&gt;&lt;ul&gt;
 &lt;li&gt;We benchmark &lt;strong&gt;Enformer, Borzoi, NTv3, and AlphaGenome&lt;/strong&gt; zero-shot on two K562 CRISPRi enhancer screens (Fulco 2019, Gasperini 2019), extending &lt;a class="link" href="https://genomebiology.biomedcentral.com/articles/10.1186/s13059-023-02899-9" target="_blank" rel="noopener"
  &gt;Karollus et al., 2023&lt;/a&gt;.&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;AlphaGenome leads&lt;/strong&gt; — Pearson 0.67 on Fulco, 0.45 on Gasperini. Borzoi is a close second on Fulco, a distant second on Gasperini. Enformer and NTv3 fail on Gasperini.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;AlphaGenome leads&lt;/strong&gt; — Pearson 0.67 on Fulco, 0.45 on Gasperini. Borzoi is a close second on Fulco, a distant second on Gasperini. Enformer and NTv3 fail on Gasperini.&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;All four models systematically underpredict knockdown magnitude&lt;/strong&gt;, and the gap widens with enhancer–TSS distance.&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;AlphaGenome&amp;rsquo;s RNA-Seq exon-aggregation head outperforms its CAGE head&lt;/strong&gt; on Gasperini — output aggregation matters.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;AlphaGenome&amp;rsquo;s RNA-Seq exon-aggregation head outperforms its CAGE head&lt;/strong&gt; on Gasperini — output aggregation matters.&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;Limitations&lt;/strong&gt;: K562 only, in-silico shuffle as a motif-loss proxy, indirect trans effects in real CRISPRi that no sequence-only model can capture, small differences from Karollus&amp;rsquo;s original implementation.&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;AlphaGenome improves CRISPRi effect prediction. The remaining gap, especially for distal CREs, is still an open problem for the field.&lt;/p&gt;
+&lt;hr&gt;
 &lt;h2 id="references"&gt;References
 &lt;/h2&gt;&lt;ol&gt;
-&lt;li&gt;Avsec, Ž. et al. Effective gene expression prediction from sequence by integrating long-range interactions. _Nature Methods_, 18, 1196–1203 (2021).&lt;/li&gt;
-&lt;li&gt;Linder, J. et al. Predicting RNA-seq coverage from DNA sequence as a unifying model of gene regulation. _Nature Genetics_, 56, 2532–2543 (2024).&lt;/li&gt;
-&lt;li&gt;Boshar, S. et al. A foundational model for joint sequence-function multi-species modeling at scale for long-range genomic prediction. &lt;em&gt;bioRxiv&lt;/em&gt; (2025). &lt;a class="link" href="https://doi.org/10.64898/2025.12.22.695963" target="_blank" rel="noopener"
+&lt;li&gt;Avsec, Ž. et al. Effective gene expression prediction from sequence by integrating long-range interactions. &lt;em&gt;Nature Methods&lt;/em&gt;, 18, 1196–1203 (2021).&lt;/li&gt;
+&lt;li&gt;Linder, J. et al. Predicting RNA-seq coverage from DNA sequence as a unifying model of gene regulation. &lt;em&gt;Nature Genetics&lt;/em&gt;, 56, 2532–2543 (2024).&lt;/li&gt;
+&lt;li&gt;Boshar, S. et al. A foundational model for joint sequence-function multi-species modeling at scale for long-range genomic prediction. &lt;em&gt;bioRxiv&lt;/em&gt; (2025). &lt;a class="link" href="https://doi.org/10.64898/2025.12.22.695963" target="_blank" rel="noopener"
  &gt;https://doi.org/10.64898/2025.12.22.695963&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;Avsec, Ž. et al. Advancing regulatory variant effect prediction with AlphaGenome. &lt;em&gt;Nature&lt;/em&gt; (2025). &lt;a class="link" href="https://doi.org/10.1038/s41586-025-10014-0" target="_blank" rel="noopener"
  &gt;https://doi.org/10.1038/s41586-025-10014-0&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;Karollus, A., Hingorani, N., Gagneur, J. Current sequence-to-expression models do not faithfully reflect cis-regulatory effects. &lt;em&gt;Genome Biology&lt;/em&gt;, 24, 56 (2023).&lt;/li&gt;
 &lt;li&gt;Fulco, C. P. et al. Activity-by-contact model of enhancer–promoter regulation from thousands of CRISPR perturbations. &lt;em&gt;Nature Genetics&lt;/em&gt;, 51, 1664–1669 (2019).&lt;/li&gt;
 &lt;li&gt;Gasperini, M. et al. A genome-wide framework for mapping gene regulation via cellular genetic screens. &lt;em&gt;Cell&lt;/em&gt;, 176, 377–390.e19 (2019).&lt;/li&gt;
-&lt;li&gt;Shen, L. AlphaGenome enhances personal gene expression prediction but retains key limitations. &lt;em&gt;bioRxiv&lt;/em&gt; (2025). &lt;a class="link" href="https://doi.org/10.1101/2025.08.05.668750" target="_blank" rel="noopener"
+&lt;li&gt;Shen, L. AlphaGenome enhances personal gene expression prediction but retains key limitations. &lt;em&gt;bioRxiv&lt;/em&gt; (2025). &lt;a class="link" href="https://doi.org/10.1101/2025.08.05.668750" target="_blank" rel="noopener"
  &gt;https://doi.org/10.1101/2025.08.05.668750&lt;/a&gt;&lt;/li&gt;
 &lt;/ol&gt;</description></item><item><title>Fine-tuning AlphaGenome in native JAX/Haiku</title><link>https://genomicsxai.github.io/previews/pr-63/blogs/2026-003/</link><pubDate>Wed, 25 Feb 2026 00:00:00 +0000</pubDate><guid>https://genomicsxai.github.io/previews/pr-63/blogs/2026-003/</guid><description>&lt;img src="https://genomicsxai.github.io/previews/pr-63/" alt="Featured image of post Fine-tuning AlphaGenome in native JAX/Haiku" /&gt;&lt;aside class="summary-box"&gt;
  &lt;h2 class="summary-box__title"&gt;Summary&lt;/h2&gt;
