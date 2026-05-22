@@ -445,9 +445,11 @@ Unless required by applicable law or agreed to in writing, software distributed 
  &lt;/blockquote&gt;
 &lt;hr&gt;
 &lt;h2 id="compute-requirements"&gt;Compute requirements
-&lt;/h2&gt;&lt;ul&gt;
-&lt;li&gt;Fine-tuning with a frozen backbone typically fits on a single, high VRAM GPU (e.g., H100).&lt;/li&gt;
-&lt;li&gt;Full-model fine-tuning or large batch training will essentially require multi-GPU or TPU setups.&lt;/li&gt;
+&lt;/h2&gt;&lt;p&gt;A full analysis of the runtime requirements for fine-tuning AlphaGenome is &lt;a class="link" href="https://genomicsxai.github.io/blogs/2026-005/" target="_blank" rel="noopener"
+ &gt;highlighted in separate blog post&lt;/a&gt; but in short:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Fine-tuning with a frozen backbone, i.e. head-only fine-tuning will fit on a single, middle of the range GPU, maxing out at around 14-27 GB vram (batch size 1).&lt;/li&gt;
+&lt;li&gt;For full Fine-tuning, you will need at least 76.1 GB vram, so a H100/H200 GPU.&lt;/li&gt;
 &lt;/ul&gt;
 &lt;hr&gt;
 &lt;h2 id="code-and-tutorials"&gt;Code and tutorials
@@ -457,6 +459,8 @@ Unless required by applicable law or agreed to in writing, software distributed 
 &lt;li&gt;Colab notebooks: &lt;a class="link" href="https://colab.research.google.com/github/genomicsxai/alphagenome_ft/blob/main/notebooks/finetune_encoder_only_mpra.ipynb" target="_blank" rel="noopener"
  &gt;Encoder Fine-tuning (MPRA)&lt;/a&gt; | &lt;a class="link" href="https://colab.research.google.com/github/genomicsxai/alphagenome_ft/blob/main/notebooks/finetune_rna_head_only.ipynb" target="_blank" rel="noopener"
  &gt;Heads-only Fine-tuning&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class="link" href="https://genomicsxai.github.io/blogs/2026-005/" target="_blank" rel="noopener"
+ &gt;Benchmarking AlphaGenome on NVIDIA GPUs: latency, memory, and feasibility across sequence lengths&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;hr&gt;
 &lt;h2 id="tldr"&gt;TL;DR
