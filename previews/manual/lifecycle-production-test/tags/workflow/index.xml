@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Workflow on Genomics x AI</title><link>https://genomicsxai.github.io/previews/manual/lifecycle-production-test/tags/workflow/</link><description>Recent content in Workflow on Genomics x AI</description><generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Tue, 26 May 2026 00:00:00 +0000</lastBuildDate><atom:link href="https://genomicsxai.github.io/previews/manual/lifecycle-production-test/tags/workflow/index.xml" rel="self" type="application/rss+xml"/><item><title>Production DOI Lifecycle Validation Fixture</title><link>https://genomicsxai.github.io/previews/manual/lifecycle-production-test/blogs/lifecycle-26475289832-accepted/</link><pubDate>Tue, 26 May 2026 00:00:00 +0000</pubDate><guid>https://genomicsxai.github.io/previews/manual/lifecycle-production-test/blogs/lifecycle-26475289832-accepted/</guid><description>&lt;aside class="summary-box"&gt;
+ &lt;h2 class="summary-box__title"&gt;Summary&lt;/h2&gt;
+ &lt;div class="summary-box__body"&gt;
+ This generated accepted fixture validates production Zenodo DOI creation, versioned DOI updates, and Google Scholar metadata rendering.
+ &lt;/div&gt;
+&lt;/aside&gt;
+
+&lt;p&gt;This CI-generated operational test fixture is revision 3.&lt;/p&gt;
+&lt;p&gt;It exists only in the workflow workspace. The resulting Zenodo record is a permanent production DOI test record.&lt;/p&gt;</description></item><item><title>Submitted Lifecycle Fixture</title><link>https://genomicsxai.github.io/previews/manual/lifecycle-production-test/blogs/lifecycle-26475289832-submitted/</link><pubDate>Tue, 26 May 2026 00:00:00 +0000</pubDate><guid>https://genomicsxai.github.io/previews/manual/lifecycle-production-test/blogs/lifecycle-26475289832-submitted/</guid><description>&lt;aside class="summary-box"&gt;
+ &lt;h2 class="summary-box__title"&gt;Summary&lt;/h2&gt;
+ &lt;div class="summary-box__body"&gt;
+ This generated lifecycle fixture validates Google Scholar metadata and Zenodo DOI workflow behavior.
+ &lt;/div&gt;
+&lt;/aside&gt;
+
+&lt;p&gt;This post is generated during CI and should not be committed to the repository.&lt;/p&gt;</description></item><item><title>Withdrawn Lifecycle Fixture</title><link>https://genomicsxai.github.io/previews/manual/lifecycle-production-test/blogs/lifecycle-26475289832-withdrawn/</link><pubDate>Tue, 26 May 2026 00:00:00 +0000</pubDate><guid>https://genomicsxai.github.io/previews/manual/lifecycle-production-test/blogs/lifecycle-26475289832-withdrawn/</guid><description>&lt;aside class="summary-box"&gt;
+ &lt;h2 class="summary-box__title"&gt;Summary&lt;/h2&gt;
+ &lt;div class="summary-box__body"&gt;
+ This generated lifecycle fixture validates Google Scholar metadata and Zenodo DOI workflow behavior.
+ &lt;/div&gt;
+&lt;/aside&gt;
+
+&lt;p&gt;This post is generated during CI and should not be committed to the repository.&lt;/p&gt;</description></item></channel></rss>
