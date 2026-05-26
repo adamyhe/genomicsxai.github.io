@@ -10,6 +10,7 @@ ROOT = File.expand_path("../..", __dir__)
 PUBLIC_DIR = File.join(ROOT, "public")
 DATA_PATH = File.join(ROOT, "data", "zenodo.json")
 BASE_URL = ENV.fetch("SITE_URL", "https://genomicsxai.github.io").sub(%r{/+\z}, "")
+PRODUCTION_BASE_URL = "https://genomicsxai.github.io"
 REQUIRE_ACCEPTED_DOI = ARGV.include?("--require-accepted-doi")
 ASSERT_NON_ACCEPTED_ABSENT = ARGV.include?("--assert-non-accepted-absent")
 
@@ -105,7 +106,9 @@ Dir.glob(File.join(ROOT, "content", "blogs", "*", "index.md")).sort.each do |pat
   end
 
   robots = meta_values(html, "robots").join(",")
-  errors << "#{path}: production article page must not be noindex" if robots.match?(/noindex/i)
+  if BASE_URL == PRODUCTION_BASE_URL && robots.match?(/noindex/i)
+    errors << "#{path}: production article page must not be noindex"
+  end
 end
 
 if errors.any?
