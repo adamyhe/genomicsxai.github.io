@@ -11,6 +11,7 @@ PUBLIC_DIR = File.join(ROOT, "public")
 DATA_PATH = File.join(ROOT, "data", "zenodo.json")
 BASE_URL = ENV.fetch("SITE_URL", "https://genomicsxai.github.io").sub(%r{/+\z}, "")
 REQUIRE_ACCEPTED_DOI = ARGV.include?("--require-accepted-doi")
+ASSERT_NON_ACCEPTED_ABSENT = ARGV.include?("--assert-non-accepted-absent")
 
 def frontmatter(path)
   raw = File.read(path)
@@ -46,12 +47,25 @@ errors = []
 
 Dir.glob(File.join(ROOT, "content", "blogs", "*", "index.md")).sort.each do |path|
   fm = frontmatter(path)
-  next if fm["draft"] == true
-  next unless fm["status"].to_s == "accepted"
-
   post_id = fm.fetch("post_id")
   rel_html = File.join("blogs", post_id, "index.html")
   html_path = File.join(PUBLIC_DIR, rel_html)
+
+  if fm["draft"] == true
+    errors << "#{path}: draft post should not be built at public/#{rel_html}" if ASSERT_NON_ACCEPTED_ABSENT && File.exist?(html_path)
+    next
+  end
+
+  unless fm["status"].to_s == "accepted"
+    if ASSERT_NON_ACCEPTED_ABSENT && File.exist?(html_path)
+      html = File.read(html_path)
+      %w[citation_title citation_author citation_publication_date citation_doi].each do |name|
+        values = meta_values(html, name)
+        errors << "#{path}: non-accepted post must not emit #{name}" unless values.empty?
+      end
+    end
+    next
+  end
 
   unless File.exist?(html_path)
     errors << "#{path}: expected built page at public/#{rel_html}"

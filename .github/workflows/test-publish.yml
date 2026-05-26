@@ -26,6 +26,11 @@ on:
         required: false
         default: "https://sandbox.zenodo.org/api"
         type: string
+      lifecycle_fixture_test:
+        description: "Generate fake lifecycle posts and test submitted, withdrawn, draft, accepted, and accepted revisions."
+        required: false
+        default: false
+        type: boolean
 
 concurrency:
   group: test-publish-${{ github.ref_name }}
@@ -102,12 +107,23 @@ jobs:
           chmod +x .github/scripts/fetch-editors.sh
           ./.github/scripts/fetch-editors.sh
 
+      - name: Generate lifecycle fixture posts
+        if: github.event.inputs.lifecycle_fixture_test == 'true'
+        env:
+          LIFECYCLE_FIXTURE_ID: ${{ github.run_id }}
+          ACCEPTED_REVISION: 1
+        run: |
+          chmod +x .github/scripts/generate-lifecycle-fixtures.rb
+          ruby .github/scripts/generate-lifecycle-fixtures.rb
+
       - name: Detect changed blog posts
         id: changed_blogs
         shell: bash
         run: |
-          INPUT="${{ github.event.inputs.blog_post_paths }}"
-          if [ -n "$INPUT" ]; then
+          if [ "${{ github.event.inputs.lifecycle_fixture_test }}" = "true" ]; then
+            mapfile -t files < /tmp/lifecycle-blog-posts.txt
+          elif [ -n "${{ github.event.inputs.blog_post_paths }}" ]; then
+            INPUT="${{ github.event.inputs.blog_post_paths }}"
             read -r -a files <<< "$INPUT"
           else
             BEFORE="${{ github.event.before }}"
@@ -140,7 +156,7 @@ jobs:
           cat /tmp/changed-blog-posts.txt
 
       - name: Validate selected blog posts for Zenodo testing
-        if: steps.changed_blogs.outputs.count != '0' && github.event.inputs.blog_post_paths != ''
+        if: steps.changed_blogs.outputs.count != '0' && github.event.inputs.blog_post_paths != '' && github.event.inputs.lifecycle_fixture_test != 'true'
         shell: bash
         run: |
           while IFS= read -r path; do
@@ -198,8 +214,46 @@ jobs:
           chmod +x .github/scripts/sync-zenodo-dois.rb
           ruby .github/scripts/sync-zenodo-dois.rb $(tr '\n' ' ' < /tmp/changed-blog-posts.txt)
 
+      - name: Sync accepted lifecycle revision 2
+        if: github.event.inputs.lifecycle_fixture_test == 'true'
+        env:
+          ZENODO_API_TOKEN: ${{ secrets.ZENODO_API_TOKEN }}
+          ZENODO_SANDBOX_API_TOKEN: ${{ secrets.ZENODO_SANDBOX_API_TOKEN }}
+          ZENODO_COMMUNITY: ${{ secrets.ZENODO_COMMUNITY }}
+          ZENODO_API_BASE: ${{ github.event.inputs.zenodo_api_base }}
+          SITE_URL: ${{ steps.preview.outputs.preview_url }}
+          DRY_RUN: ${{ github.event.inputs.zenodo_dry_run == 'true' && '1' || '0' }}
+          LIFECYCLE_FIXTURE_ID: ${{ github.run_id }}
+          ACCEPTED_REVISION: 2
+        run: |
+          ruby .github/scripts/generate-lifecycle-fixtures.rb
+          if [[ "$ZENODO_API_BASE" == *"sandbox.zenodo.org"* ]]; then
+            ZENODO_API_TOKEN="$ZENODO_SANDBOX_API_TOKEN"
+            export ZENODO_API_TOKEN
+          fi
+          ruby .github/scripts/sync-zenodo-dois.rb $(cat /tmp/lifecycle-accepted-post.txt)
+
+      - name: Sync accepted lifecycle revision 3
+        if: github.event.inputs.lifecycle_fixture_test == 'true'
+        env:
+          ZENODO_API_TOKEN: ${{ secrets.ZENODO_API_TOKEN }}
+          ZENODO_SANDBOX_API_TOKEN: ${{ secrets.ZENODO_SANDBOX_API_TOKEN }}
+          ZENODO_COMMUNITY: ${{ secrets.ZENODO_COMMUNITY }}
+          ZENODO_API_BASE: ${{ github.event.inputs.zenodo_api_base }}
+          SITE_URL: ${{ steps.preview.outputs.preview_url }}
+          DRY_RUN: ${{ github.event.inputs.zenodo_dry_run == 'true' && '1' || '0' }}
+          LIFECYCLE_FIXTURE_ID: ${{ github.run_id }}
+          ACCEPTED_REVISION: 3
+        run: |
+          ruby .github/scripts/generate-lifecycle-fixtures.rb
+          if [[ "$ZENODO_API_BASE" == *"sandbox.zenodo.org"* ]]; then
+            ZENODO_API_TOKEN="$ZENODO_SANDBOX_API_TOKEN"
+            export ZENODO_API_TOKEN
+          fi
+          ruby .github/scripts/sync-zenodo-dois.rb $(cat /tmp/lifecycle-accepted-post.txt)
+
       - name: Commit Zenodo metadata
-        if: steps.changed_blogs.outputs.count != '0' && github.event.inputs.zenodo_dry_run != 'true'
+        if: steps.changed_blogs.outputs.count != '0' && github.event.inputs.zenodo_dry_run != 'true' && github.event.inputs.lifecycle_fixture_test != 'true'
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
@@ -228,7 +282,21 @@ jobs:
           if [ "${{ github.event.inputs.zenodo_dry_run }}" != "true" ]; then
             args+=(--require-accepted-doi)
           fi
+          if [ "${{ github.event.inputs.lifecycle_fixture_test }}" = "true" ]; then
+            args+=(--assert-non-accepted-absent)
+          fi
           ruby .github/scripts/validate-scholar-metadata.rb "${args[@]}"
+
+      - name: Validate lifecycle fixture Zenodo metadata
+        if: github.event.inputs.lifecycle_fixture_test == 'true'
+        env:
+          LIFECYCLE_FIXTURE_ID: ${{ github.run_id }}
+        run: |
+          args=()
+          if [ "${{ github.event.inputs.zenodo_dry_run }}" != "true" ]; then
+            args+=(--require-doi)
+          fi
+          ruby .github/scripts/validate-lifecycle-fixtures.rb "${args[@]}"
 
       - name: Upload build artifact
         uses: actions/upload-artifact@v4
@@ -263,6 +331,10 @@ jobs:
             echo "- Deploy preview: ${{ steps.preview_flags.outputs.should_deploy_preview }}"
             echo "- Zenodo dry run: ${{ github.event.inputs.zenodo_dry_run }}"
             echo "- Zenodo API base: ${{ github.event.inputs.zenodo_api_base }}"
+            echo "- Lifecycle fixture test: ${{ github.event.inputs.lifecycle_fixture_test }}"
             echo "- Changed blog count: ${{ steps.changed_blogs.outputs.count || '0' }}"
             echo "- Explicit blog selection: ${{ github.event.inputs.blog_post_paths != '' && 'yes' || 'no' }}"
+            if [ "${{ github.event.inputs.lifecycle_fixture_test }}" = "true" ]; then
+              echo "- Lifecycle fixture prefix: lifecycle-${{ github.run_id }}"
+            fi
           } >> "$GITHUB_STEP_SUMMARY"

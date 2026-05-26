@@ -32,3 +32,5 @@ Recommended first run:
 6. Run the workflow and check the preview under `https://genomicsxai.github.io/previews/manual/<preview_slug>/`.
 
 For an end-to-end Zenodo test, set `zenodo_dry_run=false`, point `zenodo_api_base` at `https://sandbox.zenodo.org/api`, and make sure the selected post has frontmatter `status: "accepted"`.
+
+To test the full lifecycle matrix, run the same workflow with `lifecycle_fixture_test=true`. The workflow generates temporary submitted, withdrawn, draft, and accepted posts in the Actions workspace, syncs the accepted fixture through revisions 1, 2, and 3, validates that only accepted posts emit Google Scholar metadata, and uploads the generated Zenodo metadata as an artifact. For a production DOI lifecycle test, set `zenodo_dry_run=false` and `zenodo_api_base=https://zenodo.org/api`; this creates permanent production Zenodo records for the generated accepted fixture.
