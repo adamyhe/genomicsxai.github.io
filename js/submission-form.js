@@ -581,9 +581,9 @@
         span.className = 'submit-form__image-name';
         span.textContent = f.name + ' (' + (f.size / 1024).toFixed(0) + ' KB)';
 
-        var captionInput = document.createElement('input');
-        captionInput.type = 'text';
+        var captionInput = document.createElement('textarea');
         captionInput.className = 'submit-form__image-caption';
+        captionInput.rows = 3;
         captionInput.placeholder = 'Caption (figure legend, optional)';
         captionInput.value = self.captions[self.sanitizeName(f.name)] || '';
         captionInput.dataset.filename = self.sanitizeName(f.name);
@@ -1072,9 +1072,9 @@
         span.className = 'submit-form__image-name';
         span.textContent = f.name;
 
-        var captionInput = document.createElement('input');
-        captionInput.type = 'text';
+        var captionInput = document.createElement('textarea');
         captionInput.className = 'submit-form__image-caption';
+        captionInput.rows = 3;
         captionInput.placeholder = 'Caption (figure legend, optional)';
 
         var insertBtn = document.createElement('button');

@@ -1,9 +1,52 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Pages on Genomics x AI</title><link>https://genomicsxai.github.io/page/</link><description>Recent content in Pages on Genomics x AI</description><generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Tue, 19 May 2026 16:55:55 -0400</lastBuildDate><atom:link href="https://genomicsxai.github.io/page/index.xml" rel="self" type="application/rss+xml"/><item><title>Submission Guidelines</title><link>https://genomicsxai.github.io/submission-guidelines/</link><pubDate>Fri, 01 May 2026 00:00:00 +0000</pubDate><guid>https://genomicsxai.github.io/submission-guidelines/</guid><description>&lt;h2 id="submit-your-blog-post"&gt;Submit Your Blog Post
-&lt;/h2&gt;&lt;p&gt;The Genomics × AI blog uses a peer-reviewed, Git-native workflow. Write your
-post from the template, sign in with GitHub, and the form below will fork the
-repository, commit your files, and open a pull request — all automatically.&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Pages on Genomics x AI</title><link>https://genomicsxai.github.io/page/</link><description>Recent content in Pages on Genomics x AI</description><generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Thu, 28 May 2026 10:31:36 -0400</lastBuildDate><atom:link href="https://genomicsxai.github.io/page/index.xml" rel="self" type="application/rss+xml"/><item><title>Submission Guidelines</title><link>https://genomicsxai.github.io/submission-guidelines/</link><pubDate>Fri, 01 May 2026 00:00:00 +0000</pubDate><guid>https://genomicsxai.github.io/submission-guidelines/</guid><description>&lt;h2 id="submit-your-blog-post"&gt;Submit Your Blog Post
+&lt;/h2&gt;&lt;p&gt;The Genomics × AI blog uses a light, non-gate keeping peer-review, Git-native
+workflow. There are &lt;strong&gt;two ways to submit a post&lt;/strong&gt; — both go through the same
+editorial review and produce the same final published post. Pick whichever
+fits how you like to work:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Option 1 — Open a pull request.&lt;/strong&gt; Fastest path if you&amp;rsquo;re already
+comfortable with Git and Markdown: write your post locally, push a branch,
+open a PR.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Option 2 — Use the online submission form.&lt;/strong&gt; No local Git required. Sign
+in with GitHub and either upload a template &lt;code&gt;index.md&lt;/code&gt; or write the post
+from scratch in the form&amp;rsquo;s text fields. The form forks the repo, commits
+your files, and opens the PR for you.&lt;/li&gt;
+&lt;/ul&gt;
 &lt;p&gt;You&amp;rsquo;ll need a &lt;a class="link" href="https://github.com/signup" target="_blank" rel="noopener"
- &gt;GitHub account&lt;/a&gt;.&lt;/p&gt;
+ &gt;GitHub account&lt;/a&gt; for either path.&lt;/p&gt;
+&lt;hr&gt;
+&lt;h3 id="option-1--open-a-pull-request-for-git--markdown-users"&gt;Option 1 — Open a pull request (for Git / Markdown users)
+&lt;/h3&gt;&lt;p&gt;If you already work in Git, this is the quickest route:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a class="link" href="https://github.com/genomicsxai/genomicsxai.github.io/fork" target="_blank" rel="noopener"
+ &gt;Fork the repository&lt;/a&gt;.&lt;/li&gt;
+&lt;li&gt;Copy the
+&lt;a class="link" href="https://github.com/genomicsxai/genomicsxai.github.io/blob/main/docs/blog-post-template.md" target="_blank" rel="noopener"
+ &gt;blog post template&lt;/a&gt;
+and fill in the YAML frontmatter.&lt;/li&gt;
+&lt;li&gt;Add your post to &lt;code&gt;content/blogs/YYYY-NNN/index.md&lt;/code&gt;; place images in the
+&lt;strong&gt;same folder&lt;/strong&gt; (e.g. &lt;code&gt;content/blogs/YYYY-NNN/figure1.png&lt;/code&gt;).&lt;/li&gt;
+&lt;li&gt;Your PR must contain &lt;strong&gt;only&lt;/strong&gt; files inside &lt;code&gt;content/blogs/YYYY-NNN/&lt;/code&gt; — no
+changes to &lt;code&gt;static/&lt;/code&gt;, &lt;code&gt;config.toml&lt;/code&gt;, &lt;code&gt;.github/&lt;/code&gt;, etc. If the preview bot
+posts &amp;ldquo;Preview Deployment Skipped&amp;rdquo;, the comment lists the offending files.&lt;/li&gt;
+&lt;li&gt;Open a pull request against &lt;code&gt;main&lt;/code&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;To revise an already-published post, just open a new PR with your changes —
+editors will treat it as a revision and update &lt;code&gt;revision&lt;/code&gt; /
+&lt;code&gt;revision_history&lt;/code&gt; on merge.&lt;/p&gt;
+&lt;hr&gt;
+&lt;h3 id="option-2--use-the-online-submission-form-no-git-required"&gt;Option 2 — Use the online submission form (no Git required)
+&lt;/h3&gt;&lt;p&gt;If you&amp;rsquo;d rather not work in Git locally, the form below does the Git work
+for you. Sign in with GitHub and you can either:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Upload a template &lt;code&gt;index.md&lt;/code&gt;&lt;/strong&gt; (plus any images) — the form parses your
+frontmatter and you can edit any field before submitting, or&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Write the post from scratch&lt;/strong&gt; in the form&amp;rsquo;s text windows — fill in
+title, authors, tags, scope, audience, summary, and body in dedicated
+fields, with drag-and-drop image uploads and a caption per image.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;When you submit, the form validates the frontmatter, forks the repo, creates
+a branch, commits your files, and opens the PR on your behalf.&lt;/p&gt;
 &lt;div id="submit-form" class="submit-form"&gt;
 
  
@@ -276,49 +319,33 @@ repository, commit your files, and open a pull request — all automatically.&lt
  &lt;/script&gt;
 &lt;/div&gt;
 
-&lt;hr&gt;
-&lt;h2 id="how-submission-works"&gt;How submission works
-&lt;/h2&gt;&lt;ol&gt;
-&lt;li&gt;&lt;strong&gt;Write your post&lt;/strong&gt; — Download the template (button above), fill in the YAML
-frontmatter, write your Summary + Sections, and run an internal lab review.&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Submit via the form&lt;/strong&gt; — Upload your &lt;code&gt;index.md&lt;/code&gt; and any images. The form
-validates frontmatter, forks the repo, creates a branch, commits, and opens
-a PR for you.&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Preview&lt;/strong&gt; — Within a few minutes a bot posts a comment with a live preview
-URL. It updates on each new commit. The preview may 404 for 1–2 minutes
-while GitHub Pages propagates.&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Editor review&lt;/strong&gt; — Editors run a lightweight
-&lt;a class="link" href="https://genomicsxai.github.io/editorial-review/" target="_blank" rel="noopener"
- &gt;Minimal Viable Review (MVR)&lt;/a&gt;
-for clarity, correctness, and fit. They may request changes via PR comments.&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Going live&lt;/strong&gt; — Once approved, editors merge the PR and GitHub Actions
-deploys the post.&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Updates&lt;/strong&gt; — After your post is merged you can revise it through the same
-form. Sign in, choose &lt;strong&gt;Update one of my previous posts&lt;/strong&gt;, pick the post
-from the dropdown (only posts you originally submitted appear), and add a
-one-line revision note. You can either pre-fill the form from the published
-version and edit, or start blank for a full rewrite. Submitting opens a PR
-that bumps &lt;code&gt;revision&lt;/code&gt;, appends to &lt;code&gt;revision_history&lt;/code&gt;, and re-enters
-editorial review.&lt;/li&gt;
-&lt;/ol&gt;
+&lt;p&gt;&lt;strong&gt;To revise an already-published post via the form&lt;/strong&gt;, sign in and choose
+&lt;strong&gt;Update one of my previous posts&lt;/strong&gt;, then pick the post from the dropdown
+(only posts you originally submitted appear) and add a one-line revision
+note. You can either pre-fill the form from the published version and edit,
+or start blank for a full rewrite. Submitting opens a PR that bumps
+&lt;code&gt;revision&lt;/code&gt;, appends to &lt;code&gt;revision_history&lt;/code&gt;, and re-enters editorial review.&lt;/p&gt;
 &lt;p&gt;On first use, the form asks you to authorize the &lt;strong&gt;Genomics × AI Submission&lt;/strong&gt;
 OAuth app. It requests the &lt;code&gt;public_repo&lt;/code&gt; scope — enough to fork, branch,
 commit, and PR on your behalf. It can&amp;rsquo;t read private repositories or change
 your account settings. Revoke any time from your
 &lt;a class="link" href="https://github.com/settings/applications" target="_blank" rel="noopener"
  &gt;Authorized OAuth Apps&lt;/a&gt;.&lt;/p&gt;
-&lt;h3 id="prefer-git-submit-a-pr-manually"&gt;Prefer Git? Submit a PR manually
-&lt;/h3&gt;&lt;p&gt;If you&amp;rsquo;d rather work directly in Git:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;a class="link" href="https://github.com/genomicsxai/genomicsxai.github.io/fork" target="_blank" rel="noopener"
- &gt;Fork the repository&lt;/a&gt;.&lt;/li&gt;
-&lt;li&gt;Add your post to &lt;code&gt;content/blogs/YYYY-NNN/index.md&lt;/code&gt;; place images in the
-&lt;strong&gt;same folder&lt;/strong&gt; (e.g. &lt;code&gt;content/blogs/YYYY-NNN/figure1.png&lt;/code&gt;).&lt;/li&gt;
-&lt;li&gt;Your PR must contain &lt;strong&gt;only&lt;/strong&gt; files inside &lt;code&gt;content/blogs/YYYY-NNN/&lt;/code&gt; — no
-changes to &lt;code&gt;static/&lt;/code&gt;, &lt;code&gt;config.toml&lt;/code&gt;, &lt;code&gt;.github/&lt;/code&gt;, etc. If the preview bot
-posts &amp;ldquo;Preview Deployment Skipped&amp;rdquo;, the comment lists the offending files.&lt;/li&gt;
-&lt;li&gt;Open a pull request against &lt;code&gt;main&lt;/code&gt; with the submission template filled out.&lt;/li&gt;
-&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h2 id="what-happens-after-you-submit"&gt;What happens after you submit
+&lt;/h2&gt;&lt;p&gt;Both options lead to the same review pipeline:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;Preview&lt;/strong&gt; — Within a few minutes a bot posts a comment on your PR with a
+live preview URL. It updates on each new commit. The preview may 404 for
+1–2 minutes while GitHub Pages propagates.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Editor review&lt;/strong&gt; — Editors run a lightweight
+&lt;a class="link" href="https://genomicsxai.github.io/editorial-review/" target="_blank" rel="noopener"
+ &gt;Minimal Viable Review (MVR)&lt;/a&gt;
+for clarity, correctness, and fit. They may request changes via PR
+comments.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Going live&lt;/strong&gt; — Once approved, editors merge the PR and GitHub Actions
+deploys the post.&lt;/li&gt;
+&lt;/ol&gt;
 &lt;h2 id="writing-notes"&gt;Writing notes
 &lt;/h2&gt;&lt;ul&gt;
 &lt;li&gt;There are no strict stylistic requirements, but posts should be clear,
