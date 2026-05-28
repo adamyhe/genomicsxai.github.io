@@ -241,12 +241,6 @@ a branch, commits your files, and opens the PR on your behalf.&lt;/p&gt;
  &lt;label class="submit-form__label" for="sf-date"&gt;Date&lt;/label&gt;
  &lt;input type="date" id="sf-date" class="submit-form__input" readonly&gt;
  &lt;/div&gt;
-
- &lt;div class="submit-form__field"&gt;
- &lt;label class="submit-form__checkbox"&gt;
- &lt;input type="checkbox" id="sf-math" class="submit-form__editable"&gt; Post uses LaTeX math equations
- &lt;/label&gt;
- &lt;/div&gt;
  &lt;/div&gt;
 
  
