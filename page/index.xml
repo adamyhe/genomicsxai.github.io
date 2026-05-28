@@ -274,7 +274,7 @@ a branch, commits your files, and opens the PR on your behalf.&lt;/p&gt;
  
  &lt;div id="submit-form__images-subsection" class="submit-form__body-images"&gt;
  &lt;h4 class="submit-form__subsection-title"&gt;Images&lt;/h4&gt;
- &lt;p class="submit-form__help"&gt;Upload images you want to embed. Max 10 MB per file, 50 MB total. Type an optional &lt;strong&gt;caption&lt;/strong&gt; next to each thumbnail (shown as the figure legend on the published page), then click &lt;strong&gt;Insert&lt;/strong&gt; to drop a placeholder into the text above.&lt;/p&gt;
+ &lt;p class="submit-form__help"&gt;Upload images you want to embed. Max 10 MB per file, 50 MB total. Type an optional &lt;strong&gt;caption&lt;/strong&gt; next to each thumbnail (shown as the figure legend on the published page), then click &lt;strong&gt;Insert&lt;/strong&gt; to drop a placeholder into the text above. Click &lt;strong&gt;☆ Featured&lt;/strong&gt; on any image to use it as the post's thumbnail (sets &lt;code&gt;image:&lt;/code&gt; in the frontmatter).&lt;/p&gt;
 
  
  &lt;div id="submit-form__existing-images-wrap" class="submit-form__existing-images" hidden&gt;
@@ -293,6 +293,9 @@ a branch, commits your files, and opens the PR on your behalf.&lt;/p&gt;
 
  
  &lt;div id="submit-form__actions" class="submit-form__section"&gt;
+ &lt;div id="submit-form__missing-summary" class="submit-form__missing-summary" hidden&gt;
+ Please complete: &lt;span id="submit-form__missing-list"&gt;&lt;/span&gt;
+ &lt;/div&gt;
  &lt;button type="button" id="submit-form__submit-btn" class="submit-form__btn submit-form__btn--primary submit-form__btn--large" disabled&gt;
  Submit Blog Post
  &lt;/button&gt;
