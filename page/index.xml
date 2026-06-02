@@ -194,6 +194,58 @@ a branch, commits your files, and opens the PR on your behalf.&lt;/p&gt;
  &lt;/div&gt;
 
  &lt;div class="submit-form__field"&gt;
+ &lt;label class="submit-form__label submit-form__label--required"&gt;Category&lt;/label&gt;
+ &lt;span class="submit-form__help"&gt;Which homepage pill your post appears under. Default is &lt;strong&gt;Blog Post&lt;/strong&gt; — pick another only if it clearly fits.&lt;/span&gt;
+ &lt;div class="submit-form__radio-group"&gt;
+ &lt;div class="submit-form__radio-item"&gt;
+ &lt;label class="submit-form__radio"&gt;
+ &lt;input type="radio" name="sf-category" value="Announcement" class="submit-form__editable"&gt;
+ &lt;span class="submit-form__radio-label"&gt;
+ Announcement
+ &lt;span class="submit-form__radio-note"&gt;Editorial and community announcements.&lt;/span&gt;
+ &lt;/span&gt;
+ &lt;/label&gt;
+ &lt;/div&gt;
+ &lt;div class="submit-form__radio-item"&gt;
+ &lt;label class="submit-form__radio"&gt;
+ &lt;input type="radio" name="sf-category" value="Blog Post" class="submit-form__editable" checked&gt;
+ &lt;span class="submit-form__radio-label"&gt;
+ Blog Post &lt;em&gt;(default)&lt;/em&gt;
+ &lt;span class="submit-form__radio-note"&gt;Standard research write-ups.&lt;/span&gt;
+ &lt;/span&gt;
+ &lt;/label&gt;
+ &lt;/div&gt;
+ &lt;div class="submit-form__radio-item"&gt;
+ &lt;label class="submit-form__radio"&gt;
+ &lt;input type="radio" name="sf-category" value="Tutorial" class="submit-form__editable"&gt;
+ &lt;span class="submit-form__radio-label"&gt;
+ Tutorial
+ &lt;span class="submit-form__radio-note"&gt;Step-by-step technical guides.&lt;/span&gt;
+ &lt;/span&gt;
+ &lt;/label&gt;
+ &lt;/div&gt;
+ &lt;div class="submit-form__radio-item"&gt;
+ &lt;label class="submit-form__radio"&gt;
+ &lt;input type="radio" name="sf-category" value="Perspective" class="submit-form__editable"&gt;
+ &lt;span class="submit-form__radio-label"&gt;
+ Perspective
+ &lt;span class="submit-form__radio-note"&gt;Opinion pieces, field commentary.&lt;/span&gt;
+ &lt;/span&gt;
+ &lt;/label&gt;
+ &lt;/div&gt;
+ &lt;div class="submit-form__radio-item"&gt;
+ &lt;label class="submit-form__radio"&gt;
+ &lt;input type="radio" name="sf-category" value="Paper Reviews" class="submit-form__editable"&gt;
+ &lt;span class="submit-form__radio-label"&gt;
+ Paper Reviews
+ &lt;span class="submit-form__radio-note"&gt;Summaries or critiques of a published paper.&lt;/span&gt;
+ &lt;/span&gt;
+ &lt;/label&gt;
+ &lt;/div&gt;
+ &lt;/div&gt;
+ &lt;/div&gt;
+
+ &lt;div class="submit-form__field"&gt;
  &lt;label class="submit-form__label submit-form__label--required"&gt;Scope&lt;/label&gt;
  &lt;div class="submit-form__checkbox-group"&gt;
  &lt;label class="submit-form__checkbox"&gt;&lt;input type="checkbox" id="sf-scope-protocols" class="submit-form__editable"&gt; protocols&lt;/label&gt;

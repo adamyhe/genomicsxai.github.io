@@ -1429,6 +1429,26 @@
       $$('.submit-form__discipline').forEach(function (cb) {
         cb.checked = existingTags.indexOf(cb.dataset.slug) !== -1;
       });
+
+      // Category radio — uploaded/prefilled `categories: [...]` ticks the
+      // matching radio; if no match (legacy/unknown value) or no value at
+      // all, fall back to "Blog Post" so the form always has a valid choice.
+      var fmCategory = (Array.isArray(fm.categories) && fm.categories.length > 0)
+        ? String(fm.categories[0])
+        : 'Blog Post';
+      var matched = false;
+      $$('input[name="sf-category"]').forEach(function (r) {
+        if (r.value === fmCategory) {
+          r.checked = true;
+          matched = true;
+        } else {
+          r.checked = false;
+        }
+      });
+      if (!matched) {
+        var fallback = $('input[name="sf-category"][value="Blog Post"]');
+        if (fallback) fallback.checked = true;
+      }
     },
 
     bindAuthorRemoveButtons: function () {
@@ -1524,7 +1544,14 @@
 
       // Auto-set fields
       fm.editor = fm.editor || 'TBD';
-      fm.categories = fm.categories || ['Blog Post'];
+      // Category — read from the radio group. The HTML pre-checks the
+      // "Blog Post" radio so this always returns a value; the fm.categories
+      // fallback only matters if the radios somehow aren't in the DOM
+      // (e.g. JS run before shortcode rendered).
+      var categoryRadio = $('input[name="sf-category"]:checked');
+      fm.categories = categoryRadio
+        ? [categoryRadio.value]
+        : (fm.categories || ['Blog Post']);
       fm.status = 'submitted';
 
       if (UpdateMode.active) {
