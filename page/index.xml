@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Pages on Genomics x AI</title><link>https://genomicsxai.github.io/page/</link><description>Recent content in Pages on Genomics x AI</description><generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Thu, 28 May 2026 10:31:36 -0400</lastBuildDate><atom:link href="https://genomicsxai.github.io/page/index.xml" rel="self" type="application/rss+xml"/><item><title>Submission Guidelines</title><link>https://genomicsxai.github.io/submission-guidelines/</link><pubDate>Fri, 01 May 2026 00:00:00 +0000</pubDate><guid>https://genomicsxai.github.io/submission-guidelines/</guid><description>&lt;h2 id="submit-your-blog-post"&gt;Submit Your Blog Post
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Pages on Genomics x AI</title><link>https://genomicsxai.github.io/page/</link><description>Recent content in Pages on Genomics x AI</description><generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Thu, 25 Jun 2026 08:18:21 -0400</lastBuildDate><atom:link href="https://genomicsxai.github.io/page/index.xml" rel="self" type="application/rss+xml"/><item><title>Submission Guidelines</title><link>https://genomicsxai.github.io/submission-guidelines/</link><pubDate>Fri, 01 May 2026 00:00:00 +0000</pubDate><guid>https://genomicsxai.github.io/submission-guidelines/</guid><description>&lt;h2 id="submit-your-blog-post"&gt;Submit Your Blog Post
 &lt;/h2&gt;&lt;p&gt;The Genomics × AI blog uses a light, non-gate keeping peer-review, Git-native
 workflow. There are &lt;strong&gt;two ways to submit a post&lt;/strong&gt; — both go through the same
 editorial review and produce the same final published post. Pick whichever
@@ -270,7 +270,7 @@ a branch, commits your files, and opens the PR on your behalf.&lt;/p&gt;
 
  &lt;div class="submit-form__field"&gt;
  &lt;label class="submit-form__label submit-form__label--required"&gt;Discipline&lt;/label&gt;
- &lt;span class="submit-form__help"&gt;At least one required — promotes your post under the homepage Discipline filter.&lt;/span&gt;
+ &lt;span class="submit-form__help"&gt;At least one required — select all that apply. Promotes your post under the homepage Discipline filter(s).&lt;/span&gt;
  &lt;div class="submit-form__checkbox-group"&gt;
  &lt;label class="submit-form__checkbox"&gt;&lt;input type="checkbox" class="submit-form__editable submit-form__discipline" data-slug="seq2func" id="sf-discipline-seq2func"&gt; Sequence-to-Function Modeling&lt;/label&gt;
  &lt;label class="submit-form__checkbox"&gt;&lt;input type="checkbox" class="submit-form__editable submit-form__discipline" data-slug="context-seq2func" id="sf-discipline-context-seq2func"&gt; Context-aware Seq-to-Function&lt;/label&gt;
@@ -279,6 +279,7 @@ a branch, commits your files, and opens the PR on your behalf.&lt;/p&gt;
  &lt;label class="submit-form__checkbox"&gt;&lt;input type="checkbox" class="submit-form__editable submit-form__discipline" data-slug="interpretability" id="sf-discipline-interpretability"&gt; Interpretability / Mech AI&lt;/label&gt;
  &lt;label class="submit-form__checkbox"&gt;&lt;input type="checkbox" class="submit-form__editable submit-form__discipline" data-slug="multi-omics" id="sf-discipline-multi-omics"&gt; Multi-omics&lt;/label&gt;
  &lt;label class="submit-form__checkbox"&gt;&lt;input type="checkbox" class="submit-form__editable submit-form__discipline" data-slug="experimental-design" id="sf-discipline-experimental-design"&gt; Experimental Design Loop&lt;/label&gt;
+ &lt;label class="submit-form__checkbox"&gt;&lt;input type="checkbox" class="submit-form__editable submit-form__discipline" data-slug="ai-agents" id="sf-discipline-ai-agents"&gt; AI Agents&lt;/label&gt;
  &lt;/div&gt;
  &lt;div id="sf-error-discipline" class="submit-form__field-error" hidden&gt;&lt;/div&gt;
  &lt;/div&gt;
@@ -364,7 +365,7 @@ a branch, commits your files, and opens the PR on your behalf.&lt;/p&gt;
  &lt;div id="submit-form__form-error" class="submit-form__message submit-form__message--error" hidden&gt;&lt;/div&gt;
  &lt;div id="submit-form__success" class="submit-form__message submit-form__message--success" hidden&gt;&lt;/div&gt;
 
- &lt;script type="application/json" id="submit-form__disciplines-data"&gt;"[\"seq2func\",\"context-seq2func\",\"single-cell\",\"synthetic-biology\",\"interpretability\",\"multi-omics\",\"experimental-design\"]"
+ &lt;script type="application/json" id="submit-form__disciplines-data"&gt;"[\"seq2func\",\"context-seq2func\",\"single-cell\",\"synthetic-biology\",\"interpretability\",\"multi-omics\",\"experimental-design\",\"ai-agents\"]"
  &lt;/script&gt;
 &lt;/div&gt;
 
@@ -471,7 +472,7 @@ Open your discussion and click &lt;strong&gt;Subscribe&lt;/strong&gt; for that t
 &lt;h3 id="d-metadata-and-tagging"&gt;D. Metadata and tagging
 &lt;/h3&gt;&lt;ul&gt;
 &lt;li&gt;&lt;strong&gt;&lt;code&gt;tags&lt;/code&gt;&lt;/strong&gt; are relevant and consistent with the post&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;At least one discipline tag&lt;/strong&gt; is present (&lt;code&gt;seq2func&lt;/code&gt;, &lt;code&gt;context-seq2func&lt;/code&gt;, &lt;code&gt;single-cell&lt;/code&gt;, &lt;code&gt;synthetic-biology&lt;/code&gt;, &lt;code&gt;interpretability&lt;/code&gt;, &lt;code&gt;multi-omics&lt;/code&gt;, or &lt;code&gt;experimental-design&lt;/code&gt;) so the post surfaces under the homepage Discipline filter&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;At least one discipline tag&lt;/strong&gt; is present (&lt;code&gt;seq2func&lt;/code&gt;, &lt;code&gt;context-seq2func&lt;/code&gt;, &lt;code&gt;single-cell&lt;/code&gt;, &lt;code&gt;synthetic-biology&lt;/code&gt;, &lt;code&gt;interpretability&lt;/code&gt;, &lt;code&gt;multi-omics&lt;/code&gt;, &lt;code&gt;experimental-design&lt;/code&gt;, or &lt;code&gt;ai-agents&lt;/code&gt;) so the post surfaces under the homepage Discipline filter — a post may carry more than one when it spans several disciplines&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;&lt;code&gt;categories&lt;/code&gt;&lt;/strong&gt; and &lt;strong&gt;&lt;code&gt;scope&lt;/code&gt;&lt;/strong&gt; reflect the piece&lt;/li&gt;
 &lt;li&gt;Title accurately reflects content&lt;/li&gt;
 &lt;/ul&gt;
@@ -641,7 +642,7 @@ Open your discussion and click &lt;strong&gt;Subscribe&lt;/strong&gt; for that t
 &lt;li&gt;Provide structured feedback to authors&lt;/li&gt;
 &lt;li&gt;Ensure scientific accuracy and clarity&lt;/li&gt;
 &lt;li&gt;Enforce submission and community guidelines&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Ensure each post is tagged with at least one discipline before approval&lt;/strong&gt; (e.g. Sequence-to-Function Modeling, Single-cell Modeling, Synthetic Biology) so it surfaces under the &lt;a class="link" href="https://genomicsxai.github.io/" &gt;homepage Discipline filter&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Ensure each post is tagged with at least one discipline before approval&lt;/strong&gt; (e.g. Sequence-to-Function Modeling, Single-cell Modeling, Synthetic Biology, AI Agents) so it surfaces under the &lt;a class="link" href="https://genomicsxai.github.io/" &gt;homepage Discipline filter&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;Editorial decisions are made collaboratively when needed.&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;Review follows the &lt;a class="link" href="https://genomicsxai.github.io/editorial-review/" &gt;Minimal Editorial Review (MVR) framework&lt;/a&gt;. Editorial decisions are made collaboratively when needed.&lt;/p&gt;
