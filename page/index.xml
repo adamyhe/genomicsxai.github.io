@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Pages on Genomics x AI</title><link>https://genomicsxai.github.io/page/</link><description>Recent content in Pages on Genomics x AI</description><generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Thu, 25 Jun 2026 08:18:21 -0400</lastBuildDate><atom:link href="https://genomicsxai.github.io/page/index.xml" rel="self" type="application/rss+xml"/><item><title>Submission Guidelines</title><link>https://genomicsxai.github.io/submission-guidelines/</link><pubDate>Fri, 01 May 2026 00:00:00 +0000</pubDate><guid>https://genomicsxai.github.io/submission-guidelines/</guid><description>&lt;h2 id="submit-your-blog-post"&gt;Submit Your Blog Post
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Pages on Genomics x AI</title><link>https://genomicsxai.github.io/page/</link><description>Recent content in Pages on Genomics x AI</description><generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Wed, 01 Jul 2026 13:22:39 -0400</lastBuildDate><atom:link href="https://genomicsxai.github.io/page/index.xml" rel="self" type="application/rss+xml"/><item><title>Submission Guidelines</title><link>https://genomicsxai.github.io/submission-guidelines/</link><pubDate>Fri, 01 May 2026 00:00:00 +0000</pubDate><guid>https://genomicsxai.github.io/submission-guidelines/</guid><description>&lt;h2 id="submit-your-blog-post"&gt;Submit Your Blog Post
 &lt;/h2&gt;&lt;p&gt;The Genomics × AI blog uses a light, non-gate keeping peer-review, Git-native
 workflow. There are &lt;strong&gt;two ways to submit a post&lt;/strong&gt; — both go through the same
 editorial review and produce the same final published post. Pick whichever
@@ -548,6 +548,11 @@ Open your discussion and click &lt;strong&gt;Subscribe&lt;/strong&gt; for that t
 &lt;li&gt;&lt;strong&gt;Major revisions&lt;/strong&gt;&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;Not Accepted&lt;/strong&gt; (out of scope or insufficient quality)&lt;/li&gt;
 &lt;/ul&gt;
+
+ &lt;blockquote&gt;
+ &lt;p&gt;&lt;strong&gt;Reviewer credit is automatic.&lt;/strong&gt; When the PR is merged, any editor who engaged with it — through a formal review, a review comment, or a conversation comment — is added to the post&amp;rsquo;s &lt;code&gt;editor:&lt;/code&gt; frontmatter automatically (regardless of the outcome). You don&amp;rsquo;t need to edit that field by hand; only members of the &lt;code&gt;@genomicsxai/editors&lt;/code&gt; team are credited, so authors and other commenters are never added.&lt;/p&gt;
+
+ &lt;/blockquote&gt;
 &lt;hr&gt;
 &lt;h2 id="4-minimal-review-checklist"&gt;4. Minimal review checklist
 &lt;/h2&gt;&lt;h3 id="must-pass-hard-requirements"&gt;Must pass (hard requirements)
