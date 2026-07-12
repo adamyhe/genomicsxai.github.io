@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Pages on Genomics x AI</title><link>https://genomicsxai.github.io/page/</link><description>Recent content in Pages on Genomics x AI</description><generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Wed, 01 Jul 2026 13:22:39 -0400</lastBuildDate><atom:link href="https://genomicsxai.github.io/page/index.xml" rel="self" type="application/rss+xml"/><item><title>Submission Guidelines</title><link>https://genomicsxai.github.io/submission-guidelines/</link><pubDate>Fri, 01 May 2026 00:00:00 +0000</pubDate><guid>https://genomicsxai.github.io/submission-guidelines/</guid><description>&lt;h2 id="submit-your-blog-post"&gt;Submit Your Blog Post
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Pages on Genomics x AI</title><link>https://genomicsxai.github.io/page/</link><description>Recent content in Pages on Genomics x AI</description><generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Sun, 12 Jul 2026 09:57:58 -0400</lastBuildDate><atom:link href="https://genomicsxai.github.io/page/index.xml" rel="self" type="application/rss+xml"/><item><title>Submission Guidelines</title><link>https://genomicsxai.github.io/submission-guidelines/</link><pubDate>Fri, 01 May 2026 00:00:00 +0000</pubDate><guid>https://genomicsxai.github.io/submission-guidelines/</guid><description>&lt;h2 id="submit-your-blog-post"&gt;Submit Your Blog Post
 &lt;/h2&gt;&lt;p&gt;The Genomics × AI blog uses a light, non-gate keeping peer-review, Git-native
 workflow. There are &lt;strong&gt;two ways to submit a post&lt;/strong&gt; — both go through the same
 editorial review and produce the same final published post. Pick whichever
@@ -401,10 +401,35 @@ deploys the post.&lt;/li&gt;
 &lt;li&gt;There are no strict stylistic requirements, but posts should be clear,
 accessible, and engaging for a broad scientific audience.&lt;/li&gt;
 &lt;li&gt;Use headings, figures, and examples where helpful.&lt;/li&gt;
-&lt;li&gt;Cite prior work via hyperlinks or formal inline citations; a references
-section at the end is encouraged.&lt;/li&gt;
+&lt;li&gt;Cite prior work via hyperlinks or formal inline citations, and &lt;strong&gt;include a
+numbered References section at the end&lt;/strong&gt;, with a DOI or publisher link for
+each entry wherever one exists. See &lt;a class="link" href="#why-references-matter-for-google-scholar" &gt;Why references matter for Google
+Scholar&lt;/a&gt; below.&lt;/li&gt;
 &lt;li&gt;Ensure claims are supported by appropriate sources.&lt;/li&gt;
 &lt;/ul&gt;
+&lt;h2 id="why-references-matter-for-google-scholar"&gt;Why references matter for Google Scholar
+&lt;/h2&gt;&lt;p&gt;Every accepted post is assigned a &lt;a class="link" href="https://zenodo.org/" target="_blank" rel="noopener"
+ &gt;Zenodo&lt;/a&gt; DOI and
+publishes Google Scholar metadata, so your post is eligible to appear in
+Google Scholar and to be cited like any other article. Getting listed there is
+one of the main reasons to publish with us rather than on a personal blog.&lt;/p&gt;
+&lt;p&gt;Scholar does not index everything it can crawl, though. It only includes
+documents its parser judges to be &lt;em&gt;scholarly articles&lt;/em&gt;, and a reference list
+appears to be one of the signals it uses to tell a research article apart from
+an ordinary web page.&lt;/p&gt;
+&lt;p&gt;We want to be upfront that &lt;strong&gt;this is something we have observed, not a
+documented rule&lt;/strong&gt; — Google does not publish the details of how this decision is
+made. What we have seen across our own posts is that the ones with a
+substantial, DOI-linked bibliography were picked up by Scholar, while posts
+with no references (or a single unlinked one) were not, even when they were
+long, published earlier, and otherwise complete. Length and publication date
+did not predict inclusion; the reference list did.&lt;/p&gt;
+&lt;p&gt;So: a References section is not a hard requirement for acceptance, and a post
+without one can still be published. But if you would like your post to be
+discoverable and citable in Google Scholar, cite the primary literature your
+work builds on and give each entry a DOI. Even if Scholar has already crawled
+your post, adding references later is worthwhile — it will be reconsidered on a
+future crawl, though this can take weeks.&lt;/p&gt;
 &lt;h2 id="what-editors-look-for"&gt;What editors look for
 &lt;/h2&gt;&lt;p&gt;Editors aim to confirm, in a lightweight pass, that your post:&lt;/p&gt;
 &lt;ul&gt;
@@ -515,6 +540,15 @@ Open your discussion and click &lt;strong&gt;Subscribe&lt;/strong&gt; for that t
 &lt;/div&gt;
 &lt;p&gt;False positives are usually obvious (the word &lt;code&gt;onclick&lt;/code&gt; inside a fenced code block discussing event handlers, the string &lt;code&gt;&amp;lt;script&amp;gt;&lt;/code&gt; inside a quoted example). If a match is genuine raw HTML the author intended to publish, ask them to either remove it or convert it to a fenced code block (&lt;code&gt;```&lt;/code&gt;) so it renders as text, not as live HTML. &lt;strong&gt;When in doubt, reject.&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;Until the site moves the OAuth token to an HttpOnly cookie or adopts a strict CSP, this check is the only thing standing between a malicious submission and every signed-in reader&amp;rsquo;s GitHub account.&lt;/p&gt;
+&lt;h3 id="h-references-and-google-scholar-indexing"&gt;H. References and Google Scholar indexing
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;A &lt;strong&gt;References section&lt;/strong&gt; is present at the end of the post&lt;/li&gt;
+&lt;li&gt;References are &lt;strong&gt;numbered&lt;/strong&gt; and cite the primary literature, with a &lt;strong&gt;DOI or publisher link&lt;/strong&gt; per entry wherever one exists&lt;/li&gt;
+&lt;li&gt;Inline links to blog posts, repos, or docs are welcome, but they do &lt;strong&gt;not&lt;/strong&gt; substitute for a bibliography of the papers the work builds on&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;Why this matters:&lt;/strong&gt; every accepted post emits Google Scholar (Highwire) metadata and gets a Zenodo DOI, so posts are eligible to appear in Google Scholar. But Scholar does not index everything it can crawl — it only includes documents its parser classifies as &lt;em&gt;scholarly articles&lt;/em&gt;, and a reference list is a primary signal it uses to tell a research article apart from an ordinary web page.&lt;/p&gt;
+&lt;p&gt;To be clear, this is &lt;strong&gt;an observation, not a documented rule&lt;/strong&gt; — we cannot see Google&amp;rsquo;s classifier. What we have noticed is that, of our accepted posts, the ones carrying a substantial DOI-linked bibliography were picked up by Scholar, while posts with no references (or a single unlinked one) were not, even when they were long, older, and otherwise well-formed. Post length and publication date did not predict inclusion; the reference list did.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Decision rule:&lt;/strong&gt; treat a missing or token References section as a change request, not a blocker. Ask the author to add the papers the post already builds on. A post can still be accepted without one — it will simply be much less likely to surface in Scholar.&lt;/p&gt;
 &lt;hr&gt;
 &lt;h2 id="2-executive-summary-requirement"&gt;2. Executive summary requirement
 &lt;/h2&gt;&lt;h3 id="purpose"&gt;Purpose
@@ -571,6 +605,7 @@ Open your discussion and click &lt;strong&gt;Subscribe&lt;/strong&gt; for that t
 &lt;li&gt;&lt;input disabled="" type="checkbox"&gt; Clear takeaway or value&lt;/li&gt;
 &lt;li&gt;&lt;input disabled="" type="checkbox"&gt; Appropriate level for audience&lt;/li&gt;
 &lt;li&gt;&lt;input disabled="" type="checkbox"&gt; References and links included where needed&lt;/li&gt;
+&lt;li&gt;&lt;input disabled="" type="checkbox"&gt; &lt;strong&gt;References section present&lt;/strong&gt;, numbered, with DOI/publisher links — needed for the post to appear in Google Scholar (see &lt;a class="link" href="#h-references-and-google-scholar-indexing" &gt;§1H&lt;/a&gt;)&lt;/li&gt;
 &lt;li&gt;&lt;input disabled="" type="checkbox"&gt; Formatting clean&lt;/li&gt;
 &lt;/ul&gt;
 &lt;hr&gt;
