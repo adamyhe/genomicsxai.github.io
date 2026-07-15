@@ -1,0 +1,50 @@
+[
+  {
+    "login": "Al-Murphy",
+    "url": "https://github.com/Al-Murphy",
+    "name": "Alan Murphy",
+    "active": true,
+    "start": 2026,
+    "end": null
+  },
+  {
+    "login": "aduranu",
+    "url": "https://github.com/aduranu",
+    "name": "Alejandra Durán",
+    "active": true,
+    "start": 2026,
+    "end": null
+  },
+  {
+    "login": "abuendia",
+    "url": "https://github.com/abuendia",
+    "name": "Alejandro Buendia",
+    "active": true,
+    "start": 2026,
+    "end": null
+  },
+  {
+    "login": "dwgoblue",
+    "url": "https://github.com/dwgoblue",
+    "name": "Da-Wei Lin",
+    "active": true,
+    "start": 2026,
+    "end": null
+  },
+  {
+    "login": "jperera1",
+    "url": "https://github.com/jperera1",
+    "name": "Jonathan Perera",
+    "active": true,
+    "start": 2026,
+    "end": null
+  },
+  {
+    "login": "XinmingTu",
+    "url": "https://github.com/XinmingTu",
+    "name": "XinmingTu",
+    "active": true,
+    "start": 2026,
+    "end": null
+  }
+]
