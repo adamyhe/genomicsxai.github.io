@@ -25,7 +25,7 @@ audience: ["within-field"]
 labs: ["Koo lab"]
 
 status: "accepted"
-revision: 1
+revision: 2
 
 date_submitted: 2026-05-21
 date_accepted: 2026-06-25
@@ -37,6 +37,9 @@ revision_history:
   - version: 1
     date: 2026-05-21
     notes: "Initial submission"
+  - version: 2
+    date: 2026-07-15
+    notes: "Corrected Enformer CRISPRi readout: the cropped model output was indexed with an input-coordinate bin without subtracting the 320-bin (40,960 bp) crop, so the CAGE readout landed ~41 kb off the TSS on background signal. Fix reads the promoter bin. Updates Enformer's correlations and the four figures containing Enformer; Borzoi, NTv3, and AlphaGenome numbers are unchanged."
 ---
 
 {{< summary >}}
@@ -102,13 +105,13 @@ Each model is evaluated using its canonical published inference setup, with no t
 
 **AlphaGenome leads, with Borzoi close behind on Fulco et al.** Figure 2 shows predicted vs. measured fractional knockdown for all four models on each screen, with points coloured by enhancer-to-TSS distance.
 
-![Figure 2](crispri_fig1.png "width=900 Figure 2: Predicted vs. measured fractional knockdown for the four models on (a) Fulco et al., 2019 and (b) Gasperini et al., 2019. Points coloured by enhancer-to-TSS distance. AlphaGenome achieves the highest Pearson and Spearman correlations on both screens; on Gasperini, Enformer effectively fails and NTv3 trails the leaders by a wide margin. The dashed x = y line marks perfect prediction (predicted = observed); points falling below it indicate the model underestimates the experimental knockdown.")
+![Figure 2](crispri_fig1.png "width=900 Figure 2: Predicted vs. measured fractional knockdown for the four models on (a) Fulco et al., 2019 and (b) Gasperini et al., 2019. Points coloured by enhancer-to-TSS distance. AlphaGenome achieves the highest Pearson and Spearman correlations on both screens; on Gasperini, NTv3 trails the leaders by a wide margin while Enformer lands mid-pack. The dashed x = y line marks perfect prediction (predicted = observed); points falling below it indicate the model underestimates the experimental knockdown.")
 
 The headline numbers (left two columns: each model on every pair its own receptive field can reach; right two columns: every model restricted to Enformer's 196 kb receptive field, so all four score the same set of pairs):
 
 | Model       | Fulco — full    | Gasperini — full | Fulco — Enformer RF | Gasperini — Enformer RF |
 |-------------|----------------:|-----------------:|--------------------:|------------------------:|
-| Enformer    | 0.29 / 0.19     | 0.04 / 0.04      | 0.29 / 0.19         | 0.03 / 0.04             |
+| Enformer    | 0.60 / 0.31     | 0.30 / 0.27      | 0.60 / 0.31         | 0.30 / 0.27             |
 | Borzoi      | 0.66 / 0.49     | 0.34 / 0.33      | 0.66 / 0.49         | 0.34 / 0.35             |
 | NTv3        | 0.34 / 0.09     | 0.12 / 0.14      | 0.34 / 0.09         | 0.13 / 0.17             |
 | AlphaGenome | **0.67 / 0.54** | **0.45 / 0.45**  | **0.67 / 0.54**     | **0.46 / 0.48**         |
@@ -120,8 +123,8 @@ The matched-RF columns rule out the simple "they just see more sequence" explana
 A few takeaways:
 
 * **AlphaGenome outperforms all other models** on both screens, though essentially tied with Borzoi on Fulco et al. — see the small-sample caveat in [Limitations](#limitations).
-* **Enformer and NTv3 struggle on Gasperini et al.** Enformer's shorter 196 kb context excludes ~20% of Gasperini et al. pairs, but even on the closer pairs, it manages near-zero correlation. NTv3 has a 1 Mb context, the same as AlphaGenome, but still trails the leaders by a wide margin — so context length isn't the explanation.
-* **On the same set of pairs, AlphaGenome still leads.** Of Gasperini et al.'s pairs, 21 fall within AlphaGenome's 1 Mb context but outside Borzoi's 524 kb — so they contribute to AG's correlation but not Borzoi's (Note, all of the tested Fulco et al. pairs are in Borzoi's context). To make the comparison apples-to-apples, we restrict AlphaGenome to only the pairs Borzoi can also score: Pearson's r 0.45 → 0.44, Spearman's ρ 0.45 → 0.45 — giving essentially the same result.
+* **NTv3 is the weakest on Gasperini et al.** NTv3 has a 1 Mb context, the same as AlphaGenome, but still trails the leaders by a wide margin (Pearson's r 0.13 on the matched-RF set) — so context length isn't the explanation. Enformer, despite its shorter 196 kb context (which excludes ~20% of Gasperini et al. pairs), lands mid-pack on the pairs it can see (Pearson's r 0.30), close to Borzoi (0.34).
+* **On the same set of pairs, AlphaGenome still leads.** Of Gasperini et al.'s pairs, 21 fall within AlphaGenome's 1 Mb context but outside Borzoi's 524 kb — so they contribute to AlphaGenome's correlation but not Borzoi's (Note, all of the tested Fulco et al. pairs are in Borzoi's context). To make the comparison apples-to-apples, we restrict AlphaGenome to only the pairs Borzoi can also score: Pearson's r 0.45 → 0.44, Spearman's ρ 0.45 → 0.45 — giving essentially the same result.
 * **The Gasperini et al. ceiling is low across the board.** Even AlphaGenome leaves substantial variance unexplained. Some of this is likely measurement-side: Gasperini et al.'s scaled screen uses a high-MOI single-cell pooled design (median 28 gRNAs per cell), and the statistical and trans-perturbation challenges of high-MOI screens are well-documented ([Barry et al., 2021](https://genomebiology.biomedcentral.com/articles/10.1186/s13059-021-02545-2)). Fulco et al.'s CRISPRi-FlowFISH targets one enhancer at a time with a bulk-population readout, which we'd expect to give more precise per-pair effect sizes. We can't separate measurement noise from model error from these correlations alone, so attributing the gap is interpretive — but it's at least consistent with the per-screen difference we see. Either way, the headline framing is that AlphaGenome improves CRISPRi prediction but a large gap remains, especially for distal cis-regulatory elements (CREs).
 
 ### Predictions shrink, knockdowns don't
@@ -133,7 +136,7 @@ Figure 3 plots observed and predicted effect against enhancer-to-TSS distance, t
 Two patterns hold across all four models:
 
 * **Predictions are systematically smaller in magnitude than observed knockdowns.** Even where the rank ordering is right (good Spearman), the predicted effect sizes are compressed.
-* **The gap grows with distance.** Models capture some of the distance-decay biology, but the slope is shallower than the data demands — most obviously for Enformer and NTv3, less so for AlphaGenome.
+* **The gap grows with distance.** Models capture some of the distance-decay biology, but the slope is shallower than the data demands — most obviously for NTv3, less so for AlphaGenome.
 
 A short aside: AlphaGenome's RNA-Seq head, aggregated as the mean signal across the target gene's GENCODE exons (their paper's preferred approach), beats AlphaGenome's CAGE head on Gasperini et al. (Pearson's r 0.45 vs. 0.39). On Fulco et al. the difference is small (0.67 vs. 0.66). So if you're benchmarking a new model on these screens, your output-aggregation choice should be considered carefully!
 
@@ -157,7 +160,7 @@ The headline benchmark (Figures 2–5) doesn't use TTA, so all four models are c
 
 ### Does ensembling help?
 
-On the matched-RF (Receptive Field) set used in the headline table, a simple equal-weight average of the four models' predictions produces a mixed result: Pearson's r rises on Fulco (0.70, vs AlphaGenome's 0.67) but falls on Gasperini (0.42, vs 0.45). Equal-weight ensembling helps only when the models are comparably strong (Fulco); when one model dominates (AlphaGenome on Gasperini), averaging in the weaker models appears to dilute the overall predictive signal.
+On the matched-RF (Receptive Field) set used in the headline table, a simple equal-weight average of the four models' predictions doesn't beat the best single model on either screen: Pearson's r is 0.66 on Fulco (just below AlphaGenome's 0.67) and 0.42 on Gasperini (below AlphaGenome's 0.46). On Gasperini, where AlphaGenome dominates, averaging in the weaker models clearly dilutes the predictive signal; on Fulco, where the models are more comparable, the average still lands fractionally below the leader rather than above it. Equal-weight ensembling, in other words, doesn't buy you anything over just using AlphaGenome here.
 
 ---
 
