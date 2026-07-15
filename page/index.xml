@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Pages on Genomics x AI</title><link>https://genomicsxai.github.io/page/</link><description>Recent content in Pages on Genomics x AI</description><generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Sun, 12 Jul 2026 09:57:58 -0400</lastBuildDate><atom:link href="https://genomicsxai.github.io/page/index.xml" rel="self" type="application/rss+xml"/><item><title>Submission Guidelines</title><link>https://genomicsxai.github.io/submission-guidelines/</link><pubDate>Fri, 01 May 2026 00:00:00 +0000</pubDate><guid>https://genomicsxai.github.io/submission-guidelines/</guid><description>&lt;h2 id="submit-your-blog-post"&gt;Submit Your Blog Post
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Pages on Genomics x AI</title><link>https://genomicsxai.github.io/page/</link><description>Recent content in Pages on Genomics x AI</description><generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Wed, 15 Jul 2026 11:52:44 -0400</lastBuildDate><atom:link href="https://genomicsxai.github.io/page/index.xml" rel="self" type="application/rss+xml"/><item><title>Submission Guidelines</title><link>https://genomicsxai.github.io/submission-guidelines/</link><pubDate>Fri, 01 May 2026 00:00:00 +0000</pubDate><guid>https://genomicsxai.github.io/submission-guidelines/</guid><description>&lt;h2 id="submit-your-blog-post"&gt;Submit Your Blog Post
 &lt;/h2&gt;&lt;p&gt;The Genomics × AI blog uses a light, non-gate keeping peer-review, Git-native
 workflow. There are &lt;strong&gt;two ways to submit a post&lt;/strong&gt; — both go through the same
 editorial review and produce the same final published post. Pick whichever
@@ -688,19 +688,22 @@ Open your discussion and click &lt;strong&gt;Subscribe&lt;/strong&gt; for that t
 &lt;p&gt;Review follows the &lt;a class="link" href="https://genomicsxai.github.io/editorial-review/" &gt;Minimal Editorial Review (MVR) framework&lt;/a&gt;. Editorial decisions are made collaboratively when needed.&lt;/p&gt;
 &lt;h3 id="current-editorial-board"&gt;Current Editorial Board
 &lt;/h3&gt;&lt;ul class="editors-list"&gt;&lt;li&gt;
- &lt;a href="https://github.com/abuendia" target="_blank" rel="noopener" class="link"&gt;Alejandro Buendia &lt;span class="editors-username"&gt;(@abuendia)&lt;/span&gt;&lt;/a&gt;
- &lt;/li&gt;&lt;li&gt;
- &lt;a href="https://github.com/XinmingTu" target="_blank" rel="noopener" class="link"&gt;XinmingTu &lt;span class="editors-username"&gt;(@XinmingTu)&lt;/span&gt;&lt;/a&gt;
- &lt;/li&gt;&lt;li&gt;
  &lt;a href="https://github.com/Al-Murphy" target="_blank" rel="noopener" class="link"&gt;Alan Murphy &lt;span class="editors-username"&gt;(@Al-Murphy)&lt;/span&gt;&lt;/a&gt;
+ &lt;/li&gt;&lt;li&gt;
+ &lt;a href="https://github.com/aduranu" target="_blank" rel="noopener" class="link"&gt;Alejandra Durán &lt;span class="editors-username"&gt;(@aduranu)&lt;/span&gt;&lt;/a&gt;
+ &lt;/li&gt;&lt;li&gt;
+ &lt;a href="https://github.com/abuendia" target="_blank" rel="noopener" class="link"&gt;Alejandro Buendia &lt;span class="editors-username"&gt;(@abuendia)&lt;/span&gt;&lt;/a&gt;
  &lt;/li&gt;&lt;li&gt;
  &lt;a href="https://github.com/dwgoblue" target="_blank" rel="noopener" class="link"&gt;Da-Wei Lin &lt;span class="editors-username"&gt;(@dwgoblue)&lt;/span&gt;&lt;/a&gt;
  &lt;/li&gt;&lt;li&gt;
  &lt;a href="https://github.com/jperera1" target="_blank" rel="noopener" class="link"&gt;Jonathan Perera &lt;span class="editors-username"&gt;(@jperera1)&lt;/span&gt;&lt;/a&gt;
  &lt;/li&gt;&lt;li&gt;
- &lt;a href="https://github.com/aduranu" target="_blank" rel="noopener" class="link"&gt;Alejandra Durán &lt;span class="editors-username"&gt;(@aduranu)&lt;/span&gt;&lt;/a&gt;
+ &lt;a href="https://github.com/XinmingTu" target="_blank" rel="noopener" class="link"&gt;XinmingTu &lt;span class="editors-username"&gt;(@XinmingTu)&lt;/span&gt;&lt;/a&gt;
  &lt;/li&gt;&lt;/ul&gt;
 &lt;p class="editors-source"&gt;List synced from the &lt;a href="https://github.com/orgs/genomicsxai/teams/editors" target="_blank" rel="noopener" class="link"&gt;@genomicsxai/editors&lt;/a&gt; GitHub team.&lt;/p&gt;
+&lt;h3 id="past-editorial-board"&gt;Past Editorial Board
+&lt;/h3&gt;&lt;p&gt;With gratitude to former members of the Editorial Board for their service.&lt;/p&gt;
+&lt;p class="editors-source"&gt;No past editorial board members yet.&lt;/p&gt;
 &lt;h3 id="becoming-involved"&gt;Becoming Involved
 &lt;/h3&gt;&lt;p&gt;If you are interested in:&lt;/p&gt;
 &lt;ul&gt;
