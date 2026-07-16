@@ -8,14 +8,6 @@
     "end": null
   },
   {
-    "login": "aduranu",
-    "url": "https://github.com/aduranu",
-    "name": "Alejandra Durán",
-    "active": true,
-    "start": 2026,
-    "end": null
-  },
-  {
     "login": "abuendia",
     "url": "https://github.com/abuendia",
     "name": "Alejandro Buendia",
@@ -46,5 +38,13 @@
     "active": true,
     "start": 2026,
     "end": null
+  },
+  {
+    "login": "aduranu",
+    "url": "https://github.com/aduranu",
+    "name": "Alejandra Durán",
+    "active": false,
+    "start": 2026,
+    "end": 2026
   }
 ]
