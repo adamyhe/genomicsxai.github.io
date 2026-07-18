@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Chromatin-Accessibility on Genomics x AI</title><link>https://genomicsxai.github.io/previews/pr-93/tags/chromatin-accessibility/</link><description>Recent content in Chromatin-Accessibility on Genomics x AI</description><generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Sat, 18 Jul 2026 15:17:11 +0000</lastBuildDate><atom:link href="https://genomicsxai.github.io/previews/pr-93/tags/chromatin-accessibility/index.xml" rel="self" type="application/rss+xml"/><item><title>De-coding ENCODE: Understanding regulatory DNA through Deep learning models</title><link>https://genomicsxai.github.io/previews/pr-93/blogs/2026-009/</link><pubDate>Mon, 06 Jul 2026 00:00:00 +0000</pubDate><guid>https://genomicsxai.github.io/previews/pr-93/blogs/2026-009/</guid><description>&lt;img src="https://genomicsxai.github.io/previews/pr-93/" alt="Featured image of post De-coding ENCODE: Understanding regulatory DNA through Deep learning models" /&gt;&lt;aside class="summary-box"&gt;
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Chromatin-Accessibility on Genomics x AI</title><link>https://genomicsxai.github.io/previews/pr-93/tags/chromatin-accessibility/</link><description>Recent content in Chromatin-Accessibility on Genomics x AI</description><generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Sat, 18 Jul 2026 15:22:11 +0000</lastBuildDate><atom:link href="https://genomicsxai.github.io/previews/pr-93/tags/chromatin-accessibility/index.xml" rel="self" type="application/rss+xml"/><item><title>De-coding ENCODE: Understanding regulatory DNA through Deep learning models</title><link>https://genomicsxai.github.io/previews/pr-93/blogs/2026-009/</link><pubDate>Mon, 06 Jul 2026 00:00:00 +0000</pubDate><guid>https://genomicsxai.github.io/previews/pr-93/blogs/2026-009/</guid><description>&lt;img src="https://genomicsxai.github.io/previews/pr-93/" alt="Featured image of post De-coding ENCODE: Understanding regulatory DNA through Deep learning models" /&gt;&lt;aside class="summary-box"&gt;
  &lt;h2 class="summary-box__title"&gt;Summary&lt;/h2&gt;
  &lt;div class="summary-box__body"&gt;
  &lt;p&gt;The Encyclopedia of DNA Elements (ENCODE) provides a reference map of the genomic basis of gene regulation and represents more than two decades of systematic investigation into genome function, as described in our recently submitted manuscript on the final phase of the &lt;a class="link" href="https://doi.org/10.64898/2026.07.06.731365" target="_blank" rel="noopener"
@@ -17,20 +17,18 @@
 
 
  &lt;blockquote&gt;
- &lt;p&gt;This post is the first of a series of blogs we will be releasing on the “ENCODE Deep Learning Collection”. We plan to release the following posts (with subject to some changes):&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;Overview: What is the ENCODE Deep Learning Collection?&lt;/li&gt;
-&lt;li&gt;Quickstart guide (5 min): How to access the ENCODE Deep Learning Collection&lt;/li&gt;
-&lt;li&gt;Understanding regulatory DNA using deep learning models&lt;/li&gt;
-&lt;li&gt;BPNet: A guide to modeling TF binding&lt;/li&gt;
-&lt;li&gt;ChromBPNet: A guide to modeling chromatin accessibility&lt;/li&gt;
-&lt;li&gt;ProCapNet: A guide to modeling transcription initiation&lt;/li&gt;
-&lt;li&gt;ReporterNet: A guide to modeling high-throughput reporter assays&lt;/li&gt;
-&lt;li&gt;Case study #1: Uncovering regulation in the MYC locus&lt;/li&gt;
-&lt;li&gt;Case study #2: Predicting the effects of non-coding variant mutations&lt;/li&gt;
-&lt;li&gt;Case study #3: MotifCompendium: A unified lexicon of regulatory sequence elements
-Follow us for an exciting journey on how to use deep learning models in regulatory genomics!&lt;/li&gt;
-&lt;/ol&gt;
+ &lt;p&gt;This post is the first of a series of blogs we will be releasing on the “ENCODE Deep Learning Collection”. We plan to release the following posts (subject to some change):
+&lt;strong&gt;1. Overview: What is the ENCODE Deep Learning Collection? (this post)&lt;/strong&gt;
+2. Quickstart guide (5 min): How to access the ENCODE Deep Learning Collection
+3. Understanding regulatory DNA using deep learning models
+4. BPNet: A guide to modeling TF binding
+5. ChromBPNet: A guide to modeling chromatin accessibility
+6. ProCapNet: A guide to modeling transcription initiation
+7. ReporterNet: A guide to modeling high-throughput reporter assays
+8. Case study #1: Uncovering regulation in the MYC locus
+9. Case study #2: Predicting the effects of non-coding variant mutations
+10. Case study #3: MotifCompendium: A unified lexicon of regulatory sequence elements&lt;/p&gt;
+&lt;p&gt;Follow us for an exciting journey on how to use deep learning models in regulatory genomics!&lt;/p&gt;
 
  &lt;/blockquote&gt;
 &lt;h2 id="dna-not-just-genes"&gt;DNA: Not just genes
@@ -42,9 +40,11 @@ Follow us for an exciting journey on how to use deep learning models in regulato
 			alt="Figure: TF ChIP-seq"
 			title="Illustration of TF ChIP-seq: (1) TF binds to accessible DNA; (2) DNA is broken into fragments; (3) Antibodies bind to TF-DNA complex; (4) TF-DNA complex is pulled down; (5) Isolated DNA is cleaned and sequenced; (6) Sequences accumulate around the TF binding site." data-title-escaped="Illustration of TF ChIP-seq: (1) TF binds to accessible DNA; (2) DNA is broken into fragments; (3) Antibodies bind to TF-DNA complex; (4) TF-DNA complex is pulled down; (5) Isolated DNA is cleaned and sequenced; (6) Sequences accumulate around the TF binding site."&gt;
 		&lt;/a&gt;&lt;/figure&gt;&lt;p&gt;In &lt;strong&gt;DNase-seq&lt;/strong&gt; and &lt;strong&gt;ATAC-seq&lt;/strong&gt;, DNA-digesting enzymes (DNase I and Tn5 transposase respectively) cut accessible chromatin into small fragments. These fragments are then isolated and sequenced, and accumulate in regions of open chromatin, analogously to TF-ChIP-seq. Worth noting is that DNase I and Tn5 transposase bind to specific DNA sequences, in addition to in open chromatin, leading to a slight bias in the form of an increased number of reads to particular regions. We discuss this further in subsequent sections.&lt;/p&gt;
-&lt;figure&gt;&lt;a href="ChromatinAccessibility.gif" class="image-link" target="_blank" rel="noopener"&gt;
-	&lt;img src="ChromatinAccessibility.gif" loading="lazy" width="600px" alt="Figure: DNase-seq, ATAC-seq"&gt;
-	&lt;/a&gt;&lt;/figure&gt;&lt;p&gt;In addition to chromatin accessibility and transcription factor binding, gene expression is further regulated in the moments preceding transcription. &lt;strong&gt;PRO-cap&lt;/strong&gt; uses a process of DNA-tagging and capture to determine the position of RNA polymerase II (Pol II), a protein which transcribes DNA to RNA transcription initiation. Accumulating Pol II indicates positions of transcriptional regulation, and these can be detected via accumulation of PRO-cap reads at particular genomic locations.&lt;/p&gt;
+&lt;figure&gt;&lt;a href="https://genomicsxai.github.io/previews/pr-93/blogs/2026-009/ChromatinAccessibility.gif" class="image-link" data-pswp-width="1920" data-pswp-height="1080"&gt;
+		&lt;img src="https://genomicsxai.github.io/previews/pr-93/blogs/2026-009/ChromatinAccessibility.gif" width="600px" height="337"loading="lazy"
+			alt="Figure: DNase-seq, ATAC-seq"
+			title="Illustration of DNase-seq, ATAC-seq: (1) DNA can wrap around histones (&amp;#39;closed&amp;#39;) or remain unwound (&amp;#39;open&amp;#39;); (2) Enzymes (DNase I or Tn5 transposase) cut accessible DNA; (3) DNA fragments are sequenced; (4) Accessible regions appear as peaks." data-title-escaped="Illustration of DNase-seq, ATAC-seq: (1) DNA can wrap around histones (&amp;amp;#39;closed&amp;amp;#39;) or remain unwound (&amp;amp;#39;open&amp;amp;#39;); (2) Enzymes (DNase I or Tn5 transposase) cut accessible DNA; (3) DNA fragments are sequenced; (4) Accessible regions appear as peaks."&gt;
+		&lt;/a&gt;&lt;/figure&gt;&lt;p&gt;In addition to chromatin accessibility and transcription factor binding, gene expression is further regulated in the moments preceding transcription. &lt;strong&gt;PRO-cap&lt;/strong&gt; uses a process of DNA-tagging and capture to determine the position of RNA polymerase II (Pol II), a protein which transcribes DNA to RNA transcription initiation. Accumulating Pol II indicates positions of transcriptional regulation, and these can be detected via accumulation of PRO-cap reads at particular genomic locations.&lt;/p&gt;
 &lt;p&gt;And &lt;strong&gt;MPRAs&lt;/strong&gt; and related high throughput reporter assays are used to experimentally measure whether particular sequences are in fact responsible for regulating gene expression. In general, a candidate regulatory element, or ccRE, is inserted into a short sequence which also includes a measurable reporter output, such as a fluorescent molecule. The greater the level of the measured reporter, the more active the regulatory element.&lt;/p&gt;
 &lt;h2 id="encode-an-encyclopedia-of-dna-elements"&gt;ENCODE: An Encyclopedia of DNA Elements
 &lt;/h2&gt;&lt;p&gt;The [&lt;strong&gt;Encyclopedia of DNA Elements&lt;/strong&gt;] (&lt;strong&gt;ENCODE&lt;/strong&gt;)](&lt;a class="link" href="https://www.encodeproject.org/" target="_blank" rel="noopener"
