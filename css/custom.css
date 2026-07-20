@@ -245,6 +245,19 @@
   margin-right: auto;
   background: var(--card-background);
 }
+/* Mobile/tablet: make the card fill the main column instead of shrink-wrapping.
+   The auto side margins above are cross-axis auto margins on a flex item of
+   `main.main` (a column flexbox), which suppresses `align-self: stretch`. The
+   card then sizes to its content (~672px, driven by .article-content's 42em)
+   and overflows the viewport, forcing the whole page to zoom out. */
+@media (max-width: 1023.98px) {
+  .article-page .main-article {
+    width: 100%;
+    max-width: 100%;
+    margin-left: 0;
+    margin-right: 0;
+  }
+}
 .article-page .main-article .article-details .article-title {
   color: var(--card-text-color-main);
 }
