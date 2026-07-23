@@ -1,16 +1,11 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Splicing on Genomics x AI</title><link>https://genomicsxai.github.io/previews/pr-73/tags/splicing/</link><description>Recent content in Splicing on Genomics x AI</description><generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Tue, 26 May 2026 17:47:31 +0200</lastBuildDate><atom:link href="https://genomicsxai.github.io/previews/pr-73/tags/splicing/index.xml" rel="self" type="application/rss+xml"/><item><title>Beyond coverage tracks: fine-tuning AlphaGenome's splicing heads from scratch</title><link>https://genomicsxai.github.io/previews/pr-73/blogs/2026-009/</link><pubDate>Sun, 24 May 2026 00:00:00 +0000</pubDate><guid>https://genomicsxai.github.io/previews/pr-73/blogs/2026-009/</guid><description>&lt;aside class="summary-box"&gt;
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Splicing on Genomics x AI</title><link>https://genomicsxai.github.io/previews/pr-73/tags/splicing/</link><description>Recent content in Splicing on Genomics x AI</description><generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Thu, 23 Jul 2026 18:28:06 +0200</lastBuildDate><atom:link href="https://genomicsxai.github.io/previews/pr-73/tags/splicing/index.xml" rel="self" type="application/rss+xml"/><item><title>Beyond coverage tracks: fine-tuning AlphaGenome's splicing heads from scratch</title><link>https://genomicsxai.github.io/previews/pr-73/blogs/2026-009/</link><pubDate>Sun, 24 May 2026 00:00:00 +0000</pubDate><guid>https://genomicsxai.github.io/previews/pr-73/blogs/2026-009/</guid><description>&lt;img src="https://genomicsxai.github.io/previews/pr-73/" alt="Featured image of post Beyond coverage tracks: fine-tuning AlphaGenome's splicing heads from scratch" /&gt;&lt;aside class="summary-box"&gt;
  &lt;h2 class="summary-box__title"&gt;Summary&lt;/h2&gt;
  &lt;div class="summary-box__body"&gt;
  &lt;p&gt;DeepMind has released &lt;a class="link" href="https://deepmind.google/discover/blog/alphagenome-a-foundation-model-for-genome-biology/" target="_blank" rel="noopener"
  &gt;AlphaGenome&lt;/a&gt;’s code and model weights, and the community has since developed &lt;a class="link" href="https://github.com/genomicsxai/alphagenome_ft" target="_blank" rel="noopener"
  &gt;alphagenome_ft&lt;/a&gt; and &lt;a class="link" href="https://github.com/genomicsxai/alphagenome-pytorch" target="_blank" rel="noopener"
  &gt;alphagenome-pytorch&lt;/a&gt; to enable seamless fine-tuning in both JAX and PyTorch. These implementations support bigwig-based modalities such as RNA sequencing (RNA-seq) coverage tracks, but other RNA-seq-derived outputs, including splice site probabilities, splice site usage, and splice junctions, require additional work, from data preprocessing and loading to validating fine-tuning on unseen samples. What initially seemed like a straightforward extension became a useful exercise in understanding how large genomic models learn and how to debug new output heads.&lt;/p&gt;
-&lt;figure&gt;&lt;img src="https://genomicsxai.github.io/previews/pr-73/blogs/2026-009/alphagenome_rna_heads.png"
- alt="Overview of AlphaGenome&amp;rsquo;s splicing heads." width="500"&gt;&lt;figcaption&gt;
- &lt;p&gt;Overview of AlphaGenome&amp;rsquo;s splicing heads.&lt;/p&gt;
- &lt;/figcaption&gt;
-&lt;/figure&gt;
-&lt;p&gt;In this post, we share that development process: preprocessing the data, building loaders, running sanity checks, and overfitting a single interval, including the bugs we found along the way and how we fixed them.&lt;/p&gt;
+&lt;p&gt;In this post, we share that development process: preprocessing the data, building loaders, running sanity checks, and overfitting a single interval, including the bugs we found along the way and how we fixed them. We then scale up to full fine-tuning and evaluation on held-out genomic intervals and report the resulting performance for two fine-tuning strategies.&lt;/p&gt;
 &lt;p&gt;All code, model adaptations, and pipelines used for this blog post are &lt;a class="link" href="https://github.com/MiqG/alphagenome_finetuning_rna/tree/v1.0.1" target="_blank" rel="noopener"
  &gt;available&lt;/a&gt;.&lt;/p&gt;
 
@@ -18,10 +13,46 @@
 &lt;/aside&gt;
 
 &lt;hr&gt;
+&lt;h2 id="motivation"&gt;Motivation
+&lt;/h2&gt;&lt;p&gt;This post is an implementation report: we walk through preprocessing, data loading, debugging, and held-out evaluation for AlphaGenome&amp;rsquo;s splicing heads. We do not yet interpret these results biologically — relating the model&amp;rsquo;s predictions back to the SF3B1 K700E mutation itself is the subject of a follow-up post.&lt;/p&gt;
+&lt;p&gt;The goal we are working towards is a fine-tuning workflow that can take a new RNA-seq dataset and produce a model that predicts sample-specific splicing outcomes directly from sequence. Concretely, for the SF3B1 K700E case study used throughout this post: a model that, given a genomic sequence and a target sample, predicts splice site usage and junction counts well enough to flag where and how splicing differs between a mutant and wild-type sample, without needing RNA-seq data for that sample. Getting there means the model has to generalize to unseen genomic intervals, and ideally to unseen samples. This post covers the first part of that path — getting the implementation right and measuring held-out performance for two fine-tuning strategies — while the biological question of what these predictions say about SF3B1-driven cryptic splicing is left for later.&lt;/p&gt;
+&lt;figure&gt;&lt;a href="https://genomicsxai.github.io/previews/pr-73/blogs/2026-009/alphagenome_rna_heads.png" class="image-link" data-pswp-width="1189" data-pswp-height="345"&gt;
+		&lt;img src="https://genomicsxai.github.io/previews/pr-73/blogs/2026-009/alphagenome_rna_heads.png" width="500px" height="145"loading="lazy"
+			alt="Figure 1. Overview of AlphaGenome’s splicing heads."
+			title="Overview of AlphaGenome&amp;#39;s splicing heads." data-title-escaped="Overview of AlphaGenome&amp;amp;#39;s splicing heads."&gt;
+		&lt;/a&gt;&lt;/figure&gt;&lt;h3 id="what-comes-from-where"&gt;What comes from where
+&lt;/h3&gt;&lt;p&gt;Since much of this work sits between &amp;ldquo;using AlphaGenome as published,&amp;rdquo; &amp;ldquo;reproducing details the paper doesn&amp;rsquo;t fully specify,&amp;rdquo; and &amp;ldquo;our own implementation choices,&amp;rdquo; here&amp;rsquo;s a breakdown of which parts of the pipeline fall into each category:&lt;/p&gt;
+&lt;table&gt;
+	&lt;thead&gt;
+			&lt;tr&gt;
+					&lt;th&gt;Component&lt;/th&gt;
+					&lt;th&gt;Category&lt;/th&gt;
+			&lt;/tr&gt;
+	&lt;/thead&gt;
+	&lt;tbody&gt;
+			&lt;tr&gt;
+					&lt;td&gt;Junction-head architecture and candidate splice-site conditioning&lt;/td&gt;
+					&lt;td&gt;Inherited from AlphaGenome, unmodified&lt;/td&gt;
+			&lt;/tr&gt;
+			&lt;tr&gt;
+					&lt;td&gt;STAR/deepTools-based alignment and coverage processing&lt;/td&gt;
+					&lt;td&gt;Reproduced from the AlphaGenome paper&amp;rsquo;s methods, best-effort (original preprocessing code is not public)&lt;/td&gt;
+			&lt;/tr&gt;
+			&lt;tr&gt;
+					&lt;td&gt;Splice site usage / junction count extraction scripts, on-the-fly per-modality normalization&lt;/td&gt;
+					&lt;td&gt;New implementation choices, specific to this project&lt;/td&gt;
+			&lt;/tr&gt;
+			&lt;tr&gt;
+					&lt;td&gt;&lt;code&gt;rope_params&lt;/code&gt; truncated-normal initialization, ratio-normalized junction loss&lt;/td&gt;
+					&lt;td&gt;Debugging fixes for a mismatch between the paper&amp;rsquo;s pseudocode and the JAX/PyTorch implementations — not new methodological contributions&lt;/td&gt;
+			&lt;/tr&gt;
+	&lt;/tbody&gt;
+&lt;/table&gt;
 &lt;h2 id="from-raw-data-to-preprocessed-training-tracks"&gt;From raw data to preprocessed training tracks
 &lt;/h2&gt;&lt;p&gt;For this fine-tuning example, we chose two RNA-seq samples from &lt;a class="link" href="https://pubmed.ncbi.nlm.nih.gov/37562845/" target="_blank" rel="noopener"
  &gt;López-Oreja (2023)&lt;/a&gt;: one carrying the SF3B1 K700E cancer driver mutation and one without it. This mutation is known to promote the recognition of cryptic splice sites, so we expected it to affect the RNA-seq modalities considered here. In this blogpost we only use these data for code development purposes of multimodal learning, but we will delve into the sequence determinants of this misregulated modulation in the next blogpost on this topic.&lt;/p&gt;
-&lt;p&gt;AlphaGenome&amp;rsquo;s data preprocessing code is not publicly available, though the key steps are described in the paper&amp;rsquo;s methods. To reproduce the pipeline as closely as possible, we wrote standardized scripts that derive all four training tracks from a single STAR RNA-seq alignment BAM file. Reads are aligned with STAR following the AlphaGenome paper&amp;rsquo;s alignment settings, retaining only uniquely mapped reads on canonical chromosomes.&lt;/p&gt;
+&lt;p&gt;AlphaGenome&amp;rsquo;s data preprocessing code is not publicly available, though the key steps are described in the paper&amp;rsquo;s methods. To reproduce the pipeline as closely as possible, we wrote &lt;a class="link" href="https://github.com/MiqG/alphagenome_finetuning_rna/blob/v1.0.1/workflows/01-obtain_data/rules/sf3b1mut.smk" target="_blank" rel="noopener"
+ &gt;standardized Snakemake workflows&lt;/a&gt; that derive all four training tracks from a single STAR RNA-seq alignment BAM file. Reads are aligned with STAR following the AlphaGenome paper&amp;rsquo;s alignment settings, retaining only uniquely mapped reads on canonical chromosomes.&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;strong&gt;Per-base RNA-seq coverage&lt;/strong&gt; (stranded or unstranded) is computed using &lt;code&gt;deepTools&lt;/code&gt;&amp;rsquo; &lt;a class="link" href="https://deeptools.readthedocs.io/en/develop/content/tools/bamCoverage.html" target="_blank" rel="noopener"
  &gt;&lt;code&gt;bamCoverage&lt;/code&gt;&lt;/a&gt;. Output: bigwig files.&lt;/li&gt;
@@ -32,96 +63,126 @@
 &lt;li&gt;&lt;strong&gt;Splice junction counts&lt;/strong&gt; are available directly from STAR at alignment time, or can be extracted post-hoc from the BAM using our custom script &lt;a class="link" href="https://github.com/MiqG/alphagenome-pytorch/blob/splice-finetuning/scripts/get_star_junctions.py" target="_blank" rel="noopener"
  &gt;&lt;code&gt;get_star_junctions.py&lt;/code&gt;&lt;/a&gt;. Output: tab-separated files.&lt;/li&gt;
 &lt;/ul&gt;
-&lt;figure&gt;&lt;img src="https://genomicsxai.github.io/previews/pr-73/blogs/2026-009/data_prep_workflow.png"
- alt="Data preprocessing workflow." width="500"&gt;&lt;figcaption&gt;
- &lt;p&gt;Data preprocessing workflow.&lt;/p&gt;
- &lt;/figcaption&gt;
-&lt;/figure&gt;
-
-&lt;p&gt;To make sure our custom implementations to compute splice junction counts and splice site usage matched how STAR and SpliSER calculate them respectively, we ran a comparison on chromosome 1 on our samples.&lt;/p&gt;
+&lt;figure&gt;&lt;a href="https://genomicsxai.github.io/previews/pr-73/blogs/2026-009/data_prep_workflow.png" class="image-link" data-pswp-width="1108" data-pswp-height="282"&gt;
+		&lt;img src="https://genomicsxai.github.io/previews/pr-73/blogs/2026-009/data_prep_workflow.png" width="500px" height="127"loading="lazy"
+			alt="Figure 2. Data preprocessing workflow."
+			title="Data preprocessing workflow." data-title-escaped="Data preprocessing workflow."&gt;
+		&lt;/a&gt;&lt;/figure&gt;&lt;p&gt;To make sure our custom implementations to compute splice junction counts and splice site usage matched how STAR and SpliSER calculate them respectively, we ran a comparison on chromosome 1 on our samples.&lt;/p&gt;
 &lt;p&gt;In both cases we observe a Pearson correlation of 1 (for splice junction counts from uniquely mapped reads and for splice site usage), confirming the implementations are correct.&lt;/p&gt;
 &lt;p&gt;Both implementations were also highly efficient in runtime, with &lt;a class="link" href="https://github.com/MiqG/alphagenome-pytorch/blob/splice-finetuning/scripts/get_star_junctions.py" target="_blank" rel="noopener"
  &gt;&lt;code&gt;get_star_junctions.py&lt;/code&gt;&lt;/a&gt; requiring ~10s and ~150 MB per sample, and &lt;a class="link" href="https://github.com/MiqG/alphagenome-pytorch/blob/splice-finetuning/scripts/compute_ssu.py" target="_blank" rel="noopener"
  &gt;&lt;code&gt;compute_ssu.py&lt;/code&gt;&lt;/a&gt; requiring ~20s and ~200 MB per sample compared to SpliSER&amp;rsquo;s ~600s and ~100 MB.&lt;/p&gt;
-&lt;figure&gt;&lt;img src="https://genomicsxai.github.io/previews/pr-73/blogs/2026-009/benchmark_juncs_and_ssu.png"
- alt="Benchmark of splice junction counting and splice site usage computation." width="350"&gt;&lt;figcaption&gt;
- &lt;p&gt;Benchmark of splice junction counting and splice site usage computation.&lt;/p&gt;
- &lt;/figcaption&gt;
-&lt;/figure&gt;
-
-&lt;h2 id="data-loading-and-on-the-fly-normalization"&gt;Data loading and on-the-fly normalization
+&lt;figure&gt;&lt;a href="https://genomicsxai.github.io/previews/pr-73/blogs/2026-009/benchmark_juncs_and_ssu.png" class="image-link" data-pswp-width="1013" data-pswp-height="1398"&gt;
+		&lt;img src="https://genomicsxai.github.io/previews/pr-73/blogs/2026-009/benchmark_juncs_and_ssu.png" width="350px" height="483"loading="lazy"
+			alt="Figure 3. Benchmark of splice junction counting and splice site usage computation."
+			title="Benchmark of splice junction counting and splice site usage computation." data-title-escaped="Benchmark of splice junction counting and splice site usage computation."&gt;
+		&lt;/a&gt;&lt;/figure&gt;&lt;h2 id="data-loading-and-on-the-fly-normalization"&gt;Data loading and on-the-fly normalization
 &lt;/h2&gt;&lt;p&gt;All four tracks are loaded jointly for each genomic interval and normalized on the fly before being passed to the model. Getting this right matters: RNA-seq coverage spans several orders of magnitude across genes and samples, splice junction counts are extremely sparse, and splice site labels are binary signals at a handful of positions in a million-base-pair window. Each modality needs a different normalization strategy to avoid one dominating the loss or presenting the model with uninformative targets.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;RNA-seq coverage&lt;/strong&gt; bigwigs are read at 1 bp resolution and binned by summation to the model&amp;rsquo;s output resolution. The raw values are loaded as-is; normalization happens at training time. Just before the loss is computed, targets are scaled into model prediction space by dividing by a per-track non-zero mean (computed once from the training set), applying a power transform (x^0.75) to compress dynamic range, and smooth-clipping extreme values. Model predictions are converted back to data space using the inverse of these operations for evaluation.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Splice site classes&lt;/strong&gt; are derived on the fly as a 5-class label array: donor on the positive strand, acceptor on the positive strand, donor on the negative strand, acceptor on the negative strand, and background. All positions default to background, and annotated splice sites from the union of sites in the splice site usage files are then overlaid.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Splice site usage&lt;/strong&gt; values are loaded from the precomputed parquet files. For each genomic interval, only the splice sites overlapping that interval are retrieved, and usage values are arranged into a per-position array with two channels per sample (one per strand).&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Splice junction counts&lt;/strong&gt; from STAR are CPM-normalized using the total mapped reads per sample, clipped at the 99.99th percentile, and then mean-scaled so that the typical non-zero value is close to 1. Junctions are assembled into a donor × acceptor count matrix, with forward and reverse strand channels interleaved across samples.&lt;/p&gt;
-&lt;figure&gt;&lt;img src="https://genomicsxai.github.io/previews/pr-73/blogs/2026-009/data_loading_normalization.png"
- alt="Normalizing training data on the fly." width="600"&gt;&lt;figcaption&gt;
- &lt;p&gt;Normalizing training data on the fly.&lt;/p&gt;
- &lt;/figcaption&gt;
-&lt;/figure&gt;
-
-&lt;h2 id="first-time-never-works"&gt;First time never works
+&lt;figure&gt;&lt;a href="https://genomicsxai.github.io/previews/pr-73/blogs/2026-009/data_loading_normalization.png" class="image-link" data-pswp-width="2250" data-pswp-height="2081"&gt;
+		&lt;img src="https://genomicsxai.github.io/previews/pr-73/blogs/2026-009/data_loading_normalization.png" width="600px" height="554"loading="lazy"
+			alt="Figure 4. Normalizing training data on the fly."
+			title="Normalizing training data on the fly." data-title-escaped="Normalizing training data on the fly."&gt;
+		&lt;/a&gt;&lt;/figure&gt;&lt;h2 id="first-time-never-works"&gt;First time never works
 &lt;/h2&gt;&lt;p&gt;As a first sanity check, we verified that the model could overfit a single genomic interval using linear probing (freezing the backbone and training only the new heads). A model with enough capacity should memorize a single batch; failure to do so points to a bug rather than a generalization problem. To make the test representative, we selected an interval with median splice junction density among all training intervals (see &lt;a class="link" href="https://github.com/MiqG/alphagenome_finetuning_rna/blob/v1.0.1/figures/overfitting_interval_selection.ipynb" target="_blank" rel="noopener"
  &gt;this&lt;/a&gt; notebook for the selection details).&lt;/p&gt;
 &lt;p&gt;The test was useful precisely because it failed. The splice site probability heads did not overfit, and the splice junction heads did not learn at all. The next two sections trace what was wrong with each and how we fixed it.&lt;/p&gt;
-&lt;figure&gt;&lt;img src="https://genomicsxai.github.io/previews/pr-73/blogs/2026-009/first_attempt.png"
- alt="First attempt to overfit a single interval." width="900"&gt;&lt;figcaption&gt;
- &lt;p&gt;First attempt to overfit a single interval.&lt;/p&gt;
- &lt;/figcaption&gt;
-&lt;/figure&gt;
-
-&lt;h2 id="initializing-splice-site-heads-with-pretrained-weights-facilitates-single-batch-overfitting"&gt;Initializing splice site heads with pretrained weights facilitates single-batch overfitting
+&lt;figure&gt;&lt;a href="https://genomicsxai.github.io/previews/pr-73/blogs/2026-009/first_attempt.png" class="image-link" data-pswp-width="2091" data-pswp-height="421"&gt;
+		&lt;img src="https://genomicsxai.github.io/previews/pr-73/blogs/2026-009/first_attempt.png" width="900px" height="181"loading="lazy"
+			alt="Figure 5. First attempt to overfit a single interval."
+			title="First attempt to overfit a single interval." data-title-escaped="First attempt to overfit a single interval."&gt;
+		&lt;/a&gt;&lt;/figure&gt;&lt;h2 id="initializing-splice-site-heads-with-pretrained-weights-facilitates-single-batch-overfitting"&gt;Initializing splice site heads with pretrained weights facilitates single-batch overfitting
 &lt;/h2&gt;&lt;p&gt;The splice site classification head struggled to overfit when initialized randomly. This is not surprising: the purpose of fine-tuning AlphaGenome is not to re-learn the general splicing code from scratch. The splice site classification head captures a property shared across all samples, where donor and acceptor sites sit on each strand, while the splice site usage and junction heads carry the sample-specific signal. It therefore makes sense to start from the pretrained weights for this head and let the sample-specific heads adapt.&lt;/p&gt;
 &lt;p&gt;We explored three factors that could affect overfitting on the single interval: (1) initializing the splice site classification head from pretrained rather than random weights (see &lt;a class="link" href="https://github.com/MiqG/alphagenome_finetuning_rna/blob/v1.0.1/figures/track_indices.ipynb" target="_blank" rel="noopener"
  &gt;this&lt;/a&gt; notebook for how we select which pretrained tracks to use for initialization), (2) augmenting the interval&amp;rsquo;s splice sites with all annotated sites from the GTF (to reduce label sparsity, since AlphaGenome was pretrained on many more samples and thus more splice sites), and (3) segmenting the loss computation to match the 8-segment sequence parallelism used during AlphaGenome pretraining. We implemented support for all three options via &lt;code&gt;finetune.py&lt;/code&gt; flags: &lt;code&gt;--pretrained-head-samples&lt;/code&gt; to initialize specific head weights from a pretrained track (e.g. &lt;code&gt;splice_site:0&lt;/code&gt;), &lt;code&gt;--gtf&lt;/code&gt; to supply a GTF or parquet file of canonical splice sites, and &lt;code&gt;--num-segments&lt;/code&gt; to control how many segments the sequence is split into for loss computation (applies to all modalities, not just splicing).&lt;/p&gt;
 &lt;p&gt;Initializing from pretrained weights enabled clean overfitting regardless of whether GTF sites or loss segmentation were used. When starting from random weights, loss segmentation had a secondary effect: higher overall loss but faster overfitting, with or without the GTF augmentation.&lt;/p&gt;
-&lt;figure&gt;&lt;img src="https://genomicsxai.github.io/previews/pr-73/blogs/2026-009/debug_splice_head.png"
- alt="Debugging the splice site head." width="600"&gt;&lt;figcaption&gt;
- &lt;p&gt;Debugging the splice site head.&lt;/p&gt;
- &lt;/figcaption&gt;
-&lt;/figure&gt;
-
-&lt;h2 id="why-the-junction-head-could-not-learn"&gt;Why the junction head could not learn
+&lt;figure&gt;&lt;a href="https://genomicsxai.github.io/previews/pr-73/blogs/2026-009/debug_splice_head.png" class="image-link" data-pswp-width="1772" data-pswp-height="418"&gt;
+		&lt;img src="https://genomicsxai.github.io/previews/pr-73/blogs/2026-009/debug_splice_head.png" width="600px" height="141"loading="lazy"
+			alt="Figure 6. Debugging the splice site head."
+			title="Debugging the splice site head." data-title-escaped="Debugging the splice site head."&gt;
+		&lt;/a&gt;&lt;/figure&gt;&lt;h2 id="why-the-junction-head-could-not-learn"&gt;Why the junction head could not learn
 &lt;/h2&gt;&lt;p&gt;In our first attempt, the splice junction head would not learn. Understanding why required looking at how the head works. For each genomic interval, the trunk produces 1 bp resolution embeddings across the full sequence. The junction head extracts embeddings only at the positions of known splice sites (up to 512; padded with -1 if fewer are present). Each extracted embedding is then linearly transformed with a learned per-sample scale and offset before RoPE positional encoding is applied. Junction counts for each donor-acceptor pair are then predicted as the softplus of the inner product between the corresponding donor and acceptor embeddings.&lt;/p&gt;
 &lt;p&gt;Inspecting the pretrained weights revealed the problem: the scale and offset parameters were initialized to zeros. With scale=0 and offset=0, the transformation &lt;code&gt;scale * x + offset&lt;/code&gt; collapses every embedding to zero before RoPE, blocking any gradient from flowing back through those parameters. The pretrained weights for these parameters follow a truncated normal distribution, not zeros, so a randomly initialized head would be stuck from the very first step.&lt;/p&gt;
 &lt;p&gt;Cross-referencing with the original JAX implementation and reaching out to the authors (see &lt;a class="link" href="https://github.com/google-deepmind/alphagenome_research/issues/22" target="_blank" rel="noopener"
  &gt;GitHub issue&lt;/a&gt;) confirmed this was a bug also in the original implementation. The fix was to initialize &lt;code&gt;rope_params&lt;/code&gt; with a truncated normal distribution (std=0.1), controlled via the &lt;code&gt;--rope-init&lt;/code&gt; flag in &lt;a class="link" href="https://github.com/MiqG/alphagenome-pytorch/blob/splice-finetuning/scripts/finetune.py" target="_blank" rel="noopener"
  &gt;&lt;code&gt;finetune.py&lt;/code&gt;&lt;/a&gt; (default: &lt;code&gt;truncated_normal&lt;/code&gt;; &lt;code&gt;zeros&lt;/code&gt; is kept only for ablation experiments).&lt;/p&gt;
 &lt;p&gt;With the fix in place, the randomly initialized junction head overfits successfully when splice site positions are taken from the target junctions, set via &lt;code&gt;--junction-position-source annotated&lt;/code&gt; (the default).&lt;/p&gt;
-&lt;figure&gt;&lt;img src="https://genomicsxai.github.io/previews/pr-73/blogs/2026-009/splice_junctions_debug-init.png"
- alt="Debugging the splice junction head: random initialization." width="800"&gt;&lt;figcaption&gt;
- &lt;p&gt;Debugging the splice junction head: random initialization.&lt;/p&gt;
- &lt;/figcaption&gt;
-&lt;/figure&gt;
-
-&lt;p&gt;Using predicted positions (&lt;code&gt;--junction-position-source predicted&lt;/code&gt;) exposed a further issue: pretrained-weight initialization collapsed while random initialization still learned. The pretrained head was optimized alongside a dense, tissue-diverse set of splice site positions from pretraining; positions predicted by a freshly fine-tuned splice site head on just two samples are sparser and differently distributed, likely placing it outside its operating range. Looking at the loss values pointed to a related problem: the junction cross-entropy was going negative during training, which would destabilize any head but hit the pretrained one harder.&lt;/p&gt;
+&lt;figure&gt;&lt;a href="https://genomicsxai.github.io/previews/pr-73/blogs/2026-009/splice_junctions_debug-init.png" class="image-link" data-pswp-width="1998" data-pswp-height="903"&gt;
+		&lt;img src="https://genomicsxai.github.io/previews/pr-73/blogs/2026-009/splice_junctions_debug-init.png" width="800px" height="361"loading="lazy"
+			alt="Figure 7. Debugging the splice junction head: random initialization."
+			title="Debugging the splice junction head: random initialization." data-title-escaped="Debugging the splice junction head: random initialization."&gt;
+		&lt;/a&gt;&lt;/figure&gt;&lt;p&gt;Using predicted positions (&lt;code&gt;--junction-position-source predicted&lt;/code&gt;) exposed a further issue: pretrained-weight initialization collapsed while random initialization still learned. The pretrained head was optimized alongside a dense, tissue-diverse set of splice site positions from pretraining; positions predicted by a freshly fine-tuned splice site head on just two samples are sparser and differently distributed, likely placing it outside its operating range. Looking at the loss values pointed to a related problem: the junction cross-entropy was going negative during training, which would destabilize any head but hit the pretrained one harder.&lt;/p&gt;
 &lt;p&gt;The root cause seemed to be a mismatch between the paper&amp;rsquo;s pseudocode and both the JAX and PyTorch implementations. The supplementary methods define &lt;code&gt;multinomial_cross_entropy&lt;/code&gt; by normalizing both targets and predictions to ratios before computing the cross-entropy, so &lt;code&gt;log(p_pred) &amp;lt;= 0&lt;/code&gt; always and the loss is guaranteed non-negative. The JAX implementation instead uses a log-normalizer formulation (&lt;code&gt;log_normalizer - log_likelihood&lt;/code&gt;), which is mathematically equivalent when junction counts are present but produces a negative contribution when a training window contains annotated splice sites with zero observed counts; common in sparse datasets like SF3B1 RNA-seq, where not every annotated site will have reads in a given sample. The PyTorch port (&lt;code&gt;--junction-loss original&lt;/code&gt;, the default) inherited this behavior unchanged.&lt;/p&gt;
 &lt;p&gt;We opened another &lt;a class="link" href="https://github.com/google-deepmind/alphagenome_research/issues/24" target="_blank" rel="noopener"
  &gt;GitHub issue&lt;/a&gt; with the authors, who confirmed the discrepancy and introduced a ratio-normalized formulation: both targets and predictions are divided by their within-mask sums before computing &lt;code&gt;-p_true * log(p_pred)&lt;/code&gt;. We ported this as &lt;code&gt;--junction-loss normalized&lt;/code&gt;. Since &lt;code&gt;p_pred &amp;lt;= 1&lt;/code&gt;, its log is always non-positive and the loss is always non-negative. With this correction, training is stable, the loss no longer dips below zero on our window, and both random and pretrained-weight initialization can overfit the single interval regardless of whether annotated or predicted splice site positions are used.&lt;/p&gt;
-&lt;figure&gt;&lt;img src="https://genomicsxai.github.io/previews/pr-73/blogs/2026-009/splice_junctions_debug-loss.png"
- alt="Debugging the splice junction head: loss formulation." width="400"&gt;&lt;figcaption&gt;
- &lt;p&gt;Debugging the splice junction head: loss formulation.&lt;/p&gt;
- &lt;/figcaption&gt;
-&lt;/figure&gt;
-
-&lt;h2 id="tldr"&gt;TL;DR
-&lt;/h2&gt;&lt;ul&gt;
-&lt;li&gt;Extending AlphaGenome to splicing modalities requires custom preprocessing scripts for splice site usage and splice junction counts, all derivable from a single STAR BAM file.&lt;/li&gt;
-&lt;li&gt;The splice site classification head must be initialized from pretrained weights; random initialization is insufficient to overfit even a single interval.&lt;/li&gt;
-&lt;li&gt;The junction head&amp;rsquo;s &lt;code&gt;rope_params&lt;/code&gt; were initialized to zeros in both the JAX and PyTorch implementations, preventing any learning; initializing with a truncated normal distribution fixes this.&lt;/li&gt;
-&lt;li&gt;The junction cross-entropy loss can go negative on sparse windows due to a mismatch between the paper&amp;rsquo;s pseudocode and the JAX/PyTorch implementations; a ratio-normalized formulation resolves this and stabilizes training.&lt;/li&gt;
-&lt;li&gt;Single-interval overfitting is an effective development checkpoint: it exposed all three bugs before any full training run.&lt;/li&gt;
+&lt;figure&gt;&lt;a href="https://genomicsxai.github.io/previews/pr-73/blogs/2026-009/splice_junctions_debug-loss.png" class="image-link" data-pswp-width="999" data-pswp-height="461"&gt;
+		&lt;img src="https://genomicsxai.github.io/previews/pr-73/blogs/2026-009/splice_junctions_debug-loss.png" width="400px" height="184"loading="lazy"
+			alt="Figure 8. Debugging the splice junction head: loss formulation."
+			title="Debugging the splice junction head: loss formulation." data-title-escaped="Debugging the splice junction head: loss formulation."&gt;
+		&lt;/a&gt;&lt;/figure&gt;&lt;h2 id="what-actually-worked-practical-recipe-for-full-fine-tuning-alphagenome-on-new-samples-across-rna-seq-modalities"&gt;What actually worked: practical recipe for full fine-tuning AlphaGenome on new samples across RNA-seq modalities
+&lt;/h2&gt;&lt;p&gt;With the failure points above identified and fixed, we ran a first full fine-tuning pass across the whole genome, using linear probing (frozen trunk, only the new heads trained) with the settings that worked best during single-interval debugging:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;pretrained initialization for the splice site head,&lt;/li&gt;
+&lt;li&gt;8-way loss segmentation (matching AlphaGenome&amp;rsquo;s pretraining sequence parallelism),&lt;/li&gt;
+&lt;li&gt;annotated junction positions, given their robustness over predicted positions,&lt;/li&gt;
+&lt;li&gt;truncated-normal initialization for the junction head&amp;rsquo;s RoPE parameters,&lt;/li&gt;
+&lt;li&gt;the normalized (ratio-based) junction loss,&lt;/li&gt;
+&lt;li&gt;a constant learning rate (LR = 1e-4).&lt;/li&gt;
 &lt;/ul&gt;
+&lt;p&gt;Held-out performance improved over training, alongside a modest but consistent generalization gap: at every epoch, we compared test-set performance against a same-sized random subsample of training intervals (&lt;code&gt;train_sample&lt;/code&gt;). At epoch 10, held-out test performance trailed the training subsample by roughly 0.06–0.10 Pearson r across all three modalities (gene expression, splice site usage, splice junctions), for both linear-probe and LoRA. Reassuringly, that gap stayed roughly constant across epochs rather than widening — i.e. the models aren&amp;rsquo;t progressively overfitting the training intervals with more training, though they also aren&amp;rsquo;t closing the gap to training performance either.&lt;/p&gt;
+&lt;figure&gt;&lt;a href="https://genomicsxai.github.io/previews/pr-73/blogs/2026-009/full_runs.png" class="image-link" data-pswp-width="1355" data-pswp-height="359"&gt;
+		&lt;img src="https://genomicsxai.github.io/previews/pr-73/blogs/2026-009/full_runs.png" width="700px" height="185"loading="lazy"
+			alt="Figure 9. Held-out (solid) vs. training-subsample (dashed) performance across full fine-tuning epochs, linear-probe vs. LoRA, for gene expression, splice site usage, and splice junctions."
+			title="Held-out (solid) vs. training-subsample (dashed) performance across full fine-tuning epochs, linear-probe vs. LoRA, for gene expression, splice site usage, and splice junctions." data-title-escaped="Held-out (solid) vs. training-subsample (dashed) performance across full fine-tuning epochs, linear-probe vs. LoRA, for gene expression, splice site usage, and splice junctions."&gt;
+		&lt;/a&gt;&lt;/figure&gt;&lt;p&gt;Gene expression performance saturated early, so we asked whether LoRA fine-tuning - updating the trunk&amp;rsquo;s internal DNA representation via low-rank adapters, rather than only the new output heads — could do better, particularly on the splicing-specific modalities. Comparing linear-probing against LoRA at epoch 10 on the held-out test set:&lt;/p&gt;
+&lt;table&gt;
+	&lt;thead&gt;
+			&lt;tr&gt;
+					&lt;th&gt;Metric&lt;/th&gt;
+					&lt;th&gt;Linear-probe&lt;/th&gt;
+					&lt;th&gt;LoRA&lt;/th&gt;
+					&lt;th&gt;Δ (LoRA − probe)&lt;/th&gt;
+			&lt;/tr&gt;
+	&lt;/thead&gt;
+	&lt;tbody&gt;
+			&lt;tr&gt;
+					&lt;td&gt;Gene expression (Pearson r)&lt;/td&gt;
+					&lt;td&gt;&lt;strong&gt;0.899&lt;/strong&gt;&lt;/td&gt;
+					&lt;td&gt;0.893&lt;/td&gt;
+					&lt;td&gt;−0.006&lt;/td&gt;
+			&lt;/tr&gt;
+			&lt;tr&gt;
+					&lt;td&gt;Splice site usage (Pearson r)&lt;/td&gt;
+					&lt;td&gt;0.646&lt;/td&gt;
+					&lt;td&gt;&lt;strong&gt;0.659&lt;/strong&gt;&lt;/td&gt;
+					&lt;td&gt;+0.013&lt;/td&gt;
+			&lt;/tr&gt;
+			&lt;tr&gt;
+					&lt;td&gt;Splice junctions (Pearson r)&lt;/td&gt;
+					&lt;td&gt;0.788&lt;/td&gt;
+					&lt;td&gt;&lt;strong&gt;0.811&lt;/strong&gt;&lt;/td&gt;
+					&lt;td&gt;+0.023&lt;/td&gt;
+			&lt;/tr&gt;
+	&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;As expected, LoRA, by updating the trunk&amp;rsquo;s internal DNA representation instead of leaving it frozen, improved performance over linear probing on the splicing-specific metrics (splice site usage, splice junctions), while gene expression stayed essentially unchanged between the two (linear-probe even edges it out slightly there).&lt;/p&gt;
+&lt;p&gt;The two strategies also differ substantially in compute footprint. Full genome fine-tuning with LoRA needed a full NVIDIA H100 (80 GB) and took about a week, since backpropagating through the frozen trunk to reach the low-rank adapters still requires storing its activations end to end, even though the trunk&amp;rsquo;s own weights aren&amp;rsquo;t updated. Linear probing, by contrast, only needs gradients for the new heads, so it ran comfortably on NVIDIA Hopper-class GPUs with as little as 64 GB of memory.&lt;/p&gt;
+&lt;p&gt;The workflows for full fine-tuning and evaluation are available in the repository: &lt;a class="link" href="https://github.com/MiqG/alphagenome_finetuning_rna/tree/v1.0.1/workflows/05-full_finetuning" target="_blank" rel="noopener"
+ &gt;&lt;code&gt;workflows/05-full_finetuning&lt;/code&gt;&lt;/a&gt; and &lt;a class="link" href="https://github.com/MiqG/alphagenome_finetuning_rna/tree/v1.0.1/workflows/06-evaluation" target="_blank" rel="noopener"
+ &gt;&lt;code&gt;workflows/06-evaluation&lt;/code&gt;&lt;/a&gt;.&lt;/p&gt;
 &lt;h2 id="limitations"&gt;Limitations
-&lt;/h2&gt;&lt;p&gt;All debugging was performed on a single genomic interval with just two RNA-seq samples, so the behavior we observed may not generalize to larger or more diverse training sets. The preprocessing pipeline reproduces the main steps described in the AlphaGenome paper, but since the original code is not public, we cannot guarantee exact parity.&lt;/p&gt;
+&lt;/h2&gt;&lt;p&gt;The initial debugging (up to and including the loss-formulation fix) was performed on a single genomic interval with just two RNA-seq samples, so those specific observations may not generalize to larger or more diverse training sets — this is why we followed up with the full genome-wide fine-tuning run above. The preprocessing pipeline reproduces the main steps described in the AlphaGenome paper, but since the original code is not public, we cannot guarantee exact parity.&lt;/p&gt;
 &lt;p&gt;The splicing fine-tuning code currently lives in a dedicated fork of &lt;a class="link" href="https://github.com/MiqG/alphagenome-pytorch/tree/splice-finetuning" target="_blank" rel="noopener"
  &gt;alphagenome-pytorch&lt;/a&gt; and is pending merge into the main branch. Support in the JAX-based &lt;a class="link" href="https://github.com/genomicsxai/alphagenome_ft" target="_blank" rel="noopener"
  &gt;alphagenome_ft&lt;/a&gt; will follow once that merge is complete.&lt;/p&gt;
-&lt;p&gt;This post focuses entirely on getting the implementation correct, not on biological results. We do not report held-out performance or compare model predictions to independent data. Whether the fine-tuned heads generalize to unseen genomic intervals or samples, and whether they capture SF3B1-specific splicing changes, is left for the follow-up post.&lt;/p&gt;
+&lt;p&gt;This post focuses on getting the implementation correct and measuring held-out performance, not on biological interpretation. We do not yet relate these predictions to independent data or ask whether the fine-tuned heads capture SF3B1-specific splicing changes — that comparison, and the accompanying biological interpretation, is left for the follow-up post. We also only evaluate two RNA-seq samples (one WT, one K700E) and a single AlphaGenome fold; generalization to more samples, mutations, or cell types remains to be tested.&lt;/p&gt;
 &lt;h2 id="conclusion"&gt;Conclusion
 &lt;/h2&gt;&lt;p&gt;This process gave us a much better understanding of what it actually takes to fine-tune new transcriptomic heads on AlphaGenome. Extending the model to splicing modalities was not simply a matter of adding data loaders and output layers (as we hoped): higher label sparsity, head initialization, loss formulation, and the interaction between position sources and weight initialization all turned out to matter.&lt;/p&gt;
 &lt;p&gt;The most useful strategy was to build confidence at each step before scaling up, from preprocessing validation and target inspection to single-interval overfitting. Each stage exposed a different class of problem. The single-interval test in particular was worth its weight as the two loss bugs and a zero-initialization bug in the junction head would have been much harder to diagnose in a full training run. We hope that sharing these intermediate failures, alongside the fixes and the flags that control them, makes it easier for others to extend AlphaGenome to new RNA-seq modalities and biological questions.&lt;/p&gt;
+&lt;p&gt;The full fine-tuning results also suggest that gene expression and splicing tasks don&amp;rsquo;t need the same amount of compute: gene expression performance saturated early and didn&amp;rsquo;t benefit from LoRA, so linear probing on modest hardware is likely enough there, whereas the splicing modalities kept improving and gained the most from LoRA&amp;rsquo;s larger compute and memory footprint. If gene expression is your main target, linear probing is probably all you need; splicing tasks are where the extra compute marginally pays off.&lt;/p&gt;
 &lt;p&gt;In the end, this project became more than a simple port. It resulted in reusable preprocessing scripts, training pipelines, and a set of practical checks and warnings that we hope make fine-tuning RNA-seq–derived splicing modalities on AlphaGenome more transparent and reproducible. We are especially grateful to the DeepMind developers for openly sharing their code and model weights, and for the responsiveness of Tom Ward (&lt;a class="link" href="https://github.com/tomwardio" target="_blank" rel="noopener"
  &gt;&lt;code&gt;@tomwardio&lt;/code&gt;&lt;/a&gt;) and Vincent Dutordoir (&lt;a class="link" href="https://github.com/vdutor" target="_blank" rel="noopener"
  &gt;&lt;code&gt;@vdutor&lt;/code&gt;&lt;/a&gt;) when we reported bugs and implementation issues; their feedback was instrumental in reaching the conclusions presented here. We hope these efforts help make fine-tuning splicing heads as seamless and accessible as possible for the broader community.&lt;/p&gt;

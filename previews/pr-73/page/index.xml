@@ -1,9 +1,52 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Pages on Genomics x AI</title><link>https://genomicsxai.github.io/previews/pr-73/page/</link><description>Recent content in Pages on Genomics x AI</description><generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Tue, 19 May 2026 16:55:55 -0400</lastBuildDate><atom:link href="https://genomicsxai.github.io/previews/pr-73/page/index.xml" rel="self" type="application/rss+xml"/><item><title>Submission Guidelines</title><link>https://genomicsxai.github.io/previews/pr-73/submission-guidelines/</link><pubDate>Fri, 01 May 2026 00:00:00 +0000</pubDate><guid>https://genomicsxai.github.io/previews/pr-73/submission-guidelines/</guid><description>&lt;h2 id="submit-your-blog-post"&gt;Submit Your Blog Post
-&lt;/h2&gt;&lt;p&gt;The Genomics × AI blog uses a peer-reviewed, Git-native workflow. Write your
-post from the template, sign in with GitHub, and the form below will fork the
-repository, commit your files, and open a pull request — all automatically.&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Pages on Genomics x AI</title><link>https://genomicsxai.github.io/previews/pr-73/page/</link><description>Recent content in Pages on Genomics x AI</description><generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Wed, 15 Jul 2026 11:52:44 -0400</lastBuildDate><atom:link href="https://genomicsxai.github.io/previews/pr-73/page/index.xml" rel="self" type="application/rss+xml"/><item><title>Submission Guidelines</title><link>https://genomicsxai.github.io/previews/pr-73/submission-guidelines/</link><pubDate>Fri, 01 May 2026 00:00:00 +0000</pubDate><guid>https://genomicsxai.github.io/previews/pr-73/submission-guidelines/</guid><description>&lt;h2 id="submit-your-blog-post"&gt;Submit Your Blog Post
+&lt;/h2&gt;&lt;p&gt;The Genomics × AI blog uses a light, non-gate keeping peer-review, Git-native
+workflow. There are &lt;strong&gt;two ways to submit a post&lt;/strong&gt; — both go through the same
+editorial review and produce the same final published post. Pick whichever
+fits how you like to work:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Option 1 — Open a pull request.&lt;/strong&gt; Fastest path if you&amp;rsquo;re already
+comfortable with Git and Markdown: write your post locally, push a branch,
+open a PR.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Option 2 — Use the online submission form.&lt;/strong&gt; No local Git required. Sign
+in with GitHub and either upload a template &lt;code&gt;index.md&lt;/code&gt; or write the post
+from scratch in the form&amp;rsquo;s text fields. The form forks the repo, commits
+your files, and opens the PR for you.&lt;/li&gt;
+&lt;/ul&gt;
 &lt;p&gt;You&amp;rsquo;ll need a &lt;a class="link" href="https://github.com/signup" target="_blank" rel="noopener"
- &gt;GitHub account&lt;/a&gt;.&lt;/p&gt;
+ &gt;GitHub account&lt;/a&gt; for either path.&lt;/p&gt;
+&lt;hr&gt;
+&lt;h3 id="option-1--open-a-pull-request-for-git--markdown-users"&gt;Option 1 — Open a pull request (for Git / Markdown users)
+&lt;/h3&gt;&lt;p&gt;If you already work in Git, this is the quickest route:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a class="link" href="https://github.com/genomicsxai/genomicsxai.github.io/fork" target="_blank" rel="noopener"
+ &gt;Fork the repository&lt;/a&gt;.&lt;/li&gt;
+&lt;li&gt;Copy the
+&lt;a class="link" href="https://github.com/genomicsxai/genomicsxai.github.io/blob/main/docs/blog-post-template.md" target="_blank" rel="noopener"
+ &gt;blog post template&lt;/a&gt;
+and fill in the YAML frontmatter.&lt;/li&gt;
+&lt;li&gt;Add your post to &lt;code&gt;content/blogs/YYYY-NNN/index.md&lt;/code&gt;; place images in the
+&lt;strong&gt;same folder&lt;/strong&gt; (e.g. &lt;code&gt;content/blogs/YYYY-NNN/figure1.png&lt;/code&gt;).&lt;/li&gt;
+&lt;li&gt;Your PR must contain &lt;strong&gt;only&lt;/strong&gt; files inside &lt;code&gt;content/blogs/YYYY-NNN/&lt;/code&gt; — no
+changes to &lt;code&gt;static/&lt;/code&gt;, &lt;code&gt;config.toml&lt;/code&gt;, &lt;code&gt;.github/&lt;/code&gt;, etc. If the preview bot
+posts &amp;ldquo;Preview Deployment Skipped&amp;rdquo;, the comment lists the offending files.&lt;/li&gt;
+&lt;li&gt;Open a pull request against &lt;code&gt;main&lt;/code&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;To revise an already-published post, just open a new PR with your changes —
+editors will treat it as a revision and update &lt;code&gt;revision&lt;/code&gt; /
+&lt;code&gt;revision_history&lt;/code&gt; on merge.&lt;/p&gt;
+&lt;hr&gt;
+&lt;h3 id="option-2--use-the-online-submission-form-no-git-required"&gt;Option 2 — Use the online submission form (no Git required)
+&lt;/h3&gt;&lt;p&gt;If you&amp;rsquo;d rather not work in Git locally, the form below does the Git work
+for you. Sign in with GitHub and you can either:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Upload a template &lt;code&gt;index.md&lt;/code&gt;&lt;/strong&gt; (plus any images) — the form parses your
+frontmatter and you can edit any field before submitting, or&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Write the post from scratch&lt;/strong&gt; in the form&amp;rsquo;s text windows — fill in
+title, authors, tags, scope, audience, summary, and body in dedicated
+fields, with drag-and-drop image uploads and a caption per image.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;When you submit, the form validates the frontmatter, forks the repo, creates
+a branch, commits your files, and opens the PR on your behalf.&lt;/p&gt;
 &lt;div id="submit-form" class="submit-form"&gt;
 
  
@@ -151,6 +194,58 @@ repository, commit your files, and open a pull request — all automatically.&lt
  &lt;/div&gt;
 
  &lt;div class="submit-form__field"&gt;
+ &lt;label class="submit-form__label submit-form__label--required"&gt;Category&lt;/label&gt;
+ &lt;span class="submit-form__help"&gt;Which homepage pill your post appears under. Default is &lt;strong&gt;Blog Post&lt;/strong&gt; — pick another only if it clearly fits.&lt;/span&gt;
+ &lt;div class="submit-form__radio-group"&gt;
+ &lt;div class="submit-form__radio-item"&gt;
+ &lt;label class="submit-form__radio"&gt;
+ &lt;input type="radio" name="sf-category" value="Announcement" class="submit-form__editable"&gt;
+ &lt;span class="submit-form__radio-label"&gt;
+ Announcement
+ &lt;span class="submit-form__radio-note"&gt;Editorial and community announcements.&lt;/span&gt;
+ &lt;/span&gt;
+ &lt;/label&gt;
+ &lt;/div&gt;
+ &lt;div class="submit-form__radio-item"&gt;
+ &lt;label class="submit-form__radio"&gt;
+ &lt;input type="radio" name="sf-category" value="Blog Post" class="submit-form__editable" checked&gt;
+ &lt;span class="submit-form__radio-label"&gt;
+ Blog Post &lt;em&gt;(default)&lt;/em&gt;
+ &lt;span class="submit-form__radio-note"&gt;Standard research write-ups.&lt;/span&gt;
+ &lt;/span&gt;
+ &lt;/label&gt;
+ &lt;/div&gt;
+ &lt;div class="submit-form__radio-item"&gt;
+ &lt;label class="submit-form__radio"&gt;
+ &lt;input type="radio" name="sf-category" value="Tutorial" class="submit-form__editable"&gt;
+ &lt;span class="submit-form__radio-label"&gt;
+ Tutorial
+ &lt;span class="submit-form__radio-note"&gt;Step-by-step technical guides.&lt;/span&gt;
+ &lt;/span&gt;
+ &lt;/label&gt;
+ &lt;/div&gt;
+ &lt;div class="submit-form__radio-item"&gt;
+ &lt;label class="submit-form__radio"&gt;
+ &lt;input type="radio" name="sf-category" value="Perspective" class="submit-form__editable"&gt;
+ &lt;span class="submit-form__radio-label"&gt;
+ Perspective
+ &lt;span class="submit-form__radio-note"&gt;Opinion pieces, field commentary.&lt;/span&gt;
+ &lt;/span&gt;
+ &lt;/label&gt;
+ &lt;/div&gt;
+ &lt;div class="submit-form__radio-item"&gt;
+ &lt;label class="submit-form__radio"&gt;
+ &lt;input type="radio" name="sf-category" value="Paper Reviews" class="submit-form__editable"&gt;
+ &lt;span class="submit-form__radio-label"&gt;
+ Paper Reviews
+ &lt;span class="submit-form__radio-note"&gt;Summaries or critiques of a published paper.&lt;/span&gt;
+ &lt;/span&gt;
+ &lt;/label&gt;
+ &lt;/div&gt;
+ &lt;/div&gt;
+ &lt;/div&gt;
+
+ &lt;div class="submit-form__field"&gt;
  &lt;label class="submit-form__label submit-form__label--required"&gt;Scope&lt;/label&gt;
  &lt;div class="submit-form__checkbox-group"&gt;
  &lt;label class="submit-form__checkbox"&gt;&lt;input type="checkbox" id="sf-scope-protocols" class="submit-form__editable"&gt; protocols&lt;/label&gt;
@@ -175,7 +270,7 @@ repository, commit your files, and open a pull request — all automatically.&lt
 
  &lt;div class="submit-form__field"&gt;
  &lt;label class="submit-form__label submit-form__label--required"&gt;Discipline&lt;/label&gt;
- &lt;span class="submit-form__help"&gt;At least one required — promotes your post under the homepage Discipline filter.&lt;/span&gt;
+ &lt;span class="submit-form__help"&gt;At least one required — select all that apply. Promotes your post under the homepage Discipline filter(s).&lt;/span&gt;
  &lt;div class="submit-form__checkbox-group"&gt;
  &lt;label class="submit-form__checkbox"&gt;&lt;input type="checkbox" class="submit-form__editable submit-form__discipline" data-slug="seq2func" id="sf-discipline-seq2func"&gt; Sequence-to-Function Modeling&lt;/label&gt;
  &lt;label class="submit-form__checkbox"&gt;&lt;input type="checkbox" class="submit-form__editable submit-form__discipline" data-slug="context-seq2func" id="sf-discipline-context-seq2func"&gt; Context-aware Seq-to-Function&lt;/label&gt;
@@ -184,6 +279,7 @@ repository, commit your files, and open a pull request — all automatically.&lt
  &lt;label class="submit-form__checkbox"&gt;&lt;input type="checkbox" class="submit-form__editable submit-form__discipline" data-slug="interpretability" id="sf-discipline-interpretability"&gt; Interpretability / Mech AI&lt;/label&gt;
  &lt;label class="submit-form__checkbox"&gt;&lt;input type="checkbox" class="submit-form__editable submit-form__discipline" data-slug="multi-omics" id="sf-discipline-multi-omics"&gt; Multi-omics&lt;/label&gt;
  &lt;label class="submit-form__checkbox"&gt;&lt;input type="checkbox" class="submit-form__editable submit-form__discipline" data-slug="experimental-design" id="sf-discipline-experimental-design"&gt; Experimental Design Loop&lt;/label&gt;
+ &lt;label class="submit-form__checkbox"&gt;&lt;input type="checkbox" class="submit-form__editable submit-form__discipline" data-slug="ai-agents" id="sf-discipline-ai-agents"&gt; AI Agents&lt;/label&gt;
  &lt;/div&gt;
  &lt;div id="sf-error-discipline" class="submit-form__field-error" hidden&gt;&lt;/div&gt;
  &lt;/div&gt;
@@ -197,12 +293,6 @@ repository, commit your files, and open a pull request — all automatically.&lt
  &lt;div class="submit-form__field"&gt;
  &lt;label class="submit-form__label" for="sf-date"&gt;Date&lt;/label&gt;
  &lt;input type="date" id="sf-date" class="submit-form__input" readonly&gt;
- &lt;/div&gt;
-
- &lt;div class="submit-form__field"&gt;
- &lt;label class="submit-form__checkbox"&gt;
- &lt;input type="checkbox" id="sf-math" class="submit-form__editable"&gt; Post uses LaTeX math equations
- &lt;/label&gt;
  &lt;/div&gt;
  &lt;/div&gt;
 
@@ -237,7 +327,7 @@ repository, commit your files, and open a pull request — all automatically.&lt
  
  &lt;div id="submit-form__images-subsection" class="submit-form__body-images"&gt;
  &lt;h4 class="submit-form__subsection-title"&gt;Images&lt;/h4&gt;
- &lt;p class="submit-form__help"&gt;Upload images you want to embed. Max 10 MB per file, 50 MB total. Type an optional &lt;strong&gt;caption&lt;/strong&gt; next to each thumbnail (shown as the figure legend on the published page), then click &lt;strong&gt;Insert&lt;/strong&gt; to drop a placeholder into the text above.&lt;/p&gt;
+ &lt;p class="submit-form__help"&gt;Upload images you want to embed. Max 10 MB per file, 50 MB total. Type an optional &lt;strong&gt;caption&lt;/strong&gt; next to each thumbnail (shown as the figure legend on the published page), then click &lt;strong&gt;Insert&lt;/strong&gt; to drop a placeholder into the text above. Click &lt;strong&gt;☆ Featured&lt;/strong&gt; on any image to use it as the post's thumbnail (sets &lt;code&gt;image:&lt;/code&gt; in the frontmatter).&lt;/p&gt;
 
  
  &lt;div id="submit-form__existing-images-wrap" class="submit-form__existing-images" hidden&gt;
@@ -256,6 +346,9 @@ repository, commit your files, and open a pull request — all automatically.&lt
 
  
  &lt;div id="submit-form__actions" class="submit-form__section"&gt;
+ &lt;div id="submit-form__missing-summary" class="submit-form__missing-summary" hidden&gt;
+ Please complete: &lt;span id="submit-form__missing-list"&gt;&lt;/span&gt;
+ &lt;/div&gt;
  &lt;button type="button" id="submit-form__submit-btn" class="submit-form__btn submit-form__btn--primary submit-form__btn--large" disabled&gt;
  Submit Blog Post
  &lt;/button&gt;
@@ -272,62 +365,71 @@ repository, commit your files, and open a pull request — all automatically.&lt
  &lt;div id="submit-form__form-error" class="submit-form__message submit-form__message--error" hidden&gt;&lt;/div&gt;
  &lt;div id="submit-form__success" class="submit-form__message submit-form__message--success" hidden&gt;&lt;/div&gt;
 
- &lt;script type="application/json" id="submit-form__disciplines-data"&gt;"[\"seq2func\",\"context-seq2func\",\"single-cell\",\"synthetic-biology\",\"interpretability\",\"multi-omics\",\"experimental-design\"]"
+ &lt;script type="application/json" id="submit-form__disciplines-data"&gt;"[\"seq2func\",\"context-seq2func\",\"single-cell\",\"synthetic-biology\",\"interpretability\",\"multi-omics\",\"experimental-design\",\"ai-agents\"]"
  &lt;/script&gt;
 &lt;/div&gt;
 
-&lt;hr&gt;
-&lt;h2 id="how-submission-works"&gt;How submission works
-&lt;/h2&gt;&lt;ol&gt;
-&lt;li&gt;&lt;strong&gt;Write your post&lt;/strong&gt; — Download the template (button above), fill in the YAML
-frontmatter, write your Summary + Sections, and run an internal lab review.&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Submit via the form&lt;/strong&gt; — Upload your &lt;code&gt;index.md&lt;/code&gt; and any images. The form
-validates frontmatter, forks the repo, creates a branch, commits, and opens
-a PR for you.&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Preview&lt;/strong&gt; — Within a few minutes a bot posts a comment with a live preview
-URL. It updates on each new commit. The preview may 404 for 1–2 minutes
-while GitHub Pages propagates.&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Editor review&lt;/strong&gt; — Editors run a lightweight
-&lt;a class="link" href="https://genomicsxai.github.io/editorial-review/" target="_blank" rel="noopener"
- &gt;Minimal Viable Review (MVR)&lt;/a&gt;
-for clarity, correctness, and fit. They may request changes via PR comments.&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Going live&lt;/strong&gt; — Once approved, editors merge the PR and GitHub Actions
-deploys the post.&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Updates&lt;/strong&gt; — After your post is merged you can revise it through the same
-form. Sign in, choose &lt;strong&gt;Update one of my previous posts&lt;/strong&gt;, pick the post
-from the dropdown (only posts you originally submitted appear), and add a
-one-line revision note. You can either pre-fill the form from the published
-version and edit, or start blank for a full rewrite. Submitting opens a PR
-that bumps &lt;code&gt;revision&lt;/code&gt;, appends to &lt;code&gt;revision_history&lt;/code&gt;, and re-enters
-editorial review.&lt;/li&gt;
-&lt;/ol&gt;
+&lt;p&gt;&lt;strong&gt;To revise an already-published post via the form&lt;/strong&gt;, sign in and choose
+&lt;strong&gt;Update one of my previous posts&lt;/strong&gt;, then pick the post from the dropdown
+(only posts you originally submitted appear) and add a one-line revision
+note. You can either pre-fill the form from the published version and edit,
+or start blank for a full rewrite. Submitting opens a PR that bumps
+&lt;code&gt;revision&lt;/code&gt;, appends to &lt;code&gt;revision_history&lt;/code&gt;, and re-enters editorial review.&lt;/p&gt;
 &lt;p&gt;On first use, the form asks you to authorize the &lt;strong&gt;Genomics × AI Submission&lt;/strong&gt;
 OAuth app. It requests the &lt;code&gt;public_repo&lt;/code&gt; scope — enough to fork, branch,
 commit, and PR on your behalf. It can&amp;rsquo;t read private repositories or change
 your account settings. Revoke any time from your
 &lt;a class="link" href="https://github.com/settings/applications" target="_blank" rel="noopener"
  &gt;Authorized OAuth Apps&lt;/a&gt;.&lt;/p&gt;
-&lt;h3 id="prefer-git-submit-a-pr-manually"&gt;Prefer Git? Submit a PR manually
-&lt;/h3&gt;&lt;p&gt;If you&amp;rsquo;d rather work directly in Git:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;a class="link" href="https://github.com/genomicsxai/genomicsxai.github.io/fork" target="_blank" rel="noopener"
- &gt;Fork the repository&lt;/a&gt;.&lt;/li&gt;
-&lt;li&gt;Add your post to &lt;code&gt;content/blogs/YYYY-NNN/index.md&lt;/code&gt;; place images in the
-&lt;strong&gt;same folder&lt;/strong&gt; (e.g. &lt;code&gt;content/blogs/YYYY-NNN/figure1.png&lt;/code&gt;).&lt;/li&gt;
-&lt;li&gt;Your PR must contain &lt;strong&gt;only&lt;/strong&gt; files inside &lt;code&gt;content/blogs/YYYY-NNN/&lt;/code&gt; — no
-changes to &lt;code&gt;static/&lt;/code&gt;, &lt;code&gt;config.toml&lt;/code&gt;, &lt;code&gt;.github/&lt;/code&gt;, etc. If the preview bot
-posts &amp;ldquo;Preview Deployment Skipped&amp;rdquo;, the comment lists the offending files.&lt;/li&gt;
-&lt;li&gt;Open a pull request against &lt;code&gt;main&lt;/code&gt; with the submission template filled out.&lt;/li&gt;
-&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h2 id="what-happens-after-you-submit"&gt;What happens after you submit
+&lt;/h2&gt;&lt;p&gt;Both options lead to the same review pipeline:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;Preview&lt;/strong&gt; — Within a few minutes a bot posts a comment on your PR with a
+live preview URL. It updates on each new commit. The preview may 404 for
+1–2 minutes while GitHub Pages propagates.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Editor review&lt;/strong&gt; — Editors run a lightweight
+&lt;a class="link" href="https://genomicsxai.github.io/editorial-review/" target="_blank" rel="noopener"
+ &gt;Minimal Viable Review (MVR)&lt;/a&gt;
+for clarity, correctness, and fit. They may request changes via PR
+comments.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Going live&lt;/strong&gt; — Once approved, editors merge the PR and GitHub Actions
+deploys the post.&lt;/li&gt;
+&lt;/ol&gt;
 &lt;h2 id="writing-notes"&gt;Writing notes
 &lt;/h2&gt;&lt;ul&gt;
 &lt;li&gt;There are no strict stylistic requirements, but posts should be clear,
 accessible, and engaging for a broad scientific audience.&lt;/li&gt;
 &lt;li&gt;Use headings, figures, and examples where helpful.&lt;/li&gt;
-&lt;li&gt;Cite prior work via hyperlinks or formal inline citations; a references
-section at the end is encouraged.&lt;/li&gt;
+&lt;li&gt;Cite prior work via hyperlinks or formal inline citations, and &lt;strong&gt;include a
+numbered References section at the end&lt;/strong&gt;, with a DOI or publisher link for
+each entry wherever one exists. See &lt;a class="link" href="#why-references-matter-for-google-scholar" &gt;Why references matter for Google
+Scholar&lt;/a&gt; below.&lt;/li&gt;
 &lt;li&gt;Ensure claims are supported by appropriate sources.&lt;/li&gt;
 &lt;/ul&gt;
+&lt;h2 id="why-references-matter-for-google-scholar"&gt;Why references matter for Google Scholar
+&lt;/h2&gt;&lt;p&gt;Every accepted post is assigned a &lt;a class="link" href="https://zenodo.org/" target="_blank" rel="noopener"
+ &gt;Zenodo&lt;/a&gt; DOI and
+publishes Google Scholar metadata, so your post is eligible to appear in
+Google Scholar and to be cited like any other article. Getting listed there is
+one of the main reasons to publish with us rather than on a personal blog.&lt;/p&gt;
+&lt;p&gt;Scholar does not index everything it can crawl, though. It only includes
+documents its parser judges to be &lt;em&gt;scholarly articles&lt;/em&gt;, and a reference list
+appears to be one of the signals it uses to tell a research article apart from
+an ordinary web page.&lt;/p&gt;
+&lt;p&gt;We want to be upfront that &lt;strong&gt;this is something we have observed, not a
+documented rule&lt;/strong&gt; — Google does not publish the details of how this decision is
+made. What we have seen across our own posts is that the ones with a
+substantial, DOI-linked bibliography were picked up by Scholar, while posts
+with no references (or a single unlinked one) were not, even when they were
+long, published earlier, and otherwise complete. Length and publication date
+did not predict inclusion; the reference list did.&lt;/p&gt;
+&lt;p&gt;So: a References section is not a hard requirement for acceptance, and a post
+without one can still be published. But if you would like your post to be
+discoverable and citable in Google Scholar, cite the primary literature your
+work builds on and give each entry a DOI. Even if Scholar has already crawled
+your post, adding references later is worthwhile — it will be reconsidered on a
+future crawl, though this can take weeks.&lt;/p&gt;
 &lt;h2 id="what-editors-look-for"&gt;What editors look for
 &lt;/h2&gt;&lt;p&gt;Editors aim to confirm, in a lightweight pass, that your post:&lt;/p&gt;
 &lt;ul&gt;
@@ -395,7 +497,7 @@ Open your discussion and click &lt;strong&gt;Subscribe&lt;/strong&gt; for that t
 &lt;h3 id="d-metadata-and-tagging"&gt;D. Metadata and tagging
 &lt;/h3&gt;&lt;ul&gt;
 &lt;li&gt;&lt;strong&gt;&lt;code&gt;tags&lt;/code&gt;&lt;/strong&gt; are relevant and consistent with the post&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;At least one discipline tag&lt;/strong&gt; is present (&lt;code&gt;seq2func&lt;/code&gt;, &lt;code&gt;context-seq2func&lt;/code&gt;, &lt;code&gt;single-cell&lt;/code&gt;, &lt;code&gt;synthetic-biology&lt;/code&gt;, &lt;code&gt;interpretability&lt;/code&gt;, &lt;code&gt;multi-omics&lt;/code&gt;, or &lt;code&gt;experimental-design&lt;/code&gt;) so the post surfaces under the homepage Discipline filter&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;At least one discipline tag&lt;/strong&gt; is present (&lt;code&gt;seq2func&lt;/code&gt;, &lt;code&gt;context-seq2func&lt;/code&gt;, &lt;code&gt;single-cell&lt;/code&gt;, &lt;code&gt;synthetic-biology&lt;/code&gt;, &lt;code&gt;interpretability&lt;/code&gt;, &lt;code&gt;multi-omics&lt;/code&gt;, &lt;code&gt;experimental-design&lt;/code&gt;, or &lt;code&gt;ai-agents&lt;/code&gt;) so the post surfaces under the homepage Discipline filter — a post may carry more than one when it spans several disciplines&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;&lt;code&gt;categories&lt;/code&gt;&lt;/strong&gt; and &lt;strong&gt;&lt;code&gt;scope&lt;/code&gt;&lt;/strong&gt; reflect the piece&lt;/li&gt;
 &lt;li&gt;Title accurately reflects content&lt;/li&gt;
 &lt;/ul&gt;
@@ -438,6 +540,15 @@ Open your discussion and click &lt;strong&gt;Subscribe&lt;/strong&gt; for that t
 &lt;/div&gt;
 &lt;p&gt;False positives are usually obvious (the word &lt;code&gt;onclick&lt;/code&gt; inside a fenced code block discussing event handlers, the string &lt;code&gt;&amp;lt;script&amp;gt;&lt;/code&gt; inside a quoted example). If a match is genuine raw HTML the author intended to publish, ask them to either remove it or convert it to a fenced code block (&lt;code&gt;```&lt;/code&gt;) so it renders as text, not as live HTML. &lt;strong&gt;When in doubt, reject.&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;Until the site moves the OAuth token to an HttpOnly cookie or adopts a strict CSP, this check is the only thing standing between a malicious submission and every signed-in reader&amp;rsquo;s GitHub account.&lt;/p&gt;
+&lt;h3 id="h-references-and-google-scholar-indexing"&gt;H. References and Google Scholar indexing
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;A &lt;strong&gt;References section&lt;/strong&gt; is present at the end of the post&lt;/li&gt;
+&lt;li&gt;References are &lt;strong&gt;numbered&lt;/strong&gt; and cite the primary literature, with a &lt;strong&gt;DOI or publisher link&lt;/strong&gt; per entry wherever one exists&lt;/li&gt;
+&lt;li&gt;Inline links to blog posts, repos, or docs are welcome, but they do &lt;strong&gt;not&lt;/strong&gt; substitute for a bibliography of the papers the work builds on&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;Why this matters:&lt;/strong&gt; every accepted post emits Google Scholar (Highwire) metadata and gets a Zenodo DOI, so posts are eligible to appear in Google Scholar. But Scholar does not index everything it can crawl — it only includes documents its parser classifies as &lt;em&gt;scholarly articles&lt;/em&gt;, and a reference list is a primary signal it uses to tell a research article apart from an ordinary web page.&lt;/p&gt;
+&lt;p&gt;To be clear, this is &lt;strong&gt;an observation, not a documented rule&lt;/strong&gt; — we cannot see Google&amp;rsquo;s classifier. What we have noticed is that, of our accepted posts, the ones carrying a substantial DOI-linked bibliography were picked up by Scholar, while posts with no references (or a single unlinked one) were not, even when they were long, older, and otherwise well-formed. Post length and publication date did not predict inclusion; the reference list did.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Decision rule:&lt;/strong&gt; treat a missing or token References section as a change request, not a blocker. Ask the author to add the papers the post already builds on. A post can still be accepted without one — it will simply be much less likely to surface in Scholar.&lt;/p&gt;
 &lt;hr&gt;
 &lt;h2 id="2-executive-summary-requirement"&gt;2. Executive summary requirement
 &lt;/h2&gt;&lt;h3 id="purpose"&gt;Purpose
@@ -471,6 +582,11 @@ Open your discussion and click &lt;strong&gt;Subscribe&lt;/strong&gt; for that t
 &lt;li&gt;&lt;strong&gt;Major revisions&lt;/strong&gt;&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;Not Accepted&lt;/strong&gt; (out of scope or insufficient quality)&lt;/li&gt;
 &lt;/ul&gt;
+
+ &lt;blockquote&gt;
+ &lt;p&gt;&lt;strong&gt;Reviewer credit is automatic.&lt;/strong&gt; When the PR is merged, any editor who engaged with it — through a formal review, a review comment, or a conversation comment — is added to the post&amp;rsquo;s &lt;code&gt;editor:&lt;/code&gt; frontmatter automatically (regardless of the outcome). You don&amp;rsquo;t need to edit that field by hand; only members of the &lt;code&gt;@genomicsxai/editors&lt;/code&gt; team are credited, so authors and other commenters are never added.&lt;/p&gt;
+
+ &lt;/blockquote&gt;
 &lt;hr&gt;
 &lt;h2 id="4-minimal-review-checklist"&gt;4. Minimal review checklist
 &lt;/h2&gt;&lt;h3 id="must-pass-hard-requirements"&gt;Must pass (hard requirements)
@@ -489,6 +605,7 @@ Open your discussion and click &lt;strong&gt;Subscribe&lt;/strong&gt; for that t
 &lt;li&gt;&lt;input disabled="" type="checkbox"&gt; Clear takeaway or value&lt;/li&gt;
 &lt;li&gt;&lt;input disabled="" type="checkbox"&gt; Appropriate level for audience&lt;/li&gt;
 &lt;li&gt;&lt;input disabled="" type="checkbox"&gt; References and links included where needed&lt;/li&gt;
+&lt;li&gt;&lt;input disabled="" type="checkbox"&gt; &lt;strong&gt;References section present&lt;/strong&gt;, numbered, with DOI/publisher links — needed for the post to appear in Google Scholar (see &lt;a class="link" href="#h-references-and-google-scholar-indexing" &gt;§1H&lt;/a&gt;)&lt;/li&gt;
 &lt;li&gt;&lt;input disabled="" type="checkbox"&gt; Formatting clean&lt;/li&gt;
 &lt;/ul&gt;
 &lt;hr&gt;
@@ -565,12 +682,15 @@ Open your discussion and click &lt;strong&gt;Subscribe&lt;/strong&gt; for that t
 &lt;li&gt;Provide structured feedback to authors&lt;/li&gt;
 &lt;li&gt;Ensure scientific accuracy and clarity&lt;/li&gt;
 &lt;li&gt;Enforce submission and community guidelines&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Ensure each post is tagged with at least one discipline before approval&lt;/strong&gt; (e.g. Sequence-to-Function Modeling, Single-cell Modeling, Synthetic Biology) so it surfaces under the &lt;a class="link" href="https://genomicsxai.github.io/previews/pr-73/" &gt;homepage Discipline filter&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Ensure each post is tagged with at least one discipline before approval&lt;/strong&gt; (e.g. Sequence-to-Function Modeling, Single-cell Modeling, Synthetic Biology, AI Agents) so it surfaces under the &lt;a class="link" href="https://genomicsxai.github.io/previews/pr-73/" &gt;homepage Discipline filter&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;Editorial decisions are made collaboratively when needed.&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;Review follows the &lt;a class="link" href="https://genomicsxai.github.io/previews/pr-73/editorial-review/" &gt;Minimal Editorial Review (MVR) framework&lt;/a&gt;. Editorial decisions are made collaboratively when needed.&lt;/p&gt;
 &lt;h3 id="current-editorial-board"&gt;Current Editorial Board
 &lt;/h3&gt;&lt;p&gt;Editor list is populated automatically when the site is built with access to the GitHub team. See the &lt;a href="https://github.com/orgs/genomicsxai/teams/editors" target="_blank" rel="noopener" class="link"&gt;@genomicsxai/editors&lt;/a&gt; team on GitHub.&lt;/p&gt;
+&lt;h3 id="past-editorial-board"&gt;Past Editorial Board
+&lt;/h3&gt;&lt;p&gt;With gratitude to former members of the Editorial Board for their service.&lt;/p&gt;
+&lt;p class="editors-source"&gt;No past editorial board members yet.&lt;/p&gt;
 &lt;h3 id="becoming-involved"&gt;Becoming Involved
 &lt;/h3&gt;&lt;p&gt;If you are interested in:&lt;/p&gt;
 &lt;ul&gt;
