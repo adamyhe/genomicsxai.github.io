@@ -1,169 +1,212 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Genomics x AI</title><link>https://genomicsxai.github.io/previews/pr-110/</link><description>Recent content on Genomics x AI</description><generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Thu, 23 Jul 2026 22:04:40 +0000</lastBuildDate><atom:link href="https://genomicsxai.github.io/previews/pr-110/index.xml" rel="self" type="application/rss+xml"/><item><title>BPNet-GARDEN: A collection of BPNet-style models trained across ENCODE</title><link>https://genomicsxai.github.io/previews/pr-110/blogs/2026-012/</link><pubDate>Thu, 23 Jul 2026 00:00:00 +0000</pubDate><guid>https://genomicsxai.github.io/previews/pr-110/blogs/2026-012/</guid><description>&lt;img src="https://genomicsxai.github.io/previews/pr-110/" alt="Featured image of post BPNet-GARDEN: A collection of BPNet-style models trained across ENCODE" /&gt;&lt;aside class="summary-box"&gt;
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Genomics x AI</title><link>https://genomicsxai.github.io/previews/pr-110/</link><description>Recent content on Genomics x AI</description><generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Fri, 24 Jul 2026 18:34:10 +0000</lastBuildDate><atom:link href="https://genomicsxai.github.io/previews/pr-110/index.xml" rel="self" type="application/rss+xml"/><item><title>Beyond coverage tracks: fine-tuning AlphaGenome's splicing heads from scratch</title><link>https://genomicsxai.github.io/previews/pr-110/blogs/2026-009/</link><pubDate>Fri, 24 Jul 2026 00:00:00 +0000</pubDate><guid>https://genomicsxai.github.io/previews/pr-110/blogs/2026-009/</guid><description>&lt;aside class="summary-box"&gt;
  &lt;h2 class="summary-box__title"&gt;Summary&lt;/h2&gt;
  &lt;div class="summary-box__body"&gt;
- &lt;p&gt;The Encyclopedia of DNA Elements (ENCODE) provides a reference map of functional elements in the human genome. This work reflects more than two decades of systematic investigation into genome function and is described in our recent manuscript on the fourth and final phase of the &lt;a class="link" href="https://doi.org/10.64898/2026.07.06.731365" target="_blank" rel="noopener"
- &gt;&lt;strong&gt;ENCODE Project&lt;/strong&gt;&lt;/a&gt;.
-As part of this effort, we developed BPNet-GARDEN (BPNet-style reGulAtory DNA deep learning models trained on ENCODE)deep learning models trained on approximately 4,000 datasets spanning multiple layers of gene regulation, including transcription-factor binding, chromatin accessibility, transcription initiation, and regulatory activity. Along with the trained models, we provide model predictions, sequence-interpretation scores, discovered motifs, and their genomic instances to support a wide range of gene-regulatory analyses.
-In this first post of a broader series, we introduce BPNet-GARDENand illustrate how it can be used to uncover the sequence rules underlying gene regulation. Over the coming weeks, we will share additional articles highlighting other applications of this resource.
-&lt;strong&gt;Contributions&lt;/strong&gt;:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;Primary contributors: Vivekanandan Ramalingam, Chang M. Yun, Vivian Hecht, Aman Patel, Anusri Pampari, Ziwei Chen, Johannes Linder&lt;/li&gt;
-&lt;li&gt;Secondary contributors: Georgi K. Marinov, Kelly Cochran, Abhimanyu Banerjee, Surag Nair, Salil S. Deshpande, Zahoor Zafrulla&lt;/li&gt;
-&lt;li&gt;Tertiary contributors: Alex M. Tseng, Amr Alexandari, Mahfuza Sharmin, Avanti Shrikumar, Jacob M. Schreiber, Caleb Lareau&lt;/li&gt;
-&lt;li&gt;Corresponding contributors: Anshul Kundaje&lt;/li&gt;
-&lt;li&gt;Blog post: Chang M. Yun, Vivekanandan Ramalingam, Vivian Hecht &lt;em&gt;(equal contributions)&lt;/em&gt;&lt;/li&gt;
-&lt;/ul&gt;
+ &lt;p&gt;DeepMind has released &lt;a class="link" href="https://deepmind.google/discover/blog/alphagenome-a-foundation-model-for-genome-biology/" target="_blank" rel="noopener"
+ &gt;AlphaGenome&lt;/a&gt;’s code and model weights, and the community has since developed &lt;a class="link" href="https://github.com/genomicsxai/alphagenome_ft" target="_blank" rel="noopener"
+ &gt;alphagenome_ft&lt;/a&gt; and &lt;a class="link" href="https://github.com/genomicsxai/alphagenome-pytorch" target="_blank" rel="noopener"
+ &gt;alphagenome-pytorch&lt;/a&gt; to enable seamless fine-tuning in both JAX and PyTorch. These implementations support bigwig-based modalities such as RNA sequencing (RNA-seq) coverage tracks, but other RNA-seq-derived outputs, including splice site probabilities, splice site usage, and splice junctions, require additional work, from data preprocessing and loading to validating fine-tuning on samples not represented during AlphaGenome pretraining. What initially seemed like a straightforward extension became a useful exercise in understanding how large genomic models learn and how to debug new output heads.&lt;/p&gt;
+&lt;p&gt;In this post, we share that development process: preprocessing the data, building loaders, running sanity checks, and overfitting a single interval, including the bugs we found along the way and how we fixed them. We then scale up to full fine-tuning and evaluation on held-out genomic intervals and report the resulting performance for two fine-tuning strategies.&lt;/p&gt;
+&lt;p&gt;All code, model adaptations, and pipelines used for this blog post are &lt;a class="link" href="https://github.com/MiqG/alphagenome_finetuning_rna/tree/v1.0.2" target="_blank" rel="noopener"
+ &gt;available&lt;/a&gt;.&lt;/p&gt;
+
  &lt;/div&gt;
 &lt;/aside&gt;
 
-
- &lt;blockquote&gt;
- &lt;p&gt;This post is the first of a series of blogs we will be releasing on the ENCODE Deep Learning Collection (&amp;ldquo;BPNet-GARDEN&amp;rdquo;). We plan to release the following posts:&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;&lt;strong&gt;Overview: What is the ENCODE Deep Learning Collection? (this post)&lt;/strong&gt;&lt;/li&gt;
-&lt;li&gt;Quickstart guide : How to access the ENCODE Deep Learning Collection&lt;/li&gt;
-&lt;li&gt;Understanding regulatory DNA using deep learning models&lt;/li&gt;
-&lt;li&gt;A guide to the DECODE BPNet model resource for modeling TF binding&lt;/li&gt;
-&lt;li&gt;A guide to the DECODE ChromBPNet resource for modeling chromatin accessibility&lt;/li&gt;
-&lt;li&gt;Case study #1: Predicting the effects of non-coding variant mutations&lt;/li&gt;
-&lt;li&gt;Case study #2: MotifCompendium: A unified lexicon of regulatory sequence motifs&lt;/li&gt;
-&lt;li&gt;Case study #3: Understanding cell type-specific activity of cis-regulatory elements&lt;/li&gt;
-&lt;li&gt;Postscript: successfully running production-scale projects in an academic setting&lt;/li&gt;
-&lt;/ol&gt;
-
- &lt;/blockquote&gt;
 &lt;hr&gt;
-&lt;h2 id="dna-not-just-genes"&gt;DNA: not just genes
-&lt;/h2&gt;&lt;p&gt;The human genome contains approximately 3.2 billion base pairs of DNA. While we often think of genes as the primary component of DNA, they account for only 1-2% of the genome. Gene expression, the process by which genes are converted into functional products, is a highly regulated process–genes are expressed at varying rates, and sometimes not at all–that is fundamental to the function of all living things. Many portions of the 98% of DNA not containing genes, also known as non-coding DNA, play a major role in regulating gene expression, as do the higher-order organization of DNA and various proteins that bind to it.&lt;/p&gt;
-&lt;p&gt;DNA is packaged with proteins into chromatin and further organized into higher-order structures., Chromatin includes structural proteins as well as transcription factors (TFs), or proteins that bind to DNA to up- or down-regulate gene expression. Similarly to thread wound around a spool, not all chromatin is accessible at all times, and binding of various TFs both influences and is determined by chromatin accessibility. Chromatin is highly cell- and species-specific, and plays an essential role in cell differentiation and responses to environmental stimuli such as nutrient stress; moreover, chromatin dysregulation can lead to improper interactions between regulatory elements and genes, which can in turn lead to cancer and other diseases.&lt;/p&gt;
-&lt;h2 id="encode-an-encyclopedia-of-dna-elements"&gt;ENCODE: An Encyclopedia of DNA Elements
-&lt;/h2&gt;&lt;p&gt;The &lt;a class="link" href="https://www.encodeproject.org/" target="_blank" rel="noopener"
- &gt;&lt;strong&gt;Encyclopedia of DNA Elements&lt;/strong&gt; (&lt;strong&gt;ENCODE&lt;/strong&gt;) Consortium&lt;/a&gt;, a public research project dedicated to building a comprehensive &amp;ldquo;Encyclopedia&amp;rdquo; of genome-wide regulatory elements has made major contributions towards characterizing the complex and diverse components of the regulatory landscape. We describe a few of the experimental methods that researchers in the field have developed to interrogate chromatin accessibility below.&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;TF ChIP-seq&lt;/strong&gt;, or TF chromatin immunoprecipitation, is used to identify TF binding sites, one TF at a time, by using antibodies to bind a given TF that is, in turn, bound to particular regions of DNA. These bound regions are then isolated and sequenced, with reads accumulating at TF binding sites. TF-ChIP-seq datasets are typically analyzed to identify peaks from these accumulated reads. Short DNA sequences that are statistically enriched within these peaks can then be identified as candidate motifs that may contribute to transcription-factor binding.&lt;/p&gt;
-&lt;figure&gt;&lt;a href="https://genomicsxai.github.io/previews/pr-110/blogs/2026-012/TFChIP.gif" class="image-link" data-pswp-width="1920" data-pswp-height="1080"&gt;
-		&lt;img src="https://genomicsxai.github.io/previews/pr-110/blogs/2026-012/TFChIP.gif" width="300px" height="168"loading="lazy"
-			alt="Figure: TF ChIP-seq"
-			title="Illustration of TF ChIP-seq: (1) TF binds to accessible DNA; (2) DNA is broken into fragments; (3) Antibodies bind to TF-DNA complex; (4) TF-DNA complex is pulled down; (5) Isolated DNA is cleaned and sequenced; (6) Sequences accumulate around the TF binding site." data-title-escaped="Illustration of TF ChIP-seq: (1) TF binds to accessible DNA; (2) DNA is broken into fragments; (3) Antibodies bind to TF-DNA complex; (4) TF-DNA complex is pulled down; (5) Isolated DNA is cleaned and sequenced; (6) Sequences accumulate around the TF binding site."&gt;
-		&lt;/a&gt;&lt;/figure&gt;&lt;p&gt;In &lt;strong&gt;DNase-seq&lt;/strong&gt; and &lt;strong&gt;ATAC-seq&lt;/strong&gt;, DNA-digesting enzymes (DNase I and Tn5 transposase, respectively) cut accessible chromatin into small fragments. These fragments are then isolated and sequenced, and accumulate in regions of open chromatin, analogously to TF-ChIP-seq. Worth noting is that DNase I and Tn5 transposase preferentially cut specific DNA sequences, leading to a slight bias in the form of an increased number of reads to particular regions. We discuss this further in subsequent sections.&lt;/p&gt;
-&lt;figure&gt;&lt;a href="https://genomicsxai.github.io/previews/pr-110/blogs/2026-012/ChromatinAccessibility.gif" class="image-link" data-pswp-width="1920" data-pswp-height="1080"&gt;
-		&lt;img src="https://genomicsxai.github.io/previews/pr-110/blogs/2026-012/ChromatinAccessibility.gif" width="300px" height="168"loading="lazy"
-			alt="Figure: DNase-seq, ATAC-seq"
-			title="Illustration of DNase-seq, ATAC-seq: (1) DNA can wrap around histones (&amp;#39;closed&amp;#39;) or remain unwound (&amp;#39;open&amp;#39;); (2) Enzymes (DNase I or Tn5 transposase) cut accessible DNA; (3) DNA fragments are sequenced; (4) Accessible regions appear as peaks." data-title-escaped="Illustration of DNase-seq, ATAC-seq: (1) DNA can wrap around histones (&amp;amp;#39;closed&amp;amp;#39;) or remain unwound (&amp;amp;#39;open&amp;amp;#39;); (2) Enzymes (DNase I or Tn5 transposase) cut accessible DNA; (3) DNA fragments are sequenced; (4) Accessible regions appear as peaks."&gt;
-		&lt;/a&gt;&lt;/figure&gt;&lt;p&gt;In addition to chromatin accessibility and transcription factor binding, gene expression is further regulated in the moments preceding transcription. &lt;strong&gt;PRO-cap&lt;/strong&gt; allows precise mapping of transcription start sites and quantifies active transcription in a cell, by mapping the 5&amp;rsquo; end of RNA from transcriptionally engaged RNA polymerases.&lt;/p&gt;
-&lt;p&gt;And &lt;strong&gt;MPRAs&lt;/strong&gt; and related high throughput reporter assays are used to experimentally measure whether particular sequences are in fact responsible for regulating gene expression. In general, in reporter assays, a candidate Cis-Regulatory Element, or cCRE, is inserted into a short sequence which also includes a measurable reporter output, such as a fluorescent molecule, or sequence barcodes in case of the high throughput versions. The greater the level of the measured reporter, the more active the regulatory element.&lt;/p&gt;
-&lt;p&gt;ENCODE has developed a set of approximately 16,000 standardized, uniformly processed datasets for the assays described above and many others, across a wide range of cell lines, primary cells and tissues. These are organized and publicly available for download via the &lt;a class="link" href="https://encodeproject.org" target="_blank" rel="noopener"
- &gt;ENCODE portal&lt;/a&gt;. The consortium recently released a preprint describing the newly included datasets in the fourth and final phase of the project &lt;a class="link" href="https://www.biorxiv.org/content/10.64898/2026.07.06.731365v1" target="_blank" rel="noopener"
- &gt;ENCODE 4&lt;/a&gt;.&lt;/p&gt;
-&lt;p&gt;&lt;figure&gt;&lt;a href="https://genomicsxai.github.io/previews/pr-110/blogs/2026-012/ENCODE_cube.png" class="image-link" data-pswp-width="1500" data-pswp-height="504"&gt;
-		&lt;img src="https://genomicsxai.github.io/previews/pr-110/blogs/2026-012/ENCODE_cube.png" width="600px" height="201"loading="lazy"
-			alt="Figure: ENCODE cube"
-			title="Coverage of the ENCODE Project: 100s of biochemical markers, performed in 100s of cell types and tissues, measured across 3 billion genomic positions. From Roadmap Epigenomics Consortium et al. Integrative analysis of 111 reference human epigenomes. Nature 518, 317–330 (2015). (https://doi.org/10.1038/nature14248)" data-title-escaped="Coverage of the ENCODE Project: 100s of biochemical markers, performed in 100s of cell types and tissues, measured across 3 billion genomic positions. From Roadmap Epigenomics Consortium et al. Integrative analysis of 111 reference human epigenomes. Nature 518, 317–330 (2015). (https://doi.org/10.1038/nature14248)"&gt;
-		&lt;/a&gt;&lt;/figure&gt;
-Coverage of the ENCODE Project: hundreds of biochemical markers, performed in hundreds of cell types and tissues, measured across 3 billion genomic positions. From &lt;em&gt;Roadmap Epigenomics Consortium et al. Integrative analysis of 111 reference human epigenomes. Nature 518, 317–330 (2015). (&lt;a class="link" href="https://doi.org/10.1038/nature14248" target="_blank" rel="noopener"
- &gt;https://doi.org/10.1038/nature14248&lt;/a&gt;)&lt;/em&gt;&lt;/p&gt;
-&lt;h2 id="the-bpnet-family-of-deep-learning-models-can-help-uncover-the-mechanisms-of-regulation"&gt;The BPNet family of deep learning models can help uncover the mechanisms of regulation
-&lt;/h2&gt;&lt;p&gt;However, while the signals from the experimental assays can help map the locations of active regulatory genomic elements, they do provide limited mechanistic insights, and we are left with some fundamental questions, for example:&lt;/p&gt;
+&lt;h2 id="motivation"&gt;Motivation
+&lt;/h2&gt;&lt;p&gt;This post describes how we fine-tuned and evaluated AlphaGenome’s splicing heads, covering data preprocessing, loading, debugging, and testing on held-out genomic intervals. Our broader goal is to develop a workflow that can adapt AlphaGenome to new RNA-seq samples that were not represented during the model’s original pretraining. The workflow learns sample-specific, multimodal transcriptomic patterns from those data and predicts them at genomic intervals held out during fine-tuning.&lt;/p&gt;
+&lt;p&gt;As a case study, we selected two RNA-seq samples from López-Oreja et al. (2023): one carrying the cancer-driver mutation K700E in SF3B1, a core component of the spliceosome, and one wild-type sample. Although K700E changes only a single amino-acid residue, it can affect splicing across the transcriptome. In particular, the mutation is known to promote the use of cryptic splice sites, making it a useful test case for the RNA-seq-derived modalities considered here.&lt;/p&gt;
+&lt;h3 id="what-comes-from-where"&gt;What comes from where
+&lt;/h3&gt;&lt;p&gt;Since much of this work sits between &amp;ldquo;using AlphaGenome as published,&amp;rdquo; &amp;ldquo;reproducing details the paper doesn&amp;rsquo;t fully specify,&amp;rdquo; and &amp;ldquo;our own implementation choices,&amp;rdquo; here&amp;rsquo;s a breakdown of which parts of the pipeline fall into each category:&lt;/p&gt;
+&lt;table&gt;
+	&lt;thead&gt;
+			&lt;tr&gt;
+					&lt;th&gt;Component&lt;/th&gt;
+					&lt;th&gt;Category&lt;/th&gt;
+			&lt;/tr&gt;
+	&lt;/thead&gt;
+	&lt;tbody&gt;
+			&lt;tr&gt;
+					&lt;td&gt;Junction-head architecture and candidate splice-site conditioning&lt;/td&gt;
+					&lt;td&gt;Inherited from AlphaGenome, unmodified&lt;/td&gt;
+			&lt;/tr&gt;
+			&lt;tr&gt;
+					&lt;td&gt;STAR/deepTools-based alignment and coverage processing&lt;/td&gt;
+					&lt;td&gt;Reproduced from the AlphaGenome paper&amp;rsquo;s methods, best-effort (original preprocessing code is not public)&lt;/td&gt;
+			&lt;/tr&gt;
+			&lt;tr&gt;
+					&lt;td&gt;Splice site usage / junction count extraction scripts, on-the-fly per-modality normalization&lt;/td&gt;
+					&lt;td&gt;New implementation choices, specific to this project&lt;/td&gt;
+			&lt;/tr&gt;
+			&lt;tr&gt;
+					&lt;td&gt;&lt;code&gt;rope_params&lt;/code&gt; truncated-normal initialization, ratio-normalized junction loss&lt;/td&gt;
+					&lt;td&gt;Debugging fixes for a mismatch between the paper&amp;rsquo;s pseudocode and the JAX/PyTorch implementations — not new methodological contributions&lt;/td&gt;
+			&lt;/tr&gt;
+	&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h2 id="alphagenomes-splicing-heads"&gt;AlphaGenome&amp;rsquo;s splicing heads
+&lt;/h2&gt;&lt;p&gt;AlphaGenome predicts four RNA-seq-derived modalities: coverage, splice site class, splice site usage, and splice junction counts.&lt;/p&gt;
+&lt;p&gt;The coverage head predicts read depth along the sequence. The splice site head classifies each position as donor, acceptor, or background for each strand. The splice site usage head predicts how strongly each splice site is used, and the junction head predicts counts for candidate donor–acceptor pairs.&lt;/p&gt;
+&lt;p&gt;Coverage, splice site usage, and junction counts use sample-specific output tracks, whereas the splice site head is shared across samples. The junction head also receives candidate donor and acceptor positions as part of its input and predicts a normalized count for each candidate pair.&lt;/p&gt;
+&lt;figure&gt;&lt;a href="https://genomicsxai.github.io/previews/pr-110/blogs/2026-009/alphagenome_rna_heads.png" class="image-link" data-pswp-width="1189" data-pswp-height="345"&gt;
+		&lt;img src="https://genomicsxai.github.io/previews/pr-110/blogs/2026-009/alphagenome_rna_heads.png" width="500px" height="145"loading="lazy"
+			alt="Figure 1. Overview of AlphaGenome’s splicing heads."
+			title="Overview of AlphaGenome&amp;#39;s splicing heads." data-title-escaped="Overview of AlphaGenome&amp;amp;#39;s splicing heads."&gt;
+		&lt;/a&gt;&lt;/figure&gt;&lt;h2 id="from-raw-data-to-preprocessed-training-tracks"&gt;From raw data to preprocessed training tracks
+&lt;/h2&gt;&lt;p&gt;AlphaGenome&amp;rsquo;s data preprocessing code is not publicly available, though the key steps are described in the paper&amp;rsquo;s methods. To reproduce the pipeline as closely as possible, we wrote &lt;a class="link" href="https://github.com/MiqG/alphagenome_finetuning_rna/blob/v1.0.2/workflows/01-obtain_data/rules/sf3b1mut.smk" target="_blank" rel="noopener"
+ &gt;standardized Snakemake workflows&lt;/a&gt; that derive all four training tracks from a single STAR RNA-seq alignment BAM file. Reads are aligned with STAR following the AlphaGenome paper&amp;rsquo;s alignment settings, retaining only uniquely mapped reads on canonical chromosomes.&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;*Which sequence features drive TF binding and chromatin accessibility?&lt;/li&gt;
-&lt;li&gt;*How do combinations and arrangements of motifs influence TF occupancy?&lt;/li&gt;
-&lt;li&gt;*What would happen if an individual nucleotide were altered?&lt;/li&gt;
-&lt;li&gt;*Is a disease-causing mutation causing its effect via changes to a transcription factor binding site?&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Per-base RNA-seq coverage&lt;/strong&gt; (stranded or unstranded) is computed using &lt;code&gt;deepTools&lt;/code&gt;&amp;rsquo; &lt;a class="link" href="https://deeptools.readthedocs.io/en/develop/content/tools/bamCoverage.html" target="_blank" rel="noopener"
+ &gt;&lt;code&gt;bamCoverage&lt;/code&gt;&lt;/a&gt;. Output: bigwig files.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Splice site classes&lt;/strong&gt; are derived on the fly during data loading from the union of splice sites present in the splice site usage files, so no separate file is needed.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Splice site usage&lt;/strong&gt; is computed from the BAM using our custom script &lt;a class="link" href="https://github.com/MiqG/alphagenome-pytorch/blob/splice-finetuning/scripts/compute_ssu.py" target="_blank" rel="noopener"
+ &gt;&lt;code&gt;compute_ssu.py&lt;/code&gt;&lt;/a&gt;, equivalent to &lt;a class="link" href="https://github.com/CraigIDent/SpliSER/tree/speedups" target="_blank" rel="noopener"
+ &gt;&lt;code&gt;SpliSER&lt;/code&gt;&lt;/a&gt;. For each splice site supported by at least one junction, usage is estimated as the fraction of reads supporting that site relative to reads that skip it. Output: zstd-compressed parquet files.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Splice junction counts&lt;/strong&gt; are available directly from STAR at alignment time, or can be extracted post-hoc from the BAM using our custom script &lt;a class="link" href="https://github.com/MiqG/alphagenome-pytorch/blob/splice-finetuning/scripts/get_star_junctions.py" target="_blank" rel="noopener"
+ &gt;&lt;code&gt;get_star_junctions.py&lt;/code&gt;&lt;/a&gt;. Output: tab-separated files.&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;Our group has developed a suite of deep learning models and downstream tools to address these questions. They include:&lt;/p&gt;
+&lt;figure&gt;&lt;a href="https://genomicsxai.github.io/previews/pr-110/blogs/2026-009/data_prep_workflow.png" class="image-link" data-pswp-width="1108" data-pswp-height="282"&gt;
+		&lt;img src="https://genomicsxai.github.io/previews/pr-110/blogs/2026-009/data_prep_workflow.png" width="500px" height="127"loading="lazy"
+			alt="Figure 2. Data preprocessing workflow."
+			title="Data preprocessing workflow." data-title-escaped="Data preprocessing workflow."&gt;
+		&lt;/a&gt;&lt;/figure&gt;&lt;p&gt;To make sure our custom implementations to compute splice junction counts and splice site usage matched how STAR and SpliSER calculate them respectively, we ran a comparison on chromosome 1 on our samples.&lt;/p&gt;
+&lt;p&gt;In both cases we observe a Pearson correlation of 1 (for splice junction counts from uniquely mapped reads and for splice site usage), confirming the implementations are correct.&lt;/p&gt;
+&lt;p&gt;Both implementations were also highly efficient in runtime, with &lt;a class="link" href="https://github.com/MiqG/alphagenome-pytorch/blob/splice-finetuning/scripts/get_star_junctions.py" target="_blank" rel="noopener"
+ &gt;&lt;code&gt;get_star_junctions.py&lt;/code&gt;&lt;/a&gt; requiring ~10s and ~150 MB per sample, and &lt;a class="link" href="https://github.com/MiqG/alphagenome-pytorch/blob/splice-finetuning/scripts/compute_ssu.py" target="_blank" rel="noopener"
+ &gt;&lt;code&gt;compute_ssu.py&lt;/code&gt;&lt;/a&gt; requiring ~20s and ~200 MB per sample compared to SpliSER&amp;rsquo;s ~600s and ~100 MB.&lt;/p&gt;
+&lt;figure&gt;&lt;a href="https://genomicsxai.github.io/previews/pr-110/blogs/2026-009/benchmark_juncs_and_ssu.png" class="image-link" data-pswp-width="1013" data-pswp-height="1398"&gt;
+		&lt;img src="https://genomicsxai.github.io/previews/pr-110/blogs/2026-009/benchmark_juncs_and_ssu.png" width="350px" height="483"loading="lazy"
+			alt="Figure 3. Benchmark of splice junction counting and splice site usage computation."
+			title="Benchmark of splice junction counting and splice site usage computation." data-title-escaped="Benchmark of splice junction counting and splice site usage computation."&gt;
+		&lt;/a&gt;&lt;/figure&gt;&lt;h2 id="data-loading-and-on-the-fly-normalization"&gt;Data loading and on-the-fly normalization
+&lt;/h2&gt;&lt;p&gt;All four tracks are loaded jointly for each genomic interval and normalized on the fly before being passed to the model. Getting this right matters: RNA-seq coverage spans several orders of magnitude across genes and samples, splice junction counts are extremely sparse, and splice site labels are binary signals at a handful of positions in a million-base-pair window. Each modality needs a different normalization strategy to avoid one dominating the loss or presenting the model with uninformative targets.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;RNA-seq coverage&lt;/strong&gt; bigwigs are read at 1 bp resolution. The raw values are loaded as-is; normalization happens at training time. Just before the loss is computed, targets are scaled into model prediction space by dividing by a per-track non-zero mean (computed once from the training set), applying a power transform (x^0.75) to compress dynamic range, and smooth-clipping extreme values. Model predictions are converted back to data space using the inverse of these operations for evaluation.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Splice site classes&lt;/strong&gt; are derived on the fly as a 5-class label array: donor on the positive strand, acceptor on the positive strand, donor on the negative strand, acceptor on the negative strand, and background. All positions default to background, and annotated splice sites from the union of sites in the splice site usage files are then overlaid.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Splice site usage&lt;/strong&gt; values are loaded from the precomputed parquet files. For each genomic interval, only the splice sites overlapping that interval are retrieved, and usage values are arranged into a per-position array with two channels per sample (one per strand).&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Splice junction counts&lt;/strong&gt; from STAR are CPM-normalized using the total mapped reads per sample, clipped at the 99.99th percentile, and then mean-scaled so that the typical non-zero value is close to 1. Junctions are assembled into a donor × acceptor count matrix, with forward and reverse strand channels interleaved across samples.&lt;/p&gt;
+&lt;figure&gt;&lt;a href="https://genomicsxai.github.io/previews/pr-110/blogs/2026-009/data_loading_normalization.png" class="image-link" data-pswp-width="2250" data-pswp-height="2081"&gt;
+		&lt;img src="https://genomicsxai.github.io/previews/pr-110/blogs/2026-009/data_loading_normalization.png" width="600px" height="554"loading="lazy"
+			alt="Figure 4. Normalizing training data on the fly."
+			title="Normalizing training data on the fly." data-title-escaped="Normalizing training data on the fly."&gt;
+		&lt;/a&gt;&lt;/figure&gt;&lt;h2 id="first-time-never-works"&gt;First time never works
+&lt;/h2&gt;&lt;p&gt;As a first sanity check, we verified that the model could overfit a single genomic interval using linear probing (freezing the backbone and training only the new heads). A model with enough capacity should memorize a single batch; failure to do so points to a bug rather than a generalization problem. To make the test representative, we selected an interval with median splice junction density among all training intervals (see &lt;a class="link" href="https://github.com/MiqG/alphagenome_finetuning_rna/blob/v1.0.2/figures/overfitting_interval_selection.ipynb" target="_blank" rel="noopener"
+ &gt;this&lt;/a&gt; notebook for the selection details).&lt;/p&gt;
+&lt;p&gt;The test was useful precisely because it failed. Coverage and splice site usage overfit fine on the first attempt; the splice site classification head did not overfit, and the splice junction head did not learn at all. The next two sections trace what was wrong with each of those two heads and how we fixed it.&lt;/p&gt;
+&lt;figure&gt;&lt;a href="https://genomicsxai.github.io/previews/pr-110/blogs/2026-009/first_attempt.png" class="image-link" data-pswp-width="2091" data-pswp-height="421"&gt;
+		&lt;img src="https://genomicsxai.github.io/previews/pr-110/blogs/2026-009/first_attempt.png" width="900px" height="181"loading="lazy"
+			alt="Figure 5. First attempt to overfit a single interval."
+			title="First attempt to overfit a single interval." data-title-escaped="First attempt to overfit a single interval."&gt;
+		&lt;/a&gt;&lt;/figure&gt;&lt;h2 id="why-the-splice-site-head-could-not-overfit"&gt;Why the splice site head could not overfit
+&lt;/h2&gt;&lt;p&gt;The splice site classification head struggled to overfit when initialized randomly. This is not surprising: the purpose of fine-tuning AlphaGenome is not to re-learn the general splicing code from scratch. Unlike the splice site usage and junction heads, which are sample-specific (AlphaGenome exposes them per tissue/track), the splice site classification head captures a single, shared property across all samples: where donor and acceptor sites sit on each strand. There is one general splice site head, not a track to pick per sample or cell type, so it makes sense to start from its pretrained weights directly and let the sample-specific heads adapt instead.&lt;/p&gt;
+&lt;p&gt;We explored three factors that could affect overfitting on the single interval: (1) initializing the splice site classification head from pretrained rather than random weights, (2) augmenting the interval&amp;rsquo;s splice sites with all annotated sites from the GTF (to reduce label sparsity, since AlphaGenome was pretrained on many more samples and thus more splice sites), and (3) segmenting the loss computation to match the 8-segment sequence parallelism used during AlphaGenome pretraining. We implemented support for all three options via &lt;code&gt;finetune.py&lt;/code&gt; flags: &lt;code&gt;--pretrained-head-samples&lt;/code&gt; to initialize specific head weights from a pretrained track (e.g. &lt;code&gt;splice_site:0&lt;/code&gt;), &lt;code&gt;--gtf&lt;/code&gt; to supply a GTF or parquet file of canonical splice sites, and &lt;code&gt;--num-segments&lt;/code&gt; to control how many segments the sequence is split into for loss computation (applies to all modalities, not just splicing).&lt;/p&gt;
+&lt;p&gt;Initializing the splice site classification head from pretrained weights enabled clean overfitting regardless of whether GTF sites or loss segmentation were used. When starting from random weights, loss segmentation had a secondary effect: higher overall loss but faster overfitting, with or without the GTF augmentation.&lt;/p&gt;
+&lt;figure&gt;&lt;a href="https://genomicsxai.github.io/previews/pr-110/blogs/2026-009/debug_splice_head.png" class="image-link" data-pswp-width="1772" data-pswp-height="418"&gt;
+		&lt;img src="https://genomicsxai.github.io/previews/pr-110/blogs/2026-009/debug_splice_head.png" width="600px" height="141"loading="lazy"
+			alt="Figure 6. Debugging the splice site classification head. SS loss is the splice site cross-entropy loss during single-interval overfitting. Curves compare pretrained vs. random head initialization, with and without GTF augmentation (adding all GENCODE-annotated canonical splice sites in the interval on top of the ones observed in these two samples), and with and without 8-way loss segmentation."
+			title="Debugging the splice site classification head." data-title-escaped="Debugging the splice site classification head."&gt;
+		&lt;/a&gt;&lt;/figure&gt;&lt;h2 id="why-the-junction-head-could-not-learn"&gt;Why the junction head could not learn
+&lt;/h2&gt;&lt;p&gt;In our first attempt, the splice junction head would not learn. Understanding why required looking at how the head works. For each genomic interval, the trunk produces 1 bp resolution embeddings across the full sequence. The junction head extracts embeddings only at the positions of known splice sites (up to 512; padded with -1 if fewer are present). Each extracted embedding is then linearly transformed with a learned per-sample scale and offset before RoPE positional encoding is applied. Junction counts for each donor-acceptor pair are then predicted as the softplus of the inner product between the corresponding donor and acceptor embeddings.&lt;/p&gt;
+&lt;p&gt;Inspecting the pretrained weights revealed the problem: the junction head&amp;rsquo;s &lt;code&gt;rope_params&lt;/code&gt;, which contain the learned scale and offset, were non-zero and approximately truncated-normal distributed, whereas a newly initialized head set both to zero. With &lt;code&gt;scale = 0&lt;/code&gt; and &lt;code&gt;offset = 0&lt;/code&gt;, the transformation &lt;code&gt;scale * x + offset&lt;/code&gt; collapses every splice-site embedding to zero before RoPE is applied, preventing the head from learning properly. We confirmed the pretrained parameter distribution for predicting K562 polyA-plus RNA-seq stranded tracks, chosen only as an available stranded pretrained initialization rather.&lt;/p&gt;
+&lt;p&gt;Cross-referencing with the original JAX implementation and reaching out to the authors (see &lt;a class="link" href="https://github.com/google-deepmind/alphagenome_research/issues/22" target="_blank" rel="noopener"
+ &gt;GitHub issue&lt;/a&gt;) confirmed this was a bug also in the original implementation. The fix was to initialize &lt;code&gt;rope_params&lt;/code&gt; with a truncated normal distribution (std=0.1), controlled via the &lt;code&gt;--rope-init&lt;/code&gt; flag in &lt;a class="link" href="https://github.com/MiqG/alphagenome-pytorch/blob/splice-finetuning/scripts/finetune.py" target="_blank" rel="noopener"
+ &gt;&lt;code&gt;finetune.py&lt;/code&gt;&lt;/a&gt; (default: &lt;code&gt;truncated_normal&lt;/code&gt;; &lt;code&gt;zeros&lt;/code&gt; is kept only for ablation experiments).&lt;/p&gt;
+&lt;p&gt;With the fix in place, the randomly initialized junction head overfit the interval comparably to a head initialized from the pretrained K562 weights when splice-site positions were taken from the sample’s own annotated, STAR-called junctions, using &lt;code&gt;--junction-position-source annotated&lt;/code&gt; (the default). This position source is sample-dependent rather than GTF-derived: it uses the junctions observed in the sample to define the candidate splice-site positions for which the model learns to predict counts. We used the K562 weights only as a pretrained reference initialization, not because K562 is biologically matched to our samples.&lt;/p&gt;
+&lt;figure&gt;&lt;a href="https://genomicsxai.github.io/previews/pr-110/blogs/2026-009/splice_junctions_debug-init.png" class="image-link" data-pswp-width="1998" data-pswp-height="903"&gt;
+		&lt;img src="https://genomicsxai.github.io/previews/pr-110/blogs/2026-009/splice_junctions_debug-init.png" width="800px" height="361"loading="lazy"
+			alt="Figure 7. Debugging the splice junction head: single-interval overfitting loss with zeros vs. truncated_normal RoPE-parameter initialization, using splice site positions taken from the sample’s own annotated (STAR-called) junctions."
+			title="Debugging the splice junction head: random initialization." data-title-escaped="Debugging the splice junction head: random initialization."&gt;
+		&lt;/a&gt;&lt;/figure&gt;&lt;p&gt;Using predicted positions from the splicing head (&lt;code&gt;--junction-position-source predicted&lt;/code&gt;) exposed a further issue: here it&amp;rsquo;s the pretrained-weight initialization of the junction heads that collapsed, while random initialization still learned. A possible explanation is that the pretrained junction heads were optimized alongside a dense, tissue-diverse set of splice site positions from pretraining, suggesting that positions predicted by a freshly fine-tuned splice site head on just two samples are sparser and differently distributed, likely placing it outside its operating range. Looking at the loss values pointed to a related problem: the junction cross-entropy was going negative during training, which would destabilize any head but hit the pretrained one harder.&lt;/p&gt;
+&lt;p&gt;The root cause seemed to be a mismatch between the paper&amp;rsquo;s pseudocode and both the JAX and PyTorch implementations. The supplementary methods define &lt;code&gt;multinomial_cross_entropy&lt;/code&gt; by normalizing both targets and predictions to ratios before computing the cross-entropy, so &lt;code&gt;log(p_pred) &amp;lt;= 0&lt;/code&gt; always and the loss is guaranteed non-negative. The JAX implementation instead uses a log-normalizer formulation (&lt;code&gt;log_normalizer - log_likelihood&lt;/code&gt;), which is mathematically equivalent when junction counts are present but produces a negative contribution when a training window contains annotated splice sites with zero observed counts; common in sparse datasets like SF3B1 RNA-seq, where not every annotated site will have reads in a given sample. The PyTorch port (&lt;code&gt;--junction-loss original&lt;/code&gt;, the default) inherited this behavior unchanged.&lt;/p&gt;
+&lt;p&gt;We opened another &lt;a class="link" href="https://github.com/google-deepmind/alphagenome_research/issues/24" target="_blank" rel="noopener"
+ &gt;GitHub issue&lt;/a&gt; with the authors, who confirmed the discrepancy and introduced a ratio-normalized formulation: both targets and predictions are divided by their within-mask sums before computing &lt;code&gt;-p_true * log(p_pred)&lt;/code&gt;. We ported this as &lt;code&gt;--junction-loss normalized&lt;/code&gt;. Since &lt;code&gt;p_pred &amp;lt;= 1&lt;/code&gt;, its log is always non-positive and the loss is always non-negative. With this correction, training is stable, the loss no longer dips below zero on our window, and both random and pretrained-weight initialization can overfit the single interval regardless of whether annotated or predicted splice site positions are used.&lt;/p&gt;
+&lt;figure&gt;&lt;a href="https://genomicsxai.github.io/previews/pr-110/blogs/2026-009/splice_junctions_debug-loss.png" class="image-link" data-pswp-width="999" data-pswp-height="461"&gt;
+		&lt;img src="https://genomicsxai.github.io/previews/pr-110/blogs/2026-009/splice_junctions_debug-loss.png" width="400px" height="184"loading="lazy"
+			alt="Figure 8. Debugging the splice junction head: single-interval overfitting loss comparing the original (--junction-loss original) vs. ratio-normalized (--junction-loss normalized) junction cross-entropy formulation, across pretrained/random initialization and annotated/predicted splice site position sources."
+			title="Debugging the splice junction head: loss formulation." data-title-escaped="Debugging the splice junction head: loss formulation."&gt;
+		&lt;/a&gt;&lt;/figure&gt;&lt;h2 id="what-actually-worked-practical-recipe-for-full-fine-tuning-alphagenome-on-new-samples-across-rna-seq-modalities"&gt;What actually worked: practical recipe for full fine-tuning AlphaGenome on new samples across RNA-seq modalities
+&lt;/h2&gt;&lt;p&gt;After resolving the failure points identified above, we scaled up to a first genome-wide fine-tuning run using linear probing, with the trunk frozen and only the new output heads trained. We used the settings that performed most reliably during single-interval debugging:&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;BPNet:&lt;/strong&gt; A convolutional neural network (CNN) trained on TF-ChIP-seq that predicts the binding of a TF from DNA sequence;&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;ChromBPNet:&lt;/strong&gt; A CNN with a BPNet-like architecture trained on DNase- or ATAC-seq that predicts chromatin accessibility from DNA sequence and corrects for enzymatic bias;&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;ProCapNet:&lt;/strong&gt; A CNN with a BPNet-like architecture trained on ProCAP-seq that predicts transcription initiation from DNA sequence;&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;ReporterNet:&lt;/strong&gt; A CNN with a BPNet-like architecture trained on MPRA data that predicts large-scale reporter assay signal from DNA sequence.&lt;/li&gt;
+&lt;li&gt;pretrained initialization for the splice site head;&lt;/li&gt;
+&lt;li&gt;annotated junction positions;&lt;/li&gt;
+&lt;li&gt;truncated-normal initialization for the junction head’s RoPE parameters;&lt;/li&gt;
+&lt;li&gt;the normalized, ratio-based junction loss.&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;&lt;figure&gt;&lt;a href="https://genomicsxai.github.io/previews/pr-110/blogs/2026-012/ChromBPNet.png" class="image-link" data-pswp-width="2460" data-pswp-height="1056"&gt;
-		&lt;img src="https://genomicsxai.github.io/previews/pr-110/blogs/2026-012/ChromBPNet.png" width="600px" height="257"loading="lazy"
-			alt="Figure: ChromBPNet model architecture"
-			title="Example BPNet-style model architecture with bias-correction: ChromBPNet. From Pampari, A. et al. ChromBPNet: bias factorized, base-resolution deep learning models of chromatin accessibility reveal cis-regulatory sequence syntax, transcription factor footprints and regulatory variants. 2024.12.25.630221 Preprint at https://doi.org/10.1101/2024.12.25.630221 (2024)." data-title-escaped="Example BPNet-style model architecture with bias-correction: ChromBPNet. From Pampari, A. et al. ChromBPNet: bias factorized, base-resolution deep learning models of chromatin accessibility reveal cis-regulatory sequence syntax, transcription factor footprints and regulatory variants. 2024.12.25.630221 Preprint at https://doi.org/10.1101/2024.12.25.630221 (2024)."&gt;
-		&lt;/a&gt;&lt;/figure&gt;
-Example BPNet-style model architecture with bias-correction: ChromBPNet. From &lt;em&gt;Pampari, A. et al. ChromBPNet: bias factorized, base-resolution deep learning models of chromatin accessibility reveal cis-regulatory sequence syntax, transcription factor footprints and regulatory variants. &lt;em&gt;bioRxiv&lt;/em&gt; 2024.12.25.630221 (2024). (&lt;a class="link" href="https://doi.org/10.1101/2024.12.25.630221" target="_blank" rel="noopener"
- &gt;https://doi.org/10.1101/2024.12.25.630221&lt;/a&gt;)&lt;/em&gt;&lt;/p&gt;
-&lt;p&gt;We describe the basic steps of our workflow below, with more detailed explanations available in the manuscripts [ChromBPNet, BPNet, ProCapNet, ReporterNet].&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;1.&lt;/strong&gt; We begin by training a model that can reconstruct the observed experimental signal when provided the DNA sequence of the region. We expect that the model should only be able to perform this reconstruction by learning the underlying rules of chromatin regulation. While the input data varies based on assay, the basic model architecture remains the same.&lt;/p&gt;
-&lt;figure&gt;&lt;a href="https://genomicsxai.github.io/previews/pr-110/blogs/2026-012/BPNet_Fig1.gif" class="image-link" data-pswp-width="1333" data-pswp-height="550"&gt;
-		&lt;img src="https://genomicsxai.github.io/previews/pr-110/blogs/2026-012/BPNet_Fig1.gif" width="600px" height="247"loading="lazy"
-			alt="Figure: Train a model"
-			title="Train a model to predict experimentally observed signal from DNA sequence." data-title-escaped="Train a model to predict experimentally observed signal from DNA sequence."&gt;
-		&lt;/a&gt;&lt;/figure&gt;&lt;p&gt;DNase and ATAC-seq suffer from unwanted artifacts related to the preference of DNase and Tn5 to cut at specific sequence positions. Using ChromBPNet, we train a separate model to predict only the effects of the experimental artifact, and subtract its effect to isolate the regulatory signal.&lt;/p&gt;
-&lt;figure&gt;&lt;a href="https://genomicsxai.github.io/previews/pr-110/blogs/2026-012/BPNet_Fig2.gif" class="image-link" data-pswp-width="1333" data-pswp-height="550"&gt;
-		&lt;img src="https://genomicsxai.github.io/previews/pr-110/blogs/2026-012/BPNet_Fig2.gif" width="600px" height="247"loading="lazy"
-			alt="Figure: Remove bias"
-			title="Remove the effects of unwanted experimental artifacts, by training a separate model to predict the experimental effects then subtracting it from the total signal." data-title-escaped="Remove the effects of unwanted experimental artifacts, by training a separate model to predict the experimental effects then subtracting it from the total signal."&gt;
-		&lt;/a&gt;&lt;/figure&gt;&lt;p&gt;&lt;strong&gt;2.&lt;/strong&gt; We next interpret the weights of the trained model to understand which positions in the training sequences were most important to its predictions using DeepLIFT (ref). The most important positions, and bases at those positions, can often be directly attributed to the sequence binding preference of known transcription factors.&lt;/p&gt;
-&lt;figure&gt;&lt;a href="https://genomicsxai.github.io/previews/pr-110/blogs/2026-012/BPNet_Fig4.gif" class="image-link" data-pswp-width="1333" data-pswp-height="550"&gt;
-		&lt;img src="https://genomicsxai.github.io/previews/pr-110/blogs/2026-012/BPNet_Fig4.gif" width="600px" height="247"loading="lazy"
-			alt="Figure: Interpret the model"
-			title="Identify highly contributing bases used by the model during prediction." data-title-escaped="Identify highly contributing bases used by the model during prediction."&gt;
-		&lt;/a&gt;&lt;/figure&gt;&lt;p&gt;&lt;strong&gt;3.&lt;/strong&gt; Once we have the sequence interpretations we use a suite of post-processing tools to extract, consolidate and cluster the potential transcription factor binding sites. We also map the sites back to the genome, which is very useful for downstream quantitative analyses.&lt;/p&gt;
-&lt;p&gt;An example application, shown below, is to predict the effect of potentially disease-causing mutations in the genome. We can run predictions on mutations at any genomic sequence, even ones on which the model has not been trained, and calculate a log-fold change in signal, which can then be related to the mutation effect size.&lt;/p&gt;
-&lt;figure&gt;&lt;a href="https://genomicsxai.github.io/previews/pr-110/blogs/2026-012/BPNet_Fig3.gif" class="image-link" data-pswp-width="1333" data-pswp-height="550"&gt;
-		&lt;img src="https://genomicsxai.github.io/previews/pr-110/blogs/2026-012/BPNet_Fig3.gif" width="600px" height="247"loading="lazy"
-			alt="Figure: Predict mutations"
-			title="Predict the effect of unseen mutations in the genome." data-title-escaped="Predict the effect of unseen mutations in the genome."&gt;
-		&lt;/a&gt;&lt;/figure&gt;&lt;p&gt;In the following section, we share an example in the MYC locus to showcase the power of the models:&lt;/p&gt;
-&lt;h2 id="case-study-regulation-in-the-myc-locus-through-the-lens-of-deep-learning-models"&gt;Case study: Regulation in the MYC locus through the lens of deep learning models
-&lt;/h2&gt;&lt;p&gt;The Myc family of proteins is a set of transcription factors that play an important role in cell proliferation, and mutations in the MYC gene have been shown to lead to many different types of cancer. Thus, understanding the mechanisms of regulation at the MYC locus with base-pair resolution can allow us to answer important questions relating to disease biology, Below, we view a CRISPRi-validated distal enhancer in the MYC locus [chr8:127,898,412—127,899,647] through the lens of 15 different models.&lt;/p&gt;
-&lt;figure&gt;&lt;a href="https://genomicsxai.github.io/previews/pr-110/blogs/2026-012/MYC_fig0.png" class="image-link" data-pswp-width="4000" data-pswp-height="514"&gt;
-		&lt;img src="https://genomicsxai.github.io/previews/pr-110/blogs/2026-012/MYC_fig0.png" width="600px" height="77"loading="lazy"
-			alt="Figure 1"
-			title="MYC locus with a CRISPRi-validated distal enhancer [chr8:127,898,412—127,899,647] and its experimentally observed DNase-seq signal in K562." data-title-escaped="MYC locus with a CRISPRi-validated distal enhancer [chr8:127,898,412—127,899,647] and its experimentally observed DNase-seq signal in K562."&gt;
-		&lt;/a&gt;&lt;/figure&gt;&lt;p&gt;First, examining chromatin accessibility through ChromBPNet models: the models recapitulate the observed experimental profile with high concordance. Further, the models can de-noise the profile to isolate the true underlying accessibility signal, reconciling DNase and ATAC-seq experimental methods into agreement (where raw signals can diverge due to enzyme differences).&lt;/p&gt;
-&lt;figure&gt;&lt;a href="https://genomicsxai.github.io/previews/pr-110/blogs/2026-012/MYC_fig2.png" class="image-link" data-pswp-width="2053" data-pswp-height="325"&gt;
-		&lt;img src="https://genomicsxai.github.io/previews/pr-110/blogs/2026-012/MYC_fig2.png" width="600px" height="94"loading="lazy"
-			alt="Figure 2"
-			title="Observed, model-predicted, and model-corrected DNase-seq and ATAC-seq profiles by ChromBPNet." data-title-escaped="Observed, model-predicted, and model-corrected DNase-seq and ATAC-seq profiles by ChromBPNet."&gt;
-		&lt;/a&gt;&lt;/figure&gt;&lt;p&gt;Second, using the models, we highlight the key sequence drivers that the models identified to make their predictions (as &amp;ldquo;contribution scores&amp;rdquo;), and begin to see the underlying biological mechanism of regulation at this locus:&lt;/p&gt;
-&lt;p&gt;Examining the highly contributing sequences for chromatin accessibility through ChromBPNet, we observe key transcription factors (e.g., GATA, AP1, SP, ETV) that drive accessibility—in agreement with prior understanding.&lt;/p&gt;
-&lt;p&gt;In parallel, examining the key sequences for TF binding through BPNet, we observe the same sequences predict TF binding, in agreement with ChromBPNet—despite being trained on two entirely orthogonal assay types (TF ChIP-seq vs. DNase-seq/ATAC-seq).&lt;/p&gt;
-&lt;figure&gt;&lt;a href="https://genomicsxai.github.io/previews/pr-110/blogs/2026-012/MYC_fig3.png" class="image-link" data-pswp-width="2175" data-pswp-height="561"&gt;
-		&lt;img src="https://genomicsxai.github.io/previews/pr-110/blogs/2026-012/MYC_fig3.png" width="600px" height="154"loading="lazy"
-			alt="Figure 3"
-			title="Highly contributing sequences used by the models during prediction. Insets compare contribution maps across DNase/ATAC (ChromBPNet), MPRA (ReporterNet), and TF ChIP-seq models (BPNet; e.g., GATA2, SP1, CEBPB, JUND, GABPB1), with high-impact motif instances annotated (e.g., GATA, SP, AP-1, ETV/ETS, CEBP)." data-title-escaped="Highly contributing sequences used by the models during prediction. Insets compare contribution maps across DNase/ATAC (ChromBPNet), MPRA (ReporterNet), and TF ChIP-seq models (BPNet; e.g., GATA2, SP1, CEBPB, JUND, GABPB1), with high-impact motif instances annotated (e.g., GATA, SP, AP-1, ETV/ETS, CEBP)."&gt;
-		&lt;/a&gt;&lt;/figure&gt;&lt;p&gt;Below, we provide an interactive browser session of the exact locus to view dynamically:&lt;/p&gt;
-&lt;div class="gxai-igv-panel" data-igv-panel="myc" data-igv-src="https://genomicsxai.github.io/previews/pr-110/blogs/2026-012/myc-igv-panel.json"&gt;&lt;/div&gt;
-&lt;link rel="stylesheet" href="https://genomicsxai.github.io/previews/pr-110/css/igv-panel.css"&gt;
-&lt;script src="https://genomicsxai.github.io/previews/pr-110/js/vendor/igv-3.8.0.min.js" defer&gt;&lt;/script&gt;
-&lt;script src="https://genomicsxai.github.io/previews/pr-110/js/igv-panel.js" defer&gt;&lt;/script&gt;
-
-&lt;h2 id="decoding-encode-an-encyclopedia-of-regulatory-dna-deep-learning-models"&gt;Decoding ENCODE: An &amp;lsquo;Encyclopedia&amp;rsquo; of regulatory DNA deep learning models
-&lt;/h2&gt;&lt;p&gt;In the ENCODE Deep learning collection (De-ENCODE), we trained these models on hundreds of cell and tissue types available through the ENCODE consortium. We trained &lt;a class="link" href="https://doi.org/10.1038/s41588-021-00782-6" target="_blank" rel="noopener"
- &gt;BPNet&lt;/a&gt; models on 2,339 TF-ChIP-seq across 788 TFs, &lt;a class="link" href="https://doi.org/10.1101/2024.12.25.630221" target="_blank" rel="noopener"
- &gt;ChromBPNet&lt;/a&gt; models on 1,512 DNase-seq and ATAC-seq across 408 biosamples, &lt;a class="link" href="https://doi.org/10.1101/2024.05.28.596138" target="_blank" rel="noopener"
- &gt;ProCapNet&lt;/a&gt; models on 6 PRO-Cap, and ReporterNet models on 8 MPRAs to capture the dynamic regulatory activity across diverse samples. We release them together with the fourth and final phase of the ENCODE Project.&lt;/p&gt;
-&lt;p&gt;Through the power of the models and the richness of the ENCODE dataset, we hope to empower the community at large to explore important questions relating to the fundamental biology of gene regulation and mechanisms of disease in a wide variety of tissues and cell types.&lt;/p&gt;
-&lt;h2 id="how-can-i-use-the-resource"&gt;How can I use the resource?
-&lt;/h2&gt;&lt;p&gt;As part of the ENCODE Project, all data, models, analysis are available at the &lt;a class="link" href="https://www.encodeproject.org/" target="_blank" rel="noopener"
- &gt;Project portal&lt;/a&gt;. If you use our models, please cite the &lt;a class="link" href="https://doi.org/10.64898/2026.07.06.731365" target="_blank" rel="noopener"
- &gt;ENCODE preprint&lt;/a&gt;.&lt;/p&gt;
-&lt;p&gt;Beyond the ENCODE portal, we provide several user-friendly alternatives for accessing and visualizing our data:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;Models&lt;/strong&gt;: We have uploaded the models for open access on &lt;a class="link" href="https://huggingface.co/collections/kundajelab/encode-bpnet-models" target="_blank" rel="noopener"
- &gt;&lt;strong&gt;Hugging Face&lt;/strong&gt;&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Predictions, contributions, and instances&lt;/strong&gt;: We have created a &lt;a class="link" href="https://genome.ucsc.edu/cgi-bin/hgTracks?db=hg38&amp;amp;hubUrl=https://kundajelab.github.io/ucsc-trackhub-encode.github.io/hub.txt" target="_blank" rel="noopener"
- &gt;&lt;strong&gt;UCSC Track Hub&lt;/strong&gt;&lt;/a&gt; for easy, interactive browser sessions&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;User guide&lt;/strong&gt;: We are currently building an &lt;em&gt;interactive&lt;/em&gt; user guide to help the community navigate and explain the resource (&lt;em&gt;work in progress&lt;/em&gt;)&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Preprint&lt;/strong&gt;: For more detail, the latest ENCODE preprint is out on &lt;a class="link" href="https://doi.org/10.64898/2026.07.06.731365" target="_blank" rel="noopener"
- &gt;&lt;em&gt;bioRxiv&lt;/em&gt;&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;We still have so much to share about the resource! We are planning to regularly share the many different ways you can use the resource (~every week) for the foreseeable future, so give us a follow and be on the lookout for more.&lt;/p&gt;
+&lt;p&gt;Using annotated junction positions gives the junction head a reliable training signal. Positions predicted by a splice site head that is still learning seemed to introduce an additional source of error. This follows AlphaGenome’s pretraining strategy of first training on annotated positions and later distilling to predicted ones.&lt;/p&gt;
+&lt;p&gt;We also used eight-way loss segmentation. Although the single-interval experiments did not establish it as necessary, we retained it for consistency with AlphaGenome pretraining as well.&lt;/p&gt;
+&lt;p&gt;Performance on held-out intervals improved over training, alongside a modest but consistent generalization gap: at every epoch, we compared test-set performance against a same-sized random subsample of training intervals (&lt;code&gt;train_sample&lt;/code&gt;). At epoch 10, held-out test performance trailed the training subsample by roughly 0.06–0.10 Pearson r across all three modalities (gene expression, splice site usage, splice junctions), for both linear-probe and LoRA. Reassuringly, that gap stayed roughly constant across epochs rather than widening — i.e. the models aren&amp;rsquo;t progressively overfitting the training intervals with more training, though they also aren&amp;rsquo;t closing the gap to training performance either.&lt;/p&gt;
+&lt;figure&gt;&lt;a href="https://genomicsxai.github.io/previews/pr-110/blogs/2026-009/full_runs.png" class="image-link" data-pswp-width="1355" data-pswp-height="359"&gt;
+		&lt;img src="https://genomicsxai.github.io/previews/pr-110/blogs/2026-009/full_runs.png" width="700px" height="185"loading="lazy"
+			alt="Figure 9. Held-out (solid) vs. training-subsample (dashed) performance across full fine-tuning epochs, linear-probe vs. LoRA, for gene expression, splice site usage, and splice junctions."
+			title="Held-out (solid) vs. training-subsample (dashed) performance across full fine-tuning epochs, linear-probe vs. LoRA, for gene expression, splice site usage, and splice junctions." data-title-escaped="Held-out (solid) vs. training-subsample (dashed) performance across full fine-tuning epochs, linear-probe vs. LoRA, for gene expression, splice site usage, and splice junctions."&gt;
+		&lt;/a&gt;&lt;/figure&gt;&lt;p&gt;Gene expression performance saturated early, so we asked whether LoRA fine-tuning - updating the trunk&amp;rsquo;s internal DNA representation via low-rank adapters, rather than only the new output heads — could do better, particularly on the splicing-specific modalities. Comparing linear-probing against LoRA at epoch 10 on the held-out test set:&lt;/p&gt;
+&lt;table&gt;
+	&lt;thead&gt;
+			&lt;tr&gt;
+					&lt;th&gt;Metric&lt;/th&gt;
+					&lt;th&gt;Linear-probe&lt;/th&gt;
+					&lt;th&gt;LoRA&lt;/th&gt;
+					&lt;th&gt;Δ (LoRA − probe)&lt;/th&gt;
+			&lt;/tr&gt;
+	&lt;/thead&gt;
+	&lt;tbody&gt;
+			&lt;tr&gt;
+					&lt;td&gt;Gene expression (Pearson r)&lt;/td&gt;
+					&lt;td&gt;&lt;strong&gt;0.899&lt;/strong&gt;&lt;/td&gt;
+					&lt;td&gt;0.893&lt;/td&gt;
+					&lt;td&gt;−0.006&lt;/td&gt;
+			&lt;/tr&gt;
+			&lt;tr&gt;
+					&lt;td&gt;Splice site usage (Pearson r)&lt;/td&gt;
+					&lt;td&gt;0.646&lt;/td&gt;
+					&lt;td&gt;&lt;strong&gt;0.659&lt;/strong&gt;&lt;/td&gt;
+					&lt;td&gt;+0.013&lt;/td&gt;
+			&lt;/tr&gt;
+			&lt;tr&gt;
+					&lt;td&gt;Splice junctions (Pearson r)&lt;/td&gt;
+					&lt;td&gt;0.788&lt;/td&gt;
+					&lt;td&gt;&lt;strong&gt;0.811&lt;/strong&gt;&lt;/td&gt;
+					&lt;td&gt;+0.023&lt;/td&gt;
+			&lt;/tr&gt;
+	&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;As expected, LoRA, by updating the trunk&amp;rsquo;s internal DNA representation instead of leaving it frozen, improved performance over linear probing on the splicing-specific metrics (splice site usage, splice junctions), while gene expression stayed essentially unchanged between the two (linear-probe even edges it out slightly there).&lt;/p&gt;
+&lt;p&gt;The two strategies also differ substantially in compute footprint, though less in runtime than in memory. Full genome fine-tuning took about a week on a single GPU for both strategies, since backpropagating through the frozen trunk to reach the low-rank adapters in LoRA still requires storing its activations end to end, even though the trunk&amp;rsquo;s own weights aren&amp;rsquo;t updated. Where the two diverge is memory: LoRA needed a full NVIDIA H100 (80 GB), while linear probing, which only needs gradients for the new heads, ran comfortably on NVIDIA Hopper-class GPUs with 64 GB. See Xinming&amp;rsquo;s &lt;a class="link" href="https://genomicsxai.github.io/blogs/2026-005/" target="_blank" rel="noopener"
+ &gt;GPU benchmarking post&lt;/a&gt; for a closer look at how these memory/compute tradeoffs play out across fine-tuning strategies.&lt;/p&gt;
+&lt;p&gt;The workflows for full fine-tuning and evaluation are available in the repository: &lt;a class="link" href="https://github.com/MiqG/alphagenome_finetuning_rna/tree/v1.0.2/workflows/05-full_finetuning" target="_blank" rel="noopener"
+ &gt;&lt;code&gt;workflows/05-full_finetuning&lt;/code&gt;&lt;/a&gt; and &lt;a class="link" href="https://github.com/MiqG/alphagenome_finetuning_rna/tree/v1.0.2/workflows/06-evaluation" target="_blank" rel="noopener"
+ &gt;&lt;code&gt;workflows/06-evaluation&lt;/code&gt;&lt;/a&gt;.&lt;/p&gt;
+&lt;h2 id="limitations"&gt;Limitations
+&lt;/h2&gt;&lt;p&gt;The initial debugging (up to and including the loss-formulation fix) was performed on a single genomic interval with just two RNA-seq samples, so those specific observations may not generalize to larger or more diverse training sets — this is why we followed up with the full genome-wide fine-tuning run above. The preprocessing pipeline reproduces the main steps described in the AlphaGenome paper, but since the original code is not public, we cannot guarantee exact parity.&lt;/p&gt;
+&lt;p&gt;The splicing fine-tuning code currently lives in a dedicated fork of &lt;a class="link" href="https://github.com/MiqG/alphagenome-pytorch/tree/splice-finetuning" target="_blank" rel="noopener"
+ &gt;alphagenome-pytorch&lt;/a&gt; and is pending merge into the main branch. Support in the JAX-based &lt;a class="link" href="https://github.com/genomicsxai/alphagenome_ft" target="_blank" rel="noopener"
+ &gt;alphagenome_ft&lt;/a&gt; will follow once that merge is complete. We&amp;rsquo;ll update this post once both merges land, with any code or figure references that change as a result.&lt;/p&gt;
+&lt;p&gt;This post focuses on getting the implementation correct and measuring held-out performance, not on biological interpretation. We do not yet relate these predictions to independent data or ask whether the fine-tuned heads capture SF3B1-specific splicing changes — that comparison, and the accompanying biological interpretation, is left for the follow-up post. We also only evaluate two RNA-seq samples (one WT, one K700E) and a single AlphaGenome fold; generalization to more samples, mutations, or cell types remains to be tested.&lt;/p&gt;
+&lt;h2 id="conclusion"&gt;Conclusion
+&lt;/h2&gt;&lt;p&gt;This process gave us a much better understanding of what it actually takes to fine-tune new transcriptomic heads on AlphaGenome. Extending the model to splicing modalities was not simply a matter of adding data loaders and output layers (as we hoped): higher label sparsity, head initialization, loss formulation, and the interaction between position sources and weight initialization all turned out to matter.&lt;/p&gt;
+&lt;p&gt;The most useful strategy was to build confidence at each step before scaling up, from preprocessing validation and target inspection to single-interval overfitting. Each stage exposed a different class of problem. The single-interval test in particular was worth its weight as the two loss bugs and a zero-initialization bug in the junction head would have been much harder to diagnose in a full training run. We hope that sharing these intermediate failures, alongside the fixes and the flags that control them, makes it easier for others to extend AlphaGenome to new RNA-seq modalities and biological questions.&lt;/p&gt;
+&lt;p&gt;The full fine-tuning results also suggest that gene expression and splicing tasks don&amp;rsquo;t need the same amount of compute: gene expression performance saturated early and didn&amp;rsquo;t benefit from LoRA, so linear probing on modest hardware is likely enough there, whereas the splicing modalities kept improving and gained the most from LoRA&amp;rsquo;s larger compute and memory footprint. If gene expression is your main target, linear probing is probably all you need; splicing tasks are where the extra compute marginally pays off.&lt;/p&gt;
+&lt;p&gt;In the end, this project became more than a simple port. It resulted in reusable preprocessing scripts, training pipelines, and a set of practical checks and warnings that we hope make fine-tuning RNA-seq–derived splicing modalities on AlphaGenome more transparent and reproducible. We are especially grateful to the DeepMind developers for openly sharing their code and model weights, and for the responsiveness of Tom Ward (&lt;a class="link" href="https://github.com/tomwardio" target="_blank" rel="noopener"
+ &gt;&lt;code&gt;@tomwardio&lt;/code&gt;&lt;/a&gt;) and Vincent Dutordoir (&lt;a class="link" href="https://github.com/vdutor" target="_blank" rel="noopener"
+ &gt;&lt;code&gt;@vdutor&lt;/code&gt;&lt;/a&gt;) when we reported bugs and implementation issues; their feedback was instrumental in reaching the conclusions presented here. We hope these efforts help make fine-tuning splicing heads as seamless and accessible as possible for the broader community.&lt;/p&gt;
+&lt;h2 id="reproducibility"&gt;Reproducibility
+&lt;/h2&gt;&lt;p&gt;The repository &lt;a class="link" href="https://github.com/MiqG/alphagenome_finetuning_rna/tree/v1.0.2" target="_blank" rel="noopener"
+ &gt;alphagenome_finetuning_rna&lt;/a&gt; contains all the necessary code, from data downloading to analysis and figures, to reproduce these results.&lt;/p&gt;
 &lt;h2 id="references"&gt;References
 &lt;/h2&gt;&lt;ol&gt;
-&lt;li&gt;The ENCODE Project Consortium et al. The Encyclopedia of DNA Elements. &lt;em&gt;bioRxiv&lt;/em&gt; 2026.07.06.731365 (2026) (&lt;a class="link" href="https://doi.org/10.64898/2026.07.06.731365" target="_blank" rel="noopener"
- &gt;https://doi.org/10.64898/2026.07.06.731365&lt;/a&gt;)&lt;/li&gt;
-&lt;li&gt;Avsec, Ž. et al. Base-resolution models of transcription-factor binding reveal soft motif syntax. &lt;em&gt;Nat Genet&lt;/em&gt; 53, 354—366 (2021). (&lt;a class="link" href="https://doi.org/10.1038/s41588-021-00782-6" target="_blank" rel="noopener"
- &gt;https://doi.org/10.1038/s41588-021-00782-6&lt;/a&gt;)&lt;/li&gt;
-&lt;li&gt;Pampari, A. et al. ChromBPNet: bias factorized, base-resolution deep learning models of chromatin accessibility reveal cis-regulatory sequence syntax, transcription factor footprints and regulatory variants. &lt;em&gt;bioRxiv&lt;/em&gt; 2024.12.25.630221 (2024). (&lt;a class="link" href="https://doi.org/10.1101/2024.12.25.630221" target="_blank" rel="noopener"
- &gt;https://doi.org/10.1101/2024.12.25.630221&lt;/a&gt;)&lt;/li&gt;
-&lt;li&gt;Cochran, K. et al. Dissecting the cis-regulatory syntax of transcription initiation with deep learning. &lt;em&gt;bioRxiv&lt;/em&gt; 2024.05.28.596138 (2024). (&lt;a class="link" href="https://doi.org/10.1101/2024.05.28.596138" target="_blank" rel="noopener"
- &gt;https://doi.org/10.1101/2024.05.28.596138&lt;/a&gt;)&lt;/li&gt;
-&lt;li&gt;Yun, C. M. et al. A unified lexicon of predictive DNA sequence motifs from ENCODE transcription factor binding and chromatin accessibility assays. (2025) doi:10.5281/zenodo.17179111. (&lt;a class="link" href="https://doi.org/10.5281/zenodo.17179111" target="_blank" rel="noopener"
- &gt;https://doi.org/10.5281/zenodo.17179111&lt;/a&gt;)&lt;/li&gt;
-&lt;/ol&gt;</description></item><item><title>BPNet-GARDEN: A quick-start guide (5 min)</title><link>https://genomicsxai.github.io/previews/pr-110/blogs/2026-013/</link><pubDate>Thu, 23 Jul 2026 00:00:00 +0000</pubDate><guid>https://genomicsxai.github.io/previews/pr-110/blogs/2026-013/</guid><description>&lt;img src="https://genomicsxai.github.io/previews/pr-110/" alt="Featured image of post BPNet-GARDEN: A quick-start guide (5 min)" /&gt;&lt;aside class="summary-box"&gt;
+&lt;li&gt;Avsec, Ž. et al. Advancing regulatory variant effect prediction with AlphaGenome., 649, Nature (2026). &lt;a class="link" href="https://doi.org/10.1038/s41586-025-10014-0" target="_blank" rel="noopener"
+ &gt;https://doi.org/10.1038/s41586-025-10014-0&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;López-Oreja, I. et al. SF3B1 mutation-mediated sensitization to H3B-8800 splicing inhibitor in chronic lymphocytic leukemia., 6, Life Sciences Alliance (2023). &lt;a class="link" href="https://doi.org/10.26508/lsa.202301955" target="_blank" rel="noopener"
+ &gt;https://doi.org/10.26508/lsa.202301955&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Dent, C.I. et al. Quantifying splice-site usage: a simple yet powerful approach to analyze splicing., 3, NAR Genomics and Bioinformatics (2021). &lt;a class="link" href="https://doi.org/10.1093/nargab/lqab041" target="_blank" rel="noopener"
+ &gt;https://doi.org/10.1093/nargab/lqab041&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Ramírez, F. et al. deepTools2: a next generation web server for deep-sequencing data analysis., 44, Nucleic Acids Research (2016). &lt;a class="link" href="https://doi.org/10.1093/nar/gkw257" target="_blank" rel="noopener"
+ &gt;https://doi.org/10.1093/nar/gkw257&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Dobin, A. et al. STAR: ultrafast universal RNA-seq aligner., 29, Bioinformatics (2013). &lt;a class="link" href="https://doi.org/10.1093/bioinformatics/bts635" target="_blank" rel="noopener"
+ &gt;https://doi.org/10.1093/bioinformatics/bts635&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id="acknowledgements"&gt;Acknowledgements
+&lt;/h2&gt;&lt;p&gt;Thanks to the &lt;a class="link" href="https://genomicsxai.github.io/" target="_blank" rel="noopener"
+ &gt;Genomics x AI&lt;/a&gt; community and the Kundaje Lab at Stanford, where the AlphaGenome PyTorch port is being developed as well. We acknowledge the EuroHPC Joint Undertaking for awarding this project access to the EuroHPC supercomputer MareNostrum 5, hosted by the Barcelona Supercomputing Center (Spain) through an EuroHPC Development Access call. We acknowledge support of the Spanish Ministry of Science and Innovation through the Centro de Excelencia Severo Ochoa (CEX2020-001049-S, MCIN/AEI /10.13039/501100011033), and the Generalitat de Catalunya through the CERCA programme, and to the EMBL partnership. We are grateful to the CRG Core Technologies Programme for their support and assistance in this work.&lt;/p&gt;</description></item><item><title>dENCODE: A quick-start guide (5 min)</title><link>https://genomicsxai.github.io/previews/pr-110/blogs/2026-013/</link><pubDate>Thu, 23 Jul 2026 00:00:00 +0000</pubDate><guid>https://genomicsxai.github.io/previews/pr-110/blogs/2026-013/</guid><description>&lt;img src="https://genomicsxai.github.io/previews/pr-110/" alt="Featured image of post dENCODE: A quick-start guide (5 min)" /&gt;&lt;aside class="summary-box"&gt;
  &lt;h2 class="summary-box__title"&gt;Summary&lt;/h2&gt;
  &lt;div class="summary-box__body"&gt;
  &lt;p&gt;For quick and easy introduction to the latest ENCODE 4 deep learning models, we provide a &lt;strong&gt;Quick-start guide&lt;/strong&gt; (5 min). Following the instructions, you should be able to create an &lt;strong&gt;interactive genome browser session&lt;/strong&gt; to view a model&amp;rsquo;s outputs, including experimentally observed signal, model-predicted signal, sequence contribution scores, and genomic motif instances.&lt;/p&gt;
@@ -182,9 +225,9 @@ Example BPNet-style model architecture with bias-correction: ChromBPNet. From &l
 &lt;hr&gt;
 
  &lt;blockquote&gt;
- &lt;p&gt;This post is one of a series of blogs we will be releasing on the ENCODE Deep Learning Collection (&amp;ldquo;BPNet-GARDEN&amp;rdquo;). We plan to release the following posts:&lt;/p&gt;
+ &lt;p&gt;This post is one of a series of blogs we will be releasing on dENCODE (Deep learning models trained across ENCODE). We plan to release the following posts:&lt;/p&gt;
 &lt;ol&gt;
-&lt;li&gt;Overview: What is the ENCODE Deep Learning Collection?&lt;/li&gt;
+&lt;li&gt;dENCODE: Decoding the sequence basis of gene regulation across ENCODE with thousands of light-weight deep learning models&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;Quickstart guide : How to access the ENCODE Deep Learning Collection (this post)&lt;/strong&gt;&lt;/li&gt;
 &lt;li&gt;Understanding regulatory DNA using deep learning models&lt;/li&gt;
 &lt;li&gt;A guide to the DECODE BPNet model resource for modeling TF binding&lt;/li&gt;
@@ -291,6 +334,176 @@ Small clusters of high contribution score bases typically represent transcriptio
  &gt;https://doi.org/10.64898/2026.07.06.731365&lt;/a&gt;)&lt;/li&gt;
 &lt;li&gt;Li, D. et al. WashU Epigenome Browser update 2022, &lt;em&gt;Nucleic Acids Research&lt;/em&gt;, Volume 50, Issue W1, (2022), Pages W774–W781. (&lt;a class="link" href="https://doi.org/10.1093/nar/gkac238" target="_blank" rel="noopener"
  &gt;https://doi.org/10.1093/nar/gkac238&lt;/a&gt;)&lt;/li&gt;
+&lt;li&gt;Avsec, Ž. et al. Base-resolution models of transcription-factor binding reveal soft motif syntax. &lt;em&gt;Nat Genet&lt;/em&gt; 53, 354—366 (2021). (&lt;a class="link" href="https://doi.org/10.1038/s41588-021-00782-6" target="_blank" rel="noopener"
+ &gt;https://doi.org/10.1038/s41588-021-00782-6&lt;/a&gt;)&lt;/li&gt;
+&lt;li&gt;Pampari, A. et al. ChromBPNet: bias factorized, base-resolution deep learning models of chromatin accessibility reveal cis-regulatory sequence syntax, transcription factor footprints and regulatory variants. &lt;em&gt;bioRxiv&lt;/em&gt; 2024.12.25.630221 (2024). (&lt;a class="link" href="https://doi.org/10.1101/2024.12.25.630221" target="_blank" rel="noopener"
+ &gt;https://doi.org/10.1101/2024.12.25.630221&lt;/a&gt;)&lt;/li&gt;
+&lt;li&gt;Cochran, K. et al. Dissecting the cis-regulatory syntax of transcription initiation with deep learning. &lt;em&gt;bioRxiv&lt;/em&gt; 2024.05.28.596138 (2024). (&lt;a class="link" href="https://doi.org/10.1101/2024.05.28.596138" target="_blank" rel="noopener"
+ &gt;https://doi.org/10.1101/2024.05.28.596138&lt;/a&gt;)&lt;/li&gt;
+&lt;li&gt;Yun, C. M. et al. A unified lexicon of predictive DNA sequence motifs from ENCODE transcription factor binding and chromatin accessibility assays. (2025) doi:10.5281/zenodo.17179111. (&lt;a class="link" href="https://doi.org/10.5281/zenodo.17179111" target="_blank" rel="noopener"
+ &gt;https://doi.org/10.5281/zenodo.17179111&lt;/a&gt;)&lt;/li&gt;
+&lt;/ol&gt;</description></item><item><title>dENCODE: Decoding the sequence basis of gene regulation across ENCODE with thousands of light-weight deep learning models</title><link>https://genomicsxai.github.io/previews/pr-110/blogs/2026-012/</link><pubDate>Thu, 23 Jul 2026 00:00:00 +0000</pubDate><guid>https://genomicsxai.github.io/previews/pr-110/blogs/2026-012/</guid><description>&lt;img src="https://genomicsxai.github.io/previews/pr-110/" alt="Featured image of post dENCODE: Decoding the sequence basis of gene regulation across ENCODE with thousands of light-weight deep learning models" /&gt;&lt;aside class="summary-box"&gt;
+ &lt;h2 class="summary-box__title"&gt;Summary&lt;/h2&gt;
+ &lt;div class="summary-box__body"&gt;
+ &lt;p&gt;The Encyclopedia of DNA Elements (ENCODE) provides a reference map of functional elements in the human genome. This work reflects more than two decades of systematic investigation into genome function and is described in our recent manuscript on the fourth and final phase of the &lt;a class="link" href="https://doi.org/10.64898/2026.07.06.731365" target="_blank" rel="noopener"
+ &gt;&lt;strong&gt;ENCODE Project&lt;/strong&gt;&lt;/a&gt;.
+As part of this effort, we developed dENCODE–a collection of approximately 4,000 deep learning models deep trained on datasets spanning multiple layers of gene regulation, including transcription-factor binding, chromatin accessibility, transcription initiation, and regulatory activity. Along with the trained models, we provide model predictions, sequence-interpretation scores, discovered motifs, and their genomic instances to support a wide range of gene-regulatory analyses.
+In this first post of a broader series, we introduce dENCODE and illustrate how it can be used to uncover the sequence rules underlying gene regulation. Over the coming weeks, we will share additional articles highlighting other applications of this resource.
+&lt;strong&gt;Contributions&lt;/strong&gt;:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Primary contributors: Vivekanandan Ramalingam, Chang M. Yun, Vivian Hecht, Aman Patel, Anusri Pampari, Ziwei Chen, Johannes Linder&lt;/li&gt;
+&lt;li&gt;Secondary contributors: Georgi K. Marinov, Kelly Cochran, Abhimanyu Banerjee, Surag Nair, Salil S. Deshpande, Zahoor Zafrulla&lt;/li&gt;
+&lt;li&gt;Tertiary contributors: Alex M. Tseng, Amr Alexandari, Mahfuza Sharmin, Avanti Shrikumar, Jacob M. Schreiber, Caleb Lareau&lt;/li&gt;
+&lt;li&gt;Corresponding contributors: Anshul Kundaje&lt;/li&gt;
+&lt;li&gt;Blog post: Chang M. Yun, Vivekanandan Ramalingam, Vivian Hecht &lt;em&gt;(equal contributions)&lt;/em&gt;&lt;/li&gt;
+&lt;/ul&gt;
+ &lt;/div&gt;
+&lt;/aside&gt;
+
+
+ &lt;blockquote&gt;
+ &lt;p&gt;This post is the first of a series of blogs we will be releasing on dENCODE. We plan to release the following posts:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;dENCODE: Decoding the sequence basis of gene regulation across ENCODE with thousands of light-weight deep learning models (this post)&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;Quickstart guide : How to access the ENCODE Deep Learning Collection&lt;/li&gt;
+&lt;li&gt;Understanding regulatory DNA using deep learning models&lt;/li&gt;
+&lt;li&gt;A guide to the DECODE BPNet model resource for modeling TF binding&lt;/li&gt;
+&lt;li&gt;A guide to the DECODE ChromBPNet resource for modeling chromatin accessibility&lt;/li&gt;
+&lt;li&gt;Case study #1: Predicting the effects of non-coding variant mutations&lt;/li&gt;
+&lt;li&gt;Case study #2: MotifCompendium: A unified lexicon of regulatory sequence motifs&lt;/li&gt;
+&lt;li&gt;Case study #3: Understanding cell type-specific activity of cis-regulatory elements&lt;/li&gt;
+&lt;li&gt;Postscript: successfully running production-scale projects in an academic setting&lt;/li&gt;
+&lt;/ol&gt;
+
+ &lt;/blockquote&gt;
+&lt;hr&gt;
+&lt;h2 id="dna-not-just-genes"&gt;DNA: not just genes
+&lt;/h2&gt;&lt;p&gt;The human genome contains approximately 3.2 billion base pairs of DNA. While we often think of genes coding for proteins as the primary component of DNA, they account for only 1-2% of the genome. Gene expression, the process by which genes are converted into RNA, is a highly regulated process–genes are expressed at varying rates, and sometimes not at all–that is fundamental to the function of all living things. Many portions of the 98% of DNA not containing genes, also known as non-coding DNA, play a major role in regulating gene expression, as do the higher-order organization of DNA and various proteins that bind to it.&lt;/p&gt;
+&lt;p&gt;DNA is packaged with proteins into chromatin and further organized into higher-order structures. Regulatory proteins, such as transcription factors (TFs), bind to DNA, then up- or down-regulate gene expression by further recruiting proteins involved in transcription. Similarly to thread wound around a spool, not all chromatin is accessible at all times, and binding of various TFs both influences and is determined by the accessibility of chromatin. Chromatin is highly cell- and species-specific, and plays an essential role in cell differentiation and responses to environmental stimuli such as nutrient stress; moreover, chromatin dysregulation can lead to improper interactions between regulatory elements and genes, which can in turn lead to cancer and other diseases.&lt;/p&gt;
+&lt;h2 id="encode-an-encyclopedia-of-dna-elements"&gt;ENCODE: An Encyclopedia of DNA Elements
+&lt;/h2&gt;&lt;p&gt;The &lt;a class="link" href="https://www.encodeproject.org/" target="_blank" rel="noopener"
+ &gt;&lt;strong&gt;Encyclopedia of DNA Elements&lt;/strong&gt; (&lt;strong&gt;ENCODE&lt;/strong&gt;) Consortium&lt;/a&gt;, a public research project dedicated to building a comprehensive &amp;ldquo;Encyclopedia&amp;rdquo; of genome-wide regulatory elements has made major contributions towards characterizing the complex and diverse components of the regulatory landscape. We describe a few of the experimental methods that researchers in the field have developed to interrogate chromatin accessibility below.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;TF ChIP-seq&lt;/strong&gt;, or TF chromatin immunoprecipitation, is used to identify TF binding sites, one TF at a time, by using antibodies to bind a given TF that is, in turn, bound to particular regions of DNA. These bound regions are then isolated and sequenced, with reads accumulating at TF binding sites. TF-ChIP-seq datasets are typically analyzed to identify peaks from these accumulated reads. Short DNA sequences that are statistically enriched within these peaks can then be identified as candidate motifs that may contribute to transcription-factor binding.&lt;/p&gt;
+&lt;figure&gt;&lt;a href="https://genomicsxai.github.io/previews/pr-110/blogs/2026-012/TFChIP.gif" class="image-link" data-pswp-width="1920" data-pswp-height="1080"&gt;
+		&lt;img src="https://genomicsxai.github.io/previews/pr-110/blogs/2026-012/TFChIP.gif" width="300px" height="168"loading="lazy"
+			alt="Figure: TF ChIP-seq"
+			title="Illustration of TF ChIP-seq: (1) TF binds to accessible DNA; (2) DNA is broken into fragments; (3) Antibodies bind to TF-DNA complex; (4) TF-DNA complex is pulled down; (5) Isolated DNA is cleaned and sequenced; (6) Sequences accumulate around the TF binding site." data-title-escaped="Illustration of TF ChIP-seq: (1) TF binds to accessible DNA; (2) DNA is broken into fragments; (3) Antibodies bind to TF-DNA complex; (4) TF-DNA complex is pulled down; (5) Isolated DNA is cleaned and sequenced; (6) Sequences accumulate around the TF binding site."&gt;
+		&lt;/a&gt;&lt;/figure&gt;&lt;p&gt;In &lt;strong&gt;DNase-seq&lt;/strong&gt; and &lt;strong&gt;ATAC-seq&lt;/strong&gt;, DNA-digesting enzymes (DNase I and Tn5 transposase, respectively) cut accessible chromatin into small fragments. These fragments are then isolated and sequenced, and accumulate in regions of open chromatin, analogously to TF-ChIP-seq. Worth noting is that DNase I and Tn5 transposase preferentially cut specific DNA sequences, leading to a slight bias in the form of an increased number of reads to particular regions. We discuss this further in subsequent sections.&lt;/p&gt;
+&lt;figure&gt;&lt;a href="https://genomicsxai.github.io/previews/pr-110/blogs/2026-012/ChromatinAccessibility.gif" class="image-link" data-pswp-width="1920" data-pswp-height="1080"&gt;
+		&lt;img src="https://genomicsxai.github.io/previews/pr-110/blogs/2026-012/ChromatinAccessibility.gif" width="300px" height="168"loading="lazy"
+			alt="Figure: DNase-seq, ATAC-seq"
+			title="Illustration of DNase-seq, ATAC-seq: (1) DNA can wrap around histones (&amp;#39;closed&amp;#39;) or remain unwound (&amp;#39;open&amp;#39;); (2) Enzymes (DNase I or Tn5 transposase) cut accessible DNA; (3) DNA fragments are sequenced; (4) Accessible regions appear as peaks." data-title-escaped="Illustration of DNase-seq, ATAC-seq: (1) DNA can wrap around histones (&amp;amp;#39;closed&amp;amp;#39;) or remain unwound (&amp;amp;#39;open&amp;amp;#39;); (2) Enzymes (DNase I or Tn5 transposase) cut accessible DNA; (3) DNA fragments are sequenced; (4) Accessible regions appear as peaks."&gt;
+		&lt;/a&gt;&lt;/figure&gt;&lt;p&gt;In addition to chromatin accessibility and transcription factor binding, gene expression is further regulated in the moments preceding transcription. &lt;strong&gt;PRO-cap&lt;/strong&gt; allows precise mapping of transcription start sites and quantifies active transcription in a cell, by mapping the 5&amp;rsquo; end of RNA from transcriptionally engaged RNA polymerases.&lt;/p&gt;
+&lt;p&gt;And &lt;strong&gt;MPRAs&lt;/strong&gt; and related high throughput reporter assays are used to experimentally measure whether particular sequences are in fact responsible for regulating gene expression. In general, in reporter assays, a candidate Cis-Regulatory Element, or cCRE, is inserted into a short sequence which also includes a measurable reporter output, such as a fluorescent molecule, or sequence barcodes in case of the high throughput versions. The greater the level of the measured reporter, the more active the regulatory element.&lt;/p&gt;
+&lt;p&gt;ENCODE has developed a set of approximately 16,000 standardized, uniformly processed datasets for the assays described above and many others, across a wide range of cell lines, primary cells and tissues. These are organized and publicly available for download via the &lt;a class="link" href="https://encodeproject.org" target="_blank" rel="noopener"
+ &gt;ENCODE portal&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;[Used the assays to map ~4 million candidate cis-regulatory elements: Explain cCRE, Enhancer, Promoter.]
+The consortium recently released a preprint describing the newly included datasets in the fourth and final phase of the project &lt;a class="link" href="https://www.biorxiv.org/content/10.64898/2026.07.06.731365v1" target="_blank" rel="noopener"
+ &gt;ENCODE 4&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;figure&gt;&lt;a href="https://genomicsxai.github.io/previews/pr-110/blogs/2026-012/ENCODE_cube.png" class="image-link" data-pswp-width="1500" data-pswp-height="504"&gt;
+		&lt;img src="https://genomicsxai.github.io/previews/pr-110/blogs/2026-012/ENCODE_cube.png" width="600px" height="201"loading="lazy"
+			alt="Figure: ENCODE cube"
+			title="Coverage of the ENCODE Project: 100s of biochemical markers, performed in 100s of cell types and tissues, measured across 3 billion genomic positions. From Roadmap Epigenomics Consortium et al. Integrative analysis of 111 reference human epigenomes. Nature 518, 317–330 (2015). (https://doi.org/10.1038/nature14248)" data-title-escaped="Coverage of the ENCODE Project: 100s of biochemical markers, performed in 100s of cell types and tissues, measured across 3 billion genomic positions. From Roadmap Epigenomics Consortium et al. Integrative analysis of 111 reference human epigenomes. Nature 518, 317–330 (2015). (https://doi.org/10.1038/nature14248)"&gt;
+		&lt;/a&gt;&lt;/figure&gt;
+Coverage of the ENCODE Project: hundreds of biochemical markers, performed in hundreds of cell types and tissues, measured across 3 billion genomic positions. From &lt;em&gt;Roadmap Epigenomics Consortium et al. Integrative analysis of 111 reference human epigenomes. Nature 518, 317–330 (2015). (&lt;a class="link" href="https://doi.org/10.1038/nature14248" target="_blank" rel="noopener"
+ &gt;https://doi.org/10.1038/nature14248&lt;/a&gt;)&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;However, while the experimental assays can help map the locations of active regulatory genomic elements, they provide limited mechanistic insights, and we are left with some fundamental questions, for example:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;*Which sequence features drive TF binding and chromatin accessibility?&lt;/li&gt;
+&lt;li&gt;*How do combinations and arrangements of motifs influence TF occupancy?&lt;/li&gt;
+&lt;li&gt;*What would happen if an individual nucleotide were altered?&lt;/li&gt;
+&lt;li&gt;*Is a disease-causing mutation causing its effect via changes to a transcription factor binding site?&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id="the-bpnet-family-of-deep-learning-models-uncovers-the-quantitative-role-of-sequence-in-regulation"&gt;The BPNet family of deep learning models uncovers the quantitative role of sequence in regulation
+&lt;/h2&gt;&lt;p&gt;Our group has developed a suite of deep learning models and downstream tools to address these questions. They include:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;BPNet:&lt;/strong&gt; A convolutional neural network (CNN) trained on TF-ChIP-seq that predicts the binding of a TF from DNA sequence;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;ChromBPNet:&lt;/strong&gt; A CNN with a BPNet-like architecture trained on DNase- or ATAC-seq that predicts chromatin accessibility from DNA sequence and corrects for enzymatic bias;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;ProCapNet:&lt;/strong&gt; A CNN with a BPNet-like architecture trained on ProCAP-seq that predicts transcription initiation from DNA sequence;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;ReporterNet:&lt;/strong&gt; A CNN with a BPNet-like architecture trained on MPRA data that predicts large-scale reporter assay signal from DNA sequence.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;figure&gt;&lt;a href="https://genomicsxai.github.io/previews/pr-110/blogs/2026-012/ChromBPNet.png" class="image-link" data-pswp-width="2460" data-pswp-height="1056"&gt;
+		&lt;img src="https://genomicsxai.github.io/previews/pr-110/blogs/2026-012/ChromBPNet.png" width="600px" height="257"loading="lazy"
+			alt="Figure: ChromBPNet model architecture"
+			title="Example BPNet-style model architecture with bias-correction: ChromBPNet. From Pampari, A. et al. ChromBPNet: bias factorized, base-resolution deep learning models of chromatin accessibility reveal cis-regulatory sequence syntax, transcription factor footprints and regulatory variants. 2024.12.25.630221 Preprint at https://doi.org/10.1101/2024.12.25.630221 (2024)." data-title-escaped="Example BPNet-style model architecture with bias-correction: ChromBPNet. From Pampari, A. et al. ChromBPNet: bias factorized, base-resolution deep learning models of chromatin accessibility reveal cis-regulatory sequence syntax, transcription factor footprints and regulatory variants. 2024.12.25.630221 Preprint at https://doi.org/10.1101/2024.12.25.630221 (2024)."&gt;
+		&lt;/a&gt;&lt;/figure&gt;
+Example BPNet-style model architecture with bias-correction: ChromBPNet. From &lt;em&gt;Pampari, A. et al. ChromBPNet: bias factorized, base-resolution deep learning models of chromatin accessibility reveal cis-regulatory sequence syntax, transcription factor footprints and regulatory variants. &lt;em&gt;bioRxiv&lt;/em&gt; 2024.12.25.630221 (2024). (&lt;a class="link" href="https://doi.org/10.1101/2024.12.25.630221" target="_blank" rel="noopener"
+ &gt;https://doi.org/10.1101/2024.12.25.630221&lt;/a&gt;)&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;We describe the basic steps of our workflow below, with more detailed explanations available in the manuscripts [ChromBPNet, BPNet, ProCapNet, ReporterNet].&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;1.&lt;/strong&gt; We begin by training a model that can reconstruct the observed experimental signal when provided the DNA sequence of the region. We expect that the model should only be able to perform this reconstruction by learning the underlying rules of chromatin regulation. While the input data varies based on assay, the basic model architecture remains the same.&lt;/p&gt;
+&lt;figure&gt;&lt;a href="https://genomicsxai.github.io/previews/pr-110/blogs/2026-012/BPNet_Fig1.gif" class="image-link" data-pswp-width="1333" data-pswp-height="550"&gt;
+		&lt;img src="https://genomicsxai.github.io/previews/pr-110/blogs/2026-012/BPNet_Fig1.gif" width="600px" height="247"loading="lazy"
+			alt="Figure: Train a model"
+			title="Train a model to predict experimentally observed signal from DNA sequence." data-title-escaped="Train a model to predict experimentally observed signal from DNA sequence."&gt;
+		&lt;/a&gt;&lt;/figure&gt;&lt;p&gt;DNase and ATAC-seq suffer from unwanted artifacts related to the preference of DNase and Tn5 to cut at specific sequence positions. Using ChromBPNet, we train a separate model to predict only the effects of the experimental artifact, and subtract its effect to isolate the regulatory signal.&lt;/p&gt;
+&lt;figure&gt;&lt;a href="https://genomicsxai.github.io/previews/pr-110/blogs/2026-012/BPNet_Fig2.gif" class="image-link" data-pswp-width="1333" data-pswp-height="550"&gt;
+		&lt;img src="https://genomicsxai.github.io/previews/pr-110/blogs/2026-012/BPNet_Fig2.gif" width="600px" height="247"loading="lazy"
+			alt="Figure: Remove bias"
+			title="Remove the effects of unwanted experimental artifacts, by training a separate model to predict the experimental effects then subtracting it from the total signal." data-title-escaped="Remove the effects of unwanted experimental artifacts, by training a separate model to predict the experimental effects then subtracting it from the total signal."&gt;
+		&lt;/a&gt;&lt;/figure&gt;&lt;p&gt;&lt;strong&gt;2.&lt;/strong&gt; We next interpret the relative activations of the trained model to understand which positions in the training sequences were most important to its predictions using DeepLIFT (ref). The most important positions, and bases at those positions, can often be directly attributed to the sequence binding preference of known transcription factors.&lt;/p&gt;
+&lt;figure&gt;&lt;a href="https://genomicsxai.github.io/previews/pr-110/blogs/2026-012/BPNet_Fig4.gif" class="image-link" data-pswp-width="1333" data-pswp-height="550"&gt;
+		&lt;img src="https://genomicsxai.github.io/previews/pr-110/blogs/2026-012/BPNet_Fig4.gif" width="600px" height="247"loading="lazy"
+			alt="Figure: Interpret the model"
+			title="Identify highly contributing bases used by the model during prediction." data-title-escaped="Identify highly contributing bases used by the model during prediction."&gt;
+		&lt;/a&gt;&lt;/figure&gt;&lt;p&gt;&lt;strong&gt;3.&lt;/strong&gt; Once we have the sequence interpretations, we use a suite of post-processing tools to extract, consolidate and cluster the potential transcription factor binding sites. We also map the sites back to the genome, which is very useful for downstream quantitative analyses.&lt;/p&gt;
+&lt;p&gt;An example application, shown below, is to predict the effect of potentially disease-causing mutations in the genome. We can run predictions on mutations at any genomic sequence, even ones on which the model has not been trained, and calculate a log-fold change in signal, which can then be related to the mutation effect size.&lt;/p&gt;
+&lt;figure&gt;&lt;a href="https://genomicsxai.github.io/previews/pr-110/blogs/2026-012/BPNet_Fig3.gif" class="image-link" data-pswp-width="1333" data-pswp-height="550"&gt;
+		&lt;img src="https://genomicsxai.github.io/previews/pr-110/blogs/2026-012/BPNet_Fig3.gif" width="600px" height="247"loading="lazy"
+			alt="Figure: Predict mutations"
+			title="Predict the effect of unseen mutations in the genome." data-title-escaped="Predict the effect of unseen mutations in the genome."&gt;
+		&lt;/a&gt;&lt;/figure&gt;&lt;p&gt;In the following section, we share an example in the MYC locus to showcase the power of the models:&lt;/p&gt;
+&lt;h2 id="case-study-regulation-in-the-myc-locus-through-the-lens-of-deep-learning-models"&gt;Case study: Regulation in the MYC locus through the lens of deep learning models
+&lt;/h2&gt;&lt;p&gt;The Myc family of proteins is a set of transcription factors that play an important role in cell proliferation, and mutations in the MYC gene have been shown to lead to many different types of cancer. Thus, understanding the mechanisms of regulation at the MYC locus with base-pair resolution can allow us to answer important questions relating to disease biology, Below, we view a CRISPRi-validated distal enhancer in the MYC locus [chr8:127,898,412—127,899,647] through the lens of 15 different models.&lt;/p&gt;
+&lt;figure&gt;&lt;a href="https://genomicsxai.github.io/previews/pr-110/blogs/2026-012/MYC_fig0.png" class="image-link" data-pswp-width="4000" data-pswp-height="514"&gt;
+		&lt;img src="https://genomicsxai.github.io/previews/pr-110/blogs/2026-012/MYC_fig0.png" width="600px" height="77"loading="lazy"
+			alt="Figure 1"
+			title="MYC locus with a CRISPRi-validated distal enhancer [chr8:127,898,412—127,899,647] and its experimentally observed DNase-seq signal in K562." data-title-escaped="MYC locus with a CRISPRi-validated distal enhancer [chr8:127,898,412—127,899,647] and its experimentally observed DNase-seq signal in K562."&gt;
+		&lt;/a&gt;&lt;/figure&gt;&lt;p&gt;First, examining chromatin accessibility through ChromBPNet models: the models recapitulate the observed experimental profile with high concordance. Further, the models can de-noise the profile to isolate the true underlying accessibility signal, reconciling DNase and ATAC-seq experimental methods into agreement (where raw signals can diverge due to enzyme differences).&lt;/p&gt;
+&lt;figure&gt;&lt;a href="https://genomicsxai.github.io/previews/pr-110/blogs/2026-012/MYC_fig2.png" class="image-link" data-pswp-width="2053" data-pswp-height="325"&gt;
+		&lt;img src="https://genomicsxai.github.io/previews/pr-110/blogs/2026-012/MYC_fig2.png" width="600px" height="94"loading="lazy"
+			alt="Figure 2"
+			title="Observed, model-predicted, and model-corrected DNase-seq and ATAC-seq profiles by ChromBPNet." data-title-escaped="Observed, model-predicted, and model-corrected DNase-seq and ATAC-seq profiles by ChromBPNet."&gt;
+		&lt;/a&gt;&lt;/figure&gt;&lt;p&gt;Second, using the models, we highlight the key sequence drivers that the models identified to make their predictions (as &amp;ldquo;contribution scores&amp;rdquo;), and begin to see the underlying biological mechanism of regulation at this locus:&lt;/p&gt;
+&lt;p&gt;Examining the highly contributing sequences for chromatin accessibility through ChromBPNet, we observe key transcription factors (e.g., GATA, AP1, SP, ETV) that drive accessibility—in agreement with prior understanding.&lt;/p&gt;
+&lt;p&gt;In parallel, examining the key sequences for TF binding through BPNet, we observe the same sequences predict TF binding, in agreement with ChromBPNet—despite being trained on two entirely orthogonal assay types (TF ChIP-seq vs. DNase-seq/ATAC-seq).&lt;/p&gt;
+&lt;figure&gt;&lt;a href="https://genomicsxai.github.io/previews/pr-110/blogs/2026-012/MYC_fig3.png" class="image-link" data-pswp-width="2175" data-pswp-height="561"&gt;
+		&lt;img src="https://genomicsxai.github.io/previews/pr-110/blogs/2026-012/MYC_fig3.png" width="600px" height="154"loading="lazy"
+			alt="Figure 3"
+			title="Highly contributing sequences used by the models during prediction. Insets compare contribution maps across DNase/ATAC (ChromBPNet), MPRA (ReporterNet), and TF ChIP-seq models (BPNet; e.g., GATA2, SP1, CEBPB, JUND, GABPB1), with high-impact motif instances annotated (e.g., GATA, SP, AP-1, ETV/ETS, CEBP)." data-title-escaped="Highly contributing sequences used by the models during prediction. Insets compare contribution maps across DNase/ATAC (ChromBPNet), MPRA (ReporterNet), and TF ChIP-seq models (BPNet; e.g., GATA2, SP1, CEBPB, JUND, GABPB1), with high-impact motif instances annotated (e.g., GATA, SP, AP-1, ETV/ETS, CEBP)."&gt;
+		&lt;/a&gt;&lt;/figure&gt;&lt;p&gt;Below, we provide an interactive browser session of the exact locus to view dynamically:&lt;/p&gt;
+&lt;div class="gxai-igv-panel" data-igv-panel="myc" data-igv-src="https://genomicsxai.github.io/previews/pr-110/blogs/2026-012/myc-igv-panel.json"&gt;&lt;/div&gt;
+&lt;link rel="stylesheet" href="https://genomicsxai.github.io/previews/pr-110/css/igv-panel.css"&gt;
+&lt;script src="https://genomicsxai.github.io/previews/pr-110/js/vendor/igv-3.8.0.min.js" defer&gt;&lt;/script&gt;
+&lt;script src="https://genomicsxai.github.io/previews/pr-110/js/igv-panel.js" defer&gt;&lt;/script&gt;
+
+&lt;h2 id="decoding-encode-an-encyclopedia-of-regulatory-dna-deep-learning-models"&gt;Decoding ENCODE: An &amp;lsquo;Encyclopedia&amp;rsquo; of regulatory DNA deep learning models
+&lt;/h2&gt;&lt;p&gt;In the ENCODE Deep learning collection (De-ENCODE), we trained these models on hundreds of cell and tissue types available through the ENCODE consortium. We trained &lt;a class="link" href="https://doi.org/10.1038/s41588-021-00782-6" target="_blank" rel="noopener"
+ &gt;BPNet&lt;/a&gt; models on 2,339 TF-ChIP-seq across 788 TFs, &lt;a class="link" href="https://doi.org/10.1101/2024.12.25.630221" target="_blank" rel="noopener"
+ &gt;ChromBPNet&lt;/a&gt; models on 1,512 DNase-seq and ATAC-seq across 408 biosamples, &lt;a class="link" href="https://doi.org/10.1101/2024.05.28.596138" target="_blank" rel="noopener"
+ &gt;ProCapNet&lt;/a&gt; models on 6 PRO-Cap, and ReporterNet models on 8 MPRAs to capture the dynamic regulatory activity across diverse samples. We release them together with the fourth and final phase of the ENCODE Project.&lt;/p&gt;
+&lt;p&gt;Through the power of the models and the richness of the ENCODE dataset, we hope to empower the community at large to explore important questions relating to the fundamental biology of gene regulation and mechanisms of disease in a wide variety of tissues and cell types.&lt;/p&gt;
+&lt;h2 id="how-can-i-use-the-resource"&gt;How can I use the resource?
+&lt;/h2&gt;&lt;p&gt;As part of the ENCODE Project, all data, models, analysis are available at the &lt;a class="link" href="https://www.encodeproject.org/" target="_blank" rel="noopener"
+ &gt;Project portal&lt;/a&gt;. If you use our models, please cite the &lt;a class="link" href="https://doi.org/10.64898/2026.07.06.731365" target="_blank" rel="noopener"
+ &gt;ENCODE preprint&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Beyond the ENCODE portal, we provide several user-friendly alternatives for accessing and visualizing our data:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Models&lt;/strong&gt;: We have uploaded the models for open access on the &lt;a class="link" href="https://www.encodeproject.org/%7bADD%7d" target="_blank" rel="noopener"
+ &gt;ENCODE Portal&lt;/a&gt; and on &lt;a class="link" href="https://huggingface.co/collections/kundajelab/encode-bpnet-models" target="_blank" rel="noopener"
+ &gt;&lt;strong&gt;Hugging Face&lt;/strong&gt;&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Predictions&lt;/strong&gt;: We have created browser-friendly tracks of all model predictions in experimental peaks, as a &lt;a class="link" href="https://genome.ucsc.edu/cgi-bin/hgTracks?db=hg38&amp;amp;hubUrl=https://kundajelab.github.io/ucsc-trackhub-encode.github.io/hub.txt" target="_blank" rel="noopener"
+ &gt;&lt;strong&gt;UCSC Track Hub&lt;/strong&gt;&lt;/a&gt; for easy, interactive browser sessions&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Sequence annotations&lt;/strong&gt;: We have identified highly contributing bases for all models and annotated the likely corresponding TF, as a &lt;a class="link" href="https://genome.ucsc.edu/cgi-bin/hgTracks?db=hg38&amp;amp;hubUrl=https://kundajelab.github.io/ucsc-trackhub-encode.github.io/hub.txt" target="_blank" rel="noopener"
+ &gt;&lt;strong&gt;UCSC Track Hub&lt;/strong&gt;&lt;/a&gt; for easy, interactive browser sessions&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;User guide&lt;/strong&gt;: We are currently building an &lt;em&gt;interactive&lt;/em&gt; user guide to help the community navigate and explain the resource (&lt;em&gt;work in progress&lt;/em&gt;)&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Preprint&lt;/strong&gt;: For more detail, the latest ENCODE preprint is out on &lt;a class="link" href="https://doi.org/10.64898/2026.07.06.731365" target="_blank" rel="noopener"
+ &gt;&lt;em&gt;bioRxiv&lt;/em&gt;&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;We still have so much to share about the resource! We are planning to regularly share the many different ways you can use the resource (~every week) for the foreseeable future, so give us a follow and be on the lookout for more.&lt;/p&gt;
+&lt;h2 id="references"&gt;References
+&lt;/h2&gt;&lt;ol&gt;
+&lt;li&gt;The ENCODE Project Consortium et al. The Encyclopedia of DNA Elements. &lt;em&gt;bioRxiv&lt;/em&gt; 2026.07.06.731365 (2026) (&lt;a class="link" href="https://doi.org/10.64898/2026.07.06.731365" target="_blank" rel="noopener"
+ &gt;https://doi.org/10.64898/2026.07.06.731365&lt;/a&gt;)&lt;/li&gt;
 &lt;li&gt;Avsec, Ž. et al. Base-resolution models of transcription-factor binding reveal soft motif syntax. &lt;em&gt;Nat Genet&lt;/em&gt; 53, 354—366 (2021). (&lt;a class="link" href="https://doi.org/10.1038/s41588-021-00782-6" target="_blank" rel="noopener"
  &gt;https://doi.org/10.1038/s41588-021-00782-6&lt;/a&gt;)&lt;/li&gt;
 &lt;li&gt;Pampari, A. et al. ChromBPNet: bias factorized, base-resolution deep learning models of chromatin accessibility reveal cis-regulatory sequence syntax, transcription factor footprints and regulatory variants. &lt;em&gt;bioRxiv&lt;/em&gt; 2024.12.25.630221 (2024). (&lt;a class="link" href="https://doi.org/10.1101/2024.12.25.630221" target="_blank" rel="noopener"
