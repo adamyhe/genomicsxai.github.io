@@ -16,7 +16,7 @@ authors_display:
     affiliation: "Center for Genomic Regulation (CRG)"
     orcid: "0000-0002-1804-8542"
 
-editor: "Genomics X AI Editors"
+editor: ["Genomics X AI Editors", "Al-Murphy"]
 
 tags: ["genomics", "AlphaGenome", "PyTorch", "development", "GPUs", "seq2func", "RNA-seq", "splicing", "fine-tuning", "debugging"]
 categories: ["Blog Post"]
@@ -30,7 +30,7 @@ revision: 3
 
 date_submitted: 2026-05-24
 date_accepted: 
-date: 2026-05-24
+date: 2026-07-24
 
 doi: ""
 zenodo_url: ""
