@@ -1,6 +1,6 @@
 ---
 post_id: "2026-012"
-title: "dENCODE: Decoding the sequence basis of gene regulation across ENCODE with thousands of light-weight deep learning models"
+title: "GRAMMAR: Decoding the DNA sequence logic of genomic regulatory elements with the ENCODE deep learning model zoo"
 
 # Optional: image filename "your-image.png" in the same folder
 image: "encode_logo.png"
@@ -67,12 +67,13 @@ revision_history:
     # Optional: version-specific DOI / Zenodo record link
     doi: ""
     zenodo_url: ""
----
+------
 
 {{< summary >}}
-The Encyclopedia of DNA Elements (ENCODE) provides a reference map of functional elements in the human genome. This work reflects more than two decades of systematic investigation into genome function and is described in our recent manuscript on the fourth and final phase of the [**ENCODE Project**](https://doi.org/10.64898/2026.07.06.731365).
-As part of this effort, we developed dENCODE–a collection of approximately 4,000 deep learning models deep trained on datasets spanning multiple layers of gene regulation, including transcription-factor binding, chromatin accessibility, transcription initiation, and regulatory activity. Along with the trained models, we provide model predictions, sequence-interpretation scores, discovered motifs, and their genomic instances to support a wide range of gene-regulatory analyses.
-In this first post of a broader series, we introduce dENCODE and illustrate how it can be used to uncover the sequence rules underlying gene regulation. Over the coming weeks, we will share additional articles highlighting other applications of this resource.
+Over two decades, the Encyclopedia of DNA Elements (ENCODE) Consortium has used diverse functional genomics experiments to map millions of regions in the human and mouse genomes that help control when, where, and how strongly genes are turned on. These maps characterize the biochemical properties and activity of regulatory DNA across thousands of cell types and tissues. However, they do not fully explain how this activity is encoded in the DNA sequence itself: which individual DNA letters are important, how combinations and arrangements of letters cause a region to behave differently across cell types, or how a genetic variant might alter its activity.
+To help answer these questions, we developed a family of deep learning models that use DNA sequences as inputs to predict associated genome-wide biochemical activity measured by diverse experiments. We also developed a framework of model interpretation methods, allowing us to identify the sequence features and regulatory rules that drive model predictions. 
+Today, we release GRAMMAR (Genomic Regulatory Atlas of sequence Models, Motifs, Annotations and Rules), a collection of 3,865 experiment-specific model sets across the ENCODE data compendium spanning several layers of gene regulation, including the binding of regulatory proteins to DNA, chromatin accessibility, transcription initiation, and regulatory activity measured using high-throughput reporter assays. For each experiment, we also release model-predicted de-noised biochemical activity profiles at single-base resolution; model-estimated contributions of individual DNA bases to the activity of each regulatory element in each cellular context; recurring predictive DNA patterns (motifs) learned by the models; the genomic locations of predictive motif instances; and genome-browser tracks that make these outputs easy to explore.
+Together, these resources transform thousands of ENCODE experiments into a reusable and interpretable atlas of the cell-context-specific DNA sequence rules that shape gene regulation. In this first post of a broader series, we introduce the ENCODE GRAMMAR collection and show how predictions and sequence annotations derived from multiple models can be integrated to decode the sequence basis of regulatory element activity.
 **Contributions**:
 - Primary contributors: Vivekanandan Ramalingam, Chang M. Yun, Vivian Hecht, Aman Patel, Anusri Pampari, Ziwei Chen, Johannes Linder
 - Secondary contributors: Georgi K. Marinov, Kelly Cochran, Abhimanyu Banerjee, Surag Nair, Salil S. Deshpande, Zahoor Zafrulla
@@ -81,8 +82,8 @@ In this first post of a broader series, we introduce dENCODE and illustrate how 
 - Blog post: Chang M. Yun, Vivekanandan Ramalingam, Vivian Hecht _(equal contributions)_
 {{< /summary >}}
 
-> This post is the first of a series of blogs we will be releasing on dENCODE. We plan to release the following posts:
-> 1. **dENCODE: Decoding the sequence basis of gene regulation across ENCODE with thousands of light-weight deep learning models (this post)**
+> This post is the first of a series of blogs we will be releasing on GRAMMAR. We plan to release the following posts:
+> 1. **SeqENCODE: Decoding the sequence basis of gene regulation across ENCODE with thousands of light-weight deep learning models (this post)**
 > 1. Quickstart guide : How to access the ENCODE Deep Learning Collection
 > 1. Understanding regulatory DNA using deep learning models
 > 1. A guide to the DECODE BPNet model resource for modeling TF binding
@@ -181,8 +182,8 @@ Below, we provide an interactive browser session of the exact locus to view dyna
 
 {{< igv-browser panel="myc" data="myc-igv-panel.json" >}} 
 
-## Decoding ENCODE: An 'Encyclopedia' of regulatory DNA deep learning models
-In the ENCODE Deep learning collection (De-ENCODE), we trained these models on hundreds of cell and tissue types available through the ENCODE consortium. We trained [BPNet](https://doi.org/10.1038/s41588-021-00782-6) models on 2,339 TF-ChIP-seq across 788 TFs, [ChromBPNet](https://doi.org/10.1101/2024.12.25.630221) models on 1,512 DNase-seq and ATAC-seq across 408 biosamples, [ProCapNet](https://doi.org/10.1101/2024.05.28.596138) models on 6 PRO-Cap, and ReporterNet models on 8 MPRAs to capture the dynamic regulatory activity across diverse samples. We release them together with the fourth and final phase of the ENCODE Project.
+## SeqENCODE: An 'Encyclopedia' of regulatory DNA deep learning sequence models
+As part of ENCODE, we trained these models on hundreds of cell and tissue types available through the ENCODE consortium. We trained [BPNet](https://doi.org/10.1038/s41588-021-00782-6) models on 2,339 TF-ChIP-seq across 788 TFs, [ChromBPNet](https://doi.org/10.1101/2024.12.25.630221) models on 1,512 DNase-seq and ATAC-seq across 408 biosamples, [ProCapNet](https://doi.org/10.1101/2024.05.28.596138) models on 6 PRO-Cap, and ReporterNet models on 8 MPRAs to capture the dynamic regulatory activity across diverse samples. We release them together with the fourth and final phase of the ENCODE Project.
  
 Through the power of the models and the richness of the ENCODE dataset, we hope to empower the community at large to explore important questions relating to the fundamental biology of gene regulation and mechanisms of disease in a wide variety of tissues and cell types. 
 

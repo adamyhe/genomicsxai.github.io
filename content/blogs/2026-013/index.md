@@ -1,6 +1,6 @@
 ---
 post_id: "2026-013"
-title: "dENCODE: A quick-start guide (5 min)"
+title: "GRAMMAR: A quick-start guide (5 min)"
 
 # Optional: image filename "your-image.png" in the same folder
 image: "MYC_fig1.png"
@@ -80,7 +80,7 @@ For quick and easy introduction to the latest ENCODE 4 deep learning models, we 
 {{< /summary >}}
 
 ---
-> This post is one of a series of blogs we will be releasing on dENCODE (Deep learning models trained across ENCODE). We plan to release the following posts:
+> This post is one of a series of blogs we will be releasing on GRAMMAR (Genomic Regulatory Atlas of sequence Models, Motifs, Annotations and Rules). We plan to release the following posts:
 > 1. dENCODE: Decoding the sequence basis of gene regulation across ENCODE with thousands of light-weight deep learning models
 > 1. **Quickstart guide : How to access the ENCODE Deep Learning Collection (this post)**
 > 1. Understanding regulatory DNA using deep learning models
