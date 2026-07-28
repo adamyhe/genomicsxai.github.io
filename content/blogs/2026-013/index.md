@@ -72,17 +72,16 @@ revision_history:
 For quick and easy introduction to the latest ENCODE 4 deep learning models, we provide a **Quick-start guide** (5 min). Following the instructions, you should be able to create an **interactive genome browser session** to view a model's outputs, including experimentally observed signal, model-predicted signal, sequence contribution scores, and genomic motif instances.
 
 **Contributions**:
-- Primary contributors: Vivekanandan Ramalingam, Chang M. Yun, Vivian Hecht, Aman Patel, Anusri Pampari, Ziwei Chen, Johannes Linder, Soumya Kundu, Ivy Evergreen, Austin Wang, Daniel Kim, Eran Kotler
-- Secondary contributors: Georgi K. Marinov, Kelly Cochran, Abhimanyu Banerjee, Surag Nair, Salil S. Deshpande, Zahoor Zafrulla, Riya Sinha
-- Tertiary contributors: Alex M. Tseng, Amr Alexandari, Mahfuza Sharmin, Avanti Shrikumar, Jacob M. Schreiber, Caleb Lareau
-- Corresponding contributors: Anshul Kundaje
+- GRAMMAR: Vivekanandan Ramalingam*, Chang M. Yun*, Vivian Hecht*, Aman Patel*, Anusri Pampari*, Ziwei Chen*, Kelly Cochran*, Adam He, Salil S. Deshpande, Georgi K. Marinov, Anshul Kundaje^
 - Blog post: Chang M. Yun, Vivekanandan Ramalingam, Vivian Hecht _(equal contributions)_
+*: Primary contributors
+^: Corresponding contributor
 {{< /summary >}}
 
 ---
 > This post is one of a series of blogs we will be releasing on GRAMMAR (Genomic Regulatory Atlas of sequence Models, Motifs, Annotations and Rules). We plan to release the following posts:
-> 1. dENCODE: Decoding the sequence basis of gene regulation across ENCODE with thousands of light-weight deep learning models
-> 1. **Quickstart guide : How to access the ENCODE Deep Learning Collection (this post)**
+> 1. [GRAMMAR: Decoding the sequence basis of gene regulation across ENCODE with thousands of light-weight deep learning models](../2026-012/index.md)
+> 1. **GRAMMAR: A quick-start guide (5 min) (this post)**
 > 1. Understanding regulatory DNA using deep learning models
 > 1. A guide to the DECODE BPNet model resource for modeling TF binding
 > 1. A guide to the DECODE ChromBPNet resource for modeling chromatin accessibility
