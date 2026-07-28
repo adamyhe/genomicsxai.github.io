@@ -1,14 +1,13 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Chang M. Yun on Genomics x AI</title><link>https://genomicsxai.github.io/previews/pr-110/authors/chang-m.-yun/</link><description>Recent content in Chang M. Yun on Genomics x AI</description><generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Mon, 27 Jul 2026 22:34:37 +0000</lastBuildDate><atom:link href="https://genomicsxai.github.io/previews/pr-110/authors/chang-m.-yun/index.xml" rel="self" type="application/rss+xml"/><item><title>GRAMMAR: A quick-start guide (5 min)</title><link>https://genomicsxai.github.io/previews/pr-110/blogs/2026-013/</link><pubDate>Thu, 23 Jul 2026 00:00:00 +0000</pubDate><guid>https://genomicsxai.github.io/previews/pr-110/blogs/2026-013/</guid><description>&lt;img src="https://genomicsxai.github.io/previews/pr-110/" alt="Featured image of post GRAMMAR: A quick-start guide (5 min)" /&gt;&lt;aside class="summary-box"&gt;
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Chang M. Yun on Genomics x AI</title><link>https://genomicsxai.github.io/previews/pr-110/authors/chang-m.-yun/</link><description>Recent content in Chang M. Yun on Genomics x AI</description><generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Tue, 28 Jul 2026 21:27:58 +0000</lastBuildDate><atom:link href="https://genomicsxai.github.io/previews/pr-110/authors/chang-m.-yun/index.xml" rel="self" type="application/rss+xml"/><item><title>GRAMMAR: A quick-start guide (5 min)</title><link>https://genomicsxai.github.io/previews/pr-110/blogs/2026-013/</link><pubDate>Thu, 23 Jul 2026 00:00:00 +0000</pubDate><guid>https://genomicsxai.github.io/previews/pr-110/blogs/2026-013/</guid><description>&lt;img src="https://genomicsxai.github.io/previews/pr-110/" alt="Featured image of post GRAMMAR: A quick-start guide (5 min)" /&gt;&lt;aside class="summary-box"&gt;
  &lt;h2 class="summary-box__title"&gt;Summary&lt;/h2&gt;
  &lt;div class="summary-box__body"&gt;
  &lt;p&gt;For quick and easy introduction to the latest ENCODE 4 deep learning models, we provide a &lt;strong&gt;Quick-start guide&lt;/strong&gt; (5 min). Following the instructions, you should be able to create an &lt;strong&gt;interactive genome browser session&lt;/strong&gt; to view a model&amp;rsquo;s outputs, including experimentally observed signal, model-predicted signal, sequence contribution scores, and genomic motif instances.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Contributions&lt;/strong&gt;:&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;Primary contributors: Vivekanandan Ramalingam, Chang M. Yun, Vivian Hecht, Aman Patel, Anusri Pampari, Ziwei Chen, Johannes Linder, Soumya Kundu, Ivy Evergreen, Austin Wang, Daniel Kim, Eran Kotler&lt;/li&gt;
-&lt;li&gt;Secondary contributors: Georgi K. Marinov, Kelly Cochran, Abhimanyu Banerjee, Surag Nair, Salil S. Deshpande, Zahoor Zafrulla, Riya Sinha&lt;/li&gt;
-&lt;li&gt;Tertiary contributors: Alex M. Tseng, Amr Alexandari, Mahfuza Sharmin, Avanti Shrikumar, Jacob M. Schreiber, Caleb Lareau&lt;/li&gt;
-&lt;li&gt;Corresponding contributors: Anshul Kundaje&lt;/li&gt;
-&lt;li&gt;Blog post: Chang M. Yun, Vivekanandan Ramalingam, Vivian Hecht &lt;em&gt;(equal contributions)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;GRAMMAR: Vivekanandan Ramalingam*, Chang M. Yun*, Vivian Hecht*, Aman Patel*, Anusri Pampari*, Ziwei Chen*, Kelly Cochran*, Adam He, Salil S. Deshpande, Georgi K. Marinov, Anshul Kundaje^&lt;/li&gt;
+&lt;li&gt;Blog post: Chang M. Yun, Vivekanandan Ramalingam, Vivian Hecht &lt;em&gt;(equal contributions)&lt;/em&gt;
+*: Primary contributors
+^: Corresponding contributor&lt;/li&gt;
 &lt;/ul&gt;
 
  &lt;/div&gt;
@@ -19,8 +18,8 @@
  &lt;blockquote&gt;
  &lt;p&gt;This post is one of a series of blogs we will be releasing on GRAMMAR (Genomic Regulatory Atlas of sequence Models, Motifs, Annotations and Rules). We plan to release the following posts:&lt;/p&gt;
 &lt;ol&gt;
-&lt;li&gt;dENCODE: Decoding the sequence basis of gene regulation across ENCODE with thousands of light-weight deep learning models&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Quickstart guide : How to access the ENCODE Deep Learning Collection (this post)&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class="link" href="../2026-012/index.md" &gt;GRAMMAR: Decoding the sequence basis of gene regulation across ENCODE with thousands of light-weight deep learning models&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;GRAMMAR: A quick-start guide (5 min) (this post)&lt;/strong&gt;&lt;/li&gt;
 &lt;li&gt;Understanding regulatory DNA using deep learning models&lt;/li&gt;
 &lt;li&gt;A guide to the DECODE BPNet model resource for modeling TF binding&lt;/li&gt;
 &lt;li&gt;A guide to the DECODE ChromBPNet resource for modeling chromatin accessibility&lt;/li&gt;
@@ -134,21 +133,19 @@ Small clusters of high contribution score bases typically represent transcriptio
  &gt;https://doi.org/10.1101/2024.05.28.596138&lt;/a&gt;)&lt;/li&gt;
 &lt;li&gt;Yun, C. M. et al. A unified lexicon of predictive DNA sequence motifs from ENCODE transcription factor binding and chromatin accessibility assays. (2025) doi:10.5281/zenodo.17179111. (&lt;a class="link" href="https://doi.org/10.5281/zenodo.17179111" target="_blank" rel="noopener"
  &gt;https://doi.org/10.5281/zenodo.17179111&lt;/a&gt;)&lt;/li&gt;
-&lt;/ol&gt;</description></item><item><title>GRAMMAR: Decoding the DNA sequence logic of genomic regulatory elements with the ENCODE deep learning model zoo</title><link>https://genomicsxai.github.io/previews/pr-110/blogs/2026-012/</link><pubDate>Thu, 23 Jul 2026 00:00:00 +0000</pubDate><guid>https://genomicsxai.github.io/previews/pr-110/blogs/2026-012/</guid><description>&lt;img src="https://genomicsxai.github.io/previews/pr-110/" alt="Featured image of post GRAMMAR: Decoding the DNA sequence logic of genomic regulatory elements with the ENCODE deep learning model zoo" /&gt;&lt;hr&gt;
-&lt;aside class="summary-box"&gt;
+&lt;/ol&gt;</description></item><item><title>GRAMMAR: Decoding the DNA sequence logic of genomic regulatory elements with the ENCODE deep learning model zoo</title><link>https://genomicsxai.github.io/previews/pr-110/blogs/2026-012/</link><pubDate>Thu, 23 Jul 2026 00:00:00 +0000</pubDate><guid>https://genomicsxai.github.io/previews/pr-110/blogs/2026-012/</guid><description>&lt;img src="https://genomicsxai.github.io/previews/pr-110/" alt="Featured image of post GRAMMAR: Decoding the DNA sequence logic of genomic regulatory elements with the ENCODE deep learning model zoo" /&gt;&lt;aside class="summary-box"&gt;
  &lt;h2 class="summary-box__title"&gt;Summary&lt;/h2&gt;
  &lt;div class="summary-box__body"&gt;
  &lt;p&gt;Over two decades, the Encyclopedia of DNA Elements (ENCODE) Consortium has used diverse functional genomics experiments to map millions of regions in the human and mouse genomes that help control when, where, and how strongly genes are turned on. These maps characterize the biochemical properties and activity of regulatory DNA across thousands of cell types and tissues. However, they do not fully explain how this activity is encoded in the DNA sequence itself: which individual DNA letters are important, how combinations and arrangements of letters cause a region to behave differently across cell types, or how a genetic variant might alter its activity.&lt;/p&gt;
 &lt;p&gt;To help answer these questions, we developed a family of deep learning models that use DNA sequences as inputs to predict associated genome-wide biochemical activity measured by diverse experiments. We also developed a framework of model interpretation methods, allowing us to identify the sequence features and regulatory rules that drive model predictions.&lt;/p&gt;
-&lt;p&gt;Today, we release GRAMMAR (Genomic Regulatory Atlas of sequence Models, Motifs, Annotations and Rules), a collection of 3,865 experiment-specific model sets across the ENCODE data compendium spanning several layers of gene regulation, including the binding of regulatory proteins to DNA, chromatin accessibility, transcription initiation, and regulatory activity measured using high-throughput reporter assays. For each experiment, we also release model-predicted de-noised biochemical activity profiles at single-base resolution; model-estimated contributions of individual DNA bases to the activity of each regulatory element in each cellular context; recurring predictive DNA patterns (motifs) learned by the models; the genomic locations of predictive motif instances; and genome-browser tracks that make these outputs easy to explore.&lt;/p&gt;
-&lt;p&gt;Together, these resources transform thousands of ENCODE experiments into a reusable and interpretable atlas of the cell-context-specific DNA sequence rules that shape gene regulation. In this first post of a broader series, we introduce the ENCODE GRAMMAR collection and show how predictions and sequence annotations derived from multiple models can be integrated to decode the sequence basis of regulatory element activity.&lt;/p&gt;
+&lt;p&gt;Today, we release &lt;strong&gt;GRAMMAR&lt;/strong&gt; (Genomic Regulatory Atlas of sequence Models, Motifs, Annotations and Rules), a collection of 3,865 experiment-specific model sets across the ENCODE data compendium spanning several layers of gene regulation, including the binding of regulatory proteins to DNA, chromatin accessibility, transcription initiation, and regulatory activity measured using high-throughput reporter assays. For each experiment, we also release model-predicted, de-noised biochemical activity profiles at single-base resolution; model-estimated contributions of individual DNA bases to the activity of each regulatory element in each cellular context; recurring predictive DNA patterns (motifs) learned by the models; the genomic locations of predictive motif instances; and genome-browser tracks that make these outputs easy to explore.&lt;/p&gt;
+&lt;p&gt;Together, these resources transform thousands of ENCODE experiments into a reusable and interpretable atlas of the cell-context-specific DNA sequence rules that shape gene regulation. In this first post of a broader series, we introduce the ENCODE GRAMMAR resource and show how predictions and sequence annotations derived from multiple models can be integrated to decode the sequence basis of regulatory element activity.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Contributions&lt;/strong&gt;:&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;Primary contributors: Vivekanandan Ramalingam, Chang M. Yun, Vivian Hecht, Aman Patel, Anusri Pampari, Ziwei Chen, Johannes Linder&lt;/li&gt;
-&lt;li&gt;Secondary contributors: Georgi K. Marinov, Kelly Cochran, Abhimanyu Banerjee, Surag Nair, Salil S. Deshpande, Zahoor Zafrulla&lt;/li&gt;
-&lt;li&gt;Tertiary contributors: Alex M. Tseng, Amr Alexandari, Mahfuza Sharmin, Avanti Shrikumar, Jacob M. Schreiber, Caleb Lareau&lt;/li&gt;
-&lt;li&gt;Corresponding contributors: Anshul Kundaje&lt;/li&gt;
-&lt;li&gt;Blog post: Chang M. Yun, Vivekanandan Ramalingam, Vivian Hecht &lt;em&gt;(equal contributions)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;GRAMMAR: Vivekanandan Ramalingam*, Chang M. Yun*, Vivian Hecht*, Aman Patel*, Anusri Pampari*, Ziwei Chen*, Kelly Cochran*, Adam He, Salil S. Deshpande, Georgi K. Marinov, Anshul Kundaje^&lt;/li&gt;
+&lt;li&gt;Blog post: Chang M. Yun, Vivekanandan Ramalingam, Vivian Hecht &lt;em&gt;(equal contributions)&lt;/em&gt;
+*: Primary contributors
+^: Corresponding contributor&lt;/li&gt;
 &lt;/ul&gt;
 
  &lt;/div&gt;
@@ -156,33 +153,42 @@ Small clusters of high contribution score bases typically represent transcriptio
 
 
  &lt;blockquote&gt;
- &lt;p&gt;This post is the first of a series of blogs we will be releasing on GRAMMAR. We plan to release the following posts:&lt;/p&gt;
+ &lt;p&gt;This is the first post in a series on dENCODE. The series will cover:&lt;/p&gt;
 &lt;ol&gt;
-&lt;li&gt;&lt;strong&gt;SeqENCODE: Decoding the sequence basis of gene regulation across ENCODE with thousands of light-weight deep learning models (this post)&lt;/strong&gt;&lt;/li&gt;
-&lt;li&gt;Quickstart guide : How to access the ENCODE Deep Learning Collection&lt;/li&gt;
-&lt;li&gt;Understanding regulatory DNA using deep learning models&lt;/li&gt;
-&lt;li&gt;A guide to the DECODE BPNet model resource for modeling TF binding&lt;/li&gt;
-&lt;li&gt;A guide to the DECODE ChromBPNet resource for modeling chromatin accessibility&lt;/li&gt;
-&lt;li&gt;Case study #1: Predicting the effects of non-coding variant mutations&lt;/li&gt;
-&lt;li&gt;Case study #2: MotifCompendium: A unified lexicon of regulatory sequence motifs&lt;/li&gt;
-&lt;li&gt;Case study #3: Understanding cell type-specific activity of cis-regulatory elements&lt;/li&gt;
-&lt;li&gt;Postscript: successfully running production-scale projects in an academic setting&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;GRAMMAR: Decoding the DNA sequence logic of genomic regulatory elements with the ENCODE deep learning model zoo (this post)&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;Quickstart: Accessing and using the ENCODE GRAMMAR collection&lt;/li&gt;
+&lt;li&gt;Interpreting regulatory DNA with deep learning models&lt;/li&gt;
+&lt;li&gt;The transcription factor binding GRAMMAR resource&lt;/li&gt;
+&lt;li&gt;The chromatin accessibility GRAMMAR resource&lt;/li&gt;
+&lt;li&gt;Predicting the effects of noncoding genetic variants&lt;/li&gt;
+&lt;li&gt;MotifCompendium: a unified lexicon of regulatory sequence motifs&lt;/li&gt;
+&lt;li&gt;Understanding sequence mediated differences in regulation across assays and cell types&lt;/li&gt;
+&lt;li&gt;Building a production-scale model atlas in an academic setting&lt;/li&gt;
 &lt;/ol&gt;
 
  &lt;/blockquote&gt;
 &lt;hr&gt;
-&lt;h2 id="dna-not-just-genes"&gt;DNA: not just genes
-&lt;/h2&gt;&lt;p&gt;The human genome contains approximately 3.2 billion base pairs of DNA. While we often think of genes coding for proteins as the primary component of DNA, they account for only 1-2% of the genome. Gene expression, the process by which genes are converted into RNA, is a highly regulated process–genes are expressed at varying rates, and sometimes not at all–that is fundamental to the function of all living things. Many portions of the 98% of DNA not containing genes, also known as non-coding DNA, play a major role in regulating gene expression, as do the higher-order organization of DNA and various proteins that bind to it.&lt;/p&gt;
-&lt;p&gt;DNA is packaged with proteins into chromatin and further organized into higher-order structures. Regulatory proteins, such as transcription factors (TFs), bind to DNA, then up- or down-regulate gene expression by further recruiting proteins involved in transcription. Similarly to thread wound around a spool, not all chromatin is accessible at all times, and binding of various TFs both influences and is determined by the accessibility of chromatin. Chromatin is highly cell- and species-specific, and plays an essential role in cell differentiation and responses to environmental stimuli such as nutrient stress; moreover, chromatin dysregulation can lead to improper interactions between regulatory elements and genes, which can in turn lead to cancer and other diseases.&lt;/p&gt;
-&lt;h2 id="encode-an-encyclopedia-of-dna-elements"&gt;ENCODE: An Encyclopedia of DNA Elements
-&lt;/h2&gt;&lt;p&gt;The &lt;a class="link" href="https://www.encodeproject.org/" target="_blank" rel="noopener"
- &gt;&lt;strong&gt;Encyclopedia of DNA Elements&lt;/strong&gt; (&lt;strong&gt;ENCODE&lt;/strong&gt;) Consortium&lt;/a&gt;, a public research project dedicated to building a comprehensive &amp;ldquo;Encyclopedia&amp;rdquo; of genome-wide regulatory elements has made major contributions towards characterizing the complex and diverse components of the regulatory landscape. We describe a few of the experimental methods that researchers in the field have developed to interrogate chromatin accessibility below.&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;TF ChIP-seq&lt;/strong&gt;, or TF chromatin immunoprecipitation, is used to identify TF binding sites, one TF at a time, by using antibodies to bind a given TF that is, in turn, bound to particular regions of DNA. These bound regions are then isolated and sequenced, with reads accumulating at TF binding sites. TF-ChIP-seq datasets are typically analyzed to identify peaks from these accumulated reads. Short DNA sequences that are statistically enriched within these peaks can then be identified as candidate motifs that may contribute to transcription-factor binding.&lt;/p&gt;
+&lt;h2 id="the-genome-encodes-a-regulatory-control-system"&gt;The genome encodes a regulatory control system
+&lt;/h2&gt;&lt;p&gt;The &lt;strong&gt;human genome&lt;/strong&gt; is the complete set of instructions encoded in DNA and carried by nearly every cell in the body. It contains about 3.2 billion DNA base pairs, built from four nucleotide bases represented by the letters A, C, G, and T. Although human genomes are overwhelmingly similar, their DNA sequences differ at millions of positions across individuals. These differences, known as &lt;strong&gt;genetic variants&lt;/strong&gt;, contribute to human diversity and can influence traits and disease risk.&lt;/p&gt;
+&lt;p&gt;The human body contains hundreds of distinct cell types—including neurons, liver cells, and immune cells—with very different morphology and functions. Yet nearly all cells within an individual contain essentially the same genome. How can the same DNA sequence produce such remarkable cellular diversity?&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Genes&lt;/strong&gt; are segments of DNA that contain instructions for producing &lt;strong&gt;RNA&lt;/strong&gt; molecules, some of which are translated into proteins. The transcription of genes into RNA is tightly regulated: different genes are expressed at different levels, in different cell types, and at different times. These distinct patterns of gene expression allow cells with the same genome to acquire different identities and perform specialized functions. Precise regulation of gene expression is therefore essential for development, normal cellular function, and responses to the environment.&lt;/p&gt;
+&lt;p&gt;Much of this control is encoded in &lt;strong&gt;regulatory elements&lt;/strong&gt;—regions of DNA, including promoters and enhancers, that help determine when, where, and how strongly genes are expressed. DNA is packaged with proteins into &lt;strong&gt;chromatin&lt;/strong&gt;, which influences how accessible different regions of the genome are to the cellular machinery. Regulatory proteins called &lt;strong&gt;transcription factors&lt;/strong&gt;, recognize and bind specific short DNA sequence patterns, or &lt;strong&gt;motifs&lt;/strong&gt;, within regulatory elements and help increase or decrease gene expression by recruiting or blocking the machinery that carries out transcription. Chromatin accessibility and transcription-factor binding influence one another: exposed DNA is easier for regulatory proteins to reach, while some proteins can also open or reorganize chromatin.&lt;/p&gt;
+&lt;p&gt;Different cell types express different combinations of transcription factors and maintain different chromatin states across the genome. As a result, different cell types engage different repertoires of regulatory elements producing distinct patterns of gene expression, despite containing essentially the same genomic DNA sequence. Genetic variants within regulatory elements can alter transcription-factor binding or other regulatory activity, potentially changing gene expression in particular cellular contexts. Disruption of this regulatory system can interfere with development and cellular function and contribute to disease.&lt;/p&gt;
+&lt;p&gt;To understand how the genome encodes gene regulation, we therefore need to:
+map the genomic locations of candidate regulatory elements;
+measure their biochemical activity (e.g. transcription-factor binding and chromatin state), and associated gene expression across cell types and conditions;
+determine which DNA bases within regulatory elements are important and how their combinations and arrangements control different types of biochemical activity in different cell types; and
+determine how genetic variants alter biochemical activity in different cellular contexts.&lt;/p&gt;
+&lt;h2 id="encode-an-encyclopedia-of-dna-elements-across-thousands-of-cell-types"&gt;ENCODE: An Encyclopedia of DNA Elements across thousands of cell types
+&lt;/h2&gt;&lt;p&gt;Over the past two decades, the &lt;a class="link" href="https://www.encodeproject.org/" target="_blank" rel="noopener"
+ &gt;&lt;strong&gt;Encyclopedia of DNA Elements&lt;/strong&gt; (&lt;strong&gt;ENCODE&lt;/strong&gt;) Consortium&lt;/a&gt; has made major progress toward the first two goals. Using a broad range of genome-wide functional genomics experiments, ENCODE has mapped millions of candidate regulatory elements in the human and mouse genomes by characterizing their biochemical activity across diverse cell types, tissues, developmental stages, and conditions.
+These experiments measure complementary layers of gene regulation, including where transcription factors bind DNA, which regions of chromatin are accessible, where transcription begins, and which genes are expressed. Together, they provide detailed maps of where regulatory activity occurs and how it differs across cellular contexts. We briefly describe some of the key experimental assays below.
+&lt;strong&gt;TF ChIP-seq&lt;/strong&gt;, or TF chromatin immunoprecipitation, is used to identify TF binding sites, one TF at a time, by using antibodies to bind a given TF that is, in turn, bound to particular regions of DNA. These bound regions are then isolated and sequenced, with reads accumulating at TF binding sites. TF-ChIP-seq datasets are typically analyzed to identify peaks from these accumulated reads. Short DNA sequences that are statistically enriched within these peaks can then be identified as candidate motifs that may contribute to transcription-factor binding.&lt;/p&gt;
 &lt;figure&gt;&lt;a href="https://genomicsxai.github.io/previews/pr-110/blogs/2026-012/TFChIP.gif" class="image-link" data-pswp-width="1920" data-pswp-height="1080"&gt;
 		&lt;img src="https://genomicsxai.github.io/previews/pr-110/blogs/2026-012/TFChIP.gif" width="300px" height="168"loading="lazy"
 			alt="Figure: TF ChIP-seq"
 			title="Illustration of TF ChIP-seq: (1) TF binds to accessible DNA; (2) DNA is broken into fragments; (3) Antibodies bind to TF-DNA complex; (4) TF-DNA complex is pulled down; (5) Isolated DNA is cleaned and sequenced; (6) Sequences accumulate around the TF binding site." data-title-escaped="Illustration of TF ChIP-seq: (1) TF binds to accessible DNA; (2) DNA is broken into fragments; (3) Antibodies bind to TF-DNA complex; (4) TF-DNA complex is pulled down; (5) Isolated DNA is cleaned and sequenced; (6) Sequences accumulate around the TF binding site."&gt;
-		&lt;/a&gt;&lt;/figure&gt;&lt;p&gt;In &lt;strong&gt;DNase-seq&lt;/strong&gt; and &lt;strong&gt;ATAC-seq&lt;/strong&gt;, DNA-digesting enzymes (DNase I and Tn5 transposase, respectively) cut accessible chromatin into small fragments. These fragments are then isolated and sequenced, and accumulate in regions of open chromatin, analogously to TF-ChIP-seq. Worth noting is that DNase I and Tn5 transposase preferentially cut specific DNA sequences, leading to a slight bias in the form of an increased number of reads to particular regions. We discuss this further in subsequent sections.&lt;/p&gt;
+		&lt;/a&gt;&lt;/figure&gt;&lt;p&gt;In &lt;strong&gt;DNase-seq&lt;/strong&gt; and &lt;strong&gt;ATAC-seq&lt;/strong&gt;, DNA-fragmenting enzymes (DNase I and Tn5 transposase, respectively) cut accessible chromatin into small fragments. These fragments are then isolated and sequenced, and accumulate in regions of open chromatin, analogously to TF-ChIP-seq. Worth noting is that DNase I and Tn5 transposase preferentially cut specific DNA sequences, leading to a slight bias in the form of an increased number of reads to particular regions. We discuss this further in subsequent sections.&lt;/p&gt;
 &lt;figure&gt;&lt;a href="https://genomicsxai.github.io/previews/pr-110/blogs/2026-012/ChromatinAccessibility.gif" class="image-link" data-pswp-width="1920" data-pswp-height="1080"&gt;
 		&lt;img src="https://genomicsxai.github.io/previews/pr-110/blogs/2026-012/ChromatinAccessibility.gif" width="300px" height="168"loading="lazy"
 			alt="Figure: DNase-seq, ATAC-seq"
@@ -191,8 +197,8 @@ Small clusters of high contribution score bases typically represent transcriptio
 &lt;p&gt;And &lt;strong&gt;MPRAs&lt;/strong&gt; and related high throughput reporter assays are used to experimentally measure whether particular sequences are in fact responsible for regulating gene expression. In general, in reporter assays, a candidate Cis-Regulatory Element, or cCRE, is inserted into a short sequence which also includes a measurable reporter output, such as a fluorescent molecule, or sequence barcodes in case of the high throughput versions. The greater the level of the measured reporter, the more active the regulatory element.&lt;/p&gt;
 &lt;p&gt;ENCODE has developed a set of approximately 16,000 standardized, uniformly processed datasets for the assays described above and many others, across a wide range of cell lines, primary cells and tissues. These are organized and publicly available for download via the &lt;a class="link" href="https://encodeproject.org" target="_blank" rel="noopener"
  &gt;ENCODE portal&lt;/a&gt;.&lt;/p&gt;
-&lt;p&gt;[Used the assays to map ~4 million candidate cis-regulatory elements: Explain cCRE, Enhancer, Promoter.]
-The consortium recently released a preprint describing the newly included datasets in the fourth and final phase of the project &lt;a class="link" href="https://www.biorxiv.org/content/10.64898/2026.07.06.731365v1" target="_blank" rel="noopener"
+&lt;p&gt;[Used the assays to map ~4 million candidate cis-regulatory elements: Explain cCRE, Enhancer, Promoter.]&lt;/p&gt;
+&lt;p&gt;The consortium recently released a preprint describing the newly included datasets in the fourth and final phase of the project &lt;a class="link" href="https://www.biorxiv.org/content/10.64898/2026.07.06.731365v1" target="_blank" rel="noopener"
  &gt;ENCODE 4&lt;/a&gt;.&lt;/p&gt;
 &lt;p&gt;&lt;figure&gt;&lt;a href="https://genomicsxai.github.io/previews/pr-110/blogs/2026-012/ENCODE_cube.png" class="image-link" data-pswp-width="1500" data-pswp-height="504"&gt;
 		&lt;img src="https://genomicsxai.github.io/previews/pr-110/blogs/2026-012/ENCODE_cube.png" width="600px" height="201"loading="lazy"
@@ -203,12 +209,12 @@ Coverage of the ENCODE Project: hundreds of biochemical markers, performed in hu
  &gt;https://doi.org/10.1038/nature14248&lt;/a&gt;)&lt;/em&gt;&lt;/p&gt;
 &lt;p&gt;However, while the experimental assays can help map the locations of active regulatory genomic elements, they provide limited mechanistic insights, and we are left with some fundamental questions, for example:&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;*Which sequence features drive TF binding and chromatin accessibility?&lt;/li&gt;
-&lt;li&gt;*How do combinations and arrangements of motifs influence TF occupancy?&lt;/li&gt;
-&lt;li&gt;*What would happen if an individual nucleotide were altered?&lt;/li&gt;
-&lt;li&gt;*Is a disease-causing mutation causing its effect via changes to a transcription factor binding site?&lt;/li&gt;
+&lt;li&gt;&lt;em&gt;Which sequence features drive TF binding and chromatin accessibility?&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;&lt;em&gt;How do combinations and arrangements of motifs influence TF occupancy?&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;&lt;em&gt;What would happen if an individual nucleotide were altered?&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;&lt;em&gt;Is a disease-causing mutation causing its effect via changes to a transcription factor binding site?&lt;/em&gt;&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h2 id="the-bpnet-family-of-deep-learning-models-uncovers-the-quantitative-role-of-sequence-in-regulation"&gt;The BPNet family of deep learning models uncovers the quantitative role of sequence in regulation
+&lt;h2 id="bpnet-family-of-deep-learning-models-uncover-the-quantitative-role-of-sequence-in-regulation"&gt;BPNet family of deep learning models uncover the quantitative role of sequence in regulation
 &lt;/h2&gt;&lt;p&gt;Our group has developed a suite of deep learning models and downstream tools to address these questions. They include:&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;strong&gt;BPNet:&lt;/strong&gt; A convolutional neural network (CNN) trained on TF-ChIP-seq that predicts the binding of a TF from DNA sequence;&lt;/li&gt;
@@ -223,7 +229,10 @@ Coverage of the ENCODE Project: hundreds of biochemical markers, performed in hu
 		&lt;/a&gt;&lt;/figure&gt;
 Example BPNet-style model architecture with bias-correction: ChromBPNet. From &lt;em&gt;Pampari, A. et al. ChromBPNet: bias factorized, base-resolution deep learning models of chromatin accessibility reveal cis-regulatory sequence syntax, transcription factor footprints and regulatory variants. &lt;em&gt;bioRxiv&lt;/em&gt; 2024.12.25.630221 (2024). (&lt;a class="link" href="https://doi.org/10.1101/2024.12.25.630221" target="_blank" rel="noopener"
  &gt;https://doi.org/10.1101/2024.12.25.630221&lt;/a&gt;)&lt;/em&gt;&lt;/p&gt;
-&lt;p&gt;We describe the basic steps of our workflow below, with more detailed explanations available in the manuscripts [ChromBPNet, BPNet, ProCapNet, ReporterNet].&lt;/p&gt;
+&lt;p&gt;We describe the basic steps of our workflow below, with more detailed explanations available in the manuscripts &lt;a class="link" href="https://doi.org/10.1101/2024.12.25.630221" target="_blank" rel="noopener"
+ &gt;ChromBPNet&lt;/a&gt;, &lt;a class="link" href="https://doi.org/10.1038/s41588-021-00782-6" target="_blank" rel="noopener"
+ &gt;BPNet&lt;/a&gt;, &lt;a class="link" href="https://doi.org/10.1101/2024.05.28.596138" target="_blank" rel="noopener"
+ &gt;ProCapNet&lt;/a&gt;, ReporterNet &lt;em&gt;(unpublished)&lt;/em&gt;.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;1.&lt;/strong&gt; We begin by training a model that can reconstruct the observed experimental signal when provided the DNA sequence of the region. We expect that the model should only be able to perform this reconstruction by learning the underlying rules of chromatin regulation. While the input data varies based on assay, the basic model architecture remains the same.&lt;/p&gt;
 &lt;figure&gt;&lt;a href="https://genomicsxai.github.io/previews/pr-110/blogs/2026-012/BPNet_Fig1.gif" class="image-link" data-pswp-width="1333" data-pswp-height="550"&gt;
 		&lt;img src="https://genomicsxai.github.io/previews/pr-110/blogs/2026-012/BPNet_Fig1.gif" width="600px" height="247"loading="lazy"
@@ -270,7 +279,7 @@ Example BPNet-style model architecture with bias-correction: ChromBPNet. From &l
 &lt;script src="https://genomicsxai.github.io/previews/pr-110/js/vendor/igv-3.8.0.min.js" defer&gt;&lt;/script&gt;
 &lt;script src="https://genomicsxai.github.io/previews/pr-110/js/igv-panel.js" defer&gt;&lt;/script&gt;
 
-&lt;h2 id="seqencode-an-encyclopedia-of-regulatory-dna-deep-learning-sequence-models"&gt;SeqENCODE: An &amp;lsquo;Encyclopedia&amp;rsquo; of regulatory DNA deep learning sequence models
+&lt;h2 id="grammar-an-encyclopedia-of-regulatory-dna-deep-learning-sequence-models"&gt;GRAMMAR: An &amp;lsquo;Encyclopedia&amp;rsquo; of regulatory DNA deep learning sequence models
 &lt;/h2&gt;&lt;p&gt;As part of ENCODE, we trained these models on hundreds of cell and tissue types available through the ENCODE consortium. We trained &lt;a class="link" href="https://doi.org/10.1038/s41588-021-00782-6" target="_blank" rel="noopener"
  &gt;BPNet&lt;/a&gt; models on 2,339 TF-ChIP-seq across 788 TFs, &lt;a class="link" href="https://doi.org/10.1101/2024.12.25.630221" target="_blank" rel="noopener"
  &gt;ChromBPNet&lt;/a&gt; models on 1,512 DNase-seq and ATAC-seq across 408 biosamples, &lt;a class="link" href="https://doi.org/10.1101/2024.05.28.596138" target="_blank" rel="noopener"
