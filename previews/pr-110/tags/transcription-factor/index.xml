@@ -1,22 +1,24 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Transcription-Factor on Genomics x AI</title><link>https://genomicsxai.github.io/previews/pr-110/tags/transcription-factor/</link><description>Recent content in Transcription-Factor on Genomics x AI</description><generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Wed, 29 Jul 2026 07:46:25 +0000</lastBuildDate><atom:link href="https://genomicsxai.github.io/previews/pr-110/tags/transcription-factor/index.xml" rel="self" type="application/rss+xml"/><item><title>GRAMMAR: A quick-start guide (5 min)</title><link>https://genomicsxai.github.io/previews/pr-110/blogs/2026-013/</link><pubDate>Thu, 23 Jul 2026 00:00:00 +0000</pubDate><guid>https://genomicsxai.github.io/previews/pr-110/blogs/2026-013/</guid><description>&lt;img src="https://genomicsxai.github.io/previews/pr-110/" alt="Featured image of post GRAMMAR: A quick-start guide (5 min)" /&gt;&lt;aside class="summary-box"&gt;
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Transcription-Factor on Genomics x AI</title><link>https://genomicsxai.github.io/previews/pr-110/tags/transcription-factor/</link><description>Recent content in Transcription-Factor on Genomics x AI</description><generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Wed, 29 Jul 2026 19:42:14 +0000</lastBuildDate><atom:link href="https://genomicsxai.github.io/previews/pr-110/tags/transcription-factor/index.xml" rel="self" type="application/rss+xml"/><item><title>GRAMMAR: A quick-start guide (5 min)</title><link>https://genomicsxai.github.io/previews/pr-110/blogs/2026-013/</link><pubDate>Thu, 23 Jul 2026 00:00:00 +0000</pubDate><guid>https://genomicsxai.github.io/previews/pr-110/blogs/2026-013/</guid><description>&lt;img src="https://genomicsxai.github.io/previews/pr-110/" alt="Featured image of post GRAMMAR: A quick-start guide (5 min)" /&gt;&lt;aside class="summary-box"&gt;
  &lt;h2 class="summary-box__title"&gt;Summary&lt;/h2&gt;
  &lt;div class="summary-box__body"&gt;
  &lt;p&gt;For quick and easy introduction to the latest ENCODE 4 deep learning models, we provide a &lt;strong&gt;Quick-start guide&lt;/strong&gt; (5 min). Following the instructions, you should be able to create an &lt;strong&gt;interactive genome browser session&lt;/strong&gt; to view a model&amp;rsquo;s outputs, including experimentally observed signal, model-predicted signal, sequence contribution scores, and genomic motif instances.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Contributions&lt;/strong&gt;:
-&lt;em&gt;Author order does not represent relative contribution&lt;/em&gt;
-Vivek Ramalingam: BPNet model optimization and training, data uploads, general analysis
-Chang M. Yun: ChromBPNet model training, MotifCompendium analysis
-Vivian Hecht: ChromBPNet model training, data uploads, project management
-Aman Patel: Data uploads
-Anusri Pampari: ChromBPNet model development, ChromBPNet model training, data uploads
-Ziwei Chen: ReporterNet model development, ReporterNet model training, ChromBPNet model training
-Kelly Cochran: ProCapNet model development and training
-Surag Nair, Zahoor Zafrulla, Alex Tseng: BPNet refactoring
-Avanti Shrikumar, Jacob Schreiber, Alex Tseng: MoDISco methods development and optimization
-Austin Wang: FiNeMo methods development
-Salil Deshpande, Chang M. Yun: MotifCompendium methods development
-Abhimanyu Banerjee, Georgi K. Marinov: ZNF analysis
-Anshul Kundaje: Beacon, Boundary, and Bank&lt;/p&gt;
+&lt;em&gt;Author order does not represent relative contribution&lt;/em&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Vivek Ramalingam: BPNet model optimization and training, data uploads, general analysis&lt;/li&gt;
+&lt;li&gt;Chang M. Yun: ChromBPNet model training, MotifCompendium analysis&lt;/li&gt;
+&lt;li&gt;Vivian Hecht: ChromBPNet model training, model resource uploads, project management&lt;/li&gt;
+&lt;li&gt;Aman Patel: Model resource uploads&lt;/li&gt;
+&lt;li&gt;Anusri Pampari: ChromBPNet model development, ChromBPNet model training, data uploads&lt;/li&gt;
+&lt;li&gt;Ziwei Chen: ReporterNet model development, ReporterNet model training, ChromBPNet model training&lt;/li&gt;
+&lt;li&gt;Kelly Cochran: ProCapNet model development and training&lt;/li&gt;
+&lt;li&gt;Surag Nair, Zahoor Zafrulla, Alex Tseng: BPNet refactoring&lt;/li&gt;
+&lt;li&gt;Avanti Shrikumar, Jacob Schreiber, Alex Tseng: TF-MoDISco methods development and optimization&lt;/li&gt;
+&lt;li&gt;Austin Wang: FiNeMo methods development&lt;/li&gt;
+&lt;li&gt;Salil Deshpande, Chang M. Yun: MotifCompendium methods development&lt;/li&gt;
+&lt;li&gt;Abhimanyu Banerjee, Georgi K. Marinov: Zinc finger transcription factor analysis&lt;/li&gt;
+&lt;li&gt;Anshul Kundaje: PI, Conceptualization, Project management, Mentoring, Funding&lt;/li&gt;
+&lt;/ul&gt;
 
  &lt;/div&gt;
 &lt;/aside&gt;
@@ -149,20 +151,22 @@ Small clusters of high contribution score bases typically represent transcriptio
 &lt;p&gt;Today, we release &lt;strong&gt;GRAMMAR&lt;/strong&gt; (Genomic Regulatory Atlas of sequence Models, Motifs, Annotations and Rules), a collection of 3,865 experiment-specific model sets across the ENCODE data compendium spanning several layers of gene regulation, including the binding of regulatory proteins to DNA, chromatin accessibility, transcription initiation, and regulatory activity measured using high-throughput reporter assays. For each experiment, we also release model-predicted, de-noised biochemical activity profiles at single-base resolution; model-estimated contributions of individual DNA bases to the activity of each regulatory element in each cellular context; recurring predictive DNA patterns (motifs) learned by the models; the genomic locations of predictive motif instances; and genome-browser tracks that make these outputs easy to explore.&lt;/p&gt;
 &lt;p&gt;Together, these resources transform thousands of ENCODE experiments into a reusable and interpretable atlas of the cell-context-specific DNA sequence rules that shape gene regulation. In this first post of a broader series, we introduce the ENCODE GRAMMAR resource and show how predictions and sequence annotations derived from multiple models can be integrated to decode the sequence basis of regulatory element activity.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Contributions&lt;/strong&gt;:
-&lt;em&gt;Author order does not represent relative contribution&lt;/em&gt;
-Vivek Ramalingam: BPNet model optimization and training, data uploads, general analysis
-Chang M. Yun: ChromBPNet model training, MotifCompendium analysis
-Vivian Hecht: ChromBPNet model training, data uploads, project management
-Aman Patel: Data uploads
-Anusri Pampari: ChromBPNet model development, ChromBPNet model training, data uploads
-Ziwei Chen: ReporterNet model development, ReporterNet model training, ChromBPNet model training
-Kelly Cochran: ProCapNet model development and training
-Surag Nair, Zahoor Zafrulla, Alex Tseng: BPNet refactoring
-Avanti Shrikumar, Jacob Schreiber, Alex Tseng: MoDISco methods development and optimization
-Austin Wang: FiNeMo methods development
-Salil Deshpande, Chang M. Yun: MotifCompendium methods development
-Abhimanyu Banerjee, Georgi K. Marinov: ZNF analysis
-Anshul Kundaje: Beacon, Boundary, and Bank&lt;/p&gt;
+&lt;em&gt;Author order does not represent relative contribution&lt;/em&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Vivek Ramalingam: BPNet model optimization and training, data uploads, general analysis&lt;/li&gt;
+&lt;li&gt;Chang M. Yun: ChromBPNet model training, MotifCompendium analysis&lt;/li&gt;
+&lt;li&gt;Vivian Hecht: ChromBPNet model training, model resource uploads, project management&lt;/li&gt;
+&lt;li&gt;Aman Patel: Model resource uploads&lt;/li&gt;
+&lt;li&gt;Anusri Pampari: ChromBPNet model development, ChromBPNet model training, data uploads&lt;/li&gt;
+&lt;li&gt;Ziwei Chen: ReporterNet model development, ReporterNet model training, ChromBPNet model training&lt;/li&gt;
+&lt;li&gt;Kelly Cochran: ProCapNet model development and training&lt;/li&gt;
+&lt;li&gt;Surag Nair, Zahoor Zafrulla, Alex Tseng: BPNet refactoring&lt;/li&gt;
+&lt;li&gt;Avanti Shrikumar, Jacob Schreiber, Alex Tseng: TF-MoDISco methods development and optimization&lt;/li&gt;
+&lt;li&gt;Austin Wang: FiNeMo methods development&lt;/li&gt;
+&lt;li&gt;Salil Deshpande, Chang M. Yun: MotifCompendium methods development&lt;/li&gt;
+&lt;li&gt;Abhimanyu Banerjee, Georgi K. Marinov: Zinc finger transcription factor analysis&lt;/li&gt;
+&lt;li&gt;Anshul Kundaje: PI, Conceptualization, Project management, Mentoring, Funding&lt;/li&gt;
+&lt;/ul&gt;
 
  &lt;/div&gt;
 &lt;/aside&gt;
@@ -171,15 +175,15 @@ Anshul Kundaje: Beacon, Boundary, and Bank&lt;/p&gt;
  &lt;blockquote&gt;
  &lt;p&gt;This is the first post in a series on dENCODE. The series will cover:&lt;/p&gt;
 &lt;ol&gt;
-&lt;li&gt;&lt;strong&gt;GRAMMAR: Decoding the DNA sequence logic of genomic regulatory elements with the ENCODE deep learning model zoo (this post)&lt;/strong&gt;&lt;/li&gt;
-&lt;li&gt;Quickstart: Accessing and using the ENCODE GRAMMAR collection&lt;/li&gt;
-&lt;li&gt;Interpreting regulatory DNA with deep learning models&lt;/li&gt;
-&lt;li&gt;The transcription factor binding GRAMMAR resource&lt;/li&gt;
-&lt;li&gt;The chromatin accessibility GRAMMAR resource&lt;/li&gt;
-&lt;li&gt;Predicting the effects of noncoding genetic variants&lt;/li&gt;
-&lt;li&gt;MotifCompendium: a unified lexicon of regulatory sequence motifs&lt;/li&gt;
-&lt;li&gt;Understanding sequence mediated differences in regulation across assays and cell types&lt;/li&gt;
-&lt;li&gt;Building a production-scale model atlas in an academic setting&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;ENCODE GRAMMAR: The ENCODE deep learning model resource for decoding the DNA sequence logic of genomic regulatory elements (this post)&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;ENCODE GRAMMAR: Quickstart -Accessing and using the ENCODE GRAMMAR collection&lt;/li&gt;
+&lt;li&gt;ENCODE GRAMMAR: Interpreting regulatory DNA with deep learning models&lt;/li&gt;
+&lt;li&gt;ENCODE GRAMMAR: The transcription factor binding GRAMMAR resource&lt;/li&gt;
+&lt;li&gt;ENCODE GRAMMAR: The chromatin accessibility GRAMMAR resource&lt;/li&gt;
+&lt;li&gt;ENCODE GRAMMAR: Predicting the effects of noncoding genetic variants&lt;/li&gt;
+&lt;li&gt;ENCODE GRAMMAR: MotifCompendium - a unified lexicon of regulatory sequence motifs&lt;/li&gt;
+&lt;li&gt;ENCODE GRAMMAR: Contrasting regulatory sequence code across assays and cell types&lt;/li&gt;
+&lt;li&gt;ENCODE GRAMMAR: Building a production-scale model atlas in an academic setting&lt;/li&gt;
 &lt;/ol&gt;
 
  &lt;/blockquote&gt;
@@ -200,13 +204,14 @@ Anshul Kundaje: Beacon, Boundary, and Bank&lt;/p&gt;
 &lt;h2 id="encode-an-encyclopedia-of-dna-elements-across-thousands-of-cell-types"&gt;ENCODE: An Encyclopedia of DNA Elements across thousands of cell types
 &lt;/h2&gt;&lt;p&gt;Over the past two decades, the &lt;a class="link" href="https://www.encodeproject.org/" target="_blank" rel="noopener"
  &gt;&lt;strong&gt;Encyclopedia of DNA Elements&lt;/strong&gt; (&lt;strong&gt;ENCODE&lt;/strong&gt;) Consortium&lt;/a&gt; has made major progress toward the first two goals. Using a broad range of genome-wide functional genomics experiments, ENCODE has mapped millions of candidate regulatory elements in the human and mouse genomes by characterizing their biochemical activity across diverse cell types, tissues, developmental stages, and conditions.
-These experiments measure complementary layers of gene regulation, including where transcription factors bind DNA, which regions of chromatin are accessible, where transcription begins, and which genes are expressed. Together, they provide detailed maps of where regulatory activity occurs and how it differs across cellular contexts. We briefly describe some of the key experimental assays below.
-&lt;strong&gt;TF ChIP-seq&lt;/strong&gt;, or TF chromatin immunoprecipitation, is used to identify TF binding sites, one TF at a time, by using antibodies to bind a given TF that is, in turn, bound to particular regions of DNA. These bound regions are then isolated and sequenced, with reads accumulating at TF binding sites. TF-ChIP-seq datasets are typically analyzed to identify peaks from these accumulated reads. Short DNA sequences that are statistically enriched within these peaks can then be identified as candidate motifs that may contribute to transcription-factor binding.&lt;/p&gt;
+These experiments measure complementary layers of gene regulation, including where transcription factors bind DNA, which regions of chromatin are accessible, where transcription begins, and which genes are expressed. Together, they provide detailed maps of where regulatory activity occurs and how it differs across cellular contexts. We briefly describe some of the key experimental assays below.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;TF ChIP-seq&lt;/strong&gt; (transcription factor chromatin immunoprecipitation followed by sequencing) maps where a particular transcription factor binds the genome in a specific cell type. Cells are treated so that proteins remain attached to the DNA they occupy, the DNA is fragmented, and an antibody is used to isolate fragments bound by the transcription factor of interest. These fragments are sequenced on a high-throughput sequencer and mapped to the genome to identify their likely locations, which produces concentrations of reads, or &lt;strong&gt;peaks&lt;/strong&gt;, at genomic regions enriched for binding by that TF. TF ChIP-seq peak regions are often statistically enriched for recurring short DNA sequence patterns, called motifs, that typically mediate the binding of the TF to DNA. However, each TF ChIP–seq experiment profiles only one TF in one cellular context. Systematically measuring the binding of the roughly 2,000 human TFs across all cell types and conditions would therefore be prohibitively laborious and expensive.&lt;br&gt;
 &lt;figure&gt;&lt;a href="https://genomicsxai.github.io/previews/pr-110/blogs/2026-012/TFChIP.gif" class="image-link" data-pswp-width="1333" data-pswp-height="550"&gt;
 		&lt;img src="https://genomicsxai.github.io/previews/pr-110/blogs/2026-012/TFChIP.gif" width="600px" height="247"loading="lazy"
 			alt="Figure: TF ChIP-seq"
 			title="Illustration of TF ChIP-seq: (1) TF binds to accessible DNA; (2) DNA is broken into fragments; (3) Antibodies bind to TF-DNA complex; (4) TF-DNA complex is pulled down; (5) Isolated DNA is cleaned and sequenced; (6) Sequences accumulate around the TF binding site." data-title-escaped="Illustration of TF ChIP-seq: (1) TF binds to accessible DNA; (2) DNA is broken into fragments; (3) Antibodies bind to TF-DNA complex; (4) TF-DNA complex is pulled down; (5) Isolated DNA is cleaned and sequenced; (6) Sequences accumulate around the TF binding site."&gt;
-		&lt;/a&gt;&lt;/figure&gt;&lt;p&gt;In &lt;strong&gt;DNase-seq&lt;/strong&gt; and &lt;strong&gt;ATAC-seq&lt;/strong&gt;, DNA-fragmenting enzymes (DNase I and Tn5 transposase, respectively) cut accessible chromatin into small fragments. These fragments are then isolated and sequenced, and accumulate in regions of open chromatin, analogously to TF-ChIP-seq. Worth noting is that DNase I and Tn5 transposase preferentially cut specific DNA sequences, leading to a slight bias in the form of an increased number of reads to particular regions. We discuss this further in subsequent sections.&lt;/p&gt;
+		&lt;/a&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;DNase-seq&lt;/strong&gt; and &lt;strong&gt;ATAC-seq&lt;/strong&gt; experiments partly address this limitation by providing a genome-wide map of regions of accessible chromatin which are often regulatory elements occupied by combinations of transcription factors and other regulatory proteins. So a single accessibility experiment can highlight regulatory elements bound by many factors in a given cellular context, although it does not directly identify which proteins are bound. DNase–seq uses the enzyme DNase I to cut exposed DNA, whereas ATAC–seq uses the Tn5 transposase to insert sequencing adapters into accessible DNA. The resulting DNA fragments are sequenced and mapped to the genome. Regions containing many mapped fragments appear as peaks of chromatin accessibility. DNase I and Tn5 also have preferences for particular DNA sequences, so the observed signal profiles reflect both genuine chromatin accessibility and assay-specific sequence bias. Separating these components is especially important when interpreting the signal at single-base resolution.&lt;/p&gt;
 &lt;figure&gt;&lt;a href="https://genomicsxai.github.io/previews/pr-110/blogs/2026-012/ChromatinAccessibility.gif" class="image-link" data-pswp-width="1920" data-pswp-height="1080"&gt;
 		&lt;img src="https://genomicsxai.github.io/previews/pr-110/blogs/2026-012/ChromatinAccessibility.gif" width="600px" height="337"loading="lazy"
 			alt="Figure: DNase-seq, ATAC-seq"
