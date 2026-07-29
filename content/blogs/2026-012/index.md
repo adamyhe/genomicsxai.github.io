@@ -217,7 +217,7 @@ Lastly, to orthogonally validate the transcription factors involved, we examine 
 
 ![Figure 4](MYC_fig4.png "width=600 Highly contributing sequences used by BPNet models, trained on TF ChIP-seq signal profiles, during prediction, with high-impact motif instances annotated (GATA, SP, AP1, ETV/ETS, CEBP).")
 
-To examine the locus yourself, we provide below an interactive browser session of the exact locus and models:
+To dynamically examine the locus, we provide below an interactive browser session of the exact locus and models:
 
 {{< igv-browser panel="myc" data="myc-igv-panel.json" >}} 
 
