@@ -1,11 +1,10 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Vivekanandan Ramalingam on Genomics x AI</title><link>https://genomicsxai.github.io/previews/pr-110/authors/vivekanandan-ramalingam/</link><description>Recent content in Vivekanandan Ramalingam on Genomics x AI</description><generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Wed, 29 Jul 2026 20:50:12 +0000</lastBuildDate><atom:link href="https://genomicsxai.github.io/previews/pr-110/authors/vivekanandan-ramalingam/index.xml" rel="self" type="application/rss+xml"/><item><title>GRAMMAR: A quick-start guide (5 min)</title><link>https://genomicsxai.github.io/previews/pr-110/blogs/2026-013/</link><pubDate>Thu, 23 Jul 2026 00:00:00 +0000</pubDate><guid>https://genomicsxai.github.io/previews/pr-110/blogs/2026-013/</guid><description>&lt;img src="https://genomicsxai.github.io/previews/pr-110/" alt="Featured image of post GRAMMAR: A quick-start guide (5 min)" /&gt;&lt;aside class="summary-box"&gt;
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Vivekanandan Ramalingam on Genomics x AI</title><link>https://genomicsxai.github.io/previews/pr-110/authors/vivekanandan-ramalingam/</link><description>Recent content in Vivekanandan Ramalingam on Genomics x AI</description><generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Wed, 29 Jul 2026 21:07:36 +0000</lastBuildDate><atom:link href="https://genomicsxai.github.io/previews/pr-110/authors/vivekanandan-ramalingam/index.xml" rel="self" type="application/rss+xml"/><item><title>[ENCODE GRAMMAR] Quickstart: Accessing and using the ENCODE GRAMMAR collection</title><link>https://genomicsxai.github.io/previews/pr-110/blogs/2026-013/</link><pubDate>Thu, 23 Jul 2026 00:00:00 +0000</pubDate><guid>https://genomicsxai.github.io/previews/pr-110/blogs/2026-013/</guid><description>&lt;img src="https://genomicsxai.github.io/previews/pr-110/" alt="Featured image of post [ENCODE GRAMMAR] Quickstart: Accessing and using the ENCODE GRAMMAR collection" /&gt;&lt;aside class="summary-box"&gt;
  &lt;h2 class="summary-box__title"&gt;Summary&lt;/h2&gt;
  &lt;div class="summary-box__body"&gt;
  &lt;p&gt;For quick and easy introduction to the latest ENCODE 4 deep learning models, we provide a &lt;strong&gt;Quick-start guide&lt;/strong&gt; (5 min). Following the instructions, you should be able to create an &lt;strong&gt;interactive genome browser session&lt;/strong&gt; to view a model&amp;rsquo;s outputs, including experimentally observed signal, model-predicted signal, sequence contribution scores, and genomic motif instances.&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Contributions&lt;/strong&gt;:
-&lt;em&gt;Author order does not represent relative contribution&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Contributions&lt;/strong&gt;: &lt;em&gt;(Author order does not represent relative contribution)&lt;/em&gt;&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;Vivek Ramalingam: BPNet model optimization and training, data uploads, general analysis&lt;/li&gt;
+&lt;li&gt;Vivekanandan Ramalingam: BPNet model optimization and training, data uploads, general analysis&lt;/li&gt;
 &lt;li&gt;Chang M. Yun: ChromBPNet model training, MotifCompendium analysis&lt;/li&gt;
 &lt;li&gt;Vivian Hecht: ChromBPNet model training, model resource uploads, project management&lt;/li&gt;
 &lt;li&gt;Aman Patel: Model resource uploads&lt;/li&gt;
@@ -28,15 +27,15 @@
  &lt;blockquote&gt;
  &lt;p&gt;This post is one of a series of blogs we will be releasing on GRAMMAR (Genomic Regulatory Atlas of sequence Models, Motifs, Annotations and Rules). We plan to release the following posts:&lt;/p&gt;
 &lt;ol&gt;
-&lt;li&gt;&lt;a class="link" href="../2026-012/index.md" &gt;GRAMMAR: Decoding the sequence basis of gene regulation across ENCODE with thousands of light-weight deep learning models&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;GRAMMAR: A quick-start guide (5 min) (this post)&lt;/strong&gt;&lt;/li&gt;
-&lt;li&gt;Understanding regulatory DNA using deep learning models&lt;/li&gt;
-&lt;li&gt;A guide to the DECODE BPNet model resource for modeling TF binding&lt;/li&gt;
-&lt;li&gt;A guide to the DECODE ChromBPNet resource for modeling chromatin accessibility&lt;/li&gt;
-&lt;li&gt;Case study #1: Predicting the effects of non-coding variant mutations&lt;/li&gt;
-&lt;li&gt;Case study #2: MotifCompendium: A unified lexicon of regulatory sequence motifs&lt;/li&gt;
-&lt;li&gt;Case study #3: Understanding cell type-specific activity of cis-regulatory elements&lt;/li&gt;
-&lt;li&gt;Postscript: successfully running production-scale projects in an academic setting&lt;/li&gt;
+&lt;li&gt;&lt;a class="link" href="../2026-012/index.md" &gt;ENCODE GRAMMAR: Decoding the sequence basis of gene regulation across ENCODE with thousands of light-weight deep learning models&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Quickstart: Accessing and using the ENCODE GRAMMAR collection (this post)&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;Interpreting regulatory DNA with deep learning models&lt;/li&gt;
+&lt;li&gt;The transcription factor binding GRAMMAR resource&lt;/li&gt;
+&lt;li&gt;The chromatin accessibility GRAMMAR resource&lt;/li&gt;
+&lt;li&gt;Predicting the effects of noncoding genetic variants&lt;/li&gt;
+&lt;li&gt;MotifCompendium - a unified lexicon of regulatory sequence motifs&lt;/li&gt;
+&lt;li&gt;Contrasting regulatory sequence code across assays and cell types&lt;/li&gt;
+&lt;li&gt;Building a production-scale model atlas in an academic setting&lt;/li&gt;
 &lt;/ol&gt;
 
  &lt;/blockquote&gt;
@@ -150,10 +149,9 @@ Small clusters of high contribution score bases typically represent transcriptio
 &lt;p&gt;To help answer these questions, we developed a family of deep learning models that use DNA sequences as inputs to predict associated genome-wide biochemical activity measured by diverse experiments. We also developed a framework of model interpretation methods, allowing us to identify the sequence features and regulatory rules that drive model predictions.&lt;/p&gt;
 &lt;p&gt;Today, we release &lt;strong&gt;GRAMMAR&lt;/strong&gt; (Genomic Regulatory Atlas of sequence Models, Motifs, Annotations and Rules), a collection of 3,865 experiment-specific model sets across the ENCODE data compendium spanning several layers of gene regulation, including the binding of regulatory proteins to DNA, chromatin accessibility, transcription initiation, and regulatory activity measured using high-throughput reporter assays. For each experiment, we also release model-predicted, de-noised biochemical activity profiles at single-base resolution; model-estimated contributions of individual DNA bases to the activity of each regulatory element in each cellular context; recurring predictive DNA patterns (motifs) learned by the models; the genomic locations of predictive motif instances; and genome-browser tracks that make these outputs easy to explore.&lt;/p&gt;
 &lt;p&gt;Together, these resources transform thousands of ENCODE experiments into a reusable and interpretable atlas of the cell-context-specific DNA sequence rules that shape gene regulation. In this first post of a broader series, we introduce the ENCODE GRAMMAR resource and show how predictions and sequence annotations derived from multiple models can be integrated to decode the sequence basis of regulatory element activity.&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Contributions&lt;/strong&gt;:
-&lt;em&gt;Author order does not represent relative contribution&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Contributions&lt;/strong&gt;: &lt;em&gt;(Author order does not represent relative contribution)&lt;/em&gt;&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;Vivek Ramalingam: BPNet model optimization and training, data uploads, general analysis&lt;/li&gt;
+&lt;li&gt;Vivekanandan Ramalingam: BPNet model optimization and training, data uploads, general analysis&lt;/li&gt;
 &lt;li&gt;Chang M. Yun: ChromBPNet model training, MotifCompendium analysis&lt;/li&gt;
 &lt;li&gt;Vivian Hecht: ChromBPNet model training, model resource uploads, project management&lt;/li&gt;
 &lt;li&gt;Aman Patel: Model resource uploads&lt;/li&gt;
@@ -176,14 +174,14 @@ Small clusters of high contribution score bases typically represent transcriptio
  &lt;p&gt;This is the first post in a series on dENCODE. The series will cover:&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;&lt;strong&gt;ENCODE GRAMMAR: The ENCODE deep learning model resource for decoding the DNA sequence logic of genomic regulatory elements (this post)&lt;/strong&gt;&lt;/li&gt;
-&lt;li&gt;ENCODE GRAMMAR: Quickstart -Accessing and using the ENCODE GRAMMAR collection&lt;/li&gt;
-&lt;li&gt;ENCODE GRAMMAR: Interpreting regulatory DNA with deep learning models&lt;/li&gt;
-&lt;li&gt;ENCODE GRAMMAR: The transcription factor binding GRAMMAR resource&lt;/li&gt;
-&lt;li&gt;ENCODE GRAMMAR: The chromatin accessibility GRAMMAR resource&lt;/li&gt;
-&lt;li&gt;ENCODE GRAMMAR: Predicting the effects of noncoding genetic variants&lt;/li&gt;
-&lt;li&gt;ENCODE GRAMMAR: MotifCompendium - a unified lexicon of regulatory sequence motifs&lt;/li&gt;
-&lt;li&gt;ENCODE GRAMMAR: Contrasting regulatory sequence code across assays and cell types&lt;/li&gt;
-&lt;li&gt;ENCODE GRAMMAR: Building a production-scale model atlas in an academic setting&lt;/li&gt;
+&lt;li&gt;Quickstart: Accessing and using the ENCODE GRAMMAR collection&lt;/li&gt;
+&lt;li&gt;Interpreting regulatory DNA with deep learning models&lt;/li&gt;
+&lt;li&gt;The transcription factor binding GRAMMAR resource&lt;/li&gt;
+&lt;li&gt;The chromatin accessibility GRAMMAR resource&lt;/li&gt;
+&lt;li&gt;Predicting the effects of noncoding genetic variants&lt;/li&gt;
+&lt;li&gt;MotifCompendium - a unified lexicon of regulatory sequence motifs&lt;/li&gt;
+&lt;li&gt;Contrasting regulatory sequence code across assays and cell types&lt;/li&gt;
+&lt;li&gt;Building a production-scale model atlas in an academic setting&lt;/li&gt;
 &lt;/ol&gt;
 
  &lt;/blockquote&gt;
