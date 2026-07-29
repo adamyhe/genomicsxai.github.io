@@ -73,19 +73,19 @@ For quick and easy introduction to the latest ENCODE 4 deep learning models, we 
 
 **Contributions**:
 _Author order does not represent relative contribution_
-Vivek Ramalingam: BPNet model optimization and training, data uploads, general analysis
-Chang M. Yun: ChromBPNet model training, MotifCompendium analysis
-Vivian Hecht: ChromBPNet model training, data uploads, project management
-Aman Patel: Data uploads
-Anusri Pampari: ChromBPNet model development, ChromBPNet model training, data uploads
-Ziwei Chen: ReporterNet model development, ReporterNet model training, ChromBPNet model training
-Kelly Cochran: ProCapNet model development and training
-Surag Nair, Zahoor Zafrulla, Alex Tseng: BPNet refactoring
-Avanti Shrikumar, Jacob Schreiber, Alex Tseng: MoDISco methods development and optimization
-Austin Wang: FiNeMo methods development
-Salil Deshpande, Chang M. Yun: MotifCompendium methods development
-Abhimanyu Banerjee, Georgi K. Marinov: ZNF analysis
-Anshul Kundaje: Beacon, Boundary, and Bank
+- Vivek Ramalingam: BPNet model optimization and training, data uploads, general analysis
+- Chang M. Yun: ChromBPNet model training, MotifCompendium analysis
+- Vivian Hecht: ChromBPNet model training, model resource uploads, project management
+- Aman Patel: Model resource uploads
+- Anusri Pampari: ChromBPNet model development, ChromBPNet model training, data uploads
+- Ziwei Chen: ReporterNet model development, ReporterNet model training, ChromBPNet model training
+- Kelly Cochran: ProCapNet model development and training
+- Surag Nair, Zahoor Zafrulla, Alex Tseng: BPNet refactoring
+- Avanti Shrikumar, Jacob Schreiber, Alex Tseng: TF-MoDISco methods development and optimization
+- Austin Wang: FiNeMo methods development
+- Salil Deshpande, Chang M. Yun: MotifCompendium methods development
+- Abhimanyu Banerjee, Georgi K. Marinov: Zinc finger transcription factor analysis
+- Anshul Kundaje: PI, Conceptualization, Project management, Mentoring, Funding
 {{< /summary >}}
 
 ---

@@ -80,31 +80,31 @@ Together, these resources transform thousands of ENCODE experiments into a reusa
 
 **Contributions**:
 _Author order does not represent relative contribution_
-Vivek Ramalingam: BPNet model optimization and training, data uploads, general analysis
-Chang M. Yun: ChromBPNet model training, MotifCompendium analysis
-Vivian Hecht: ChromBPNet model training, data uploads, project management
-Aman Patel: Data uploads
-Anusri Pampari: ChromBPNet model development, ChromBPNet model training, data uploads
-Ziwei Chen: ReporterNet model development, ReporterNet model training, ChromBPNet model training
-Kelly Cochran: ProCapNet model development and training
-Surag Nair, Zahoor Zafrulla, Alex Tseng: BPNet refactoring
-Avanti Shrikumar, Jacob Schreiber, Alex Tseng: MoDISco methods development and optimization
-Austin Wang: FiNeMo methods development
-Salil Deshpande, Chang M. Yun: MotifCompendium methods development
-Abhimanyu Banerjee, Georgi K. Marinov: ZNF analysis
-Anshul Kundaje: Beacon, Boundary, and Bank
+- Vivek Ramalingam: BPNet model optimization and training, data uploads, general analysis
+- Chang M. Yun: ChromBPNet model training, MotifCompendium analysis
+- Vivian Hecht: ChromBPNet model training, model resource uploads, project management
+- Aman Patel: Model resource uploads
+- Anusri Pampari: ChromBPNet model development, ChromBPNet model training, data uploads
+- Ziwei Chen: ReporterNet model development, ReporterNet model training, ChromBPNet model training
+- Kelly Cochran: ProCapNet model development and training
+- Surag Nair, Zahoor Zafrulla, Alex Tseng: BPNet refactoring
+- Avanti Shrikumar, Jacob Schreiber, Alex Tseng: TF-MoDISco methods development and optimization
+- Austin Wang: FiNeMo methods development
+- Salil Deshpande, Chang M. Yun: MotifCompendium methods development
+- Abhimanyu Banerjee, Georgi K. Marinov: Zinc finger transcription factor analysis
+- Anshul Kundaje: PI, Conceptualization, Project management, Mentoring, Funding
 {{< /summary >}}
 
 > This is the first post in a series on dENCODE. The series will cover:
-> 1. **GRAMMAR: Decoding the DNA sequence logic of genomic regulatory elements with the ENCODE deep learning model zoo (this post)**
-> 2. Quickstart: Accessing and using the ENCODE GRAMMAR collection 
-> 3. Interpreting regulatory DNA with deep learning models
-> 4. The transcription factor binding GRAMMAR resource 
-> 5. The chromatin accessibility GRAMMAR resource
-> 6. Predicting the effects of noncoding genetic variants
-> 7. MotifCompendium: a unified lexicon of regulatory sequence motifs
-> 8. Understanding sequence mediated differences in regulation across assays and cell types
-> 9. Building a production-scale model atlas in an academic setting
+> 1. **ENCODE GRAMMAR: The ENCODE deep learning model resource for decoding the DNA sequence logic of genomic regulatory elements (this post)**
+> 2. ENCODE GRAMMAR: Quickstart -Accessing and using the ENCODE GRAMMAR collection 
+> 3. ENCODE GRAMMAR: Interpreting regulatory DNA with deep learning models
+> 4. ENCODE GRAMMAR: The transcription factor binding GRAMMAR resource 
+> 5. ENCODE GRAMMAR: The chromatin accessibility GRAMMAR resource
+> 6. ENCODE GRAMMAR: Predicting the effects of noncoding genetic variants
+> 7. ENCODE GRAMMAR: MotifCompendium - a unified lexicon of regulatory sequence motifs
+> 8. ENCODE GRAMMAR: Contrasting regulatory sequence code across assays and cell types
+> 9. ENCODE GRAMMAR: Building a production-scale model atlas in an academic setting
 
 ---
 ## The genome encodes a regulatory control system
@@ -127,11 +127,11 @@ To understand how the genome encodes gene regulation, we therefore need to:
 ## ENCODE: An Encyclopedia of DNA Elements across thousands of cell types
 Over the past two decades, the [**Encyclopedia of DNA Elements** (**ENCODE**) Consortium](https://www.encodeproject.org/) has made major progress toward the first two goals. Using a broad range of genome-wide functional genomics experiments, ENCODE has mapped millions of candidate regulatory elements in the human and mouse genomes by characterizing their biochemical activity across diverse cell types, tissues, developmental stages, and conditions.
 These experiments measure complementary layers of gene regulation, including where transcription factors bind DNA, which regions of chromatin are accessible, where transcription begins, and which genes are expressed. Together, they provide detailed maps of where regulatory activity occurs and how it differs across cellular contexts. We briefly describe some of the key experimental assays below.
-**TF ChIP-seq**, or TF chromatin immunoprecipitation, is used to identify TF binding sites, one TF at a time, by using antibodies to bind a given TF that is, in turn, bound to particular regions of DNA. These bound regions are then isolated and sequenced, with reads accumulating at TF binding sites. TF-ChIP-seq datasets are typically analyzed to identify peaks from these accumulated reads. Short DNA sequences that are statistically enriched within these peaks can then be identified as candidate motifs that may contribute to transcription-factor binding.
 
+**TF ChIP-seq** (transcription factor chromatin immunoprecipitation followed by sequencing) maps where a particular transcription factor binds the genome in a specific cell type. Cells are treated so that proteins remain attached to the DNA they occupy, the DNA is fragmented, and an antibody is used to isolate fragments bound by the transcription factor of interest. These fragments are sequenced on a high-throughput sequencer and mapped to the genome to identify their likely locations, which produces concentrations of reads, or **peaks**, at genomic regions enriched for binding by that TF. TF ChIP-seq peak regions are often statistically enriched for recurring short DNA sequence patterns, called motifs, that typically mediate the binding of the TF to DNA. However, each TF ChIP–seq experiment profiles only one TF in one cellular context. Systematically measuring the binding of the roughly 2,000 human TFs across all cell types and conditions would therefore be prohibitively laborious and expensive.  
 ![Figure: TF ChIP-seq](TFChIP.gif "width=600 Illustration of TF ChIP-seq: (1) TF binds to accessible DNA; (2) DNA is broken into fragments; (3) Antibodies bind to TF-DNA complex; (4) TF-DNA complex is pulled down; (5) Isolated DNA is cleaned and sequenced; (6) Sequences accumulate around the TF binding site.")
 
-In **DNase-seq** and **ATAC-seq**, DNA-fragmenting enzymes (DNase I and Tn5 transposase, respectively) cut accessible chromatin into small fragments. These fragments are then isolated and sequenced, and accumulate in regions of open chromatin, analogously to TF-ChIP-seq. Worth noting is that DNase I and Tn5 transposase preferentially cut specific DNA sequences, leading to a slight bias in the form of an increased number of reads to particular regions. We discuss this further in subsequent sections.
+**DNase-seq** and **ATAC-seq** experiments partly address this limitation by providing a genome-wide map of regions of accessible chromatin which are often regulatory elements occupied by combinations of transcription factors and other regulatory proteins. So a single accessibility experiment can highlight regulatory elements bound by many factors in a given cellular context, although it does not directly identify which proteins are bound. DNase–seq uses the enzyme DNase I to cut exposed DNA, whereas ATAC–seq uses the Tn5 transposase to insert sequencing adapters into accessible DNA. The resulting DNA fragments are sequenced and mapped to the genome. Regions containing many mapped fragments appear as peaks of chromatin accessibility. DNase I and Tn5 also have preferences for particular DNA sequences, so the observed signal profiles reflect both genuine chromatin accessibility and assay-specific sequence bias. Separating these components is especially important when interpreting the signal at single-base resolution. 
 
 ![Figure: DNase-seq, ATAC-seq](ChromatinAccessibility.gif "width=600 Illustration of DNase-seq, ATAC-seq: (1) DNA can wrap around histones ('closed') or remain unwound ('open'); (2) Enzymes (DNase I or Tn5 transposase) cut accessible DNA; (3) DNA fragments are sequenced; (4) Accessible regions appear as peaks.")
 
