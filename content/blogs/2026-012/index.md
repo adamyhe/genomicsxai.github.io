@@ -79,10 +79,20 @@ Today, we release **GRAMMAR** (Genomic Regulatory Atlas of sequence Models, Moti
 Together, these resources transform thousands of ENCODE experiments into a reusable and interpretable atlas of the cell-context-specific DNA sequence rules that shape gene regulation. In this first post of a broader series, we introduce the ENCODE GRAMMAR resource and show how predictions and sequence annotations derived from multiple models can be integrated to decode the sequence basis of regulatory element activity.
 
 **Contributions**:
-- GRAMMAR: Vivekanandan Ramalingam*, Chang M. Yun*, Vivian Hecht*, Aman Patel*, Anusri Pampari*, Ziwei Chen*, Kelly Cochran*, Adam He, Salil S. Deshpande, Georgi K. Marinov, Anshul Kundaje^
-- Blog post: Chang M. Yun, Vivekanandan Ramalingam, Vivian Hecht _(equal contributions)_
-*: Primary contributors
-^: Corresponding contributor
+_Author order does not represent relative contribution_
+Vivek Ramalingam: BPNet model optimization and training, data uploads, general analysis
+Chang M. Yun: ChromBPNet model training, MotifCompendium analysis
+Vivian Hecht: ChromBPNet model training, data uploads, project management
+Aman Patel: Data uploads
+Anusri Pampari: ChromBPNet model development, ChromBPNet model training, data uploads
+Ziwei Chen: ReporterNet model development, ReporterNet model training, ChromBPNet model training
+Kelly Cochran: ProCapNet model development and training
+Surag Nair, Zahoor Zafrulla, Alex Tseng: BPNet refactoring
+Avanti Shrikumar, Jacob Schreiber, Alex Tseng: MoDISco methods development and optimization
+Austin Wang: FiNeMo methods development
+Salil Deshpande, Chang M. Yun: MotifCompendium methods development
+Abhimanyu Banerjee, Georgi K. Marinov: ZNF analysis
+Anshul Kundaje: Beacon, Boundary, and Bank
 {{< /summary >}}
 
 > This is the first post in a series on dENCODE. The series will cover:
@@ -109,10 +119,10 @@ Much of this control is encoded in **regulatory elements**—regions of DNA, inc
 Different cell types express different combinations of transcription factors and maintain different chromatin states across the genome. As a result, different cell types engage different repertoires of regulatory elements producing distinct patterns of gene expression, despite containing essentially the same genomic DNA sequence. Genetic variants within regulatory elements can alter transcription-factor binding or other regulatory activity, potentially changing gene expression in particular cellular contexts. Disruption of this regulatory system can interfere with development and cellular function and contribute to disease.
 
 To understand how the genome encodes gene regulation, we therefore need to:
-map the genomic locations of candidate regulatory elements;
-measure their biochemical activity (e.g. transcription-factor binding and chromatin state), and associated gene expression across cell types and conditions;
-determine which DNA bases within regulatory elements are important and how their combinations and arrangements control different types of biochemical activity in different cell types; and
-determine how genetic variants alter biochemical activity in different cellular contexts.
+- map the genomic locations of candidate regulatory elements;
+- measure their biochemical activity (e.g. transcription-factor binding and chromatin state), and associated gene expression across cell types and conditions;
+- determine which DNA bases within regulatory elements are important and how their combinations and arrangements control different types of biochemical activity in different cell types; and
+- determine how genetic variants alter biochemical activity in different cellular contexts.
 
 ## ENCODE: An Encyclopedia of DNA Elements across thousands of cell types
 Over the past two decades, the [**Encyclopedia of DNA Elements** (**ENCODE**) Consortium](https://www.encodeproject.org/) has made major progress toward the first two goals. Using a broad range of genome-wide functional genomics experiments, ENCODE has mapped millions of candidate regulatory elements in the human and mouse genomes by characterizing their biochemical activity across diverse cell types, tissues, developmental stages, and conditions.
@@ -136,7 +146,7 @@ ENCODE has developed a set of approximately 16,000 standardized, uniformly proce
 The consortium recently released a preprint describing the newly included datasets in the fourth and final phase of the project [ENCODE 4](https://www.biorxiv.org/content/10.64898/2026.07.06.731365v1).
 
 ![Figure: ENCODE cube](ENCODE_cube.png "width=600 Coverage of the ENCODE Project: 100s of biochemical markers, performed in 100s of cell types and tissues, measured across 3 billion genomic positions. From Roadmap Epigenomics Consortium et al. Integrative analysis of 111 reference human epigenomes. Nature 518, 317–330 (2015). (https://doi.org/10.1038/nature14248)")
-Coverage of the ENCODE Project: hundreds of biochemical markers, performed in hundreds of cell types and tissues, measured across 3 billion genomic positions. From _Roadmap Epigenomics Consortium et al. Integrative analysis of 111 reference human epigenomes. Nature 518, 317–330 (2015). ([https://doi.org/10.1038/nature14248](https://doi.org/10.1038/nature14248))_
+_Coverage of the ENCODE Project: hundreds of biochemical markers, performed in hundreds of cell types and tissues, measured across 3 billion genomic positions. From Roadmap Epigenomics Consortium et al. Integrative analysis of 111 reference human epigenomes. Nature 518, 317–330 (2015). ([https://doi.org/10.1038/nature14248](https://doi.org/10.1038/nature14248))_
 
 However, while the experimental assays can help map the locations of active regulatory genomic elements, they provide limited mechanistic insights, and we are left with some fundamental questions, for example:
 
@@ -153,27 +163,37 @@ Our group has developed a suite of deep learning models and downstream tools to 
 - **ReporterNet:** A CNN with a BPNet-like architecture trained on MPRA data that predicts large-scale reporter assay signal from DNA sequence.
 
 ![Figure: ChromBPNet model architecture](ChromBPNet.png "width=600 Example BPNet-style model architecture with bias-correction: ChromBPNet. From Pampari, A. et al. ChromBPNet: bias factorized, base-resolution deep learning models of chromatin accessibility reveal cis-regulatory sequence syntax, transcription factor footprints and regulatory variants. 2024.12.25.630221 Preprint at https://doi.org/10.1101/2024.12.25.630221 (2024).")
-Example BPNet-style model architecture with bias-correction: ChromBPNet. From _Pampari, A. et al. ChromBPNet: bias factorized, base-resolution deep learning models of chromatin accessibility reveal cis-regulatory sequence syntax, transcription factor footprints and regulatory variants. _bioRxiv_ 2024.12.25.630221 (2024). ([https://doi.org/10.1101/2024.12.25.630221](https://doi.org/10.1101/2024.12.25.630221))_
+_Example BPNet-style model architecture with bias-correction: ChromBPNet. From Pampari, A. et al. ChromBPNet: bias factorized, base-resolution deep learning models of chromatin accessibility reveal cis-regulatory sequence syntax, transcription factor footprints and regulatory variants. _bioRxiv_ 2024.12.25.630221 (2024). ([https://doi.org/10.1101/2024.12.25.630221](https://doi.org/10.1101/2024.12.25.630221))_
 
 We describe the basic steps of our workflow below, with more detailed explanations available in the manuscripts [ChromBPNet](https://doi.org/10.1101/2024.12.25.630221), [BPNet](https://doi.org/10.1038/s41588-021-00782-6), [ProCapNet](https://doi.org/10.1101/2024.05.28.596138), ReporterNet _(unpublished)_.
 
-**1.** We begin by training a model that can reconstruct the observed experimental signal when provided the DNA sequence of the region. We expect that the model should only be able to perform this reconstruction by learning the underlying rules of chromatin regulation. While the input data varies based on assay, the basic model architecture remains the same.
+**(1) Training:** We begin by training a deep learning model to reconstruct the observed experimental signal when provided the DNA sequence of the region. This mimics the underlying regulatory biology: for a given region of DNA, sequence-specific proteins in the nucleus influence the DNA to be in some regulatory state (e.g., bound by a transcription factor) based on its sequence, which is captured by the experiment (e.g., TF ChIP-seq signal). For a model to successfully reconstruct the experimental signal, we expect that the model should do so by learning the same sequence-specific rules of the nuclear environment. We evaluate the model performance by observing its reconstruction in held out chromosomes unseen during training.
 
 ![Figure: Train a model](BPNet_Fig1.gif "width=600 Train a model to predict experimentally observed signal from DNA sequence.")
 
-DNase and ATAC-seq suffer from unwanted artifacts related to the preference of DNase and Tn5 to cut at specific sequence positions. Using ChromBPNet, we train a separate model to predict only the effects of the experimental artifact, and subtract its effect to isolate the regulatory signal.
+**(2) Prediction:** Once the model is successfully trained to predict unseen sequences, its immediate use is to predict the effect of potentially disease-causing mutations in the genome. We can introduce mutations at any genomic sequence and predict the log-fold change in signal, which can be related to the effect size of the variant.
+
+![Figure: Predict mutations](BPNet_Fig3.gif "width=600 Predict the effect of unseen mutations in the genome.")
+
+**(3) De-bias:** Another ability of the trained model is to remove unwanted experimental artifacts. DNase-seq and ATAC-seq can suffer from unwanted artifacts, due to the sequence preference of the enzyme (DNase I and Tn5 transposase) to cut at specific sequence positions. We train a separate model to predict only the effects of the experimental artifact, and subtract its effect to isolate only the regulatory signal.
 
 ![Figure: Remove bias](BPNet_Fig2.gif "width=600 Remove the effects of unwanted experimental artifacts, by training a separate model to predict the experimental effects then subtracting it from the total signal.")
 
-**2.** We next interpret the relative activations of the trained model to understand which positions in the training sequences were most important to its predictions using DeepLIFT (ref). The most important positions, and bases at those positions, can often be directly attributed to the sequence binding preference of known transcription factors.   
+**(4) Sequence contributions:** Next, to understand what the model has learned, we identify and quantify sequences that were important for the model to make its predictions, by tracking the relative activations inside the model during prediction and aggregate them per position, using interpretation methods such as [DeepLIFT/DeepSHAP](https://doi.org/10.48550/arXiv.1704.02685). The most important positions and bases can often be attributed to the binding sequence preference of known transcription factors.   
 
-![Figure: Interpret the model](BPNet_Fig4.gif "width=600 Identify highly contributing bases used by the model during prediction.")
+![Figure: Understand the importance sequences for the model](BPNet_Fig4.gif "width=600 Identify highly contributing bases used by the model during prediction.")
 
-**3.** Once we have the sequence interpretations, we use a suite of post-processing tools to extract, consolidate and cluster the potential transcription factor binding sites. We also map the sites back to the genome, which is very useful for downstream quantitative analyses. 
+**(5) Aggregate into motifs:** To identify what type of highly contributing sequence patterns were learned by the model and are commonly observed in the genome, we sample highly contributing sequences across the genome, and aggregate them into distinct sequence patterns (“motifs”), using motif discovery algorithms such as [TF-MoDISco](https://doi.org/10.48550/arXiv.1811.00416). The sequence motifs can, again, often be mapped to the binding preference of known transcription factors, that then help identify the main transcription factors involved in driving the particular experimental signal.
 
-An example application, shown below, is to predict the effect of potentially disease-causing mutations in the genome. We can run predictions on mutations at any genomic sequence, even ones on which the model has not been trained, and calculate a log-fold change in signal, which can then be related to the mutation effect size. 
+![Figure: Aggregate into motifs](BPNet_Fig5.gif "width=600 Aggregate highly contributing sequence elements into sequence motifs.")
 
-![Figure: Predict mutations](BPNet_Fig3.gif "width=600 Predict the effect of unseen mutations in the genome.")
+**(6) Identify all genomic motif instances:** To identify every genomic instance of the newly discovered sequence motifs, we take the motifs and scan them across the sequence contribution score of the entire genome, using motif scanning algorithms such as [FiNeMo](https://github.com/kundajelab/Fi-NeMo). This can help annotate the transcription factors responsible for each highly contributing sequence.
+
+![Figure: Identify all genomics motif instances](BPNet_Fig6.gif "width=600 Scan the sequences motifs across the genome contribution scores to identify all instances of the motif.")
+
+**(7) Combine motifs across models:** Lastly, to combine motifs learned across multiple models into a single, non-redundant set, we aggregate similar motifs using motif clustering algorithms such as [MotifCompendium](https://zenodo.org/doi/10.5281/zenodo.17123347). At scale, this helps identify all motifs involved in different modes of regulation (e.g., all chromatin accessibility-related motifs).
+
+![Figure: Combine motifs across models](BPNet_Fig7.gif "width=600 Combine similar motifs across models to create a single, unified set of unique motifs.")
 
 In the following section, we share an example in the MYC locus to showcase the power of the models:
 
@@ -182,19 +202,19 @@ The Myc family of proteins is a set of transcription factors that play an import
 
 ![Figure 1](MYC_fig0.png "width=600 MYC locus with a CRISPRi-validated distal enhancer [chr8:127,898,412—127,899,647] and its experimentally observed DNase-seq signal in K562.")
 
-First, examining chromatin accessibility through ChromBPNet models: the models recapitulate the observed experimental profile with high concordance. Further, the models can de-noise the profile to isolate the true underlying accessibility signal, reconciling DNase and ATAC-seq experimental methods into agreement (where raw signals can diverge due to enzyme differences).
- 
+First, examining chromatin accessibility through ChromBPNet models: the models recapitulate the observed experimental profile with strong concordance. 
+
+Second, the models can de-noise the profile to isolate the true underlying accessibility signal. This successfully reconciles the two assays–DNase and ATAC-seq–into agreement (where raw signals can diverge due to enzyme artifacts).
+
 ![Figure 2](MYC_fig2.png "width=600 Observed, model-predicted, and model-corrected DNase-seq and ATAC-seq profiles by ChromBPNet.")
  
-Second, using the models, we highlight the key sequence drivers that the models identified to make their predictions (as "contribution scores"), and begin to see the underlying biological mechanism of regulation at this locus:
+Third, using the models, we highlight the key sequences that the models used to make their predictions, and begin to observe the underlying biological mechanism of regulation at this locus. Examining the highly contributing sequences that ChromBPNet used, we observe that the following transcription factors were strongly involved in accessibility of the locus in K562: GATA, AP1, SP, ETV.
 
-Examining the highly contributing sequences for chromatin accessibility through ChromBPNet, we observe key transcription factors (e.g., GATA, AP1, SP, ETV) that drive accessibility—in agreement with prior understanding.
-
-In parallel, examining the key sequences for TF binding through BPNet, we observe the same sequences predict TF binding, in agreement with ChromBPNet—despite being trained on two entirely orthogonal assay types (TF ChIP-seq vs. DNase-seq/ATAC-seq).
+Lastly, to orthogonally validate the transcription factors involved, we examine the highly contributing sequences for a different assay, TF ChIP-seq, used by a different model, BPNet. Despite being trained on two entirely orthogonal assay types (TF ChIP-seq vs. DNase-seq/ATAC-seq), we observe that the same sequences are used to predict TF binding as was used by ChromBPNet.
 
 ![Figure 3](MYC_fig3.png "width=600 Highly contributing sequences used by the models during prediction. Insets compare contribution maps across DNase/ATAC (ChromBPNet), MPRA (ReporterNet), and TF ChIP-seq models (BPNet; e.g., GATA2, SP1, CEBPB, JUND, GABPB1), with high-impact motif instances annotated (e.g., GATA, SP, AP-1, ETV/ETS, CEBP).")
- 
-Below, we provide an interactive browser session of the exact locus to view dynamically:
+
+To examine the locus yourself, we provide below an interactive browser session of the exact locus and models:
 
 {{< igv-browser panel="myc" data="myc-igv-panel.json" >}} 
 

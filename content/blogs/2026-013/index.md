@@ -72,10 +72,20 @@ revision_history:
 For quick and easy introduction to the latest ENCODE 4 deep learning models, we provide a **Quick-start guide** (5 min). Following the instructions, you should be able to create an **interactive genome browser session** to view a model's outputs, including experimentally observed signal, model-predicted signal, sequence contribution scores, and genomic motif instances.
 
 **Contributions**:
-- GRAMMAR: Vivekanandan Ramalingam*, Chang M. Yun*, Vivian Hecht*, Aman Patel*, Anusri Pampari*, Ziwei Chen*, Kelly Cochran*, Adam He, Salil S. Deshpande, Georgi K. Marinov, Anshul Kundaje^
-- Blog post: Chang M. Yun, Vivekanandan Ramalingam, Vivian Hecht _(equal contributions)_
-*: Primary contributors
-^: Corresponding contributor
+_Author order does not represent relative contribution_
+Vivek Ramalingam: BPNet model optimization and training, data uploads, general analysis
+Chang M. Yun: ChromBPNet model training, MotifCompendium analysis
+Vivian Hecht: ChromBPNet model training, data uploads, project management
+Aman Patel: Data uploads
+Anusri Pampari: ChromBPNet model development, ChromBPNet model training, data uploads
+Ziwei Chen: ReporterNet model development, ReporterNet model training, ChromBPNet model training
+Kelly Cochran: ProCapNet model development and training
+Surag Nair, Zahoor Zafrulla, Alex Tseng: BPNet refactoring
+Avanti Shrikumar, Jacob Schreiber, Alex Tseng: MoDISco methods development and optimization
+Austin Wang: FiNeMo methods development
+Salil Deshpande, Chang M. Yun: MotifCompendium methods development
+Abhimanyu Banerjee, Georgi K. Marinov: ZNF analysis
+Anshul Kundaje: Beacon, Boundary, and Bank
 {{< /summary >}}
 
 ---
