@@ -318,8 +318,8 @@ These experiments measure complementary layers of gene regulation, including whe
 			alt="Figure 3"
 			title="Highly contributing sequences used by ChromBPNet models during prediction, with high-impact motif instances annotated (GATA, SP, AP1, ETV/ETS, CEBP)." data-title-escaped="Highly contributing sequences used by ChromBPNet models during prediction, with high-impact motif instances annotated (GATA, SP, AP1, ETV/ETS, CEBP)."&gt;
 		&lt;/a&gt;&lt;/figure&gt;&lt;p&gt;Lastly, to orthogonally validate the transcription factors involved, we examine the highly contributing sequences for a different assay, TF ChIP-seq, used by a different model, BPNet. Despite being trained on an entirely orthogonal assay type (TF ChIP-seq vs. DNase-seq/ATAC-seq), we observe that the same sequences are used to predict TF binding as were used to predict chromatin accessibility.&lt;/p&gt;
-&lt;figure&gt;&lt;a href="https://genomicsxai.github.io/previews/pr-110/blogs/2026-012/MYC_fig4.png" class="image-link" data-pswp-width="2091" data-pswp-height="414"&gt;
-		&lt;img src="https://genomicsxai.github.io/previews/pr-110/blogs/2026-012/MYC_fig4.png" width="600px" height="118"loading="lazy"
+&lt;figure&gt;&lt;a href="https://genomicsxai.github.io/previews/pr-110/blogs/2026-012/MYC_fig4.png" class="image-link" data-pswp-width="4000" data-pswp-height="903"&gt;
+		&lt;img src="https://genomicsxai.github.io/previews/pr-110/blogs/2026-012/MYC_fig4.png" width="600px" height="135"loading="lazy"
 			alt="Figure 4"
 			title="Highly contributing sequences used by BPNet models, trained on TF ChIP-seq signal profiles, during prediction, with high-impact motif instances annotated (GATA, SP, AP1, ETV/ETS, CEBP)." data-title-escaped="Highly contributing sequences used by BPNet models, trained on TF ChIP-seq signal profiles, during prediction, with high-impact motif instances annotated (GATA, SP, AP1, ETV/ETS, CEBP)."&gt;
 		&lt;/a&gt;&lt;/figure&gt;&lt;p&gt;To examine the locus yourself, we provide below an interactive browser session of the exact locus and models:&lt;/p&gt;
