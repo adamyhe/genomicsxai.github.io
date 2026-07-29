@@ -78,9 +78,8 @@ Today, we release **GRAMMAR** (Genomic Regulatory Atlas of sequence Models, Moti
 
 Together, these resources transform thousands of ENCODE experiments into a reusable and interpretable atlas of the cell-context-specific DNA sequence rules that shape gene regulation. In this first post of a broader series, we introduce the ENCODE GRAMMAR resource and show how predictions and sequence annotations derived from multiple models can be integrated to decode the sequence basis of regulatory element activity.
 
-**Contributions**:
-_Author order does not represent relative contribution_
-- Vivek Ramalingam: BPNet model optimization and training, data uploads, general analysis
+**Contributions**: _(Author order does not represent relative contribution)_
+- Vivekanandan Ramalingam: BPNet model optimization and training, data uploads, general analysis
 - Chang M. Yun: ChromBPNet model training, MotifCompendium analysis
 - Vivian Hecht: ChromBPNet model training, model resource uploads, project management
 - Aman Patel: Model resource uploads
@@ -97,14 +96,14 @@ _Author order does not represent relative contribution_
 
 > This is the first post in a series on dENCODE. The series will cover:
 > 1. **ENCODE GRAMMAR: The ENCODE deep learning model resource for decoding the DNA sequence logic of genomic regulatory elements (this post)**
-> 2. ENCODE GRAMMAR: Quickstart -Accessing and using the ENCODE GRAMMAR collection 
-> 3. ENCODE GRAMMAR: Interpreting regulatory DNA with deep learning models
-> 4. ENCODE GRAMMAR: The transcription factor binding GRAMMAR resource 
-> 5. ENCODE GRAMMAR: The chromatin accessibility GRAMMAR resource
-> 6. ENCODE GRAMMAR: Predicting the effects of noncoding genetic variants
-> 7. ENCODE GRAMMAR: MotifCompendium - a unified lexicon of regulatory sequence motifs
-> 8. ENCODE GRAMMAR: Contrasting regulatory sequence code across assays and cell types
-> 9. ENCODE GRAMMAR: Building a production-scale model atlas in an academic setting
+> 1. Quickstart: Accessing and using the ENCODE GRAMMAR collection
+> 1. Interpreting regulatory DNA with deep learning models
+> 1. The transcription factor binding GRAMMAR resource 
+> 1. The chromatin accessibility GRAMMAR resource
+> 1. Predicting the effects of noncoding genetic variants
+> 1. MotifCompendium - a unified lexicon of regulatory sequence motifs
+> 1. Contrasting regulatory sequence code across assays and cell types
+> 1. Building a production-scale model atlas in an academic setting
 
 ---
 ## The genome encodes a regulatory control system

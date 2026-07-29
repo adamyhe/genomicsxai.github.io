@@ -1,6 +1,6 @@
 ---
 post_id: "2026-013"
-title: "GRAMMAR: A quick-start guide (5 min)"
+title: "[ENCODE GRAMMAR] Quickstart: Accessing and using the ENCODE GRAMMAR collection"
 
 # Optional: image filename "your-image.png" in the same folder
 image: "MYC_fig1.png"
@@ -71,9 +71,8 @@ revision_history:
 {{< summary >}}
 For quick and easy introduction to the latest ENCODE 4 deep learning models, we provide a **Quick-start guide** (5 min). Following the instructions, you should be able to create an **interactive genome browser session** to view a model's outputs, including experimentally observed signal, model-predicted signal, sequence contribution scores, and genomic motif instances.
 
-**Contributions**:
-_Author order does not represent relative contribution_
-- Vivek Ramalingam: BPNet model optimization and training, data uploads, general analysis
+**Contributions**: _(Author order does not represent relative contribution)_
+- Vivekanandan Ramalingam: BPNet model optimization and training, data uploads, general analysis
 - Chang M. Yun: ChromBPNet model training, MotifCompendium analysis
 - Vivian Hecht: ChromBPNet model training, model resource uploads, project management
 - Aman Patel: Model resource uploads
@@ -90,15 +89,15 @@ _Author order does not represent relative contribution_
 
 ---
 > This post is one of a series of blogs we will be releasing on GRAMMAR (Genomic Regulatory Atlas of sequence Models, Motifs, Annotations and Rules). We plan to release the following posts:
-> 1. [GRAMMAR: Decoding the sequence basis of gene regulation across ENCODE with thousands of light-weight deep learning models](../2026-012/index.md)
-> 1. **GRAMMAR: A quick-start guide (5 min) (this post)**
-> 1. Understanding regulatory DNA using deep learning models
-> 1. A guide to the DECODE BPNet model resource for modeling TF binding
-> 1. A guide to the DECODE ChromBPNet resource for modeling chromatin accessibility
-> 1. Case study #1: Predicting the effects of non-coding variant mutations
-> 1. Case study #2: MotifCompendium: A unified lexicon of regulatory sequence motifs
-> 1. Case study #3: Understanding cell type-specific activity of cis-regulatory elements
-> 1. Postscript: successfully running production-scale projects in an academic setting
+> 1. [ENCODE GRAMMAR: Decoding the sequence basis of gene regulation across ENCODE with thousands of light-weight deep learning models](../2026-012/index.md)
+> 1. **Quickstart: Accessing and using the ENCODE GRAMMAR collection (this post)**
+> 1. Interpreting regulatory DNA with deep learning models
+> 1. The transcription factor binding GRAMMAR resource 
+> 1. The chromatin accessibility GRAMMAR resource
+> 1. Predicting the effects of noncoding genetic variants
+> 1. MotifCompendium - a unified lexicon of regulatory sequence motifs
+> 1. Contrasting regulatory sequence code across assays and cell types
+> 1. Building a production-scale model atlas in an academic setting
 
 ## Quick-start guide (5 min)
 Below, we review the basics of navigating an ENCODE model annotation page and explain how to load the most commonly used resource files into the WashU genome browser. 
