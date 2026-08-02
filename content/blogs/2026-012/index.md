@@ -167,9 +167,9 @@ We developed the **BPNet family** of deep learning models to address these quest
 
 The ENCODE GRAMMAR model resource contains four related model families:
 
-- **[BPNet](https://doi.org/10.1038/s41588-021-00782-6):** 2,339 TF ChIP-seq model sets spanning 788 transcription-factor targets.
-- **[ChromBPNet](https://doi.org/10.1101/2024.12.25.630221):** 1,512 DNase-seq and ATAC-seq model sets across 408 biosamples.
-- **[ProCapNet](https://doi.org/10.1101/2024.05.28.596138):** 6 PRO-cap model sets that predict transcription-initiation profiles.
+- **[BPNet](https://github.com/kundajelab/bpnet):** 2,339 TF ChIP-seq model sets spanning 788 transcription-factor targets.
+- **[ChromBPNet](https://github.com/kundajelab/chrombpnet):** 1,512 DNase-seq and ATAC-seq model sets across 408 biosamples.
+- **[ProCapNet](https://github.com/kundajelab/procapnet):** 6 PRO-cap model sets that predict transcription-initiation profiles.
 - **ReporterNet:** 8 model sets trained on high-throughput reporter assays. Unlike the above three models, ReporterNet makes predictions at the resolution of the candidate sequences tested in the experiments.
 
 Together, these comprise **3,865 experiment-specific model sets**, each trained and evaluated using five-fold cross-validation. They span diverse cell lines, primary cells, and tissues represented in ENCODE.
@@ -203,15 +203,15 @@ We describe the main steps of our workflow below. More detailed descriptions are
 
 ![Figure: Predict mutations](BPNet_Fig3.gif "width=600 Predict the effect of unseen mutations in the genome.")
 
-**(3) De-bias:** Another ability of the trained model is to remove unwanted experimental artifacts. DNase-seq and ATAC-seq can suffer from unwanted artifacts, due to the sequence preference of the enzyme (DNase I and Tn5 transposase) to cut at specific sequence positions. We train a separate model to predict only the effects of the experimental artifact, and subtract its effect to isolate only the regulatory signal.
+**(3) Separate biological signal from assay-specific sequence bias:** ATAC-seq and DNase-seq profiles reflect both genuine chromatin accessibility distorted by the sequence preferences of the DNase I and Tn5 enzymes. ChromBPNet explicitly models these components. A sequence bias model learns the enzyme-driven signal, while the main model learns the remaining sequence-dependent accessibility signal. This **bias-factorized prediction** provides a cleaner estimate of the underlying regulatory profile, particularly at base-pair resolution. 
 
 ![Figure: Remove bias](BPNet_Fig2.gif "width=600 Remove the effects of unwanted experimental artifacts, by training a separate model to predict the experimental effects then subtracting it from the total signal.")
 
-**(4) Sequence contributions:** Next, to understand what the model has learned, we identify and quantify sequences that were important for the model to make its predictions, by tracking the relative activations inside the model during prediction and aggregate them per position, using interpretation methods such as [DeepLIFT/DeepSHAP](https://doi.org/10.48550/arXiv.1704.02685). The most important positions and bases can often be attributed to the binding sequence preference of known transcription factors.   
+**(4) Estimate quantitative base-resolution sequence contributions that drive predictions:** How is the model making a particular prediction? One useful way to answer this is to ask which bases in the input sequence are responsible for the predicted activity and by how much. We use the **[DeepLIFT](https://proceedings.mlr.press/v70/shrikumar17a.html)/[DeepSHAP](https://proceedings.neurips.cc/paper_files/paper/2017/hash/8a20a8621978632d76c43dfd28b67767-Abstract.html)** feature attribution method to approximate the model’s predictions for each input sequence as an additive sum of its base-resolution contributions. For a selected input sequence and its associated model prediction, DeepLIFT assigns a contribution score to each base such that the scores sum to the difference between the model’s prediction for the input sequence and its prediction for dinucleotide-shuffled reference sequences. Positive scores identify bases that increase the predicted activity relative to this reference, whereas negative scores identify bases that decrease it. For each sequence, we average contribution scores across all models in the corresponding model set to obtain more stable and robust estimates. The resulting **sequence-contribution map** highlights the individual bases and short sequence patterns that drive the model’s prediction. Many high-contribution patterns correspond to known TF binding sites, while others may reveal previously unrecognized predictive sequence features.  
 
 ![Figure: Understand the importance sequences for the model](BPNet_Fig4.gif "width=600 Identify highly contributing bases used by the model during prediction.")
 
-**(5) Aggregate elements into motifs:** To identify what type of highly contributing sequence patterns were learned by the model and are commonly observed in the genome, we sample highly contributing sequences across the genome, and aggregate them into distinct sequence patterns (“motifs”), using motif discovery algorithms such as [TF-MoDISco](https://doi.org/10.48550/arXiv.1811.00416). The sequence motifs can, again, often be mapped to the binding preference of known transcription factors, that then help identify the main transcription factors involved in driving the particular experimental signal.
+**(5) Discover recurring predictive sequence motifs:**. A single model can identify thousands of high-contribution sequence instances across biochemically active peaks across the genome. To summarize these recurring patterns, we collect highly contributing sequences and group similar examples into motifs using the **[TF-MoDISco](https://doi.org/10.48550/arXiv.1811.00416)** algorithm. These motifs provide a compact representation of the sequence features learned by the model. Many can be matched to the known binding preferences of TF, helping identify regulators that may drive the observed experimental signal. 
 
 ![Figure: Aggregate elements into motifs](BPNet_Fig5.gif "width=600 Aggregate highly contributing sequence elements into sequence motifs.")
 
@@ -269,7 +269,7 @@ We still have so much to share about the resource! We are planning to regularly 
 
 ## References
 1. The ENCODE Project Consortium et al. The Encyclopedia of DNA Elements. _bioRxiv_ 2026.07.06.731365 (2026) ([https://doi.org/10.64898/2026.07.06.731365](https://doi.org/10.64898/2026.07.06.731365))
-2. Avsec, Ž. et al. Base-resolution models of transcription-factor binding reveal soft motif syntax. _Nat Genet_ 53, 354—366 (2021). ([https://doi.org/10.1038/s41588-021-00782-6](https://doi.org/10.1038/s41588-021-00782-6))
-3. Pampari, A. et al. ChromBPNet: bias factorized, base-resolution deep learning models of chromatin accessibility reveal cis-regulatory sequence syntax, transcription factor footprints and regulatory variants. _bioRxiv_ 2024.12.25.630221 (2024). ([https://doi.org/10.1101/2024.12.25.630221](https://doi.org/10.1101/2024.12.25.630221))
-4. Cochran, K. et al. Dissecting the cis-regulatory syntax of transcription initiation with deep learning. _bioRxiv_ 2024.05.28.596138 (2024). ([https://doi.org/10.1101/2024.05.28.596138](https://doi.org/10.1101/2024.05.28.596138))
-5. Yun, C. M. et al. A unified lexicon of predictive DNA sequence motifs from ENCODE transcription factor binding and chromatin accessibility assays. (2025) doi:10.5281/zenodo.17179111. ([https://doi.org/10.5281/zenodo.17179111](https://doi.org/10.5281/zenodo.17179111))
+1. Avsec, Ž. et al. Base-resolution models of transcription-factor binding reveal soft motif syntax. _Nat Genet_ 53, 354—366 (2021). ([https://doi.org/10.1038/s41588-021-00782-6](https://doi.org/10.1038/s41588-021-00782-6))
+1. Pampari, A. et al. ChromBPNet: bias factorized, base-resolution deep learning models of chromatin accessibility reveal cis-regulatory sequence syntax, transcription factor footprints and regulatory variants. _bioRxiv_ 2024.12.25.630221 (2024). ([https://doi.org/10.1101/2024.12.25.630221](https://doi.org/10.1101/2024.12.25.630221))
+1. Cochran, K. et al. Dissecting the cis-regulatory syntax of transcription initiation with deep learning. _bioRxiv_ 2024.05.28.596138 (2024). ([https://doi.org/10.1101/2024.05.28.596138](https://doi.org/10.1101/2024.05.28.596138))
+1. Yun, C. M. et al. A unified lexicon of predictive DNA sequence motifs from ENCODE transcription factor binding and chromatin accessibility assays. (2025) doi:10.5281/zenodo.17179111. ([https://doi.org/10.5281/zenodo.17179111](https://doi.org/10.5281/zenodo.17179111))
