@@ -54,15 +54,15 @@ labs: ["Kundaje Lab"]
 status: "submitted"
 revision: 1
 
-date_submitted: 2026-07-23
+date_submitted: 2026-08-03
 date_accepted: 
-date: 2026-07-23
+date: 2026-08-03
 
 doi: ""
 zenodo_url: ""
 revision_history:
   - version: 1
-    date: 2026-07-23
+    date: 2026-08-03
     notes: "Initial submission"
     # Optional: version-specific DOI / Zenodo record link
     doi: ""

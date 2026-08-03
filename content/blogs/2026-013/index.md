@@ -54,21 +54,21 @@ labs: ["Kundaje Lab"]
 status: "submitted"
 revision: 1
 
-date_submitted: 2026-07-23
+date_submitted: 2026-08-03
 date_accepted: 
-date: 2026-07-23
+date: 2026-08-03
 
 doi: ""
 zenodo_url: ""
 revision_history:
   - version: 1
-    date: 2026-07-23
+    date: 2026-08-03
     notes: "Initial submission"
     # Optional: version-specific DOI / Zenodo record link
     doi: ""
     zenodo_url: ""
-
 ---
+
 {{< summary >}}
 **ENCODE GRAMMAR** (Genomic Regulatory Atlas of sequence Models, Motifs, Annotations and Rules) is a collection of 3,865 experiment-specific deep learning model sets and derived sequence annotations that connect the ENCODE project's human gene regulation maps from extensive biochemical profiling experiments to the underlying DNA sequence features that drive regulatory activity. 
 
