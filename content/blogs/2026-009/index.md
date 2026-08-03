@@ -22,7 +22,7 @@ tags: ["genomics", "AlphaGenome", "PyTorch", "development", "GPUs", "seq2func", 
 categories: ["Blog Post"]
 
 scope: ["insights"]
-audience: ["within-field"]
+audience: ["technical"]
 labs: ["Dias and Frazer lab"]
 
 status: "accepted"
