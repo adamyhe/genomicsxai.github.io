@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Pages on Genomics x AI</title><link>https://genomicsxai.github.io/previews/pr-110/page/</link><description>Recent content in Pages on Genomics x AI</description><generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Fri, 24 Jul 2026 10:07:27 -0400</lastBuildDate><atom:link href="https://genomicsxai.github.io/previews/pr-110/page/index.xml" rel="self" type="application/rss+xml"/><item><title>Submission Guidelines</title><link>https://genomicsxai.github.io/previews/pr-110/submission-guidelines/</link><pubDate>Fri, 01 May 2026 00:00:00 +0000</pubDate><guid>https://genomicsxai.github.io/previews/pr-110/submission-guidelines/</guid><description>&lt;h2 id="submit-your-blog-post"&gt;Submit Your Blog Post
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Pages on Genomics x AI</title><link>https://genomicsxai.github.io/previews/pr-110/page/</link><description>Recent content in Pages on Genomics x AI</description><generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Mon, 03 Aug 2026 11:08:31 -0700</lastBuildDate><atom:link href="https://genomicsxai.github.io/previews/pr-110/page/index.xml" rel="self" type="application/rss+xml"/><item><title>Submission Guidelines</title><link>https://genomicsxai.github.io/previews/pr-110/submission-guidelines/</link><pubDate>Fri, 01 May 2026 00:00:00 +0000</pubDate><guid>https://genomicsxai.github.io/previews/pr-110/submission-guidelines/</guid><description>&lt;h2 id="submit-your-blog-post"&gt;Submit Your Blog Post
 &lt;/h2&gt;&lt;p&gt;The Genomics × AI blog uses a light, non-gate keeping peer-review, Git-native
 workflow. There are &lt;strong&gt;two ways to submit a post&lt;/strong&gt; — both go through the same
 editorial review and produce the same final published post. Pick whichever
@@ -261,9 +261,9 @@ a branch, commits your files, and opens the PR on your behalf.&lt;/p&gt;
  &lt;div class="submit-form__field"&gt;
  &lt;label class="submit-form__label"&gt;Audience&lt;/label&gt;
  &lt;div class="submit-form__checkbox-group"&gt;
- &lt;label class="submit-form__checkbox"&gt;&lt;input type="checkbox" id="sf-audience-within-field" class="submit-form__editable"&gt; within-field&lt;/label&gt;
+ &lt;label class="submit-form__checkbox"&gt;&lt;input type="checkbox" id="sf-audience-technical" class="submit-form__editable"&gt; technical&lt;/label&gt;
  &lt;label class="submit-form__checkbox"&gt;&lt;input type="checkbox" id="sf-audience-general" class="submit-form__editable"&gt; general&lt;/label&gt;
- &lt;label class="submit-form__checkbox"&gt;&lt;input type="checkbox" id="sf-audience-intro-to-field" class="submit-form__editable"&gt; intro-to-field&lt;/label&gt;
+ &lt;label class="submit-form__checkbox"&gt;&lt;input type="checkbox" id="sf-audience-new-to-field" class="submit-form__editable"&gt; new-to-field&lt;/label&gt;
  &lt;/div&gt;
  &lt;div id="sf-error-audience" class="submit-form__field-error" hidden&gt;&lt;/div&gt;
  &lt;/div&gt;
@@ -495,7 +495,7 @@ Open your discussion and click &lt;strong&gt;Subscribe&lt;/strong&gt; for that t
 &lt;/h3&gt;&lt;ul&gt;
 &lt;li&gt;Fits the &lt;strong&gt;genomics × AI&lt;/strong&gt; remit&lt;/li&gt;
 &lt;li&gt;Declared &lt;strong&gt;&lt;code&gt;scope&lt;/code&gt;&lt;/strong&gt; (e.g. tutorials, protocols, insights, ideas, discussions, negative-results) matches the actual content&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;&lt;code&gt;audience&lt;/code&gt;&lt;/strong&gt; (within-field, general, intro-to-field) is plausible for the writing&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;&lt;code&gt;audience&lt;/code&gt;&lt;/strong&gt; (technical, general, new-to-field) is plausible for the writing&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;&lt;strong&gt;Decision rule:&lt;/strong&gt; If misaligned → reject or ask the author to reclassify early (update frontmatter and framing).&lt;/p&gt;
 &lt;h3 id="b-technical-soundness-lightweight"&gt;B. Technical soundness (lightweight)
