@@ -1,0 +1,15 @@
+# Canonical list of audience levels for genomics x AI, in the fixed display
+# order they should always appear in (not alphabetical, not by post count).
+# Single source of truth, shared between the homepage Audience pill row
+# (widget/category-pills.html) and the sidebar Audience dropdown filter
+# (widget/taxonomy-filters.html). The slug must match the urlized form of
+# the `audience` taxonomy value in post frontmatter (e.g. `audience: ["general"]`).
+
+- label: "New to field"
+  slug: "new-to-field"
+
+- label: "General"
+  slug: "general"
+
+- label: "Technical"
+  slug: "technical"

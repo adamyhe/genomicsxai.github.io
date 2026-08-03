@@ -17,7 +17,7 @@ tags: ["genomics", "AI", "community"]
 categories: ["Announcement"]
 
 scope: ["insights"]
-audience: ["within-field", "general"]
+audience: ["technical", "general"]
 labs: ["Genomics x AI"]
 
 status: "accepted"

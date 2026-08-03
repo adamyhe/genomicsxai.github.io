@@ -46,11 +46,11 @@ categories: ["Blog Post", "Tutorial"]
 
 # One or more: protocols, tutorials, negative-results, discussions, insights, ideas
 scope: ["insights", "tutorials"]
-# One or more: within-field, general, intro-to-field
-audience: ["within-field"]
+# One or more: technical, general, new-to-field
+audience: ["technical"]
 labs: ["Programmable Genomics Laboratory"]
 
-status: "submitted"
+status: "accepted"
 revision: 2
 
 date_submitted: 2026-07-13
