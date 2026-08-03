@@ -89,7 +89,7 @@ For quick and easy introduction to the latest ENCODE 4 deep learning models, we 
 
 ---
 > This post is one of a series of blogs we will be releasing on GRAMMAR (Genomic Regulatory Atlas of sequence Models, Motifs, Annotations and Rules). We plan to release the following posts:
-> 1. [ENCODE GRAMMAR: Decoding the sequence basis of gene regulation across ENCODE with thousands of light-weight deep learning models](../2026-012/index.md)
+> 1. [ENCODE GRAMMAR: The ENCODE deep learning model resource for decoding the DNA sequence logic of genomic regulatory elements](../2026-012/)
 > 1. **Quickstart: Accessing and using the ENCODE GRAMMAR collection (this post)**
 > 1. Interpreting regulatory DNA with deep learning models
 > 1. The transcription factor binding GRAMMAR resource 
