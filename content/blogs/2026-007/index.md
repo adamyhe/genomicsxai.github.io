@@ -21,7 +21,7 @@ tags: ["genomics","crispri","alphagenome","borzoi","enformer","ntv3","seq2func",
 categories: ["Blog Post"]
 
 scope: ["insights"]
-audience: ["within-field"]
+audience: ["technical"]
 labs: ["Koo lab"]
 
 status: "accepted"

@@ -77,7 +77,7 @@ editor: "Editor Name"
 tags: ["genomics", "foundation-models"]
 categories: ["Blog Post"]
 scope: ["insights"]
-audience: ["within-field"]
+audience: ["technical"]
 labs: ["Example Lab"]
 status: "accepted"
 revision: 2
@@ -118,7 +118,7 @@ Choices: **protocols**, **tutorials**, **negative-results**, **discussions**, **
 
 ### 4.4 Audience
 
-Within-field, general, intro-to-field.
+New to field, general, technical. Powers the homepage Audience filter.
 
 ### 4.5 Lab
 

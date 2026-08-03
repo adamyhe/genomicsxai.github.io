@@ -26,7 +26,7 @@
     // it only forwards POST bodies. See api/oauth/*.js.
     AUTH_BASE: 'https://genomicsxai-auth.vercel.app',
     SCOPE_OPTIONS: ['protocols', 'tutorials', 'negative-results', 'discussions', 'insights', 'ideas'],
-    AUDIENCE_OPTIONS: ['within-field', 'general', 'intro-to-field'],
+    AUDIENCE_OPTIONS: ['technical', 'general', 'new-to-field'],
     MAX_IMAGE_SIZE: 10 * 1024 * 1024, // 10 MB
     MAX_TOTAL_SIZE: 50 * 1024 * 1024,  // 50 MB
   };
