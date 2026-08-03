@@ -157,6 +157,15 @@
 [data-scheme="dark"] .filter-bar__dropdown-menu li a:hover {
   background: rgba(255, 255, 255, 0.06);
 }
+.filter-bar__dropdown-item--empty {
+  display: block;
+  padding: 6px 14px;
+  font-size: 1.2rem;
+  font-weight: 500;
+  color: var(--card-text-color-tertiary, #888);
+  opacity: 0.5;
+  cursor: not-allowed;
+}
 
 /* ── Action bar: 3-row layout, each button separate ── */
 .action-bar {
@@ -1905,6 +1914,29 @@ span.category-pills__pill {
 }
 .category-pills--disciplines .category-pills__group-label {
   color: var(--discipline-accent);
+  opacity: 0.85;
+}
+.category-pills--audience {
+  --audience-accent: #0f766e;
+  --audience-accent-text: #fff;
+}
+[data-scheme="dark"] .category-pills--audience {
+  --audience-accent: #2dd4bf;
+  --audience-accent-text: #0f172a;
+}
+.category-pills--audience .category-pills__pill:not(.category-pills__pill--empty):not([disabled]):hover {
+  color: var(--audience-accent);
+  border-color: var(--audience-accent);
+}
+.category-pills--audience .category-pills__pill--active,
+.category-pills--audience .category-pills__pill--active:hover {
+  background: var(--audience-accent);
+  color: var(--audience-accent-text);
+  border-color: var(--audience-accent);
+  opacity: 1;
+}
+.category-pills--audience .category-pills__group-label {
+  color: var(--audience-accent);
   opacity: 0.85;
 }
 

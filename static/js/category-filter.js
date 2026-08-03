@@ -1,4 +1,12 @@
 (function () {
+  // Maps each pill row's data-filter-group name to the data-* attribute on
+  // <article> elements that holds its values.
+  var GROUP_ATTR = {
+    category: 'data-categories',
+    discipline: 'data-tags',
+    audience: 'data-audience'
+  };
+
   var groups = document.querySelectorAll('.category-pills[data-filter-group]');
   if (!groups.length) return;
 
@@ -8,17 +16,16 @@
   // Track active filter per group (default 'all').
   var activeFilters = {};
 
-  // Pass 1: build sets of category + tag values that actually exist on visible
-  // articles, so we know which pills correspond to no posts and should be
+  // Pass 1: build a set of values that actually exist on visible articles per
+  // group, so we know which pills correspond to no posts and should be
   // greyed out.
-  var presentCategories = new Set();
-  var presentTags = new Set();
+  var presentByGroup = {};
+  Object.keys(GROUP_ATTR).forEach(function (g) { presentByGroup[g] = new Set(); });
   articles.forEach(function (article) {
-    (article.getAttribute('data-categories') || '').split(' ').forEach(function (t) {
-      if (t) presentCategories.add(t);
-    });
-    (article.getAttribute('data-tags') || '').split(' ').forEach(function (t) {
-      if (t) presentTags.add(t);
+    Object.keys(GROUP_ATTR).forEach(function (g) {
+      (article.getAttribute(GROUP_ATTR[g]) || '').split(' ').forEach(function (t) {
+        if (t) presentByGroup[g].add(t);
+      });
     });
   });
 
@@ -28,7 +35,7 @@
     var groupName = group.getAttribute('data-filter-group');
     activeFilters[groupName] = 'all';
 
-    var presentSet = groupName === 'discipline' ? presentTags : presentCategories;
+    var presentSet = presentByGroup[groupName] || new Set();
 
     var pills = group.querySelectorAll('.category-pills__pill');
     pills.forEach(function (pill) {
@@ -63,13 +70,11 @@
   function applyFilters() {
     var visibleCount = 0;
     articles.forEach(function (article) {
-      var cats = (article.getAttribute('data-categories') || '').split(' ');
-      var tags = (article.getAttribute('data-tags') || '').split(' ');
       var visible = true;
       Object.keys(activeFilters).forEach(function (group) {
         var f = activeFilters[group];
         if (f === 'all') return;
-        var pool = group === 'discipline' ? tags : cats;
+        var pool = (article.getAttribute(GROUP_ATTR[group]) || '').split(' ');
         if (pool.indexOf(f) === -1) visible = false;
       });
       article.hidden = !visible;
