@@ -133,11 +133,11 @@
   },
   "2026-007": {
     "conceptrecid": "20840269",
-    "current_revision": 1,
-    "current_doi": "10.5281/zenodo.20840270",
-    "current_doi_url": "https://doi.org/10.5281/zenodo.20840270",
-    "current_zenodo_url": "https://zenodo.org/records/20840270",
-    "current_deposition_id": 20840270,
+    "current_revision": 2,
+    "current_doi": "10.5281/zenodo.21383205",
+    "current_doi_url": "https://doi.org/10.5281/zenodo.21383205",
+    "current_zenodo_url": "https://zenodo.org/records/21383205",
+    "current_deposition_id": 21383205,
     "revisions": {
       "1": {
         "doi": "10.5281/zenodo.20840270",
@@ -147,6 +147,15 @@
         "record_id": 20840270,
         "date": "2026-05-21",
         "notes": "Initial submission"
+      },
+      "2": {
+        "doi": "10.5281/zenodo.21383205",
+        "doi_url": "https://doi.org/10.5281/zenodo.21383205",
+        "zenodo_url": "https://zenodo.org/records/21383205",
+        "deposition_id": 21383205,
+        "record_id": 21383205,
+        "date": "2026-07-15",
+        "notes": "Corrected Enformer CRISPRi readout: the cropped model output was indexed with an input-coordinate bin without subtracting the 320-bin (40,960 bp) crop, so the CAGE readout landed ~41 kb off the TSS on background signal. Fix reads the promoter bin. Updates Enformer's correlations and the four figures containing Enformer; Borzoi, NTv3, and AlphaGenome numbers are unchanged."
       }
     }
   },
@@ -166,6 +175,63 @@
         "record_id": 20347358,
         "date": "2026-05-22",
         "notes": "Initial Zenodo community token validation post"
+      }
+    }
+  },
+  "2026-009": {
+    "conceptrecid": "21535144",
+    "current_revision": 3,
+    "current_doi": "10.5281/zenodo.21535145",
+    "current_doi_url": "https://doi.org/10.5281/zenodo.21535145",
+    "current_zenodo_url": "https://zenodo.org/records/21535145",
+    "current_deposition_id": 21535145,
+    "revisions": {
+      "3": {
+        "doi": "10.5281/zenodo.21535145",
+        "doi_url": "https://doi.org/10.5281/zenodo.21535145",
+        "zenodo_url": "https://zenodo.org/records/21535145",
+        "deposition_id": 21535145,
+        "record_id": 21535145,
+        "date": "2026-07-24",
+        "notes": "Addressed reviewer/editor feedback: clarified trans-acting SF3B1/identical WT-mutant sequence input, coverage binning no-op, annotated vs. predicted junction positions, and compute footprint; reworked debugging section structure and the fine-tuning recipe; expanded figure legends."
+      }
+    }
+  },
+  "2026-010": {
+    "conceptrecid": "21535148",
+    "current_revision": 1,
+    "current_doi": "10.5281/zenodo.21535149",
+    "current_doi_url": "https://doi.org/10.5281/zenodo.21535149",
+    "current_zenodo_url": "https://zenodo.org/records/21535149",
+    "current_deposition_id": 21535149,
+    "revisions": {
+      "1": {
+        "doi": "10.5281/zenodo.21535149",
+        "doi_url": "https://doi.org/10.5281/zenodo.21535149",
+        "zenodo_url": "https://zenodo.org/records/21535149",
+        "deposition_id": 21535149,
+        "record_id": 21535149,
+        "date": "2026-06-23",
+        "notes": "Initial submission"
+      }
+    }
+  },
+  "2026-011": {
+    "conceptrecid": "21535160",
+    "current_revision": 2,
+    "current_doi": "10.5281/zenodo.21535161",
+    "current_doi_url": "https://doi.org/10.5281/zenodo.21535161",
+    "current_zenodo_url": "https://zenodo.org/records/21535161",
+    "current_deposition_id": 21535161,
+    "revisions": {
+      "2": {
+        "doi": "10.5281/zenodo.21535161",
+        "doi_url": "https://doi.org/10.5281/zenodo.21535161",
+        "zenodo_url": "https://zenodo.org/records/21535161",
+        "deposition_id": 21535161,
+        "record_id": 21535161,
+        "date": "2026-07-13",
+        "notes": "Minor revisions"
       }
     }
   }

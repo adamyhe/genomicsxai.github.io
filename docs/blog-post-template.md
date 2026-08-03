@@ -86,3 +86,22 @@ Maintainers can also populate DOI metadata automatically at deploy time via `dat
 See [BLOG_SPEC.md](./BLOG_SPEC.md) for full frontmatter and tag options.
 
 ## References
+
+End every post with a numbered References section citing the primary literature
+it builds on, giving each entry a DOI or publisher link where one exists:
+
+```markdown
+## References
+
+1. Avsec, Ž. et al. Advancing regulatory variant effect prediction with AlphaGenome. *Nature*, 649, 1206–1218 (2026). https://doi.org/10.1038/s41586-025-10014-0
+2. Linder, J. et al. Predicting RNA-seq coverage from DNA sequence as a unifying model of gene regulation. *Nature Genetics*, 57, 949–961 (2025). https://doi.org/10.1038/s41588-024-02053-6
+```
+
+This is not required for acceptance, but it appears to matter for whether the
+post shows up in Google Scholar. Scholar only indexes documents it classifies
+as scholarly articles, and a bibliography seems to be one of the signals it
+uses. We can't see Google's classifier, so treat this as an observation rather
+than a rule — but across our own posts, the ones with DOI-linked reference
+lists were indexed and the ones without were not, independent of length or
+publication date. See the [submission
+guidelines](https://genomicsxai.github.io/submission-guidelines/#why-references-matter-for-google-scholar).

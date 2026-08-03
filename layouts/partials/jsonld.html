@@ -33,8 +33,8 @@
   ],
   "publisher": {
     "@type": "Organization",
-    "name": "Genomics × AI Blog",
-    "url": "https://genomicsxai.github.io"
+    "name": "{{ site.Data.blog.blog_name | default "Genomics x AI Blog" | htmlEscape }}",
+    "url": "{{ site.Data.blog.base_url | default "https://genomicsxai.github.io" }}"
   },
   {{ with $doi }}
   "identifier": "https://doi.org/{{ . }}",

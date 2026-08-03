@@ -10,6 +10,16 @@ name: Credit PR reviewers
 # `editor:` is a metadata-only field (not rendered on the site), stored as a
 # YAML flow list, e.g. `editor: ["dwgoblue", "Al-Murphy"]`. A legacy single
 # string value is migrated to a one-item list the first time it is touched.
+#
+# This workflow also stamps `date:` (the homepage sort key) with the publish
+# date = the PR merge date, but only for posts newly ADDED by the PR, so
+# "first published" ordering stays correct without manual date-keeping.
+#
+# Finally, it flips `status: "submitted"` -> `"accepted"` on any changed post,
+# marking it published. This is what lets the deploy-time Zenodo sync mint a
+# DOI: sync-zenodo-dois.rb skips posts that aren't `accepted`, so a post merged
+# while still `submitted` would otherwise go live without one. Only `submitted`
+# is touched — `withdrawn` and `accepted` are left as-is.
 
 on:
   pull_request_target:
@@ -39,6 +49,9 @@ jobs:
       - uses: actions/checkout@v4
         with:
           ref: main
+          # Deploy key so the credit commit can push to the protected main branch
+          # (the ruleset bypasses deploy keys; github.token cannot push to main).
+          ssh-key: ${{ secrets.CI_DEPLOY_KEY }}
 
       - name: Credit reviewers on changed blog posts
         env:
@@ -138,9 +151,115 @@ jobs:
               print(f"{path}: credited {to_add}")
           PYEOF
 
-      - name: Commit and push
+      # Stamp `date:` (the field the homepage orders by) with the actual publish
+      # date = the PR merge date, but ONLY for posts newly ADDED by this PR. This
+      # keeps "first published" ordering correct without relying on authors
+      # setting date by hand. Edits/re-merges never touch an existing post's date.
+      - name: Set publish date on newly added posts
         env:
           GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+          PR: ${{ github.event.pull_request.number || github.event.inputs.pr }}
+        run: |
+          python3 - <<'PYEOF'
+          import os, re, subprocess
+
+          repo = os.environ["REPO"]
+          pr = os.environ["PR"]
+
+          def gh(path, jq):
+              return subprocess.run(
+                  ["gh", "api", "--paginate", path, "-q", jq],
+                  capture_output=True, text=True, check=True,
+              ).stdout
+
+          merged_at = gh(f"/repos/{repo}/pulls/{pr}", ".merged_at").strip()
+          if not merged_at or merged_at == "null":
+              print("PR is not merged — skipping publish-date step.")
+              raise SystemExit(0)
+          pub_date = merged_at[:10]  # YYYY-MM-DD
+
+          added = [f.strip() for f in
+                   gh(f"/repos/{repo}/pulls/{pr}/files",
+                      '.[] | select(.status=="added") | .filename').splitlines()
+                   if re.match(r"^content/blogs/[^/]+/index\.md$", f.strip())]
+          if not added:
+              print("No newly added blog posts in this PR — nothing to date.")
+              raise SystemExit(0)
+
+          for path in added:
+              if not os.path.exists(path):
+                  continue
+              with open(path, encoding="utf-8") as f:
+                  text = f.read()
+              # Match only the top-level `date:` line (revision_history dates are
+              # indented; date_submitted/date_accepted have a different key).
+              m = re.search(r"^(date:[ \t]*)(.*)$", text, re.MULTILINE)
+              if not m:
+                  print(f"WARNING: no date: field in {path}, skipping.")
+                  continue
+              current = m.group(2).strip()
+              if current == pub_date:
+                  print(f"{path}: date already {pub_date}.")
+                  continue
+              text = text[:m.start()] + m.group(1) + pub_date + text[m.end():]
+              with open(path, "w", encoding="utf-8") as f:
+                  f.write(text)
+              print(f"{path}: set date -> {pub_date} (was {current or 'empty'})")
+          PYEOF
+
+      # Mark merged posts as published. The deploy-time Zenodo sync only mints a
+      # DOI for posts with status: "accepted" (sync-zenodo-dois.rb), so a post
+      # merged while still "submitted" goes live without a DOI. Flip it here.
+      # Only "submitted" is touched — "withdrawn" and "accepted" are left alone.
+      - name: Mark merged posts as accepted
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+          PR: ${{ github.event.pull_request.number || github.event.inputs.pr }}
+        run: |
+          python3 - <<'PYEOF'
+          import os, re, subprocess
+
+          repo = os.environ["REPO"]
+          pr = os.environ["PR"]
+
+          def gh(path, jq):
+              return subprocess.run(
+                  ["gh", "api", "--paginate", path, "-q", jq],
+                  capture_output=True, text=True, check=True,
+              ).stdout
+
+          changed = [f.strip() for f in
+                     gh(f"/repos/{repo}/pulls/{pr}/files", ".[].filename").splitlines()
+                     if re.match(r"^content/blogs/[^/]+/index\.md$", f.strip())]
+          if not changed:
+              print("No blog posts changed in this PR — nothing to mark accepted.")
+              raise SystemExit(0)
+
+          for path in changed:
+              if not os.path.exists(path):
+                  continue
+              with open(path, encoding="utf-8") as f:
+                  text = f.read()
+              # Only the top-level `status:` line. revision_history entries carry
+              # no status key, and would be indented even if they did, so an
+              # anchored ^status: match can't touch them.
+              m = re.search(r"^(status:[ \t]*)(.*)$", text, re.MULTILINE)
+              if not m:
+                  print(f"WARNING: no status: field in {path}, skipping.")
+                  continue
+              value = m.group(2).strip().strip('"').strip("'")
+              if value != "submitted":
+                  print(f"{path}: status is {value!r}, leaving unchanged.")
+                  continue
+              text = text[:m.start()] + m.group(1) + '"accepted"' + text[m.end():]
+              with open(path, "w", encoding="utf-8") as f:
+                  f.write(text)
+              print(f"{path}: status submitted -> accepted")
+          PYEOF
+
+      - name: Commit and push
         run: |
           if [ -z "$(git status --porcelain -- content/blogs)" ]; then
             echo "No frontmatter changes to commit."
@@ -149,7 +268,7 @@ jobs:
           PR="${{ github.event.pull_request.number || github.event.inputs.pr }}"
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git remote set-url origin "https://x-access-token:${GH_TOKEN}@github.com/${{ github.repository }}.git"
+          # origin is an SSH remote (deploy key from checkout above); pushes to main.
           git add content/blogs/*/index.md
-          git commit -m "chore: credit reviewers on merged PR #${PR}"
-          git push
+          git commit -m "chore: post-merge frontmatter for PR #${PR} (reviewers, publish date, status)"
+          git push origin HEAD:main

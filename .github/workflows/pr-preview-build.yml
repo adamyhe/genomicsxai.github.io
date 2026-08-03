@@ -1,0 +1,147 @@
+name: PR Preview Build
+
+# Stage 1 of 2. Builds the preview site from the PR's (untrusted) code.
+#
+# This runs on `pull_request`, not `pull_request_target`, so for fork PRs the job
+# gets a read-only GITHUB_TOKEN and no access to secrets. Untrusted code is
+# therefore never built in a trusted context, which is the "pwn request" class of
+# vulnerability that actions/checkout now refuses to allow under
+# `pull_request_target`.
+#
+# The built site and the metadata needed to publish it are handed to
+# "PR Preview Deploy" via an artifact. That workflow holds the write permissions
+# and never checks out PR code.
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+    paths:
+      - 'content/**'
+      - 'layouts/**'
+      - 'static/**'
+      - 'data/**'
+      - 'docs/**'
+      - '.gitignore'
+
+concurrency:
+  group: pr-preview-${{ github.event.number }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout PR
+        uses: actions/checkout@v4
+        with:
+          submodules: true
+          fetch-depth: 0
+
+      # The preview URL is derived from the PR number, so the deploy stage needs
+      # to know it. `github.event.workflow_run.pull_requests` is empty for fork
+      # PRs, so it has to travel through the artifact instead.
+      - name: Record PR number
+        run: |
+          mkdir -p preview-meta
+          echo "${{ github.event.number }}" > preview-meta/pr-number.txt
+
+      # Previews are only published for PRs that stick to content-shaped paths.
+      # With the build/deploy split this is no longer a security boundary — it
+      # just keeps infra-only changes (config.toml, CI scripts) from being
+      # published as if they were a post preview.
+      - name: Check PR only modifies previewable paths
+        id: safety
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          FILES=$(gh api "repos/${{ github.repository }}/pulls/${{ github.event.number }}/files" \
+            --paginate --jq '.[].filename')
+
+          UNSAFE=$(echo "$FILES" | grep -v '^[[:space:]]*$' \
+            | grep -v '^content/' \
+            | grep -v '^layouts/' \
+            | grep -v '^static/' \
+            | grep -v '^data/' \
+            | grep -v '^docs/' \
+            | grep -v '^\.gitignore$' \
+            || true)
+
+          if [ -n "$UNSAFE" ]; then
+            echo "safe=false" >> "$GITHUB_OUTPUT"
+            printf 'false\n' > preview-meta/safe.txt
+            printf '%s\n' "$UNSAFE" > preview-meta/offending-files.txt
+            echo "PR modifies files outside previewable paths:"
+            printf '%s\n' "$UNSAFE"
+          else
+            echo "safe=true" >> "$GITHUB_OUTPUT"
+            printf 'true\n' > preview-meta/safe.txt
+            : > preview-meta/offending-files.txt
+          fi
+
+      - name: Setup Hugo
+        if: steps.safety.outputs.safe == 'true'
+        uses: peaceiris/actions-hugo@v3
+        with:
+          extended: true
+
+      - name: Detect changed blog posts
+        if: steps.safety.outputs.safe == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          BASE_URL="https://genomicsxai.github.io/previews/pr-${{ github.event.number }}"
+          SLUGS=$(gh api "repos/${{ github.repository }}/pulls/${{ github.event.number }}/files" \
+            --paginate --jq '[.[].filename
+              | select(test("^content/blogs/[^/]+/"))
+              | capture("content/blogs/(?P<slug>[^/]+)/").slug
+            ] | unique | .[]')
+
+          : > preview-meta/links.md
+          for slug in $SLUGS; do
+            # Slugs come from PR-controlled filenames and end up in a PR comment,
+            # so allow only the directory-name charset we actually use.
+            case "$slug" in
+              *[!A-Za-z0-9._-]*)
+                echo "Skipping slug with unexpected characters: $slug"
+                continue
+                ;;
+            esac
+            echo "- [${slug}](${BASE_URL}/blogs/${slug}/)" >> preview-meta/links.md
+          done
+
+          cat preview-meta/links.md
+
+      - name: Build preview site
+        if: steps.safety.outputs.safe == 'true'
+        run: |
+          # Stub out data files generated at full-deploy time
+          echo '{}' > data/discussions.json
+          echo '[]' > data/editors.json
+          hugo --minify \
+               --environment preview \
+               --baseURL "https://genomicsxai.github.io/previews/pr-${{ github.event.number }}/"
+
+      # Stage into a single directory so the artifact's internal layout is the
+      # same whether or not the site was built. upload-artifact derives the
+      # archive root from the common ancestor of the matched files, so passing
+      # `public/` and `preview-meta/` as two paths would silently flatten the
+      # tree on the skip path, where only `preview-meta/` exists.
+      - name: Stage artifact
+        run: |
+          mkdir -p upload
+          mv preview-meta upload/preview-meta
+          if [ -d public ]; then
+            mv public upload/public
+          fi
+          find upload -maxdepth 2 -type d
+
+      - name: Upload preview artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: pr-preview
+          path: upload/
+          if-no-files-found: error
+          retention-days: 1

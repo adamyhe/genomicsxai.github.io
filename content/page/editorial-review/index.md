@@ -12,6 +12,30 @@ Ensure posts are **accurate, readable, appropriately tagged, and safe to publish
 
 ---
 
+## What happens automatically (so you don't have to)
+
+Almost all of the mechanical work around a post is handled by CI. Your job is the **quality review** in the sections below — you do **not** need to edit frontmatter, set dates, change a post's status, mint DOIs, or set up its comment thread by hand. If you notice one of these fields is wrong on an incoming PR, fix it or ask the author, but you never have to touch them just to get a post published.
+
+**While a PR is open** (re-runs on every push to the PR):
+
+* **Build check** — the site is rebuilt to confirm the post compiles.
+* **Frontmatter validation** — required fields and formatting are checked.
+* **Link check** — broken links are flagged.
+* **Preview deployment** — an unlisted preview of the post (`noindex`, not linked from the blog) is built and its URL posted as a PR comment. It updates on each new commit and is deleted when the PR closes.
+
+**When the PR is merged:**
+
+* **Reviewer credit** — every editor who engaged with the PR (a formal review, a review comment, or a conversation comment) is added to the post's `editor:` list. Only `@genomicsxai/editors` members are credited, so authors and other commenters never are. See [§3](#3-review-outcomes).
+* **Publish date** — `date:` (the field the homepage orders by) is stamped with the merge date, for newly added posts, so "first published" ordering stays correct.
+* **Acceptance** — `status:` is flipped from `submitted` to `accepted`. A post already marked `withdrawn` or `accepted` is left untouched.
+* **Zenodo DOI** — each accepted post is issued a Zenodo DOI (or a new version, for an update), recorded in `data/zenodo.json` and shown in its citation box. This only happens once the post is `accepted` — which is why the automatic flip above matters. See [§1H](#h-references-and-google-scholar-indexing).
+* **GitHub Discussion** — a discussion thread is created to back the post's comments and likes.
+* **Google Scholar metadata + publish** — Scholar/Highwire metadata is emitted and the site is rebuilt and deployed.
+
+**What this leaves for you:** the review itself — scope, correctness, clarity, tagging, and safety ([§1](#1-core-review-dimensions)); the executive summary ([§2](#2-executive-summary-requirement)); and a recommendation ([§3](#3-review-outcomes)). That's it.
+
+---
+
 ## 1. Core review dimensions
 
 ### A. Scope and relevance (fast gate)
@@ -94,6 +118,18 @@ False positives are usually obvious (the word `onclick` inside a fenced code blo
 
 Until the site moves the OAuth token to an HttpOnly cookie or adopts a strict CSP, this check is the only thing standing between a malicious submission and every signed-in reader's GitHub account.
 
+### H. References and Google Scholar indexing
+
+* A **References section** is present at the end of the post
+* References are **numbered** and cite the primary literature, with a **DOI or publisher link** per entry wherever one exists
+* Inline links to blog posts, repos, or docs are welcome, but they do **not** substitute for a bibliography of the papers the work builds on
+
+**Why this matters:** every accepted post emits Google Scholar (Highwire) metadata and gets a Zenodo DOI, so posts are eligible to appear in Google Scholar. But Scholar does not index everything it can crawl — it only includes documents its parser classifies as *scholarly articles*, and a reference list is a primary signal it uses to tell a research article apart from an ordinary web page.
+
+To be clear, this is **an observation, not a documented rule** — we cannot see Google's classifier. What we have noticed is that, of our accepted posts, the ones carrying a substantial DOI-linked bibliography were picked up by Scholar, while posts with no references (or a single unlinked one) were not, even when they were long, older, and otherwise well-formed. Post length and publication date did not predict inclusion; the reference list did.
+
+**Decision rule:** treat a missing or token References section as a change request, not a blocker. Ask the author to add the papers the post already builds on. A post can still be accepted without one — it will simply be much less likely to surface in Scholar.
+
 ---
 
 ## 2. Executive summary requirement
@@ -157,6 +193,7 @@ Editors choose one:
 * [ ] Clear takeaway or value
 * [ ] Appropriate level for audience
 * [ ] References and links included where needed
+* [ ] **References section present**, numbered, with DOI/publisher links — needed for the post to appear in Google Scholar (see [§1H](#h-references-and-google-scholar-indexing))
 * [ ] Formatting clean
 
 ---

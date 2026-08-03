@@ -1,0 +1,123 @@
+name: PR Preview Deploy
+
+# Stage 2 of 2. Publishes the site built by "PR Preview Build" and comments on
+# the PR.
+#
+# This workflow holds the write permissions, so it must never execute PR code.
+# It only downloads the artifact produced by stage 1 — there is no checkout of
+# the PR head anywhere in this file.
+#
+# Note: `workflow_run` workflows are always taken from the default branch, so
+# edits to this file only take effect once merged to main.
+on:
+  workflow_run:
+    workflows: ["PR Preview Build"]
+    types: [completed]
+
+concurrency:
+  # Serialised across all PRs: every job here pushes to gh-pages, and concurrent
+  # pushes to the same branch race each other.
+  group: pr-preview-deploy
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+  pull-requests: write
+  actions: read
+
+jobs:
+  deploy:
+    if: github.event.workflow_run.conclusion == 'success'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Download preview artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: pr-preview
+          path: artifact
+          run-id: ${{ github.event.workflow_run.id }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Read preview metadata
+        id: meta
+        run: |
+          PR_NUMBER=$(cat artifact/preview-meta/pr-number.txt)
+          SAFE=$(cat artifact/preview-meta/safe.txt)
+
+          # PR_NUMBER controls the gh-pages destination directory. It is written
+          # by trusted workflow code, but it crosses an artifact boundary from a
+          # job that ran untrusted code, so re-validate it before use.
+          case "$PR_NUMBER" in
+            ''|*[!0-9]*)
+              echo "::error::Refusing to deploy: PR number '$PR_NUMBER' is not numeric"
+              exit 1
+              ;;
+          esac
+
+          echo "pr_number=$PR_NUMBER" >> "$GITHUB_OUTPUT"
+          echo "safe=$SAFE" >> "$GITHUB_OUTPUT"
+
+          {
+            echo "links<<PREVIEW_EOF"
+            cat artifact/preview-meta/links.md 2>/dev/null || true
+            echo "PREVIEW_EOF"
+            echo "offending_files<<PREVIEW_EOF"
+            cat artifact/preview-meta/offending-files.txt 2>/dev/null || true
+            echo "PREVIEW_EOF"
+          } >> "$GITHUB_OUTPUT"
+
+      - name: Deploy preview to gh-pages
+        if: steps.meta.outputs.safe == 'true'
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./artifact/public
+          publish_branch: gh-pages
+          destination_dir: previews/pr-${{ steps.meta.outputs.pr_number }}
+          keep_files: true
+
+      - name: "Comment: preview ready"
+        if: steps.meta.outputs.safe == 'true'
+        uses: marocchino/sticky-pull-request-comment@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          header: preview-deployment
+          number: ${{ steps.meta.outputs.pr_number }}
+          message: |
+            ## Preview Deployment Ready
+
+            **Preview URL:** https://genomicsxai.github.io/previews/pr-${{ steps.meta.outputs.pr_number }}/
+
+            Posts in this PR:
+            ${{ steps.meta.outputs.links }}
+            > Not indexed by search engines and not linked from the main blog.
+            > Updated automatically on each new commit. Deleted when the PR is closed.
+
+      - name: "Comment: preview skipped"
+        if: steps.meta.outputs.safe == 'false'
+        uses: marocchino/sticky-pull-request-comment@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          header: preview-deployment
+          number: ${{ steps.meta.outputs.pr_number }}
+          message: |
+            ## Preview Deployment Skipped
+
+            This PR modifies files outside the previewable paths. Preview deployment is only available for PRs that exclusively touch:
+
+            - `content/` — blog posts and static pages
+            - `layouts/` — Hugo templates
+            - `static/` — static assets
+            - `data/` — Hugo data files (YAML/JSON used by templates)
+            - `docs/` — documentation
+            - `.gitignore`
+
+            **Files detected outside previewable paths:**
+            ```
+            ${{ steps.meta.outputs.offending_files }}
+            ```
+
+            If your PR needs to modify `config.toml`, `.github/workflows/`, or other infra files, it must be reviewed and merged without a preview deployment.

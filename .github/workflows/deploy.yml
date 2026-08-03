@@ -6,6 +6,9 @@ on:
       - main
     paths-ignore:
       - 'data/zenodo.json'
+  # Allow manual redeploys (e.g. to refresh the editorial board after a GitHub
+  # team change, which does not itself push to main).
+  workflow_dispatch:
 
 concurrency:
   group: deploy-main
@@ -48,6 +51,21 @@ jobs:
           chmod +x .github/scripts/export-blog-discussion-urls.sh
           ./.github/scripts/export-blog-discussion-urls.sh
 
+      # 2.45. Restore the persisted editors ledger from its dedicated branch so
+      # past editors survive across deploys. The default branch is protected by a
+      # ruleset, so the ledger lives on the unprotected `editors-ledger` branch.
+      - name: Restore editors ledger
+        continue-on-error: true
+        run: |
+          git fetch origin editors-ledger --depth=1 2>/dev/null || true
+          if git show origin/editors-ledger:editors.json > data/editors.json.tmp 2>/dev/null; then
+            mv data/editors.json.tmp data/editors.json
+            echo "Restored editors ledger from editors-ledger branch."
+          else
+            rm -f data/editors.json.tmp
+            echo "No editors-ledger branch yet; starting from the in-repo data/editors.json."
+          fi
+
       # 2.5. Fetch editorial board from GitHub team (optional: set GH_EDITORS_TOKEN with read:org)
       - name: Fetch editors from GitHub team
         env:
@@ -57,6 +75,37 @@ jobs:
         run: |
           chmod +x .github/scripts/fetch-editors.sh
           ./.github/scripts/fetch-editors.sh
+
+      # 2.5b. Persist the updated ledger to its dedicated branch. Uses only the
+      # built-in token (no PAT/deploy key needed — the ruleset only guards the
+      # default branch) and is non-fatal so it can never break a deploy.
+      - name: Persist editors ledger
+        continue-on-error: true
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          WORK="$(mktemp -d)"
+          git fetch origin editors-ledger 2>/dev/null || true
+          if git show-ref --verify --quiet refs/remotes/origin/editors-ledger; then
+            git worktree add "$WORK" origin/editors-ledger
+            git -C "$WORK" checkout -B editors-ledger
+          else
+            git worktree add --detach "$WORK"
+            git -C "$WORK" checkout --orphan editors-ledger
+            git -C "$WORK" rm -rf . >/dev/null 2>&1 || true
+          fi
+          cp "$GITHUB_WORKSPACE/data/editors.json" "$WORK/editors.json"
+          git -C "$WORK" add editors.json
+          if git -C "$WORK" diff --cached --quiet; then
+            echo "Editors ledger unchanged; nothing to persist."
+          else
+            git -C "$WORK" commit -m "chore: sync editors ledger"
+            git -C "$WORK" push origin editors-ledger
+            echo "Persisted editors ledger to editors-ledger branch."
+          fi
+          git worktree remove --force "$WORK" 2>/dev/null || true
 
       # 2.6. Sync Zenodo DOI metadata for accepted blog posts changed in this push
       - name: Detect changed blog posts
@@ -105,21 +154,74 @@ jobs:
           chmod +x .github/scripts/sync-zenodo-dois.rb
           ruby .github/scripts/sync-zenodo-dois.rb $(tr '\n' ' ' < /tmp/changed-blog-posts.txt)
 
+      # Push over SSH with the repo deploy key, which bypasses the protected-
+      # branch PR ruleset. Non-fatal: a persistence failure must never break the
+      # deploy. But it must not be SILENT either — a dropped commit here means
+      # freshly-minted Zenodo DOIs never get recorded, and the next sync, seeing
+      # an empty store, would mint DUPLICATE depositions. So on rejection we
+      # rebase our single data-file commit onto the latest main and retry (the
+      # push races against PR merges, which can advance main during the ~minute
+      # the Zenodo API calls take), and if it still can't land we upload the
+      # metadata as an artifact and fail loudly via an error annotation.
       - name: Commit Zenodo metadata
+        id: commit_zenodo
         if: steps.changed_blogs.outputs.count != '0'
+        continue-on-error: true
         env:
-          GH_TOKEN: ${{ secrets.GH_CONTENTS_WRITE_TOKEN || github.token }}
+          DEPLOY_KEY: ${{ secrets.CI_DEPLOY_KEY }}
+          REPO: ${{ github.repository }}
         run: |
           if [ -z "$(git status --porcelain -- data/zenodo.json)" ]; then
             echo "No Zenodo metadata changes to commit."
             exit 0
           fi
+          if [ -z "$DEPLOY_KEY" ]; then
+            echo "CI_DEPLOY_KEY not set; skipping Zenodo commit."
+            exit 0
+          fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git remote set-url origin "https://x-access-token:${GH_TOKEN}@github.com/${{ github.repository }}.git"
+          mkdir -p ~/.ssh && chmod 700 ~/.ssh
+          printf '%s\n' "$DEPLOY_KEY" > ~/.ssh/ci_deploy_key
+          chmod 600 ~/.ssh/ci_deploy_key
+          ssh-keyscan -t ed25519 github.com >> ~/.ssh/known_hosts 2>/dev/null
+          export GIT_SSH_COMMAND="ssh -i ~/.ssh/ci_deploy_key -o IdentitiesOnly=yes"
+          REMOTE="git@github.com:${REPO}.git"
+
           git add data/zenodo.json
           git commit -m "chore: sync Zenodo DOI metadata"
-          git push
+
+          # Retry with rebase: if main advanced (e.g. a PR merged) while Zenodo
+          # was minting, a plain push is rejected non-fast-forward. Replay our
+          # single zenodo.json commit onto the new tip and push again. zenodo.json
+          # is the only file we touch, so this is conflict-free in practice; a
+          # genuine conflict aborts the rebase and ends the loop.
+          pushed=""
+          for attempt in 1 2 3 4 5; do
+            if git push "$REMOTE" HEAD:main; then
+              echo "Pushed Zenodo metadata (attempt ${attempt})."
+              pushed=1
+              break
+            fi
+            echo "Push rejected on attempt ${attempt}; rebasing onto latest main…"
+            git fetch "$REMOTE" main || break
+            git rebase FETCH_HEAD || { git rebase --abort 2>/dev/null || true; break; }
+          done
+
+          if [ -z "$pushed" ]; then
+            echo "::error::Failed to persist data/zenodo.json after minting Zenodo DOIs. The metadata is attached as the 'zenodo-metadata-unpushed' artifact — commit it to main by hand. Do NOT re-run the sync against the current main, as it would mint duplicate depositions."
+            exit 1
+          fi
+
+      # Safety net: if the commit above couldn't land, keep the minted-but-
+      # unpushed metadata so it can be recovered without re-minting duplicates.
+      - name: Upload unpushed Zenodo metadata
+        if: steps.commit_zenodo.outcome == 'failure'
+        uses: actions/upload-artifact@v4
+        with:
+          name: zenodo-metadata-unpushed
+          path: data/zenodo.json
+          retention-days: 7
 
       # 3. Build the Hugo site
       - name: Build

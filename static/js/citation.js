@@ -64,7 +64,7 @@
       var bib = '@article{' + (d.postId || 'post') +
         ',\n  author = {' + authors + '}' +
         ',\n  title = {' + titleBib + '}' +
-        ',\n  journal = {' + (d.blogName || 'Genomics × AI Blog') + '}' +
+        ',\n  journal = {' + (d.blogName || 'Genomics x AI Blog') + '}' +
         ',\n  year = {' + (d.year || '') + '}' +
         (d.dateIso ? ',\n  date = {' + d.dateIso + '}' : '') +
         (d.url ? ',\n  url = {' + d.url + '}' : '') +
@@ -76,7 +76,7 @@
       var ris = 'TY  - BLOG\n';
       if (d.authors && d.authors.length) d.authors.forEach(function(a) { ris += 'AU  - ' + a + '\n'; });
       ris += 'TI  - ' + (d.title || '') + '\n';
-      ris += 'JO  - ' + (d.blogName || 'Genomics × AI Blog') + '\n';
+      ris += 'JO  - ' + (d.blogName || 'Genomics x AI Blog') + '\n';
       ris += 'PY  - ' + (d.year || '') + '\n';
       if (d.dateIso) ris += 'DA  - ' + d.dateIso.replace(/-/g, '/') + '\n';
       if (d.url) ris += 'UR  - ' + d.url + '\n';

@@ -1,7 +1,9 @@
 # Site-wide blog configuration (optional).
 # Used for shared settings, e.g. blog name, default license.
 
-blog_name: "Genomics × AI Blog"
+# ASCII "x", not "×" (U+00D7): Google Scholar's venue-name normalizer drops the
+# space before "×", indexing the venue as "Genomics× AI Blog" in every export.
+blog_name: "Genomics x AI Blog"
 base_url: "https://genomicsxai.github.io"
 discussions_url: "https://github.com/genomicsxai/genomicsxai.github.io/discussions"
 buttondown_username: "aemurphy1994"

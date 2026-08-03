@@ -94,9 +94,38 @@ Both options lead to the same review pipeline:
 - There are no strict stylistic requirements, but posts should be clear,
   accessible, and engaging for a broad scientific audience.
 - Use headings, figures, and examples where helpful.
-- Cite prior work via hyperlinks or formal inline citations; a references
-  section at the end is encouraged.
+- Cite prior work via hyperlinks or formal inline citations, and **include a
+  numbered References section at the end**, with a DOI or publisher link for
+  each entry wherever one exists. See [Why references matter for Google
+  Scholar](#why-references-matter-for-google-scholar) below.
 - Ensure claims are supported by appropriate sources.
+
+## Why references matter for Google Scholar
+
+Every accepted post is assigned a [Zenodo](https://zenodo.org/) DOI and
+publishes Google Scholar metadata, so your post is eligible to appear in
+Google Scholar and to be cited like any other article. Getting listed there is
+one of the main reasons to publish with us rather than on a personal blog.
+
+Scholar does not index everything it can crawl, though. It only includes
+documents its parser judges to be *scholarly articles*, and a reference list
+appears to be one of the signals it uses to tell a research article apart from
+an ordinary web page.
+
+We want to be upfront that **this is something we have observed, not a
+documented rule** — Google does not publish the details of how this decision is
+made. What we have seen across our own posts is that the ones with a
+substantial, DOI-linked bibliography were picked up by Scholar, while posts
+with no references (or a single unlinked one) were not, even when they were
+long, published earlier, and otherwise complete. Length and publication date
+did not predict inclusion; the reference list did.
+
+So: a References section is not a hard requirement for acceptance, and a post
+without one can still be published. But if you would like your post to be
+discoverable and citable in Google Scholar, cite the primary literature your
+work builds on and give each entry a DOI. Even if Scholar has already crawled
+your post, adding references later is worthwhile — it will be reconsidered on a
+future crawl, though this can take weeks.
 
 ## What editors look for
 

@@ -41,8 +41,24 @@ def expected_publication_date(fm)
   Date.parse(raw.to_s).strftime("%Y/%m/%d")
 end
 
+BLOG_DATA_PATH = File.join(ROOT, "data", "blog.yaml")
+
+def expected_journal_title
+  blog = File.exist?(BLOG_DATA_PATH) ? (YAML.safe_load(File.read(BLOG_DATA_PATH)) || {}) : {}
+  blog["blog_name"].to_s
+end
+
 zenodo = File.exist?(DATA_PATH) ? JSON.parse(File.read(DATA_PATH)) : {}
+journal_title = expected_journal_title
 errors = []
+
+if journal_title.empty?
+  errors << "data/blog.yaml: blog_name is required for citation_journal_title"
+elsif journal_title.include?("×")
+  # Google Scholar's venue normalizer drops the space before "×", so it indexes
+  # and exports the venue as "Genomics× AI Blog". Use an ASCII "x" instead.
+  errors << "data/blog.yaml: blog_name must not contain \"×\" (U+00D7); use an ASCII \"x\""
+end
 
 Dir.glob(File.join(ROOT, "content", "blogs", "*", "index.md")).sort.each do |path|
   fm = frontmatter(path)
@@ -78,6 +94,10 @@ Dir.glob(File.join(ROOT, "content", "blogs", "*", "index.md")).sort.each do |pat
 
   unless meta_values(html, "citation_fulltext_html_url").include?(expected_url)
     errors << "#{path}: citation_fulltext_html_url must be #{expected_url}"
+  end
+
+  unless journal_title.empty? || meta_values(html, "citation_journal_title").include?(journal_title)
+    errors << "#{path}: citation_journal_title must be #{journal_title}"
   end
 
   if expected_doi.empty?
