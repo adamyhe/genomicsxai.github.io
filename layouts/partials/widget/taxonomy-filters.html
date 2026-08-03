@@ -9,6 +9,11 @@
        This sidebar dropdown surfaces only the disciplines that have at least
        one matching post — same style as the existing Tags/Labs/Authors lists. */ -}}
 {{- $disciplines := site.Data.disciplines -}}
+{{- /* Audience: fixed display order, single source of truth in
+       data/audience.yaml (shared with top-of-page category-pills widget).
+       Always lists all options, even ones with zero posts — those render
+       as disabled/greyed items instead of being hidden. */ -}}
+{{- $audienceOptions := site.Data.audience -}}
 {{- $archivesQuery := first 1 (where $context.Site.Pages "Layout" "==" "archives") -}}
 {{- $archivesPage := false -}}
 {{- if $archivesQuery -}}{{ $archivesPage = index $archivesQuery 0 }}{{ end -}}
@@ -43,6 +48,29 @@
       <ul class="filter-bar__dropdown-menu" role="listbox">
         {{- range $availableDisciplines -}}
         <li role="option"><a href="{{ .page.RelPermalink }}">{{ .label }}</a></li>
+        {{- end -}}
+      </ul>
+    </div>
+  </div>
+  {{- end -}}
+
+  {{- /* Audience dropdown — always lists every option; ones with no matching
+         posts render as a disabled, non-clickable item instead of a link */ -}}
+  {{- if $audienceOptions }}
+  <div class="filter-bar__group">
+    <div class="filter-bar__dropdown">
+      <button type="button" class="action-bar__btn filter-bar__dropdown-toggle" aria-expanded="false" aria-label="Audience">
+        <span class="action-bar__label">Audience</span>
+        <svg class="filter-bar__chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+      <ul class="filter-bar__dropdown-menu" role="listbox">
+        {{- range $audienceOptions -}}
+        {{- $termPage := site.GetPage (printf "/audience/%s" .slug) -}}
+        {{- if $termPage -}}
+        <li role="option"><a href="{{ $termPage.RelPermalink }}">{{ .label }}</a></li>
+        {{- else -}}
+        <li role="option" aria-disabled="true"><span class="filter-bar__dropdown-item--empty">{{ .label }}</span></li>
+        {{- end -}}
         {{- end -}}
       </ul>
     </div>

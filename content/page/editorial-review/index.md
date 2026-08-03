@@ -42,7 +42,7 @@ Almost all of the mechanical work around a post is handled by CI. Your job is th
 
 * Fits the **genomics × AI** remit
 * Declared **`scope`** (e.g. tutorials, protocols, insights, ideas, discussions, negative-results) matches the actual content
-* **`audience`** (within-field, general, intro-to-field) is plausible for the writing
+* **`audience`** (technical, general, new-to-field) is plausible for the writing
 
 **Decision rule:** If misaligned → reject or ask the author to reclassify early (update frontmatter and framing).
 

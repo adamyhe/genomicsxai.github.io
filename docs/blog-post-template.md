@@ -40,8 +40,8 @@ categories: ["Blog Post"]
 
 # One or more: protocols, tutorials, negative-results, discussions, insights, ideas
 scope: ["insights"]
-# One or more: within-field, general, intro-to-field
-audience: ["within-field"]
+# One or more: technical, general, new-to-field
+audience: ["technical"]
 labs: ["Your Lab Name"]
 
 status: "submitted"
