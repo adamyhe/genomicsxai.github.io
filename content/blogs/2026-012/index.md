@@ -97,7 +97,7 @@ Together, these resources transform thousands of ENCODE experiments into a reusa
 - Salil Deshpande<sup>1</sup> (salil512@stanford.edu), Chang M. Yun<sup>1</sup> (chang.m.yun@stanford.edu): MotifCompendium methods development
 - Abhimanyu Banerjee<sup>1</sup> (manyu@stanford.edu), Georgi K. Marinov<sup>1</sup> (marinovg@stanford.edu): Zinc finger transcription factor analysis
 - Chang M. Yun<sup>1</sup> (chang.m.yun@stanford.edu), Vivian Hecht<sup>1</sup> (vhecht@stanford.edu), Vivekanandan Ramalingam<sup>1</sup> (vir@stanford.edu): Blog posts
-- Anshul Kundaje<sup>1</sup>* (akundaje@stanford.edu): PI, Conceptualization, Project management, Mentoring, Funding
+- Anshul Kundaje<sup>1</sup>* (akundaje@stanford.edu): Conceptualization, Project management, Mentoring, Funding, Blog Post Editing
 
 _<sup>1</sup>Stanford University, *Correspondence._
 
