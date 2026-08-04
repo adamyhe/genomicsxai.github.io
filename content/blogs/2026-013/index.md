@@ -47,7 +47,7 @@ tags: ["encode", "genomics", "deep-learning", "seq2func", "transcription-factor"
 #   - "Perspective"   → appears under the Perspectives pill (opinion pieces, commentary)
 #   - "Paper Reviews" → appears under the Paper Reviews pill (summaries/critiques of a published paper)
 # Note: the homepage pills filter by `categories` only, not by `scope`.
-categories: ["Blog Post"]
+categories: ["Blog Post", "Tutorial"]
 
 # One or more: protocols, tutorials, negative-results, discussions, insights, ideas
 scope: ["resource"]
@@ -93,7 +93,7 @@ This five-minute **quickstart guide** shows how to find an ENCODE GRAMMAR model-
 - Salil Deshpande<sup>1</sup> (salil512@stanford.edu), Chang M. Yun<sup>1</sup> (chang.m.yun@stanford.edu): MotifCompendium methods development
 - Abhimanyu Banerjee<sup>1</sup> (manyu@stanford.edu), Georgi K. Marinov<sup>1</sup> (marinovg@stanford.edu): Zinc finger transcription factor analysis
 - Chang M. Yun<sup>1</sup> (chang.m.yun@stanford.edu), Vivian Hecht<sup>1</sup> (vhecht@stanford.edu), Vivekanandan Ramalingam<sup>1</sup> (vir@stanford.edu): Blog posts
-- Anshul Kundaje<sup>1</sup>* (akundaje@stanford.edu): Conceptualization, Project management, Mentoring, Funding, Blog Post Editing
+- Anshul Kundaje<sup>1</sup>* (akundaje@stanford.edu): Conceptualization, Project management, Mentoring, Funding, Blog post editing
 
 _<sup>1</sup>Stanford University, *Correspondence._
 
@@ -101,7 +101,7 @@ _<sup>1</sup>Stanford University, *Correspondence._
 
 ---
 > This is the second post in a series on **ENCODE GRAMMAR**. The series will cover:
-> 1. [ENCODE GRAMMAR: The ENCODE deep learning model resource for decoding the DNA sequence logic of genomic regulatory elements](../2026-012/)
+> 1. [ENCODE GRAMMAR: The ENCODE deep learning model resource for decoding the DNA sequence logic of genomic regulatory elements](https://genomicsxai.github.io/blogs/2026-012/)
 > 1. **Accessing and using the ENCODE GRAMMAR collection: A quickstart guide (this post)**
 > 1. Interpreting regulatory DNA with deep learning models
 > 1. The transcription factor binding GRAMMAR resource
@@ -112,7 +112,7 @@ _<sup>1</sup>Stanford University, *Correspondence._
 > 1. Building a production-scale model atlas in an academic setting
 
 ## Quick-start guide (5 min)
-ENCODE GRAMMAR transforms individual ENCODE experiments into experiment-specific BPNet-family model sets together with predicted regulatory profiles, sequence-contribution maps, predictive motifs, motif instances, and variant-effect predictions. Readers who are new to the resource may wish to begin with the [**ENCODE GRAMMAR overview**](../2026-012/), which explains the biological motivation, model families, interpretation workflow, and complete collection of released products.
+ENCODE GRAMMAR transforms individual ENCODE experiments into experiment-specific BPNet-family model sets together with predicted regulatory profiles, sequence-contribution maps, predictive motifs, motif instances, and variant-effect predictions. Readers who are new to the resource may wish to begin with the [**ENCODE GRAMMAR overview**](https://genomicsxai.github.io/blogs/2026-012/), which explains the biological motivation, model families, interpretation workflow, and complete collection of released products.
 
 Below, we explain how to navigate an ENCODE GRAMMAR model-set annotation page and load several commonly used model outputs into the WashU Epigenome Browser. Visualizing these tracks is a useful first step before designing larger-scale quantitative analyses.
 
@@ -148,7 +148,7 @@ The following steps require the URLs of these bigWig files. Right-click the **do
 
 This quickstart focuses on these three tracks. Additional ENCODE GRAMMAR products, including predictive motif-instance annotations, can be accessed through the ENCODE Portal and the UCSC Track Hub linked below.
 
-For descriptions of the complete collection of files and model-derived products, see the [**ENCODE GRAMMAR overview**](../2026-012/) and the [**ENCODE 4 preprint**](https://doi.org/10.64898/2026.07.06.731365).
+For descriptions of the complete collection of files and model-derived products, see the [**ENCODE GRAMMAR overview**](https://genomicsxai.github.io/blogs/2026-012/) and the [**ENCODE 4 preprint**](https://doi.org/10.64898/2026.07.06.731365).
 
 ### Step 3: Load the bigwigs into the WashU genome browser
 
@@ -200,7 +200,7 @@ Additional access points include:
 - **Unified motif lexicon:** Access the [**ENCODE Motif Compendium**](https://www.encodeproject.org/annotations/ENCSR091GRD/), which organizes related predictive motifs discovered across all ENCODE GRAMMAR models.
 - **Software:** Train and interpret new models using the open-source [BPNet](https://github.com/kundajelab/bpnet/), [ChromBPNet](https://github.com/kundajelab/chrombpnet/), and [ProCapNet](https://github.com/kundajelab/ProCapNet/) repositories.
 - **User guide:** We are developing an _interactive_ guide to help users navigate and interpret the resource (_work in progress_).
-- **Overview and publications:** Read the [ENCODE GRAMMAR overview](../2026-012/), [ENCODE 4 preprint](https://doi.org/10.64898/2026.07.06.731365), the [BPNet paper](https://doi.org/10.1038/s41588-021-00782-6), [ChromBPNet preprint](https://doi.org/10.1101/2024.12.25.630221) and [ProCapNet preprint](https://doi.org/10.1101/2024.05.28.596138) for additional detail.
+- **Overview and publications:** Read the [ENCODE GRAMMAR overview](https://genomicsxai.github.io/blogs/2026-012/), [ENCODE 4 preprint](https://doi.org/10.64898/2026.07.06.731365), the [BPNet paper](https://doi.org/10.1038/s41588-021-00782-6), [ChromBPNet preprint](https://doi.org/10.1101/2024.12.25.630221) and [ProCapNet preprint](https://doi.org/10.1101/2024.05.28.596138) for additional detail.
 
 This quickstart covers only one way to explore the resource. Future (weekly) posts in this series will describe how to interpret sequence-contribution maps, compare predictive motifs across cellular contexts, and use the models to estimate the molecular effects of noncoding genetic variants.
 

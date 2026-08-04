@@ -97,13 +97,13 @@ Together, these resources transform thousands of ENCODE experiments into a reusa
 - Salil Deshpande<sup>1</sup> (salil512@stanford.edu), Chang M. Yun<sup>1</sup> (chang.m.yun@stanford.edu): MotifCompendium methods development
 - Abhimanyu Banerjee<sup>1</sup> (manyu@stanford.edu), Georgi K. Marinov<sup>1</sup> (marinovg@stanford.edu): Zinc finger transcription factor analysis
 - Chang M. Yun<sup>1</sup> (chang.m.yun@stanford.edu), Vivian Hecht<sup>1</sup> (vhecht@stanford.edu), Vivekanandan Ramalingam<sup>1</sup> (vir@stanford.edu): Blog posts
-- Anshul Kundaje<sup>1</sup>* (akundaje@stanford.edu): Conceptualization, Project management, Mentoring, Funding, Blog Post Editing
+- Anshul Kundaje<sup>1</sup>* (akundaje@stanford.edu): Conceptualization, Project management, Mentoring, Funding, Blog post editing
 
 _<sup>1</sup>Stanford University, *Correspondence._
 
 {{< /summary >}}
 
-> This is the second post in a series on **ENCODE GRAMMAR**. The series will cover:
+> This is the first post in a series on **ENCODE GRAMMAR**. The series will cover:
 > 1. **ENCODE GRAMMAR: The ENCODE deep learning model resource for decoding the DNA sequence logic of genomic regulatory elements (this post)**
 > 1. Accessing and using the ENCODE GRAMMAR collection: A quickstart guide
 > 1. Interpreting regulatory DNA with deep learning models
@@ -162,7 +162,7 @@ Together, these assays measure complementary layers of gene regulation. TF ChIP-
 
 ENCODE has completed and released more than 16,000 genome-wide assays across thousands of biological samples, including cell lines, primary cells, tissues, differentiated cells, and experimentally perturbed samples from humans and mice. These data are processed using standardized pipelines and made publicly available through the [ENCODE portal](https://encodeproject.org).
 
-By integrating evidence from these and many other assays, ENCODE has mapped more than 5 million accessible chromatin elements in the human genome. Approximately 2.4 million of these are classified as **candidate cis-regulatory elements (cCREs)**](https://screen.wenglab.org/) because they are also supported by additional biochemical signatures of regulatory activity. The ENCODE consortium recently released a preprint describing the entire compendium developed over two decades including many new datasets and derived analysis products from the fourth and final phase of the project [ENCODE 4](https://www.biorxiv.org/content/10.64898/2026.07.06.731365v1).
+By integrating evidence from these and many other assays, ENCODE has mapped more than 5 million accessible chromatin elements in the human genome. Approximately 2.4 million of these are classified as **[candidate cis-regulatory elements (cCREs)**](https://screen.wenglab.org/) because they are also supported by additional biochemical signatures of regulatory activity. The ENCODE consortium recently released a preprint describing the entire compendium developed over two decades including many new datasets and derived analysis products from the fourth and final phase of the project [ENCODE 4](https://www.biorxiv.org/content/10.64898/2026.07.06.731365v1).
 
 ![Figure: ENCODE cube](ENCODE_cube.png "The ENCODE data cube: ENCODE comprises 1000s of datasets spanning 3 dimensions. (1) Biochemical assays measure diverse layers of genome function, including TF binding, chromatin accessibility, histone modifications, transcription initiation and nascent transcription, RNA expression, DNA methylation, and 3D long-range chromatin interactions. (2) Genomic coordinates place each measurement across approximately 3 billion positions in the human genome, producing signal tracks that can be compared at the same loci. (3) Biological contexts include cell lines, primary cells, tissues, developmental stages, and experimentally perturbed samples. The grid is schematic and does not imply that every possible combination has been experimentally profiled.")
 <p align="center"><em>The ENCODE data cube.<br>(Click the figure to see detailed legend)</em></p>
@@ -177,7 +177,7 @@ Answering these questions requires moving beyond mapping regulatory elements to 
 
 ## The BPNet family of deep learning models: From regulatory maps to predictive sequence rules
 
-We developed the **BPNet family** of deep learning models to address these questions. These neural networks use stacks of dilated residual convolutional layers to learn sequence features including TF motifs and their higher-order combinations and arrangements (called regulatory syntax) that can predict the biochemical activity measured by each experiment at every base, using up to approximately 2 kilobases of local DNA sequence context. Rather than simply classifying a region as active or inactive, BPNet models predict both the total amount of activity and the shape of the experimental signal at **base-pair resolution**. The deliberate choice of restricting the models to only use local-context makes them computationally efficient and amenable to robust sequence-level interpretation. Despite their compact architecture and restricted sequence context, these models are [quite competitive](https://doi.org/10.1101/2024.12.25.63022) with substantially larger models that use much longer genomic sequences. 
+We developed the **BPNet family** of deep learning models to address these questions. These neural networks use stacks of dilated residual convolutional layers to learn sequence features including TF motifs and their higher-order combinations and arrangements (called regulatory syntax) that can predict the biochemical activity measured by each experiment at every base, using up to approximately 2 kilobases of local DNA sequence context. Rather than simply classifying a region as active or inactive, BPNet models predict both the total amount of activity and the shape of the experimental signal at **base-pair resolution**. The deliberate choice of restricting the models to only use local-context makes them computationally efficient and amenable to robust sequence-level interpretation. Despite their compact architecture and restricted sequence context, these models are [quite competitive](https://doi.org/10.1101/2024.12.25.630221) with substantially larger models that use much longer genomic sequences. 
 
 The ENCODE GRAMMAR model resource contains four related model families:
 
@@ -199,7 +199,7 @@ The trained models are only one component of the resource. We also developed a s
 1. **De novo predictive sequence motifs** which are derived from recurrent patterns of high contribution scores with similar sequences across biochemically active regulatory sequences (e.g. peaks)
 1. **ENCODE Motif Compendium** which is a unified lexicon of non-redundant sequence motifs derived from all ENCODE GRAMMAR models 
 1. **Predictive genomic motif instances** which map high-contribution sequence patterns in all biochemically active regulatory sequences to the unified motif lexicon.
-1. Genome-browser tracks that allow predictions, contribution scores, motifs, and motif instances to be explored together at any genomic locus.
+1. **Genome-browser tracks** that allow predictions, contribution scores, motifs, and motif instances to be explored together at any genomic locus.
 
 Together, this collection of models and derived annotations transforms thousands of ENCODE experiments into a practical, sequence-resolved atlas of gene-regulatory activity and its underlying predictive DNA features.
 
@@ -258,7 +258,7 @@ We first examine chromatin accessibility measured by DNase-seq and ATAC-seq. A s
 ![Figure: MYC - Observed and predicted profile](MYC_fig1.png "width=600 Observed and ChromBPNet-predicted chromatin-accessibility profiles at the MYC enhancer: Experimentally observed and model-predicted DNase-seq and ATAC-seq profiles across the enhancer in K562 cells. The independently trained ChromBPNet models recapitulate the broad structure and many fine-scale features of their corresponding experimental signals. Despite measuring the same underlying property, the DNase-seq and ATAC-seq profiles differ substantially in shape, reflecting assay-specific effects such as the distinct sequence preferences of DNase I and Tn5. Track labels indicate the displayed signal ranges.")
 <p align="center"><em>Observed and ChromBPNet-predicted chromatin-accessibility profiles at the *MYC* enhancer.<br>(Click the figure to see detailed legend)</em></p>
 
-Closer inspection reveals that the raw observed and predicted DNase-seq and ATAC-seq profiles differ substantially, even though both assays measure chromatin accessibility. Much of this discrepancy arises because DNase I and Tn5 have distinct sequence preferences. ChromBPNet models the regulatory signal and assay-specific enzyme bias separately, producing **bias-corrected accessibility profiles** that more closely approximate the underlying biological signal. Although the DNase-seq and ATAC-seq models were trained independently, their bias-corrected predictions converge on a much more similar accessibility profile at the enhancer, helping reconcile the two assays.  
+Closer inspection reveals that the raw observed and predicted DNase-seq and ATAC-seq profiles differ substantially, even though both assays measure chromatin accessibility. Much of this discrepancy arises because DNase I and Tn5 have distinct sequence preferences. ChromBPNet models the regulatory signal and assay-specific enzyme bias separately, producing **bias-corrected accessibility profiles** that more closely approximates the underlying biological signal. Although the DNase-seq and ATAC-seq models were trained independently, their bias-corrected predictions converge on a much more similar accessibility profile at the enhancer, helping reconcile the two assays.  
 
 ![Figure: MYC - Bias-corrected profile](MYC_fig2.png "width=600 Bias-corrected ChromBPNet accessibility profiles at the *MYC* enhancer: ChromBPNet separates assay-specific enzyme bias from the predicted regulatory signal in DNase-seq and ATAC-seq. Although the raw profiles differ substantially, the independently derived bias-corrected predictions converge on a similar accessibility profile across the enhancer. Track labels indicate the displayed signal ranges.")
 <p align="center"><em>Bias-corrected ChromBPNet accessibility profiles at the *MYC* enhancer.<br>(Click the figure to see detailed legend)</em></p>
@@ -272,6 +272,7 @@ Finally, we compare the accessibility-derived annotations from ChromBPNet with s
 
 ![Figure: MYC - Chromatin accessibility vs. transcription factor binding](MYC_fig4.png "width=600 TF ChIP–seq BPNet models link ChromBPNet motif instances to specific TFs at the *MYC* enhancer: Sequence-contribution maps from independently trained GATA2, SP1, CEBPB, JUND, and GABPB1 models highlight the corresponding GATA, SP, CEBP, AP-1, and ETV/ETS motif instances identified by the DNase-seq and ATAC-seq ChromBPNet models. Collectively, these TF-specific models account for most of the predictive motif instances highlighted by ChromBPNet, providing cross-assay support for the inferred regulatory sequence architecture. Red bars mark the annotated motif instances.")
 <p align="center"><em>TF ChIP–seq BPNet models link ChromBPNet motif instances to specific TFs at the *MYC* enhancer.<br>(Click the figure to see detailed legend)</em></p>
+
 The example illustrates a central strength of ENCODE GRAMMAR: models trained on complementary ENCODE assays can be integrated at the same locus to connect experimental profiles with the individual DNA bases, motifs, and TFs that may drive different types of biochemical activity.
 The interactive browser below allows the experimental data, model predictions, sequence-contribution maps, and motif annotations to be explored together at the MYC enhancer:
 {{< igv-browser panel="myc" data="myc-igv-panel.json" >}} 
@@ -308,7 +309,7 @@ Additional access points include:
 - **[ChromBPNet preprint](https://doi.org/10.1101/2024.12.25.630221)** 
 - **[ProCapNet preprint](https://doi.org/10.1101/2024.05.28.596138)**
 
-Please check out a detailed quick-start guide in our [**next blog post** _(out now)_](../2026-013/).
+Please check out a detailed quick-start guide in our [**next blog post** _(out now)_](https://genomicsxai.github.io/blogs/2026-013/).
 
 ## From ENCODE maps to regulatory sequence rules
 
