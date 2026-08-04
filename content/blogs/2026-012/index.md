@@ -48,7 +48,7 @@ categories: ["Blog Post"]
 # One or more: protocols, tutorials, negative-results, discussions, insights, ideas
 scope: ["resource"]
 # One or more: within-field, general, intro-to-field
-audience: ["general"]
+audience: ["new-to-field", "general"]
 labs: ["Kundaje Lab"]
 
 status: "submitted"
