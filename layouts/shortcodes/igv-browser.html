@@ -1,0 +1,10 @@
+{{- $panel := .Get "panel" | default "myc" -}}
+{{- $data := .Get "data" -}}
+{{- $res := .Page.Resources.GetMatch $data -}}
+{{- if not $res -}}
+  {{- errorf "igv-browser shortcode could not find page resource %q in %s" $data .Page.File.Path -}}
+{{- end -}}
+<div class="gxai-igv-panel" data-igv-panel="{{ $panel }}" data-igv-src="{{ $res.RelPermalink }}"></div>
+<link rel="stylesheet" href="{{ "css/igv-panel.css" | relURL }}">
+<script src="{{ "js/vendor/igv-3.8.0.min.js" | relURL }}" defer></script>
+<script src="{{ "js/igv-panel.js" | relURL }}" defer></script>
