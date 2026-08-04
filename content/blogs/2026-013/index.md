@@ -75,20 +75,24 @@ revision_history:
 This five-minute **quickstart guide** shows how to find an ENCODE GRAMMAR model-set and its associated annotation and load its most commonly used outputs into an interactive genome browser. By following the steps below, you will create a browser session displaying an experimentally observed regulatory profile, the corresponding model-predicted profile, and a base-resolution sequence-contribution map.
 
 **Contributions**: _(Author order does not represent relative contribution)_
-- Vivekanandan Ramalingam: BPNet model optimization and training, data uploads, general analysis
-- Chang M. Yun: ChromBPNet model training, MotifCompendium analysis
-- Vivian Hecht: ChromBPNet model training, model resource uploads, project management
-- Aman Patel: Model resource uploads
-- Anusri Pampari: ChromBPNet model development, ChromBPNet model training, data uploads
-- Ziwei Chen: ReporterNet model development, ReporterNet model training, ChromBPNet model training
-- Kelly Cochran: ProCapNet model development and training
-- Adam He: ProCapNet user guide
-- Surag Nair, Zahoor Zafrulla, Alex Tseng: BPNet refactoring
-- Avanti Shrikumar, Jacob Schreiber, Alex Tseng: TF-MoDISco methods development and optimization
-- Austin Wang: FiNeMo methods development
-- Salil Deshpande, Chang M. Yun: MotifCompendium methods development
-- Abhimanyu Banerjee, Georgi K. Marinov: Zinc finger transcription factor analysis
-- Anshul Kundaje: PI, Conceptualization, Project management, Mentoring, Funding
+- Vivekanandan Ramalingam<sup>1</sup> (vir@stanford.edu): BPNet model optimization and training, data uploads, general analysis
+- Chang M. Yun<sup>1</sup> (chang.m.yun@stanford.edu): ChromBPNet model training, MotifCompendium analysis
+- Vivian Hecht<sup>1</sup> (vhecht@stanford.edu): ChromBPNet model training, model resource uploads, project management
+- Aman Patel<sup>1</sup> (patelas@stanford.edu): Model resource uploads
+- Anusri Pampari<sup>1</sup> (anusri@stanford.edu): ChromBPNet model development, ChromBPNet model training, data uploads
+- Ziwei Chen<sup>1</sup> (ziwei75@stanford.edu): ReporterNet model development, ReporterNet model training, ChromBPNet model training
+- Kelly Cochran<sup>1</sup> (kcochran@stanford.edu): ProCapNet model development and training
+- Adam He<sup>1</sup> (ayhe@stanford.edu): ProCapNet user guide
+- Surag Nair<sup>1</sup> (surag@stanford.edu), Zahoor Zafrulla<sup>1</sup> (zahoor@stanford.edu), Alex Tseng<sup>1</sup> (amtseng@stanford.edu): BPNet refactoring
+- Avanti Shrikumar<sup>1</sup> (avanti@stanford.edu), Jacob Schreiber<sup>1</sup> (jmschr@stanford.edu), Alex Tseng<sup>1</sup> (amtseng@stanford.edu): TF-MoDISco methods development and optimization
+- Austin Wang<sup>1</sup> (atwang@stanford.edu): FiNeMo methods development
+- Salil Deshpande<sup>1</sup> (salil512@stanford.edu), Chang M. Yun<sup>1</sup> (chang.m.yun@stanford.edu): MotifCompendium methods development
+- Abhimanyu Banerjee<sup>1</sup> (manyu@stanford.edu), Georgi K. Marinov<sup>1</sup> (marinovg@stanford.edu): Zinc finger transcription factor analysis
+- Chang M. Yun<sup>1</sup> (chang.m.yun@stanford.edu), Vivian Hecht<sup>1</sup> (vhecht@stanford.edu), Vivekanandan Ramalingam<sup>1</sup> (vir@stanford.edu): Blog posts
+- Anshul Kundaje<sup>1</sup>* (akundaje@stanford.edu): PI, Conceptualization, Project management, Mentoring, Funding
+
+_<sup>1</sup>Stanford University, *Correspondence._
+
 {{< /summary >}}
 
 ---
