@@ -95,7 +95,7 @@ Together, these resources transform thousands of ENCODE experiments into a reusa
 - Anshul Kundaje: PI, Conceptualization, Project management, Mentoring, Funding
 {{< /summary >}}
 
-> This is the first post in a series on dENCODE. The series will cover:
+> This is the second post in a series on **ENCODE GRAMMAR**. The series will cover:
 > 1. **ENCODE GRAMMAR: The ENCODE deep learning model resource for decoding the DNA sequence logic of genomic regulatory elements (this post)**
 > 1. Accessing and using the ENCODE GRAMMAR collection: A quickstart guide
 > 1. Interpreting regulatory DNA with deep learning models
