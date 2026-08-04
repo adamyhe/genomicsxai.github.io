@@ -30,7 +30,7 @@ authors_display:
     orcid: "0000-0003-3084-2287"
     contact: "akundaje@stanford.edu"
 
-editor: "Genomics X AI Editors"
+editor: ["Genomics X AI Editors", "Al-Murphy", "abuendia"]
 
 # Set automatically by the submission form to the GitHub login of the original
 # submitter. Used by the form to surface "Update one of my previous posts" for
@@ -55,12 +55,12 @@ scope: ["resource"]
 audience: ["new-to-field", "general"]
 labs: ["Kundaje Lab"]
 
-status: "submitted"
+status: "accepted"
 revision: 1
 
 date_submitted: 2026-08-03
 date_accepted: 
-date: 2026-08-03
+date: 2026-08-04
 
 doi: ""
 zenodo_url: ""
