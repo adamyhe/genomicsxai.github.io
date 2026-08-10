@@ -244,24 +244,24 @@ Cherimoya is a lightweight S2F model that achieves strong performance despite it
 
 ## References
 
-1\. Linder, J., Srivastava, D., Yuan, H., Agarwal, V. & Kelley, D. R. Predicting RNA-seq coverage from DNA sequence as a unifying model of gene regulation. *Nat. Genet.* 57, 949–961 (2025). [https://doi.org/10.1038/s41588-024-02053-6](https://doi.org/10.1038/s41588-024-02053-6)
+1. Linder, J., Srivastava, D., Yuan, H., Agarwal, V. & Kelley, D. R. Predicting RNA-seq coverage from DNA sequence as a unifying model of gene regulation. *Nat. Genet.* 57, 949–961 (2025). [https://doi.org/10.1038/s41588-024-02053-6](https://doi.org/10.1038/s41588-024-02053-6)
 
-2\. Avsec, Ž., Latysheva, N., Cheng, J., Novati, G., Taylor, K. R., Ward, T. et al. Advancing regulatory variant effect prediction with AlphaGenome. *Nature* 649, 1206–1218 (2026). [https://doi.org/10.1038/s41586-025-10014-0](https://doi.org/10.1038/s41586-025-10014-0)
+2. Avsec, Ž., Latysheva, N., Cheng, J., Novati, G., Taylor, K. R., Ward, T. et al. Advancing regulatory variant effect prediction with AlphaGenome. *Nature* 649, 1206–1218 (2026). [https://doi.org/10.1038/s41586-025-10014-0](https://doi.org/10.1038/s41586-025-10014-0)
 
-3\. Rafi, A. M., Kiyota, B., Yachie, N. & de Boer, C. G. Characterizing homology-induced data leakage and memorization in genome-trained sequence models. *bioRxiv* (2026). [https://doi.org/10.1101/2025.01.22.634321](https://doi.org/10.1101/2025.01.22.634321)
+3. Rafi, A. M., Kiyota, B., Yachie, N. & de Boer, C. G. Characterizing homology-induced data leakage and memorization in genome-trained sequence models. *bioRxiv* (2026). [https://doi.org/10.1101/2025.01.22.634321](https://doi.org/10.1101/2025.01.22.634321)
 
-4\. Pampari, A., Shcherbina, A., Kvon, E., Kosicki, M., Nair, S., Kundu, S., Kathiria, A. S., Risca, V. I., Kuningas, K., Alasoo, K., Greenleaf, W. J., Pennacchio, L. A. & Kundaje, A. ChromBPNet: bias factorized, base-resolution deep learning models of chromatin accessibility reveal cis-regulatory sequence syntax, transcription factor footprints and regulatory variants. *bioRxiv* (2024). [https://doi.org/10.1101/2024.12.25.630221](https://doi.org/10.1101/2024.12.25.630221)
+4. Pampari, A., Shcherbina, A., Kvon, E., Kosicki, M., Nair, S., Kundu, S., Kathiria, A. S., Risca, V. I., Kuningas, K., Alasoo, K., Greenleaf, W. J., Pennacchio, L. A. & Kundaje, A. ChromBPNet: bias factorized, base-resolution deep learning models of chromatin accessibility reveal cis-regulatory sequence syntax, transcription factor footprints and regulatory variants. *bioRxiv* (2024). [https://doi.org/10.1101/2024.12.25.630221](https://doi.org/10.1101/2024.12.25.630221)
 
-5\. Avsec, Ž., Weilert, M., Shrikumar, A., Krueger, S., Alexandari, A., Dalal, K., Fropf, R., McAnany, C., Gagneur, J., Kundaje, A. & Zeitlinger, J. Base-resolution models of transcription-factor binding reveal soft motif syntax. *Nat. Genet.* 53, 354–366 (2021). [https://doi.org/10.1038/s41588-021-00782-6](https://doi.org/10.1038/s41588-021-00782-6)
+5. Avsec, Ž., Weilert, M., Shrikumar, A., Krueger, S., Alexandari, A., Dalal, K., Fropf, R., McAnany, C., Gagneur, J., Kundaje, A. & Zeitlinger, J. Base-resolution models of transcription-factor binding reveal soft motif syntax. *Nat. Genet.* 53, 354–366 (2021). [https://doi.org/10.1038/s41588-021-00782-6](https://doi.org/10.1038/s41588-021-00782-6)
 
-6\. Liu, Z., Mao, H., Wu, C.-Y., Feichtenhofer, C., Darrell, T. & Xie, S. A ConvNet for the 2020s. *arXiv* (2022). [https://arxiv.org/abs/2201.03545](https://arxiv.org/abs/2201.03545)
+6. Liu, Z., Mao, H., Wu, C.-Y., Feichtenhofer, C., Darrell, T. & Xie, S. A ConvNet for the 2020s. *arXiv* (2022). [https://arxiv.org/abs/2201.03545](https://arxiv.org/abs/2201.03545)
 
-7\. Kendall, A., Gal, Y. & Cipolla, R. Multi-Task Learning Using Uncertainty to Weigh Losses for Scene Geometry and Semantics. *arXiv* (2017). [https://arxiv.org/abs/1705.07115](https://arxiv.org/abs/1705.07115)
+7. Kendall, A., Gal, Y. & Cipolla, R. Multi-Task Learning Using Uncertainty to Weigh Losses for Scene Geometry and Semantics. *arXiv* (2017). [https://arxiv.org/abs/1705.07115](https://arxiv.org/abs/1705.07115)
 
-8\. Jordan, K., Jin, Y., Boza, V., You, J., Cesista, F., Newhouse, L. & Bernstein, J. Muon: An optimizer for hidden layers in neural networks. (2024). [https://kellerjordan.github.io/posts/muon/](https://kellerjordan.github.io/posts/muon/)
+8. Jordan, K., Jin, Y., Boza, V., You, J., Cesista, F., Newhouse, L. & Bernstein, J. Muon: An optimizer for hidden layers in neural networks. (2024). [https://kellerjordan.github.io/posts/muon/](https://kellerjordan.github.io/posts/muon/)
 
-9\. Shrikumar, A., Greenside, P. & Kundaje, A. Learning Important Features Through Propagating Activation Differences. *arXiv* (2017). [https://arxiv.org/abs/1704.02685](https://arxiv.org/abs/1704.02685)
+9. Shrikumar, A., Greenside, P. & Kundaje, A. Learning Important Features Through Propagating Activation Differences. *arXiv* (2017). [https://arxiv.org/abs/1704.02685](https://arxiv.org/abs/1704.02685)
 
-10\. Schreiber, J., Lorbeer, F. K., Heinzl, M., Reiter, F., Rafanel, B., Lu, Y. Y., Stark, A. & Noble, W. S. Programmatic design and editing of cis-regulatory elements. *bioRxiv* (2025). [https://doi.org/10.1101/2025.04.22.650035](https://doi.org/10.1101/2025.04.22.650035)
+10. Schreiber, J., Lorbeer, F. K., Heinzl, M., Reiter, F., Rafanel, B., Lu, Y. Y., Stark, A. & Noble, W. S. Programmatic design and editing of cis-regulatory elements. *bioRxiv* (2025). [https://doi.org/10.1101/2025.04.22.650035](https://doi.org/10.1101/2025.04.22.650035)
 
-11\. Schreiber, J. tangermeme: A toolkit for understanding cis-regulatory logic using deep learning models. *bioRxiv* (2025). [https://doi.org/10.1101/2025.08.08.669296](https://doi.org/10.1101/2025.08.08.669296)
+11. Schreiber, J. tangermeme: A toolkit for understanding cis-regulatory logic using deep learning models. *bioRxiv* (2025). [https://doi.org/10.1101/2025.08.08.669296](https://doi.org/10.1101/2025.08.08.669296)
