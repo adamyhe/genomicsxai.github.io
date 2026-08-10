@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Pages on Genomics x AI</title><link>https://genomicsxai.github.io/page/</link><description>Recent content in Pages on Genomics x AI</description><generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Mon, 03 Aug 2026 11:08:31 -0700</lastBuildDate><atom:link href="https://genomicsxai.github.io/page/index.xml" rel="self" type="application/rss+xml"/><item><title>Submission Guidelines</title><link>https://genomicsxai.github.io/submission-guidelines/</link><pubDate>Fri, 01 May 2026 00:00:00 +0000</pubDate><guid>https://genomicsxai.github.io/submission-guidelines/</guid><description>&lt;h2 id="submit-your-blog-post"&gt;Submit Your Blog Post
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Pages on Genomics x AI</title><link>https://genomicsxai.github.io/page/</link><description>Recent content in Pages on Genomics x AI</description><generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Mon, 10 Aug 2026 17:08:29 -0400</lastBuildDate><atom:link href="https://genomicsxai.github.io/page/index.xml" rel="self" type="application/rss+xml"/><item><title>Submission Guidelines</title><link>https://genomicsxai.github.io/submission-guidelines/</link><pubDate>Fri, 01 May 2026 00:00:00 +0000</pubDate><guid>https://genomicsxai.github.io/submission-guidelines/</guid><description>&lt;h2 id="submit-your-blog-post"&gt;Submit Your Blog Post
 &lt;/h2&gt;&lt;p&gt;The Genomics × AI blog uses a light, non-gate keeping peer-review, Git-native
 workflow. There are &lt;strong&gt;two ways to submit a post&lt;/strong&gt; — both go through the same
 editorial review and produce the same final published post. Pick whichever
@@ -402,8 +402,9 @@ deploys the post.&lt;/li&gt;
 accessible, and engaging for a broad scientific audience.&lt;/li&gt;
 &lt;li&gt;Use headings, figures, and examples where helpful.&lt;/li&gt;
 &lt;li&gt;Cite prior work via hyperlinks or formal inline citations, and &lt;strong&gt;include a
-numbered References section at the end&lt;/strong&gt;, with a DOI or publisher link for
-each entry wherever one exists. See &lt;a class="link" href="#why-references-matter-for-google-scholar" &gt;Why references matter for Google
+numbered References section at the end&lt;/strong&gt; that renders as an actual numbered
+list on the published page. Add a DOI or publisher link per entry where one
+exists. See &lt;a class="link" href="#why-references-matter-for-google-scholar" &gt;Why references matter for Google
 Scholar&lt;/a&gt; below.&lt;/li&gt;
 &lt;li&gt;Ensure claims are supported by appropriate sources.&lt;/li&gt;
 &lt;/ul&gt;
@@ -419,17 +420,30 @@ appears to be one of the signals it uses to tell a research article apart from
 an ordinary web page.&lt;/p&gt;
 &lt;p&gt;We want to be upfront that &lt;strong&gt;this is something we have observed, not a
 documented rule&lt;/strong&gt; — Google does not publish the details of how this decision is
-made. What we have seen across our own posts is that the ones with a
-substantial, DOI-linked bibliography were picked up by Scholar, while posts
-with no references (or a single unlinked one) were not, even when they were
-long, published earlier, and otherwise complete. Length and publication date
-did not predict inclusion; the reference list did.&lt;/p&gt;
+made. As of August 2026, four of our eleven published posts are indexed. Every
+indexed post ends with a rendered numbered list of five or more references;
+every post that has been crawled and is still missing had four or fewer — or, in
+one case, a full bibliography that was not rendering as a list at all. Length,
+publication date, and authorship did not predict inclusion.&lt;/p&gt;
+&lt;p&gt;Two practical points follow from that:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;It is the rendered list that counts, not the DOIs.&lt;/strong&gt; Our earliest indexed
+post carries no DOI links at all, while a post with fourteen DOI links was
+&lt;em&gt;not&lt;/em&gt; indexed — its references were written as &lt;code&gt;1\.&lt;/code&gt;, &lt;code&gt;2\.&lt;/code&gt;, and the escaped
+period makes Markdown emit plain paragraphs instead of an &lt;code&gt;&amp;lt;ol&amp;gt;&lt;/code&gt;, so there is
+no reference list for a parser to find. Write &lt;code&gt;1.&lt;/code&gt;, &lt;code&gt;2.&lt;/code&gt; and check that the
+published page really shows a numbered list. DOIs are still worth adding, for
+readers and for citation tracking.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;More entries is better than fewer.&lt;/strong&gt; We would not read anything into the
+exact boundary, but posts with only a handful of references have not been
+picked up.&lt;/li&gt;
+&lt;/ul&gt;
 &lt;p&gt;So: a References section is not a hard requirement for acceptance, and a post
 without one can still be published. But if you would like your post to be
 discoverable and citable in Google Scholar, cite the primary literature your
-work builds on and give each entry a DOI. Even if Scholar has already crawled
-your post, adding references later is worthwhile — it will be reconsidered on a
-future crawl, though this can take weeks.&lt;/p&gt;
+work builds on. Even if Scholar has already crawled your post, adding references
+later is worthwhile — it will be reconsidered on a future crawl, though this can
+take weeks.&lt;/p&gt;
 &lt;h2 id="what-editors-look-for"&gt;What editors look for
 &lt;/h2&gt;&lt;p&gt;Editors aim to confirm, in a lightweight pass, that your post:&lt;/p&gt;
 &lt;ul&gt;
@@ -564,10 +578,12 @@ Open your discussion and click &lt;strong&gt;Subscribe&lt;/strong&gt; for that t
 &lt;/h3&gt;&lt;ul&gt;
 &lt;li&gt;A &lt;strong&gt;References section&lt;/strong&gt; is present at the end of the post&lt;/li&gt;
 &lt;li&gt;References are &lt;strong&gt;numbered&lt;/strong&gt; and cite the primary literature, with a &lt;strong&gt;DOI or publisher link&lt;/strong&gt; per entry wherever one exists&lt;/li&gt;
+&lt;li&gt;The section &lt;strong&gt;renders as a real numbered list&lt;/strong&gt; on the built page — check the preview, not just the Markdown. Escaped numbering (&lt;code&gt;1\.&lt;/code&gt;, &lt;code&gt;2\.&lt;/code&gt;) looks right in the source but renders as plain paragraphs with no &lt;code&gt;&amp;lt;ol&amp;gt;&lt;/code&gt;, which defeats the purpose&lt;/li&gt;
 &lt;li&gt;Inline links to blog posts, repos, or docs are welcome, but they do &lt;strong&gt;not&lt;/strong&gt; substitute for a bibliography of the papers the work builds on&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;&lt;strong&gt;Why this matters:&lt;/strong&gt; every accepted post emits Google Scholar (Highwire) metadata and gets a Zenodo DOI, so posts are eligible to appear in Google Scholar. But Scholar does not index everything it can crawl — it only includes documents its parser classifies as &lt;em&gt;scholarly articles&lt;/em&gt;, and a reference list is a primary signal it uses to tell a research article apart from an ordinary web page.&lt;/p&gt;
-&lt;p&gt;To be clear, this is &lt;strong&gt;an observation, not a documented rule&lt;/strong&gt; — we cannot see Google&amp;rsquo;s classifier. What we have noticed is that, of our accepted posts, the ones carrying a substantial DOI-linked bibliography were picked up by Scholar, while posts with no references (or a single unlinked one) were not, even when they were long, older, and otherwise well-formed. Post length and publication date did not predict inclusion; the reference list did.&lt;/p&gt;
+&lt;p&gt;To be clear, this is &lt;strong&gt;an observation, not a documented rule&lt;/strong&gt; — we cannot see Google&amp;rsquo;s classifier. As of August 2026, four of eleven published posts are indexed. Every indexed post ends with a rendered numbered list of five or more references; every post that has been crawled and is still absent had four or fewer — or, in one case, a full bibliography that was not rendering as a list at all. Length, date, and authorship did not predict inclusion.&lt;/p&gt;
+&lt;p&gt;Note that it is the &lt;strong&gt;rendered list&lt;/strong&gt;, not the DOIs, that tracks with inclusion: our earliest indexed post has no DOI links at all, while a post with fourteen DOI links was missed because escaped numbering stopped its bibliography from rendering as a list. DOIs remain worth requesting for readers and citation tracking.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Decision rule:&lt;/strong&gt; treat a missing or token References section as a change request, not a blocker. Ask the author to add the papers the post already builds on. A post can still be accepted without one — it will simply be much less likely to surface in Scholar.&lt;/p&gt;
 &lt;hr&gt;
 &lt;h2 id="2-executive-summary-requirement"&gt;2. Executive summary requirement
@@ -625,7 +641,7 @@ Open your discussion and click &lt;strong&gt;Subscribe&lt;/strong&gt; for that t
 &lt;li&gt;&lt;input disabled="" type="checkbox"&gt; Clear takeaway or value&lt;/li&gt;
 &lt;li&gt;&lt;input disabled="" type="checkbox"&gt; Appropriate level for audience&lt;/li&gt;
 &lt;li&gt;&lt;input disabled="" type="checkbox"&gt; References and links included where needed&lt;/li&gt;
-&lt;li&gt;&lt;input disabled="" type="checkbox"&gt; &lt;strong&gt;References section present&lt;/strong&gt;, numbered, with DOI/publisher links — needed for the post to appear in Google Scholar (see &lt;a class="link" href="#h-references-and-google-scholar-indexing" &gt;§1H&lt;/a&gt;)&lt;/li&gt;
+&lt;li&gt;&lt;input disabled="" type="checkbox"&gt; &lt;strong&gt;References section present&lt;/strong&gt;, numbered, with DOI/publisher links, and &lt;strong&gt;rendering as a real numbered list in the preview&lt;/strong&gt; — needed for the post to appear in Google Scholar (see &lt;a class="link" href="#h-references-and-google-scholar-indexing" &gt;§1H&lt;/a&gt;)&lt;/li&gt;
 &lt;li&gt;&lt;input disabled="" type="checkbox"&gt; Formatting clean&lt;/li&gt;
 &lt;/ul&gt;
 &lt;hr&gt;

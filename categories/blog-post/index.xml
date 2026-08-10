@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Blog Post on Genomics x AI</title><link>https://genomicsxai.github.io/categories/blog-post/</link><description>Recent content in Blog Post on Genomics x AI</description><generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Tue, 04 Aug 2026 17:38:26 +0000</lastBuildDate><atom:link href="https://genomicsxai.github.io/categories/blog-post/index.xml" rel="self" type="application/rss+xml"/><item><title>[ENCODE GRAMMAR] Quickstart: Accessing and using the ENCODE GRAMMAR collection</title><link>https://genomicsxai.github.io/blogs/2026-013/</link><pubDate>Tue, 04 Aug 2026 00:00:00 +0000</pubDate><guid>https://genomicsxai.github.io/blogs/2026-013/</guid><description>&lt;img src="https://genomicsxai.github.io/" alt="Featured image of post [ENCODE GRAMMAR] Quickstart: Accessing and using the ENCODE GRAMMAR collection" /&gt;&lt;aside class="summary-box"&gt;
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Blog Post on Genomics x AI</title><link>https://genomicsxai.github.io/categories/blog-post/</link><description>Recent content in Blog Post on Genomics x AI</description><generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Mon, 10 Aug 2026 17:06:44 -0400</lastBuildDate><atom:link href="https://genomicsxai.github.io/categories/blog-post/index.xml" rel="self" type="application/rss+xml"/><item><title>[ENCODE GRAMMAR] Quickstart: Accessing and using the ENCODE GRAMMAR collection</title><link>https://genomicsxai.github.io/blogs/2026-013/</link><pubDate>Tue, 04 Aug 2026 00:00:00 +0000</pubDate><guid>https://genomicsxai.github.io/blogs/2026-013/</guid><description>&lt;img src="https://genomicsxai.github.io/" alt="Featured image of post [ENCODE GRAMMAR] Quickstart: Accessing and using the ENCODE GRAMMAR collection" /&gt;&lt;aside class="summary-box"&gt;
  &lt;h2 class="summary-box__title"&gt;Summary&lt;/h2&gt;
  &lt;div class="summary-box__body"&gt;
  &lt;p&gt;&lt;strong&gt;ENCODE GRAMMAR&lt;/strong&gt; (Genomic Regulatory Atlas of sequence Models, Motifs, Annotations and Rules) is a collection of 3,865 experiment-specific deep learning model sets and derived sequence annotations that connect the ENCODE project&amp;rsquo;s human gene regulation maps from extensive biochemical profiling experiments to the underlying DNA sequence features that drive regulatory activity.&lt;/p&gt;
@@ -1260,28 +1260,52 @@ Even among expression models, genomic context matters. Enformer&amp;rsquo;s inpu
 &lt;p&gt;&lt;em&gt;Cherimoya is from Christian Ramirez, Achsah Marlene Aruva, Zhiping Weng, and Jacob Schreiber (UMass Chan Medical School). Model and CLI code live in the &lt;a class="link" href="https://github.com/jmschrei/cherimoya" target="_blank" rel="noopener"
  &gt;&lt;code&gt;cherimoya&lt;/code&gt; repo&lt;/a&gt;; analysis tooling builds on &lt;code&gt;tangermeme&lt;/code&gt;. Work is still in progress, and the final numbers and results will likely differ slightly from this blog post. Thanks to Anthropic for providing credits through their AI for Science program.&lt;/em&gt;&lt;/p&gt;
 &lt;h2 id="references"&gt;References
-&lt;/h2&gt;&lt;p&gt;1. Linder, J., Srivastava, D., Yuan, H., Agarwal, V. &amp;amp; Kelley, D. R. Predicting RNA-seq coverage from DNA sequence as a unifying model of gene regulation. &lt;em&gt;Nat. Genet.&lt;/em&gt; 57, 949–961 (2025). &lt;a class="link" href="https://doi.org/10.1038/s41588-024-02053-6" target="_blank" rel="noopener"
+&lt;/h2&gt;&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;Linder, J., Srivastava, D., Yuan, H., Agarwal, V. &amp;amp; Kelley, D. R. Predicting RNA-seq coverage from DNA sequence as a unifying model of gene regulation. &lt;em&gt;Nat. Genet.&lt;/em&gt; 57, 949–961 (2025). &lt;a class="link" href="https://doi.org/10.1038/s41588-024-02053-6" target="_blank" rel="noopener"
  &gt;https://doi.org/10.1038/s41588-024-02053-6&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;2. Avsec, Ž., Latysheva, N., Cheng, J., Novati, G., Taylor, K. R., Ward, T. et al. Advancing regulatory variant effect prediction with AlphaGenome. &lt;em&gt;Nature&lt;/em&gt; 649, 1206–1218 (2026). &lt;a class="link" href="https://doi.org/10.1038/s41586-025-10014-0" target="_blank" rel="noopener"
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Avsec, Ž., Latysheva, N., Cheng, J., Novati, G., Taylor, K. R., Ward, T. et al. Advancing regulatory variant effect prediction with AlphaGenome. &lt;em&gt;Nature&lt;/em&gt; 649, 1206–1218 (2026). &lt;a class="link" href="https://doi.org/10.1038/s41586-025-10014-0" target="_blank" rel="noopener"
  &gt;https://doi.org/10.1038/s41586-025-10014-0&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;3. Rafi, A. M., Kiyota, B., Yachie, N. &amp;amp; de Boer, C. G. Characterizing homology-induced data leakage and memorization in genome-trained sequence models. &lt;em&gt;bioRxiv&lt;/em&gt; (2026). &lt;a class="link" href="https://doi.org/10.1101/2025.01.22.634321" target="_blank" rel="noopener"
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Rafi, A. M., Kiyota, B., Yachie, N. &amp;amp; de Boer, C. G. Characterizing homology-induced data leakage and memorization in genome-trained sequence models. &lt;em&gt;bioRxiv&lt;/em&gt; (2026). &lt;a class="link" href="https://doi.org/10.1101/2025.01.22.634321" target="_blank" rel="noopener"
  &gt;https://doi.org/10.1101/2025.01.22.634321&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;4. Pampari, A., Shcherbina, A., Kvon, E., Kosicki, M., Nair, S., Kundu, S., Kathiria, A. S., Risca, V. I., Kuningas, K., Alasoo, K., Greenleaf, W. J., Pennacchio, L. A. &amp;amp; Kundaje, A. ChromBPNet: bias factorized, base-resolution deep learning models of chromatin accessibility reveal cis-regulatory sequence syntax, transcription factor footprints and regulatory variants. &lt;em&gt;bioRxiv&lt;/em&gt; (2024). &lt;a class="link" href="https://doi.org/10.1101/2024.12.25.630221" target="_blank" rel="noopener"
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Pampari, A., Shcherbina, A., Kvon, E., Kosicki, M., Nair, S., Kundu, S., Kathiria, A. S., Risca, V. I., Kuningas, K., Alasoo, K., Greenleaf, W. J., Pennacchio, L. A. &amp;amp; Kundaje, A. ChromBPNet: bias factorized, base-resolution deep learning models of chromatin accessibility reveal cis-regulatory sequence syntax, transcription factor footprints and regulatory variants. &lt;em&gt;bioRxiv&lt;/em&gt; (2024). &lt;a class="link" href="https://doi.org/10.1101/2024.12.25.630221" target="_blank" rel="noopener"
  &gt;https://doi.org/10.1101/2024.12.25.630221&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;5. Avsec, Ž., Weilert, M., Shrikumar, A., Krueger, S., Alexandari, A., Dalal, K., Fropf, R., McAnany, C., Gagneur, J., Kundaje, A. &amp;amp; Zeitlinger, J. Base-resolution models of transcription-factor binding reveal soft motif syntax. &lt;em&gt;Nat. Genet.&lt;/em&gt; 53, 354–366 (2021). &lt;a class="link" href="https://doi.org/10.1038/s41588-021-00782-6" target="_blank" rel="noopener"
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Avsec, Ž., Weilert, M., Shrikumar, A., Krueger, S., Alexandari, A., Dalal, K., Fropf, R., McAnany, C., Gagneur, J., Kundaje, A. &amp;amp; Zeitlinger, J. Base-resolution models of transcription-factor binding reveal soft motif syntax. &lt;em&gt;Nat. Genet.&lt;/em&gt; 53, 354–366 (2021). &lt;a class="link" href="https://doi.org/10.1038/s41588-021-00782-6" target="_blank" rel="noopener"
  &gt;https://doi.org/10.1038/s41588-021-00782-6&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;6. Liu, Z., Mao, H., Wu, C.-Y., Feichtenhofer, C., Darrell, T. &amp;amp; Xie, S. A ConvNet for the 2020s. &lt;em&gt;arXiv&lt;/em&gt; (2022). &lt;a class="link" href="https://arxiv.org/abs/2201.03545" target="_blank" rel="noopener"
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Liu, Z., Mao, H., Wu, C.-Y., Feichtenhofer, C., Darrell, T. &amp;amp; Xie, S. A ConvNet for the 2020s. &lt;em&gt;arXiv&lt;/em&gt; (2022). &lt;a class="link" href="https://arxiv.org/abs/2201.03545" target="_blank" rel="noopener"
  &gt;https://arxiv.org/abs/2201.03545&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;7. Kendall, A., Gal, Y. &amp;amp; Cipolla, R. Multi-Task Learning Using Uncertainty to Weigh Losses for Scene Geometry and Semantics. &lt;em&gt;arXiv&lt;/em&gt; (2017). &lt;a class="link" href="https://arxiv.org/abs/1705.07115" target="_blank" rel="noopener"
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Kendall, A., Gal, Y. &amp;amp; Cipolla, R. Multi-Task Learning Using Uncertainty to Weigh Losses for Scene Geometry and Semantics. &lt;em&gt;arXiv&lt;/em&gt; (2017). &lt;a class="link" href="https://arxiv.org/abs/1705.07115" target="_blank" rel="noopener"
  &gt;https://arxiv.org/abs/1705.07115&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;8. Jordan, K., Jin, Y., Boza, V., You, J., Cesista, F., Newhouse, L. &amp;amp; Bernstein, J. Muon: An optimizer for hidden layers in neural networks. (2024). &lt;a class="link" href="https://kellerjordan.github.io/posts/muon/" target="_blank" rel="noopener"
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Jordan, K., Jin, Y., Boza, V., You, J., Cesista, F., Newhouse, L. &amp;amp; Bernstein, J. Muon: An optimizer for hidden layers in neural networks. (2024). &lt;a class="link" href="https://kellerjordan.github.io/posts/muon/" target="_blank" rel="noopener"
  &gt;https://kellerjordan.github.io/posts/muon/&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;9. Shrikumar, A., Greenside, P. &amp;amp; Kundaje, A. Learning Important Features Through Propagating Activation Differences. &lt;em&gt;arXiv&lt;/em&gt; (2017). &lt;a class="link" href="https://arxiv.org/abs/1704.02685" target="_blank" rel="noopener"
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Shrikumar, A., Greenside, P. &amp;amp; Kundaje, A. Learning Important Features Through Propagating Activation Differences. &lt;em&gt;arXiv&lt;/em&gt; (2017). &lt;a class="link" href="https://arxiv.org/abs/1704.02685" target="_blank" rel="noopener"
  &gt;https://arxiv.org/abs/1704.02685&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;10. Schreiber, J., Lorbeer, F. K., Heinzl, M., Reiter, F., Rafanel, B., Lu, Y. Y., Stark, A. &amp;amp; Noble, W. S. Programmatic design and editing of cis-regulatory elements. &lt;em&gt;bioRxiv&lt;/em&gt; (2025). &lt;a class="link" href="https://doi.org/10.1101/2025.04.22.650035" target="_blank" rel="noopener"
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Schreiber, J., Lorbeer, F. K., Heinzl, M., Reiter, F., Rafanel, B., Lu, Y. Y., Stark, A. &amp;amp; Noble, W. S. Programmatic design and editing of cis-regulatory elements. &lt;em&gt;bioRxiv&lt;/em&gt; (2025). &lt;a class="link" href="https://doi.org/10.1101/2025.04.22.650035" target="_blank" rel="noopener"
  &gt;https://doi.org/10.1101/2025.04.22.650035&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;11. Schreiber, J. tangermeme: A toolkit for understanding cis-regulatory logic using deep learning models. &lt;em&gt;bioRxiv&lt;/em&gt; (2025). &lt;a class="link" href="https://doi.org/10.1101/2025.08.08.669296" target="_blank" rel="noopener"
- &gt;https://doi.org/10.1101/2025.08.08.669296&lt;/a&gt;&lt;/p&gt;</description></item><item><title>Benchmarking seq2func models on distal enhancer effects with CRISPRi screens</title><link>https://genomicsxai.github.io/blogs/2026-007/</link><pubDate>Thu, 25 Jun 2026 00:00:00 +0000</pubDate><guid>https://genomicsxai.github.io/blogs/2026-007/</guid><description>&lt;img src="https://genomicsxai.github.io/" alt="Featured image of post Benchmarking seq2func models on distal enhancer effects with CRISPRi screens" /&gt;&lt;aside class="summary-box"&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Schreiber, J. tangermeme: A toolkit for understanding cis-regulatory logic using deep learning models. &lt;em&gt;bioRxiv&lt;/em&gt; (2025). &lt;a class="link" href="https://doi.org/10.1101/2025.08.08.669296" target="_blank" rel="noopener"
+ &gt;https://doi.org/10.1101/2025.08.08.669296&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;</description></item><item><title>Benchmarking seq2func models on distal enhancer effects with CRISPRi screens</title><link>https://genomicsxai.github.io/blogs/2026-007/</link><pubDate>Thu, 25 Jun 2026 00:00:00 +0000</pubDate><guid>https://genomicsxai.github.io/blogs/2026-007/</guid><description>&lt;img src="https://genomicsxai.github.io/" alt="Featured image of post Benchmarking seq2func models on distal enhancer effects with CRISPRi screens" /&gt;&lt;aside class="summary-box"&gt;
  &lt;h2 class="summary-box__title"&gt;Summary&lt;/h2&gt;
  &lt;div class="summary-box__body"&gt;
  &lt;p&gt;We benchmark four sequence-to-function genomic deep learning models — &lt;a class="link" href="https://www.nature.com/articles/s41592-021-01252-x" target="_blank" rel="noopener"
