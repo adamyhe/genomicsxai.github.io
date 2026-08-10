@@ -122,11 +122,14 @@ Until the site moves the OAuth token to an HttpOnly cookie or adopts a strict CS
 
 * A **References section** is present at the end of the post
 * References are **numbered** and cite the primary literature, with a **DOI or publisher link** per entry wherever one exists
+* The section **renders as a real numbered list** on the built page — check the preview, not just the Markdown. Escaped numbering (`1\.`, `2\.`) looks right in the source but renders as plain paragraphs with no `<ol>`, which defeats the purpose
 * Inline links to blog posts, repos, or docs are welcome, but they do **not** substitute for a bibliography of the papers the work builds on
 
 **Why this matters:** every accepted post emits Google Scholar (Highwire) metadata and gets a Zenodo DOI, so posts are eligible to appear in Google Scholar. But Scholar does not index everything it can crawl — it only includes documents its parser classifies as *scholarly articles*, and a reference list is a primary signal it uses to tell a research article apart from an ordinary web page.
 
-To be clear, this is **an observation, not a documented rule** — we cannot see Google's classifier. What we have noticed is that, of our accepted posts, the ones carrying a substantial DOI-linked bibliography were picked up by Scholar, while posts with no references (or a single unlinked one) were not, even when they were long, older, and otherwise well-formed. Post length and publication date did not predict inclusion; the reference list did.
+To be clear, this is **an observation, not a documented rule** — we cannot see Google's classifier. As of August 2026, four of eleven published posts are indexed. Every indexed post ends with a rendered numbered list of five or more references; every post that has been crawled and is still absent had four or fewer — or, in one case, a full bibliography that was not rendering as a list at all. Length, date, and authorship did not predict inclusion.
+
+Note that it is the **rendered list**, not the DOIs, that tracks with inclusion: our earliest indexed post has no DOI links at all, while a post with fourteen DOI links was missed because escaped numbering stopped its bibliography from rendering as a list. DOIs remain worth requesting for readers and citation tracking.
 
 **Decision rule:** treat a missing or token References section as a change request, not a blocker. Ask the author to add the papers the post already builds on. A post can still be accepted without one — it will simply be much less likely to surface in Scholar.
 
@@ -193,7 +196,7 @@ Editors choose one:
 * [ ] Clear takeaway or value
 * [ ] Appropriate level for audience
 * [ ] References and links included where needed
-* [ ] **References section present**, numbered, with DOI/publisher links — needed for the post to appear in Google Scholar (see [§1H](#h-references-and-google-scholar-indexing))
+* [ ] **References section present**, numbered, with DOI/publisher links, and **rendering as a real numbered list in the preview** — needed for the post to appear in Google Scholar (see [§1H](#h-references-and-google-scholar-indexing))
 * [ ] Formatting clean
 
 ---

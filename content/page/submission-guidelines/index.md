@@ -95,8 +95,9 @@ Both options lead to the same review pipeline:
   accessible, and engaging for a broad scientific audience.
 - Use headings, figures, and examples where helpful.
 - Cite prior work via hyperlinks or formal inline citations, and **include a
-  numbered References section at the end**, with a DOI or publisher link for
-  each entry wherever one exists. See [Why references matter for Google
+  numbered References section at the end** that renders as an actual numbered
+  list on the published page. Add a DOI or publisher link per entry where one
+  exists. See [Why references matter for Google
   Scholar](#why-references-matter-for-google-scholar) below.
 - Ensure claims are supported by appropriate sources.
 
@@ -114,18 +115,31 @@ an ordinary web page.
 
 We want to be upfront that **this is something we have observed, not a
 documented rule** — Google does not publish the details of how this decision is
-made. What we have seen across our own posts is that the ones with a
-substantial, DOI-linked bibliography were picked up by Scholar, while posts
-with no references (or a single unlinked one) were not, even when they were
-long, published earlier, and otherwise complete. Length and publication date
-did not predict inclusion; the reference list did.
+made. As of August 2026, four of our eleven published posts are indexed. Every
+indexed post ends with a rendered numbered list of five or more references;
+every post that has been crawled and is still missing had four or fewer — or, in
+one case, a full bibliography that was not rendering as a list at all. Length,
+publication date, and authorship did not predict inclusion.
+
+Two practical points follow from that:
+
+- **It is the rendered list that counts, not the DOIs.** Our earliest indexed
+  post carries no DOI links at all, while a post with fourteen DOI links was
+  *not* indexed — its references were written as `1\.`, `2\.`, and the escaped
+  period makes Markdown emit plain paragraphs instead of an `<ol>`, so there is
+  no reference list for a parser to find. Write `1.`, `2.` and check that the
+  published page really shows a numbered list. DOIs are still worth adding, for
+  readers and for citation tracking.
+- **More entries is better than fewer.** We would not read anything into the
+  exact boundary, but posts with only a handful of references have not been
+  picked up.
 
 So: a References section is not a hard requirement for acceptance, and a post
 without one can still be published. But if you would like your post to be
 discoverable and citable in Google Scholar, cite the primary literature your
-work builds on and give each entry a DOI. Even if Scholar has already crawled
-your post, adding references later is worthwhile — it will be reconsidered on a
-future crawl, though this can take weeks.
+work builds on. Even if Scholar has already crawled your post, adding references
+later is worthwhile — it will be reconsidered on a future crawl, though this can
+take weeks.
 
 ## What editors look for
 

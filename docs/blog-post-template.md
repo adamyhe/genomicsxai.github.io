@@ -97,11 +97,18 @@ it builds on, giving each entry a DOI or publisher link where one exists:
 2. Linder, J. et al. Predicting RNA-seq coverage from DNA sequence as a unifying model of gene regulation. *Nature Genetics*, 57, 949–961 (2025). https://doi.org/10.1038/s41588-024-02053-6
 ```
 
+Write the numbers as `1.`, `2.` — **not** `1\.`, `2\.`. The escaped form looks
+fine in the source but renders as plain paragraphs instead of a numbered list,
+which is what a parser looks for. Check the built preview shows a real list.
+
 This is not required for acceptance, but it appears to matter for whether the
 post shows up in Google Scholar. Scholar only indexes documents it classifies
 as scholarly articles, and a bibliography seems to be one of the signals it
 uses. We can't see Google's classifier, so treat this as an observation rather
-than a rule — but across our own posts, the ones with DOI-linked reference
-lists were indexed and the ones without were not, independent of length or
-publication date. See the [submission
+than a rule — but across our own posts, every indexed one ends with a rendered
+numbered list of five or more references, and the ones still missing had four or
+fewer (or a bibliography that wasn't rendering as a list), independent of
+length, date, or authorship. The DOIs themselves don't appear to be the deciding
+factor: our earliest indexed post has none. See the
+[submission
 guidelines](https://genomicsxai.github.io/submission-guidelines/#why-references-matter-for-google-scholar).
