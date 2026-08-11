@@ -144,12 +144,58 @@ jobs:
           fi
 
           python3 - <<'PYEOF'
-          import json, os, urllib.request, urllib.error
+          import json, os, sys, urllib.request, urllib.error
           from datetime import datetime, timezone
 
           posts = json.load(open("/tmp/new_posts.json"))
           status = os.environ["STATUS"]
           api_key = os.environ["BUTTONDOWN_API_KEY"]
+          # Active-subscriber ceiling of the current Buttondown plan. Used only
+          # for reporting — Buttondown itself is the authority and will reject
+          # the send. Kept here so a blocked digest can say *why* it blocked.
+          limit = int(os.environ.get("SUBSCRIBER_LIMIT", "100"))
+
+
+          def annotate(level, message):
+              """Emit a GitHub Actions annotation (surfaces on the run summary)."""
+              print(f"::{level}::" + message.replace("\n", "%0A"))
+
+
+          def summary(markdown):
+              """Append to the run's job summary, if we're on a runner."""
+              path = os.environ.get("GITHUB_STEP_SUMMARY")
+              if not path:
+                  return
+              with open(path, "a", encoding="utf-8") as f:
+                  f.write(markdown + "\n")
+
+
+          def active_subscribers():
+              """Count of 'regular' (confirmed, active) subscribers — the figure
+              Buttondown measures the plan against. Returns None if it can't be
+              read: a failed head-count is diagnostic only and must never block
+              a send that would otherwise succeed."""
+              req = urllib.request.Request(
+                  "https://api.buttondown.email/v1/subscribers?type=regular",
+                  headers={"Authorization": f"Token {api_key}"},
+              )
+              try:
+                  with urllib.request.urlopen(req) as resp:
+                      return json.loads(resp.read()).get("count")
+              except Exception as err:
+                  print(f"Could not read subscriber count ({err}) — continuing anyway.")
+                  return None
+
+
+          # NB: named `subscriber_count`, not `count` — `count` is reused below
+          # for the number of posts in this digest.
+          subscriber_count = active_subscribers()
+          if subscriber_count is not None:
+              print(f"Subscribers: {subscriber_count} active / {limit} allowed on the current plan")
+              if subscriber_count >= limit:
+                  annotate("warning", f"Subscriber list ({subscriber_count}) has reached the plan ceiling ({limit}) — this send is expected to be rejected.")
+              elif subscriber_count >= limit * 0.8:
+                  annotate("warning", f"Subscriber list at {subscriber_count}/{limit} — approaching the plan ceiling. Upgrade before it blocks a digest.")
 
           # Date suffix on every subject so Buttondown's email_duplicate
           # dedup check (HTTP 400) doesn't reject this week's digest when a
@@ -208,14 +254,72 @@ jobs:
               },
               method="POST",
           )
+          missed = "\n".join(f"- {p['title']} — {p['url']}" for p in posts)
+
+
+          def fail_over_limit(detail_text):
+              """Explain a plan-ceiling rejection: what blocked, what did not go
+              out, and the exact steps to recover the missed digest."""
+              seen = subscriber_count if subscriber_count is not None else "unknown"
+              annotate(
+                  "error",
+                  f"Newsletter NOT sent — {seen} subscribers exceeds the {limit}-subscriber "
+                  f"ceiling of the current Buttondown plan. {len(posts)} post(s) went unannounced.",
+              )
+              summary(
+                  "## ❌ Newsletter blocked — subscriber limit reached\n\n"
+                  f"**{seen}** active subscribers against a plan ceiling of **{limit}**.\n\n"
+                  f"Buttondown said:\n\n> {detail_text}\n\n"
+                  f"### {len(posts)} post(s) NOT announced\n\n"
+                  f"{missed}\n\n"
+                  "### How to fix\n\n"
+                  "1. Upgrade the plan at <https://buttondown.com/settings/billing> "
+                  "(Basic covers 1,000 subscribers).\n"
+                  "2. Raise `SUBSCRIBER_LIMIT` in `.github/workflows/newsletter.yml` to the "
+                  "new ceiling (e.g. `1000`).\n"
+                  "3. Re-run this workflow (*Run workflow*) with `dry_run: false` and a "
+                  "`days_back` wide enough to re-include the posts above, so the missed "
+                  "digest actually goes out.\n\n"
+                  "Background: https://github.com/genomicsxai/genomicsxai.github.io/issues/119\n"
+              )
+              bar = "=" * 70
+              print(f"\n{bar}")
+              print("NEWSLETTER NOT SENT — SUBSCRIBER LIMIT REACHED")
+              print(bar)
+              print(f"Active subscribers : {seen}")
+              print(f"Plan ceiling       : {limit}")
+              print(f"Buttondown said    : {detail_text}")
+              print(f"\n{len(posts)} post(s) NOT announced:")
+              print(missed)
+              print("\nTo recover: upgrade the plan, raise SUBSCRIBER_LIMIT in this")
+              print("workflow, then re-run with dry_run=false and a wider days_back.")
+              print(bar)
+
+
           try:
               with urllib.request.urlopen(req) as resp:
                   result = json.loads(resp.read())
                   print(f"Email created (status={status}): id={result.get('id','?')}, subject={result.get('subject','?')}")
           except urllib.error.HTTPError as e:
-              print(f"API error {e.code}: {e.read().decode()}")
+              raw = e.read().decode()
+              try:
+                  detail_text = json.loads(raw).get("detail", raw)
+              except ValueError:
+                  detail_text = raw
+              # Buttondown reports the plan ceiling as a 400 carrying code
+              # "email_invalid" — the same code it uses for genuinely malformed
+              # emails, so match on the message text, not the code.
+              if e.code == 400 and "exceeds the limits of your plan" in detail_text:
+                  fail_over_limit(detail_text)
+                  sys.exit(1)
+              annotate("error", f"Buttondown API error {e.code}: {detail_text}")
+              print(f"API error {e.code}: {raw}")
               raise
           PYEOF
         env:
           BUTTONDOWN_API_KEY: ${{ secrets.BUTTONDOWN_API_KEY }}
           STATUS: ${{ (github.event.inputs.dry_run == 'true' && 'draft') || (github.event_name == 'workflow_dispatch' && 'draft') || 'about_to_send' }}
+          # Active-subscriber ceiling of the current Buttondown plan.
+          # Free = 100. Bump to 1000 when the Basic plan is active.
+          # Reporting only — Buttondown enforces the real limit.
+          SUBSCRIBER_LIMIT: 100
