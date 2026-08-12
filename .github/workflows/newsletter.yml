@@ -320,6 +320,6 @@ jobs:
           BUTTONDOWN_API_KEY: ${{ secrets.BUTTONDOWN_API_KEY }}
           STATUS: ${{ (github.event.inputs.dry_run == 'true' && 'draft') || (github.event_name == 'workflow_dispatch' && 'draft') || 'about_to_send' }}
           # Active-subscriber ceiling of the current Buttondown plan.
-          # Free = 100. Bump to 1000 when the Basic plan is active.
+          # Basic (current) = 1000. Free was 100; Standard would be 5000.
           # Reporting only — Buttondown enforces the real limit.
-          SUBSCRIBER_LIMIT: 100
+          SUBSCRIBER_LIMIT: 1000
