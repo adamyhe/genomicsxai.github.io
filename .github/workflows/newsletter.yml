@@ -19,6 +19,10 @@ jobs:
   send-digest:
     runs-on: ubuntu-latest
 
+    permissions:
+      contents: read
+      issues: write
+
     steps:
       - uses: actions/checkout@v4
 
@@ -323,3 +327,47 @@ jobs:
           # Basic (current) = 1000. Free was 100; Standard would be 5000.
           # Reporting only — Buttondown enforces the real limit.
           SUBSCRIBER_LIMIT: 1000
+
+      # A failed scheduled run notifies only the workflow's last committer, which
+      # is how the 2026-08-10 plan-limit failure sat unnoticed until someone went
+      # looking. Scheduled runs only: a manual run already has a human watching.
+      - name: Open an issue if the scheduled digest failed
+        if: failure() && github.event_name == 'schedule'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: |
+          TITLE="Weekly newsletter digest is failing"
+
+          # Reuse one open issue rather than filing a fresh one every Monday.
+          NUM=$(gh issue list --state open --limit 100 --json number,title \
+                --jq 'map(select(.title == "Weekly newsletter digest is failing")) | first | .number // empty')
+
+          if [ -n "$NUM" ]; then
+            gh issue comment "$NUM" --body "Failed again on $(date -u '+%Y-%m-%d'). [Run details]($RUN_URL)"
+            echo "Commented on existing issue #$NUM"
+          else
+            gh issue create --title "$TITLE" --body "$(cat <<EOF
+          The weekly newsletter digest failed, so any posts published in the last
+          week have **not** been announced to subscribers.
+
+          [Run details]($RUN_URL) — the job summary there states the cause, and for
+          a plan-limit rejection it lists the specific posts that went unannounced
+          and how to recover them.
+
+          Common causes:
+
+          - **Subscriber limit reached** — upgrade the plan, then raise
+            \`SUBSCRIBER_LIMIT\` in \`.github/workflows/newsletter.yml\`.
+          - **Expired \`BUTTONDOWN_API_KEY\`** — reissue it and update the repo secret.
+
+          To send a missed digest once fixed: run the workflow manually with
+          \`dry_run: false\` and a \`days_back\` wide enough to re-include the posts,
+          but not so wide that it re-announces ones already sent.
+
+          This issue is reused for subsequent failures — close it once the digest
+          sends cleanly.
+          EOF
+          )"
+            echo "Opened a new issue"
+          fi
