@@ -4,13 +4,17 @@ title: "promoterai-torch: a PyTorch port of Illumina's PromoterAI"
 
 image: "paper_benchmark_concordance.png"
 
-authors: ["Adam Youlin He"]
+authors: ["Adam Youlin He", "Anshul Kundaje"]
 
 authors_display:
   - name: "Adam Youlin He"
     affiliation: "Stanford University"
     orcid: "0000-0003-2084-6970"
     contact: "ayhe@stanford.edu"
+  - name: "Anshul Kundaje"
+    affiliation: "Stanford University"
+    orcid: "0000-0003-3084-2287"
+    contact: "akundaje@stanford.edu"
 
 editor: "Editor Name"
 
