@@ -18,12 +18,12 @@ authors_display:
 
 editor: "Editor Name"
 
-tags: ["genomics", "promoterai", "pytorch", "variant-effect-prediction", "regulatory-genomics", "seq2func"]
-categories: ["Blog Post"]
+tags: ["genomics", "promoterai", "pytorch", "variant-interpretation", "seq2func", "fine-tuning", "benchmarking"]
+categories: ["Blog Post", "Tutorial"]
 
 scope: ["tutorials", "protocols"]
-audience: ["general"]
-labs: ["Kundaje Lab"]
+audience: ["general", "technical"]
+labs: ["Kundaje lab"]
 
 status: "submitted"
 revision: 1
@@ -96,13 +96,25 @@ Porting a model is only useful if it actually reproduces the original, so most o
 
 **Track-level equivalence.** Running both the original TF/Keras SavedModel and the converted PyTorch checkpoint on the same sequences and comparing every output track gives errors of ~1e-7 at FP32 — within machine precision — across all four released checkpoints (`hg38`, `hg38_mm10`, `hg38_finetune`, `hg38_mm10_finetune`).
 
-**Variant-score equivalence.** On promoter variants at *TERT* (*n* = 6,006), *SFSWAP* (*n* = 3,003), and *DNAJC9* (*n* = 9,009), torch and TF/Keras variant scores are identical, including the ensembled score used in the paper (Pearson *r* = 1.0000, MAE = 0.0000). Note that the scoring script/CLI in both the official repo and this port round the score to 4 digits, which is why variant scores will generally be actually identical.
+**Variant-score equivalence.** On promoter variants at *TERT* (*n* = 6,006), *SFSWAP* (*n* = 3,003), and *DNAJC9* (*n* = 9,009), torch and TF/Keras variant scores are identical, including the ensembled score used in the paper (Pearson *r* = 1.0000, MAE = 0.0000). Note that the scoring script/CLI in both the official repo and this port round the score to 4 digits, which is why variant scores will generally actually be identical.
 
-![TERT scatter](TERT_scatter.png)
+![Five scatter plots comparing PromoterAI TERT variant scores across checkpoints and implementations — per-checkpoint TF versus torch scores, ensembled TF versus torch scores, and each against the officially published scores — all falling exactly on the identity line.](TERT_scatter.png "width=700 TERT promoter variant scores (n = 6,006): per-checkpoint and ensembled TF/Keras versus PyTorch scores, and each versus the officially published PromoterAI scores. r = 1.000, MAE = 0.000 in every panel.")
 
-**Benchmark equivalence.** Scoring the public benchmark variant sets released alongside the paper (GTEx expression outliers, under/over/null splice-adjacent sets) with the torch checkpoints reproduces the published AUROCs, matching the TF/Keras ensemble scores nearly exactly.
+**Benchmark equivalence.** Scoring the public benchmark variant sets released alongside the paper — `CAGI5_saturation`, `GEL_RNA`, `GTEx_eQTL`, `GTEx_outlier`, `MPRA_eQTL`, `MPRA_saturation`, and `UKBB_proteome` (under/over/null variant categories per dataset) — with the torch checkpoints reproduces the TF/Keras ensemble's under-vs-over, under-vs-null, and over-vs-null AUROCs to within ~1e-6:
 
-![Paper benchmark concordance](paper_benchmark_concordance.png)
+| Dataset | *n* (under/over/null) | under-vs-over | under-vs-null | over-vs-null |
+|---|---|---|---|---|
+| CAGI5_saturation | 976 / 499 / 5,095 | 0.8845 | 0.7939 | 0.7153 |
+| GEL_RNA | 309 / 239 / 609 | 0.9002 | 0.7757 | 0.7802 |
+| GTEx_eQTL | 191 / 218 / 393 | 0.8697 | 0.7876 | 0.7503 |
+| GTEx_outlier | 206 / 161 / 382 | 0.8938 | 0.7972 | 0.7423 |
+| MPRA_eQTL | 70 / 74 / 542 | 0.9004 | 0.8069 | 0.8278 |
+| MPRA_saturation | 773 / 275 / 3,981 | 0.8707 | 0.8675 | 0.7010 |
+| UKBB_proteome | 182 / 69 / 760 | 0.9116 | 0.7718 | 0.7757 |
+
+(Torch AUROCs shown; the matching TF/Keras run agrees on every value to at least five decimal places.) The per-dataset and aggregate ensemble variant scores underlying these AUROCs also match nearly exactly between the two implementations (Pearson *r* = 1.0000 for each of the seven datasets and for all 16,004 variants combined):
+
+![Grid of eight scatter plots, one per benchmark dataset plus an aggregate panel, each showing PyTorch ensemble variant scores plotted against TF/Keras ensemble scores falling tightly on the identity line.](paper_benchmark_concordance.png "width=700 PyTorch versus TF/Keras ensemble variant scores on each of the paper's released benchmark datasets (Pearson r = 1.0000 in every panel) and combined across all 16,004 variants (bottom right).")
 
 ## What Can You Do With This?
 
@@ -112,7 +124,7 @@ Beyond variant scoring, `load_pretrained()` exposes the full model for anything 
 - **Embeddings** — `model.encode()` returns the final MetaFormer block's per-position hidden state, `(B, L, model_dim)`, for use as input to downstream models or probing analyses.
 - **DeepLIFT/SHAP attribution** — every non-linearity in the architecture is a distinct, named `nn.ReLU()` instance, which is exactly what [`tangermeme`](https://github.com/jmschrei/tangermeme)'s `deep_lift_shap` requires. A thin wrapper (transpose to channels-first, reduce the output heads to a scalar) is all that's needed to get per-base attribution maps.
 
-![SFSWAP DeepLIFT/SHAP](deepliftshap.png)
+![DeepLIFT/SHAP contribution track across a 20 kb window around the SFSWAP promoter, with a zoomed-in per-base sequence logo over the 200 bp region of interest showing several high-contribution motif-like clusters.](deepliftshap.png "width=700 Per-base DeepLIFT/SHAP contribution scores at the SFSWAP promoter (chr12:131,700,849–131,721,329), zoomed into the 200 bp region of interest (chr12:131,710,989–131,711,189).")
 
 Fair warning on cost: DeepLIFT/SHAP on this model is not cheap — at TF32 with `n_shuffles=20` and `batch_size=1`, expect ~92s and ~71GB of VRAM per sequence on an A100 80GB.
 
