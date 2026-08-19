@@ -196,7 +196,7 @@ This work builds directly on the architecture and training protocol described by
 
 ## References
 
-1. Jaganathan, K., Ersaro, N., Novakovsky, G. et al. Predicting expression-altering promoter mutations with deep learning. *Science* 388, eads7373 (2025). https://doi.org/10.1126/science.ads7373
+1. Jaganathan, K., Ersaro, N., Novakovsky, G. et al. Predicting expression-altering promoter mutations with deep learning. *Science* 389, eads7373 (2025). https://doi.org/10.1126/science.ads7373
 2. Illumina/PromoterAI (official TensorFlow implementation). https://github.com/Illumina/PromoterAI
 3. Schreiber, J. tangermeme: A toolkit for understanding cis-regulatory logic using deep learning models. *bioRxiv* (2025). https://www.biorxiv.org/content/10.1101/2025.08.08.669296v2
 4. Huang, F. W., Hodis, E., Xu, M. J., Kryukov, G. V., Chin, L. & Garraway, L. A. Highly recurrent TERT promoter mutations in human melanoma. *Science* 339, 957–959 (2013). https://doi.org/10.1126/science.1229259
