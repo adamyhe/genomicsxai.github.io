@@ -52,7 +52,7 @@ PromoterAI (Jaganathan, Ersaro, Novakovsky et al., *Science* 2025) predicts how 
 
 ## Overview
 
-Promoters are a critical class of non-coding regulatory DNA elements that set the baseline transcriptional output of a gene. A single nucleotide change just upstream of the transcription start site can create or destroy a transcription factor binding site without touching the coding sequence of a gene. The best-known example is *TERT*: two recurrent, mutually exclusive promoter mutations, independently identified in melanoma [4, 5] and subsequently found in glioblastoma, bladder cancer, and dozens of other tumor types [6], each create a de novo ETS/GABP transcription-factor binding motif upstream of the transcription start site, driving aberrant telomerase re-expression [4–7]. Prioritizing functional promoter variants is a hard, unsolved problem in variant interpretation. PromoterAI addressed this by training a sequence-to-function model on hundreds of regulatory tracks (histone marks, TF ChIP-seq, ATAC-seq, RNA-seq) across human and mouse promoters, then fine-tuning on expression outlier variants (with signed differences between reference and alternate predictions as a variant effect score); *TERT* variants are one of the equivalence sets checked below.
+Promoters are a critical class of non-coding regulatory DNA elements that set the baseline transcriptional output of a gene. A single nucleotide change just upstream of the transcription start site can create or destroy a transcription factor binding site without touching the coding sequence of a gene. The best-known example is *TERT*: two recurrent, mutually exclusive promoter mutations, independently identified in melanoma [4, 5] and subsequently found in glioblastoma, bladder cancer, and dozens of other tumor types [6], each create a de novo ETS/GABP transcription-factor binding motif upstream of the transcription start site, driving aberrant telomerase re-expression [4–7]. Both are in the *TERT* variant set checked below — C228T and C250T, chr5:1,295,113 G>A and chr5:1,295,135 G>A on the hg38 minus strand — and PromoterAI's ensembled scores for them are 0.74 and 0.85 respectively: both comfortably past the paper's ±0.5 "strong effect" threshold and positive, consistent with the gain-of-function reported in the literature. Prioritizing functional promoter variants more broadly is a hard, unsolved problem in variant interpretation. PromoterAI addressed this by training a sequence-to-function model on hundreds of regulatory tracks (histone marks, TF ChIP-seq, ATAC-seq, RNA-seq) across human and mouse promoters, then fine-tuning on expression outlier variants (with signed differences between reference and alternate predictions as a variant effect score).
 
 However, the official release of PromoterAI is in TensorFlow/Keras, which has effectively walled PromoterAI off from the PyTorch-based S2F ecosystem since it shipped. Getting per-base attributions out of PromoterAI today means reimplementing DeepLIFT/SHAP's gradient-correction rules against `tf.GradientTape` — a substantial undertaking, and easy to get subtly wrong. Similarly, gradient-based sequence design with tools like [`Ledidi`](https://github.com/jmschrei/ledidi) [8], which optimizes a sequence toward a target prediction by backpropagating through the model, needs the same kind of direct, differentiable access. Scoring the same variant set across PromoterAI and PyTorch-native models, to compare or ensemble their predictions, means round-tripping through disk rather than composing tensors directly. `promoterai-torch` re-implements the architecture layer-for-layer in PyTorch and ships a converter that reads an existing Illumina SavedModel and produces a `.pt` checkpoint, so PromoterAI becomes just another `nn.Module` that plugs into existing PyTorch pipelines — attribution, design, and ensembling with the rest of the PyTorch S2F ecosystem all become drop-in rather than bespoke.
 
@@ -133,6 +133,7 @@ Beyond variant scoring, `load_pretrained()` exposes the full model for anything 
 ```python
 import torch
 import torch.nn as nn
+from tangermeme.deep_lift_shap import deep_lift_shap
 from promoterai_torch.dataset import onehot_encode
 from promoterai_torch.utils import load_pretrained
 
@@ -156,9 +157,14 @@ class PromoterAIWrapper(nn.Module):
     def forward(self, x):                            # x: (B, 4, L) channels-first
         out = self.model(x.transpose(1, 2))          # PromoterAI expects (B, L, 4)
         return out[0].mean(dim=(1, 2)).unsqueeze(1)  # (B, 1) — mean over positions and tracks
+
+wrapper = PromoterAIWrapper(model)
+x_chfirst = x.transpose(1, 2)  # (1, 4, input_length), channels-first for tangermeme
+attributions = deep_lift_shap(wrapper, x_chfirst, n_shuffles=20, device="cuda", batch_size=1)
+# attributions: (1, 4, input_length) — per-position, per-base importance
 ```
 
-Track prediction returns per-position predictions for all 498 human tracks the model was trained on (histone marks, TF ChIP-seq, ATAC-seq, RNA-seq), plus the 472-track mouse head; embeddings are the per-position hidden state after the final MetaFormer block, `(B, L, model_dim)`. Wrapping the model as above (transpose to channels-first, reduce the output heads to a scalar) and passing it to [`tangermeme`](https://github.com/jmschrei/tangermeme)'s `deep_lift_shap` gets per-base attribution maps:
+Track prediction returns per-position predictions for all 498 human tracks the model was trained on (histone marks, TF ChIP-seq, ATAC-seq, RNA-seq), plus the 472-track mouse head; embeddings are the per-position hidden state after the final MetaFormer block, `(B, L, model_dim)`. The `deep_lift_shap` call above (transposing to channels-first, reducing the output heads to a scalar via the wrapper) is what produces per-base attribution maps like the one below:
 
 ![DeepLIFT/SHAP contribution track across a 20 kb window around the SFSWAP promoter, with a zoomed-in per-base sequence logo over the 200 bp region of interest showing several high-contribution motif-like clusters.](deepliftshap.png "width=700 Per-base DeepLIFT/SHAP contribution scores at the SFSWAP promoter (chr12:131,700,849–131,721,329), zoomed into the 200 bp region of interest (chr12:131,710,989–131,711,189).")
 
